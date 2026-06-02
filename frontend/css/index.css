@@ -161,9 +161,12 @@
 
 .header-li {
     cursor: pointer;
+    list-style: none;
+}
+.header-li a{
     font-family: 'shabnam-light';
     color: #777676;
-    list-style: none;
+    text-decoration: none;
 }
 
 .header-left {
