@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color-1: #777676;
+    --bg-color-2: #000000;
+    --bg-color-3: white;
+    --bg-color-4: rgb(5, 95, 230);
+    --bg-color-5: rgb(221, 221, 221);
+    --bg-color-6: rgb(229, 234, 255);
+}
+
+@font-face {
+    font-family: "vazir-bold";
+    src: url(/frontend/font/Vazir-Bold.ttf) format(truetype)
+}
+
+@font-face {
+    font-family: "shabnam";
+    src: url(/frontend/font/Shabnam-Bold.ttf) format(truetype);
+}
+
+@font-face {
+    font-family: "shabnam-light";
+    src: url(/frontend/font/Shabnam-Light.ttf) format(truetype);
+}
+
+/* -----------------------------------------header-main 👇------------------------------------------------ */
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-header-top {
+    width: 1120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.container {
+
+    width: 1170px;
+
+}
+
+
+.header-main {
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--bg-color-5);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+}
+
+.header-content span {
+    font-family: 'shabnam-light';
+    color: var(--bg-color-1);
+
+
+}
+
+.header-btn {
+    border: none;
+    border-radius: 5px;
+    width: 80px;
+    height: 20px;
+    background-color: var(--bg-color-4);
+}
+
+.header-btn a {
+    color: var(--bg-color-3);
+    text-decoration: none;
+    font-family: 'shabnam-light';
+}
+
+.header-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: var(--bg-color-1);
+
+}
+
+.header-phone {
+    cursor: pointer;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.header-phone span {
+    font-family: 'shabnam-light';
+
+}
+
+.header-loc ::after {
+    position: absolute;
+    right: 105px;
+    top: 0px;
+    content: ' ';
+    width: 0.5px;
+    height: 20px;
+    background-color: var(--bg-color-5);
+    display: block;
+}
+
+.header-loc ::before {
+    position: absolute;
+    left: 135px;
+    top: 0px;
+    content: ' ';
+    width: 0.5px;
+    height: 20px;
+    background-color: var(--bg-color-5);
+    display: block;
+}
+
+.header-loc {
+    cursor: pointer;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-loc span {
+    font-family: 'shabnam-light';
+
+}
+
+.header-rigester {}
+
+.header-rigester a {
+    font-family: 'shabnam';
+    text-decoration: none;
+    color: var(--bg-color-1);
+
+}
+
+/* -----------------------------------------header-nav👇------------------------------------------------ */
+
+.header-nav {
+    width: 100%;
+    height: 90px;
+    padding: 25px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-li {
+    cursor: pointer;
+    font-family: 'shabnam';
+    color: #777676;
+    list-style: none;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-search {
+    border: none;
+    background-color: var(--bg-color-6);
+    width: 370px;
+    height: 37px;
+    padding: 20px;
+    border-radius: 60px;
+    font-family: 'shabnam';
+}
+
+.header-like {
+    cursor: pointer;
+}
+
+.header-user {
+    cursor: pointer;
+}
+
+.header-basket {
+    cursor: pointer;
+}
+
+/* -----------------------------------------main-head👇------------------------------------------------ */
+
+.main-head img {
+    width: 100%;
+}
+
+.main-head {}
+
+.main-baner {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(/frontend/img/ChatGPT\ Image\ Jun\ 1\,\ 2026\,\ 11_27_25\ AM.png);
+
+}
+
+.main-content {
+    font-family: 'shabnam';
+    margin-left: 100px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.main-content h1 {
+    font-size: 40px;
+}
+
+.main-content p {
+    font-size: 15px;
+}
+
+.main-btn {
+    margin-top: 40px;
+    border-radius: 30px;
+    padding: 20px 7px;
+    background-color: rgb(6, 107, 107);
+    gap: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.main-arow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(139, 196, 248);
+}
+
+
+/* -----------------------------------------main-new-products👇------------------------------------------------ */
+.main-new-product-title{
+    font-family: 'shabnam';
+    margin-right: 40px;
+    margin-bottom: 20px;
+
+}
+.main-new-products{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.main-new-products-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+}
+
+.main-new-products-cart {
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: right;
+    width: 360px;
+    height: 230px;
+    background-color: rgb(240, 221, 207);
+
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cart-item p {
+    font-family: 'shabnam';
+    font-size: 14px;
+}
+
+.cart-item h3 {
+    font-family: 'shabnam';
+    font-size: 18px;
+    color: red;
+}
+
+.cart-item button {
+    font-family: 'shabnam';
+    font-size: 10px;
+    background-color: blue;
+    border-radius: 50px;
+    color: white;
+    border: none;
+    width: 110px;
+    height: 30px;
+}
