@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <link rel="stylesheet" href="/frontend/css/products.css">
-    <link rel="stylesheet" href="/frontend/css/index.css">
+    <!-- <link rel="stylesheet" href="/frontend/css/index.css"> -->
 </head>
 
 <body>
@@ -177,31 +177,49 @@
                 </div>
                 <h1 class="heading">فروشگاه</h1>
             </div>
-            <div class="main-filter">
-                <div class="filter-btn">
 
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="Iconly/Regular/Light/Filter 3">
-                            <g id="Filter">
-                                <path id="Stroke 1" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M4.56517 3C3.70108 3 3 3.71286 3 4.5904V5.52644C3 6.17647 3.24719 6.80158 3.68936 7.27177L8.5351 12.4243L8.53723 12.4211C9.47271 13.3788 9.99905 14.6734 9.99905 16.0233V20.5952C9.99905 20.9007 10.3187 21.0957 10.584 20.9516L13.3436 19.4479C13.7602 19.2204 14.0201 18.7784 14.0201 18.2984V16.0114C14.0201 14.6691 14.539 13.3799 15.466 12.4243L20.3117 7.27177C20.7528 6.80158 21 6.17647 21 5.52644V4.5904C21 3.71286 20.3 3 19.4359 3H4.56517Z"
-                                    stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </g>
-                        </g>
-                    </svg>
-                    <span>فیلتر</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 8.5L12 15.5L5 8.5" stroke="" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
+            <section class="main-row">
+                <div class="sid">
+                    <h5 class="sid-title">فیلتر محصولات</h5>
+                    <div class="sid-filter_stock_c">
+                        <label class="ui_input_switch">
+                            <input type="checkbox" name="in_stock" class="mweb-filter" value="1">
+
+                            <span class="slider"></span>
+                        </label>
+                        فقط کالاهای موجود
+                    </div>
+                    <div class="sid-price">
+                        <div class="sid-price__title">
+                            <span>قیمت</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 8.5L12 15.5L5 8.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <input type="range" name="" id="" class="sid-price__range">
+                        <div class="sid-price__lable0">
+                            <span>محدوده قیمت از</span>
+                            <span>تومان</span>
+                        </div>
+                        <input type="text" placeholder="80000">
+                        <div class="sid-price__lable1">
+                            <span>محدوده قیمت تا</span>
+                            <span>تومان</span>
+                        </div>
+                        <input type="text" placeholder="1550000">
+
+                    </div>
+
                 </div>
-            </div>
-            <div class="main-filter_content">
+                
 
-            </div>
+                <div class="column"></div>
+            </section>
         </div>
     </main>
-    
+
 </body>
 
 </html>
