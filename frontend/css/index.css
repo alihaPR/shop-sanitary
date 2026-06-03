@@ -1,10 +1,10 @@
-
 /* -----------------------------------------header-main 👇------------------------------------------------ */
 .header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .container {
@@ -52,6 +52,7 @@
 
 .header-btn a {
     color: var(--bg-color-3);
+    font-size: 12px;
     text-decoration: none;
 }
 
@@ -112,6 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
 }
 
 .header-right {
@@ -132,7 +134,8 @@
     cursor: pointer;
     list-style: none;
 }
-.header-li a{
+
+.header-li a {
     font-family: 'shabnam-light';
     color: #777676;
     text-decoration: none;
@@ -215,157 +218,100 @@ input[type="search"]::-webkit-search-cancel-button {
 .main-head {}
 
 .main-baner {
+    margin-bottom: 60px;
     display: flex;
     align-items: center;
     justify-content: end;
     width: 100%;
-    height: 100vh;
-    background-size: contain;
+    height: 400px;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-image: url(/frontend/img/ChatGPT\ Image\ Jun\ 1\,\ 2026\,\ 11_27_25\ AM.png);
+    background-image: url(/frontend/img/Slider\ 7.png);
 
 }
 
-.main-content {
-    font-family: 'shabnam';
-    margin-left: 100px;
-    margin-bottom: 100px;
+/* -----------------------------------------main-story👇------------------------------------------------ */
+
+
+
+
+.main-story {
     display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.main-story-raper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.story {
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    background-color: #f7eded;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-into {
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+    border: 2px solid rgb(19, 115, 204);
+    background-color: #f1e9e900;
+
+}
+
+
+
+/* -----------------------------------------main-category👇------------------------------------------------ */
+
+.main-category {
+    margin: 50px 0;
+}
+
+.main-category-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+}
+
+.main-category-cart {
+    width: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    border-radius: 7px;
     gap: 20px;
-}
-
-.main-content h1 {
-    font-size: 40px;
-}
-
-.main-content p {
-    font-size: 15px;
-}
-
-.main-btn {
-    margin-top: 40px;
-    border-radius: 30px;
-    padding: 20px 7px;
-    background-color: rgb(6, 107, 107);
-    gap: 20px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-
-
-.main-arow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: rgb(139, 196, 248);
-}
-
-
-/* -----------------------------------------main-new-products👇------------------------------------------------ */
-.main-new-product-title {
-    font-family: 'shabnam';
-    margin-right: 40px;
-    margin-bottom: 20px;
-
-}
-
-.main-new-products {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-.main-new-products-item {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.main-new-products-cart:first-child{
-    background-color: beige;
-}
-
-.main-new-products-cart {
-    overflow: hidden;
-    border-radius: 4px;
-    display: flex;
     padding: 20px;
-    align-items: center;
-    justify-content: right;
-    width: 360px;
-    height: 230px;
-    background-color: rgb(237, 246, 248);
-    
-
+    border: 1px solid aquamarine;
 }
 
-.cart-item {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    justify-content: center;
-    gap: 20px;
+.main-category-cart img {
+    width: 50px;
+    height: 50px;
 }
 
-.cart-item p {
-    color: #333232;
-    font-family: 'shabnam';
+.main-category-cart p {
+    font-family: 'shabnam-light';
     font-size: 14px;
 }
 
-.cart-item h3 {
-    font-family: 'shabnam';
-    font-size: 18px;
-    color: rgb(252, 114, 114);
-}
-
-.cart-item button {
-    font-family: 'shabnam';
-    font-size: 10px;
-    background-color: rgb(119, 184, 238);
-    border-radius: 50px;
-    color: white;
-    border: none;
-    width: 110px;
-    height: 30px;
-    transition:  0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-}
-
-.cart-img {
-    width: 50%;
-
+.main-category-cercle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: aquamarine;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition:  0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-
-.cart-img img {
-    width: 220px;
-    height: 200px;
-}
-
-.main-new-products-cart:hover .cart-img {
-    transform: scale(1.04) translateX(-10px);
-    transition:  0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-.main-new-products-cart:hover button{
-    background-color: rgb(247, 104, 104);
-    transition:  0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-
