@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <header class="header">
         <div class="header-main">
             <div class="container">
@@ -164,62 +165,166 @@
                 </div>
             </div>
         </div>
-
     </header>
+
     <main>
         <div class="container">
 
             <div class="main-header">
                 <div class="breadcrumb">
                     <a href="index.html">خانه</a>
-                    <span class="breadcrumb-line">/</span>
+                    <span class="breadcrumb-line">|</span>
                     <span>محصولات</span>
                 </div>
-                <h1 class="heading">فروشگاه</h1>
             </div>
-
             <section class="main-row">
-                <div class="sid">
-                    <h5 class="sid-title">فیلتر محصولات</h5>
-                    <div class="sid-filter_stock_c">
-                        <label class="ui_input_switch">
-                            <input type="checkbox" name="in_stock" class="mweb-filter" value="1">
 
-                            <span class="slider"></span>
-                        </label>
-                        فقط کالاهای موجود
-                    </div>
-                    <div class="sid-price">
-                        <div class="sid-price__title">
-                            <span>قیمت</span>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 8.5L12 15.5L5 8.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                        <input type="range" name="" id="" class="sid-price__range">
-                        <div class="sid-price__lable0">
-                            <span>محدوده قیمت از</span>
-                            <span>تومان</span>
-                        </div>
-                        <input type="text" placeholder="80000">
-                        <div class="sid-price__lable1">
-                            <span>محدوده قیمت تا</span>
-                            <span>تومان</span>
-                        </div>
-                        <input type="text" placeholder="1550000">
+                <aside class="filter">
 
+                    <h5 class="filter-title">فیلتر محصولات</h5>
+
+                    <div class="filter-box">
+
+                        <!-- موجودی -->
+                        <div class="item stock">
+
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+
+                            <span>فقط کالاهای موجود</span>
+                        </div>
+
+                        <!-- قیمت -->
+                        <div class="item price">
+
+                            <div class="price-head" id="filter-price">
+                                <span>قیمت</span>
+
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M19 8.5L12 15.5L5 8.5" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="price-body">
+
+                                <input type="range" class="price-range">
+
+                                <div class="price-label">
+                                    <span>محدوده قیمت از</span>
+                                    <span>تومان</span>
+                                </div>
+
+                                <input type="text" class="price-input" placeholder="80000">
+
+                                <div class="price-label">
+                                    <span>محدوده قیمت تا</span>
+                                    <span>تومان</span>
+                                </div>
+
+                                <input type="text" class="price-input" placeholder="1550000">
+
+                            </div>
+
+                        </div>
+
+                        <!-- برند -->
+                        <div class="item brand">
+
+                            <div class="brand-head" id="filter-brand">
+                                <span>برند</span>
+
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M19 8.5L12 15.5L5 8.5" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="brand-body">
+
+                                <input type="search" name="" id="" class="body-search" placeholder="جستجو برند...">
+                                <div class="brand-label">
+
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+                                    <div class="brand-label-item">
+                                        <img src="" alt="">
+                                        <input type="checkbox" name="" id="">
+                                        <span>گلبهار</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- دکمه ریست فیلتر -->
+                        <button class="filter-reset">حذف همه فیلترها</button>
                     </div>
+
+                </aside>
+
+                <div class="products">
 
                 </div>
-                
 
-                <div class="column"></div>
             </section>
         </div>
     </main>
 
+    <script src="./js/products.js"></script>
 </body>
 
 </html>
