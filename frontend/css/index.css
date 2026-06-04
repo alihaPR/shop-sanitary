@@ -152,7 +152,7 @@
     background-color: var(--bg-color-6);
     width: 278px;
     padding: 0 10px;
-    border-radius: 60px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,15 +218,59 @@ input[type="search"]::-webkit-search-cancel-button {
 .main-head {}
 
 .main-baner {
+    padding: 10px;
+    position: relative;
     margin-bottom: 60px;
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: end;
     width: 100%;
     height: 400px;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(/frontend/img/Slider\ 7.png);
+
+}
+
+.main-baner::after {
+    position: absolute;
+    left: 640px;
+    top: 370px;
+    content: '';
+    width: 100px;
+    height: 30px;
+    border-radius: 7px 7px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.arow-baner-wraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.arow-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 22px;
+    border-radius: 5px;
+    background-color: #46444470;
+}
+
+.arow-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 22px;
+    border-radius: 5px;
+    background-color: #46444470;
 
 }
 
@@ -246,7 +290,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 40px;
 }
 
 .story {
@@ -266,6 +310,100 @@ input[type="search"]::-webkit-search-cancel-button {
     border: 2px solid rgb(19, 115, 204);
     background-color: #f1e9e900;
 
+}
+
+/* -----------------------------------------main-product👇------------------------------------------------ */
+
+
+.main-pruducts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.main-products-wraper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.main-products-cart {
+    width: 200px;
+    border: 1px solid rgb(231, 229, 229);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+
+
+}
+
+
+.main-products-cart-img {
+    margin: 5px;
+    background-color: #cecaca;
+    width: 180px;
+    border-radius: 10px;
+    height: 180px;
+}
+
+.main-products-cart-texts {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-products-cart-btn {
+    width: 100%;
+
+    padding: 10px;
+    background-color: #dddada;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.btn-wraper {
+    display: flex;
+    width: 180px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.btn-right-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-right-content button{
+    border: none;
+    width: 90px;
+    height: 27px;
+    border-radius:4px ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'shabnam';
+    color: white;
+    background-color: #0183FF;
+}
+
+.btn-left-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 
@@ -293,7 +431,7 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius: 7px;
     gap: 20px;
     padding: 20px;
-    border: 1px solid aquamarine;
+    border: 1px solid #dddada;
 }
 
 .main-category-cart img {
@@ -310,7 +448,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: aquamarine;
+    background-color: #0183FF;
     display: flex;
     align-items: center;
     justify-content: center;
