@@ -5,14 +5,18 @@
     box-sizing: border-box;
     font-family: 'shabnam-light';
 }
-
+ body{
+    background-color: #f9f9f9;
+ }
 :root {
     --bg-color-1: #777676;
     --bg-color-2: #000000;
     --bg-color-3: white;
-    --bg-color-4: rgb(5, 95, 230);
-    --bg-color-5: rgb(221, 221, 221);
+    --bg-color-4: #0183FF;
+    --bg-color-5: #127294;
     --bg-color-6: rgb(229, 234, 255);
+    --bg-color-7: #b6b4b4;
+    --bg-color-8: #e2dbdb;
 }
 
 @font-face {
