@@ -291,10 +291,7 @@
     font-size: 18px;
 }
 
-.products-title-a:hover p {
-    transition: 0.5s ease;
-    color: #0183FF;
-}
+
 
 .products-line {
     width: 100%;
