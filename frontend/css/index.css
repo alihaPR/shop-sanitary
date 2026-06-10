@@ -109,18 +109,21 @@
     color: var(--bg-color-1);
     font-size: 16px;
 }
-.nav-line{
-    font-size:16px;
+
+.nav-line {
+    font-size: 16px;
     color: var(--bg-color-1);
 }
+
 .nav-category {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap:10px;
+    gap: 10px;
 
 }
-.nav-category svg{
+
+.nav-category svg {
     fill: var(--bg-color-1);
 }
 
@@ -305,6 +308,116 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.main-products-cart-wraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.products-cart {
+
+    background-color: var(--bg-color-3);
+    width: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    flex-direction: column;
+    box-shadow: 0 0 2px rgb(216, 216, 216);
+
+}
+
+.cart-content {
+    margin-top: 10px;
+    gap: 10px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    width: 180px;
+}
+
+.cart-products-img {
+    margin-top: 10px;
+    border-radius: 14px;
+    width: 180px;
+    height: 180px;
+    border: 1px solid #f0eded;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cart-svg-products {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: rgba(1, 1, 1, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.cart-products-img svg {}
+
+.image-1 {
+    background-image: url(/frontend/img/panbe100g.png);
+}
+
+.image-2 {
+    background-image: url(/frontend/img/navarbehdashty.png);
+}
+
+.image-3 {
+    background-image: url(/frontend/img/panbehidrofi.png);
+}
+
+.image-4 {
+    background-image: url(/frontend/img/poshinebozorgsalL.png);
+}
+
+.image-5 {
+    background-image: url(/frontend/img/poshakkodak.png);
+}
+
+.products-cart p {
+    height: 30px;
+    color: #a8a7a7;
+}
+
+.products-cart button {
+    border: none;
+    width: 180px;
+    height: 30px;
+    background-color: var(--bg-color-4);
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: var(--bg-color-3);
+}
+
+
+.cart-line {
+    width: 100%;
+    height: 1px;
+    background-color: #f0ecec;
+
+}
+
+.products-cart h3 {
+    font-size: 12px;
+}
+
+.price {
+    font-size: 11px;
+
 }
 
 /* -----------------------------------------main-category👇------------------------------------------------ */
@@ -569,6 +682,7 @@
 }
 
 .govahi {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -581,9 +695,9 @@
     transition: all 0.18s;
 }
 
-.trust-chip:hover {
-    border-color: #1a7a4a;
-    color: #1a7a4a;
+.govahi:hover {
+    border-color: var(--bg-color-6);
+    color: var(--bg-color-4);
     background: #f0faf5;
 }
 
@@ -647,12 +761,13 @@
     justify-content: center;
     gap: 5px;
 }
-.email-wraper h3{
+
+.email-wraper h3 {
     font-size: 13px;
 }
 
 .email-wraper input {
-    border-radius:3px;
+    border-radius: 3px;
     border: 1px solid rgb(211, 210, 210);
     width: 200px;
     height: 35px;
@@ -660,7 +775,8 @@
 
     background-color: var(--bg-color-6);
 }
-.email-wraper p{
+
+.email-wraper p {
     color: #888888;
     font-size: 13.5px;
 }
@@ -677,4 +793,33 @@
     width: 60px;
     background-color: var(--bg-color-4);
 
+}
+
+.scroll-top {
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    background: var(--bg-color-1);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.scroll-top svg {
+    stroke: var(--bg-color-3);
+}
+
+.scroll-top:hover {
+    background: var(--bg-color-4);
+    transform: translateY(-3px);
+}
+
+.govahi-wraper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
