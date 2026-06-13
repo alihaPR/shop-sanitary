@@ -2,6 +2,37 @@ body {
     background-color: #f9f9f9;
 }
 
+/* back home btn */
+
+.back-home {
+    background-color: #FFFFFF;
+    border: 1px solid #eeeeee;
+    border-radius: 6px;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #242424;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-direction: row-reverse;
+
+}
+.back-home svg{
+    rotate: 180deg;
+    display: none;
+    opacity: 0;
+}
+.back-home:hover svg{
+    opacity: 1;
+    display: block;
+}
+
+/* form */
+
 .auth-form {
     background-color: #FFFFFF;
     width: 320px;
@@ -12,7 +43,8 @@ body {
     padding: 28px;
     display: none;
 }
-.auth-form.active{
+
+.auth-form.active {
     display: block;
 }
 
@@ -140,14 +172,14 @@ body {
 
 /* register-form */
 
-.register-form{
+.register-form {}
 
-}
-.register-inputs{
+.register-inputs {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-.register-btn{
+
+.register-btn {
     margin-top: 30px;
 }

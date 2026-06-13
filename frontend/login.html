@@ -11,6 +11,15 @@
 
 <body>
 
+    <a href="./index.html" class="back-home">بازگشت به خانه
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.25 12.2743L19.25 12.2743" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            <path d="M10.2998 18.2987L4.2498 12.2747L10.2998 6.24969" stroke="black" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </a>
+
     <div class="auth-container">
 
         <form class="login-phone auth-form active ">
@@ -31,10 +40,10 @@
             </label>
 
             <div class="log-input">
-                <input class="log-input-input" type="tel" id="phone" name="phone" placeholder="شماره موبایل">
+                <input class="log-input-input" type="tel" id="phone" name="phone" required placeholder="شماره موبایل">
             </div>
 
-            <button class="log-btn" id="login-btn-submit" type="submit">
+            <button class="log-btn" id="login-btn-submit" type="submit" >
                 ادامه و ورود به حساب
             </button>
 
@@ -84,13 +93,13 @@
 
             <div class="register-inputs">
                 <div class="register-input">
-                    <input class="log-input-input" type="text" name="fullname" placeholder="نام و نام خانوادگی">
+                    <input class="log-input-input" type="text" name="fullname" required placeholder="نام و نام خانوادگی">
                 </div>
                 <div class="register-input">
-                    <input class="log-input-input" type="tel" name="phone" placeholder="شماره موبایل">
+                    <input class="log-input-input" type="tel" name="phone" required placeholder="شماره موبایل">
                 </div>
                 <div class="register-input">
-                    <input class="log-input-input" type="password" name="password" placeholder="رمز عبور">
+                    <input class="log-input-input" type="password" name="password" required minlength="8" placeholder="رمز عبور">
                 </div>
                 <div class="register-input">
                     <input class="log-input-input" type="email" name="email" placeholder="ایمیل (اختیاری)">

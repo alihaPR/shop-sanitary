@@ -7,8 +7,8 @@ let otp = $.querySelector('.login-otp');
 let switchsignup = $.querySelector('.switch-signup');
 let switchlogin = $.querySelector('.switch-login');
 
-let loginBtn = $.getElementById('login-btn-submit');
-let registerBtn = $.getElementById('register-btn-submit');
+let loginForm = login;
+let registerForm = register;
 
 function show(screen) {
     login.classList.remove("active");
@@ -30,13 +30,13 @@ switchlogin.addEventListener('click', function (e) {
     show(login);
 });
 
-loginBtn.addEventListener('click', function (e) {
+loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
     lastScreen = login;
     show(otp);
 });
 
-registerBtn.addEventListener('click', function (e) {
+registerForm.addEventListener('submit', function (e) {
     e.preventDefault();
     lastScreen = register;
     show(otp);
