@@ -184,22 +184,6 @@
     justify-content: center;
     gap: 5px;
 }
-
-.header-loc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.loc {
-    color: var(--bg-color-2);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-.loc p,
 .phone p{
     font-size: 15px;
 }
