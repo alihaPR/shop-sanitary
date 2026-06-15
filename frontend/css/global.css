@@ -125,7 +125,11 @@ body {
 
 .header-nav {
     /* border-bottom: 1px solid var(--bg-color-7); */
-    padding: 20px 0;
+    /* padding: 20px 0; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
     background-color: #ffffff;
 }
 
@@ -139,17 +143,11 @@ body {
 
 .li-category {
     position: relative;
-
+    transition: 0.3s ease;
+    padding: 19.5px 0;
 }
 
-.category-drop-down {
-    position: absolute;
-    z-index: 1000;
-    top: 50px;
-    display: none;
-    opacity: 0;
 
-}
 
 .daste-bandy-wraper {
     width: 300px;
@@ -162,10 +160,16 @@ body {
     justify-content: center;
     gap: 10px;
     padding: 15px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease;
+    position: absolute;
+    z-index: 1000;
+    top: 65px;
 }
 
-.li-category:hover .category-drop-down {
-    display: block;
+.li-category:hover .daste-bandy-wraper {
+    visibility: visible;
     opacity: 1;
 }
 
@@ -211,8 +215,8 @@ body {
 }
 
 .daste-bandt-items img {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
 }
 
 .header-nav-wraper ul {
