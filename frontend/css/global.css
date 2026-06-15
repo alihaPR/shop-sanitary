@@ -136,38 +136,39 @@ body {
     justify-content: space-between;
 }
 
-.daste-bandy-wraper{
-    display:flex !important;
-    position:fixed !important;
-    top:100px !important;
-    right:100px !important;
-    background:red !important;
-    z-index:999999 !important;
+
+.li-category {
+    position: relative;
+
+}
+
+.category-drop-down {
+    position: absolute;
+    z-index: 1000;
+    top: 50px;
+    display: none;
+    opacity: 0;
+
 }
 
 .daste-bandy-wraper {
-    pointer-events: none;
-    z-index: 1000;
     width: 300px;
-    top: 50px;
     border-radius: 6px;
     background-color: var(--bg-color-3);
     box-shadow: 0 0 5px rgb(182, 182, 182);
-    position: absolute;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
     padding: 15px;
-    transition: 0.5s ease;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: 0.5s ease;
-
-
 }
+
+.li-category:hover .category-drop-down {
+    display: block;
+    opacity: 1;
+}
+
 
 
 .daste-bandt-items {
