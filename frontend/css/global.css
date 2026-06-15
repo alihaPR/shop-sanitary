@@ -5,9 +5,11 @@
     box-sizing: border-box;
     font-family: 'shabnam-light';
 }
- body{
+
+body {
     background-color: #f9f9f9;
- }
+}
+
 :root {
     --bg-color-1: #777676;
     --bg-color-2: #000000;
@@ -128,9 +130,88 @@
 }
 
 .header-nav-wraper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.daste-bandy-wraper{
+    display:flex !important;
+    position:fixed !important;
+    top:100px !important;
+    right:100px !important;
+    background:red !important;
+    z-index:999999 !important;
+}
+
+.daste-bandy-wraper {
+    pointer-events: none;
+    z-index: 1000;
+    width: 300px;
+    top: 50px;
+    border-radius: 6px;
+    background-color: var(--bg-color-3);
+    box-shadow: 0 0 5px rgb(182, 182, 182);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    transition: 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.5s ease;
+
+
+}
+
+
+.daste-bandt-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid var(--bg-color-8);
+    background-color: var(--bg-color-3);
+    padding: 10px;
+    overflow: hidden;
+    transition: 0.5s ease;
+
+}
+
+.daste-bandt-items:hover {
+    background-color: var(--bg-color-6);
+    transition: 0.5s ease;
+}
+
+.daste-bandt-items:hover svg {
+    transform: translateX(-30px) rotate(90deg);
+    transition: 0.5s ease;
+}
+
+.daste-bandt-items svg {
+    transform: rotate(90deg);
+    transition: 0.5s ease;
+    fill: var(--bg-color-1);
+}
+
+.daste-bandy-item-right {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.daste-bandt-items img {
+    width: 30px;
+    height: 30px;
 }
 
 .header-nav-wraper ul {
@@ -184,7 +265,8 @@
     justify-content: center;
     gap: 5px;
 }
-.phone p{
+
+.phone p {
     font-size: 15px;
 }
 
