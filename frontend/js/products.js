@@ -5,13 +5,13 @@ let bodyprice = $.querySelector('.price-body')
 let Flagp = true
 
 filterprice.addEventListener('click', function () {
-    if (Flagp) {
-        bodyprice.style.display = 'block'
-        Flagp = false
-    } else {
-        bodyprice.style.display = 'none'
-        Flagp = true
-    }
+  if (Flagp) {
+    bodyprice.style.display = 'block'
+    Flagp = false
+  } else {
+    bodyprice.style.display = 'none'
+    Flagp = true
+  }
 })
 
 let filterbrand = $.getElementById('filter-brand')
@@ -19,49 +19,28 @@ let bodybrand = $.querySelector('.brand-body')
 let Flagb = true
 
 filterbrand.addEventListener('click', function () {
-    if (Flagb) {
-        bodybrand.style.display = 'block'
-        Flagb = false
-    } else {
-        bodybrand.style.display = 'none'
-        Flagb = true
-    }
+  if (Flagb) {
+    bodybrand.style.display = 'block'
+    Flagb = false
+  } else {
+    bodybrand.style.display = 'none'
+    Flagb = true
+  }
 })
 
 // ------------------------------------ product - Pagination -----------------------------------
 
 
 const products = [
-  { id: 1,  name: "پوشک بزرگسال گلبهار",       price: 300000, discountPercent: 20, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 2,  name: "دستمال مرطوب نوزاد گلبهار",  price: 85000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 3,  name: "پوشک نوزاد سایز ۳",          price: 120000, discountPercent: 15, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 4,  name: "دستمال کاغذی ۱۰۰ برگ",       price: 45000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 5,  name: "پوشک شبانه گلبهار",          price: 210000, discountPercent: 10, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 6,  name: "دستمال مرطوب حساس",          price: 75000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 7,  name: "پوشک نوزاد سایز ۱",          price: 95000,  discountPercent: 25, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 8,  name: "دستمال کاغذی جعبه‌ای",       price: 38000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 9,  name: "پوشک بزرگسال شبانه",         price: 340000, discountPercent: 5,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 10, name: "دستمال مرطوب ۷۲ عددی",       price: 62000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 11, name: "پوشک نوزاد سایز ۵",          price: 175000, discountPercent: 30, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 12, name: "دستمال کاغذی رولی",          price: 55000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 13, name: "پوشک گلبهار سایز ۴",         price: 145000, discountPercent: 10, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 14, name: "دستمال مرطوب ۱۲۰ عددی",      price: 98000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 15, name: "پوشک بزرگسال روزانه",        price: 280000, discountPercent: 8,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 16, name: "دستمال کاغذی نرم",           price: 42000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 17, name: "پوشک نوزاد سایز ۲",          price: 105000, discountPercent: 20, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 18, name: "دستمال مرطوب آنتی‌باکتریال", price: 88000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 19, name: "پوشک گلبهار سایز ۶",         price: 195000, discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 20, name: "دستمال کاغذی ۲۰۰ برگ",       price: 72000,  discountPercent: 15, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 21, name: "پوشک بزرگسال مراقبتی",       price: 320000, discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 22, name: "دستمال مرطوب کودک",          price: 68000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 23, name: "پوشک نوزاد پریمیوم",         price: 220000, discountPercent: 12, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 24, name: "دستمال کاغذی فله",           price: 35000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 25, name: "پوشک گلبهار سایز ۷",         price: 240000, discountPercent: 8,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 26, name: "دستمال مرطوب بدون عطر",      price: 79000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 27, name: "پوشک بزرگسال اقتصادی",       price: 260000, discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 28, name: "دستمال کاغذی مینی",          price: 28000,  discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 29, name: "پوشک نوزاد ارگانیک",         price: 310000, discountPercent: 20, image: "./img/poshak-bozorg-sal-larg.png" },
-  { id: 30, name: "دستمال مرطوب خانوادگی",      price: 115000, discountPercent: 0,  image: "./img/poshak-bozorg-sal-larg.png" },
+  { id: 1, name: "پوشینه بزرگسال گلبهار سایز L" ,  price: 300000, discountPercent: 20 ,  image: "./img/poshinebozorgsalL.png" },
+  { id: 2, name: "پوشینه بزرگسال گلبهار سایز M" ,  price: 85000, discountPercent: 0 ,  image: "./img/poshakbozorgsalbig.png" },
+  { id: 3, name: "پوشک نوزاد سایز  بزرگ" ,  price: 120000, discountPercent: 15 ,  image: "./img/poshakkodakbig.png" },
+  { id: 4, name: "پوشک نوزاد سایز  کوچک " ,  price: 45000, discountPercent: 0 ,  image: "./img/poshakkodak.png" },
+  { id: 5, name: " نوار بالدار ساده" ,  price: 210000, discountPercent: 10 ,  image: "./img/navarbig.png" },
+  { id: 6, name: "پنبه هیدروفیل 100 گرمی" ,  price: 75000, discountPercent: 0 ,  image: "./img/panbehidrofi.png" },
+  { id: 7, name: "پنبه 100 گرمی" ,  price: 95000, discountPercent: 25 ,  image: "./img/panbe100g.png" },
+  { id: 8, name: "پنبه 100 گرمی" ,  price: 38000, discountPercent: 0 , image: "./img/panbe50g.png" },
+  { id: 9, name: " نوار بالدار مشبک " ,  price: 340000, discountPercent: 5 ,  image: "./img/navarbehdashty.png" }
 ];
 
 const PER_PAGE = 8;
@@ -174,8 +153,8 @@ function goTo(page) {
 function getPages(current, total) {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
   if (current <= 4) return [1, 2, 3, 4, 5, "...", total];
-  if (current >= total - 3) return [1, "...", total-4, total-3, total-2, total-1, total];
-  return [1, "...", current-1, current, current+1, "...", total];
+  if (current >= total - 3) return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+  return [1, "...", current - 1, current, current + 1, "...", total];
 }
 
 document.addEventListener("DOMContentLoaded", renderProducts);
