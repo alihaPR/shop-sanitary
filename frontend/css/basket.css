@@ -2,7 +2,6 @@
 
 
    .empty-basket-wraper {
-       display: none;
        padding: 30px 0;
    }
 
@@ -134,6 +133,8 @@
 
    .full-basket {
        padding: 40px 0;
+       display: none;
+
    }
 
    .cart-layout {
