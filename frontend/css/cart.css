@@ -1,0 +1,314 @@
+  :root {
+      --bg: #F6F5F1;
+      --surface: #FFFFFF;
+      --ink: #1F2421;
+      --ink-soft: #83887F;
+      --line: #ECE9E1;
+      --moss: #3C6E55;
+      --moss-dark: #274A38;
+      --clay: #D9534F;
+      --sun: #E8AC3E;
+      --radius: 10px;
+  }
+
+
+
+  a {
+      text-decoration: none;
+      color: inherit;
+  }
+
+  .info {
+      margin: 20px 0;
+  }
+
+  .wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      align-items: start;
+  }
+
+
+  .left-col {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+  }
+
+  .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+  }
+
+  .seller-card {
+      padding: 16px;
+  }
+
+  .seller-card .row-title {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+  }
+
+  .seller-card b.name {
+      font-size: 14px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 10px;
+  }
+
+  .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+  }
+
+  .check-item svg {
+      width: 15px;
+      height: 15px;
+      color: var(--moss);
+      flex-shrink: 0;
+      margin-top: 1px;
+  }
+
+  .check-item b {
+      color: var(--ink);
+      font-weight: 600;
+  }
+
+  .buy-card {
+      padding: 16px;
+  }
+
+  .best-price-tag {
+      font-size: 11.5px;
+      color: var(--moss-dark);
+      background: #EAF3EE;
+      border-radius: 6px;
+      padding: 5px 8px;
+      display: inline-block;
+      margin-bottom: 12px;
+  }
+
+  .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      justify-content: flex-end;
+      margin-bottom: 4px;
+  }
+
+  .price-num {
+      font-size: 20px;
+      font-weight: 800;
+  }
+
+  .price-unit {
+      font-size: 12px;
+      color: var(--ink-soft);
+  }
+
+  .extra-buyers {
+      font-size: 11px;
+      color: var(--ink-soft);
+      text-align: right;
+      margin-bottom: 14px;
+  }
+
+  .btn-cart {
+      width: 100%;
+      background: var(--clay);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+  }
+
+  .btn-cart:hover {
+      background: #c44440;
+  }
+
+  .buy-card .note {
+      font-size: 11px;
+      color: var(--ink-soft);
+      text-align: center;
+      margin-top: 10px;
+  }
+
+
+  .main-card {
+      width: 80%;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 30px;
+  }
+
+  .info-side .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+  }
+
+  .icon-row {
+      display: flex;
+      gap: 14px;
+      color: var(--ink-soft);
+  }
+
+  .icon-row svg {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+  }
+
+  .brand-line {
+      font-size: 12.5px;
+      color: var(--moss-dark);
+      font-weight: 600;
+      margin-bottom: 8px;
+  }
+
+  h1 {
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.9;
+      margin: 0 0 14px;
+  }
+
+
+
+
+
+  .feat-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+  }
+
+  .feat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+  }
+
+  .feat-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12.8px;
+      color: var(--ink-soft);
+  }
+
+  .feat-item svg {
+      width: 16px;
+      height: 16px;
+      color: var(--moss);
+      flex-shrink: 0;
+  }
+
+  .feat-item b {
+      color: var(--ink);
+      font-weight: 600;
+  }
+
+  .more-link {
+      background-color: var(--bg-color-6);
+      border-radius: 7px;
+      width: 120px;
+      height: 30px;
+      font-size: 10.5px;
+      color: var(--moss-dark);
+      font-weight: 600;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+  }
+
+
+  .image-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .main-img {
+      box-shadow: 0 0 4px rgb(199, 198, 198);
+      width: 300px;
+      height: 300px;
+      background: #F4F2EC;
+      border-radius: 10px;
+      background-image: url(/frontend/img/poshakkodak.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+  }
+
+  .main-img svg {
+      width: 62%;
+      height: 62%;
+  }
+.products-info{
+    margin: 0 0 20px 0;
+}
+  .lower-card {
+      grid-column: 1/3;
+      padding: 22px;
+  }
+
+  .section-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin: 0 0 14px;
+      padding-right: 9px;
+      border-right: 3px solid var(--moss);
+  }
+
+  .feature-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 24px;
+  }
+
+  .feature-table tr {
+      border-bottom: 1px solid var(--line);
+  }
+
+  .feature-table td {
+      padding: 10px 4px;
+  }
+
+  .feature-table td:first-child {
+      color: var(--ink-soft);
+      width: 38%;
+  }
+
+  .feature-table td:last-child {
+      font-weight: 600;
+  }
+
+  .desc-text {
+      font-size: 13.3px;
+      line-height: 2.1;
+      color: #3A3E3A;
+  }

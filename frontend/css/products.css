@@ -439,7 +439,6 @@
 .cart {
     position: relative;
     width: 218px;
-    height: 316px;
     padding: 12px 14px;
     border: 1px solid #eeeeee;
     background-color: #FFFF;
@@ -470,6 +469,7 @@
 }
 
 .cart-head h5 {
+    height: 40px;
     text-align: center;
     font-size: 16px;
 }
