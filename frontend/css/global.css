@@ -120,6 +120,27 @@ body {
     border-radius: 6px;
 
 }
+
+.header-basket {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    background:var(--clay);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .header-basket svg {
     width: 22px;
     height: 22px;
@@ -220,8 +241,8 @@ body {
 }
 
 .daste-bandt-items img {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
 }
 
 .header-nav-wraper ul {
@@ -300,7 +321,7 @@ body {
 
 .footer-content {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-around;
     gap: 48px;
     padding: 48px 0 40px;

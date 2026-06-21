@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/cart.css">
     <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/toast.css">
     <title>products info</title>
 
 </head>
+
 <body>
 
 
@@ -103,7 +105,7 @@
                                         fill="black" />
                                 </g>
                             </svg>
-
+                            <span class="cart-badge" style="display:none"></span>
                         </a>
                     </div>
 
@@ -361,7 +363,9 @@
                             <span class="price-unit">تومان</span>
                         </div>
                         <div class="extra-buyers">250 نفر در حال خرید این کالا</div>
-                        <button class="btn-cart">افزودن به سبد خرید</button>
+                        <div id="cart-btn-container">
+                            <button class="btn-cart" id="addToCartBtn">افزودن به سبد خرید</button>
+                        </div>
                         <div class="note">امکان پرداخت اقساطی در تسویه‌حساب</div>
                     </div>
                 </div>
@@ -408,12 +412,14 @@
                         <td>کشور سازنده</td>
                         <td>ایران</td>
                     </tr>
-                </table>   
+                </table>
                 <div class="section-title">توضیحات محصول</div>
                 <p class="desc-text">
-                    پوشک نازنوش سایز ۴ با فناوری هسته سلولزی فوق‌جاذب، رطوبت را در کسری از ثانیه به درون خود کشیده و پوست
+                    پوشک نازنوش سایز ۴ با فناوری هسته سلولزی فوق‌جاذب، رطوبت را در کسری از ثانیه به درون خود کشیده و
+                    پوست
                     کودک را تا ۱۲ ساعت خشک نگه می‌دارد.
-                    لایه رویی از الیاف پنبه‌ای نرم تهیه شده تا کمترین اصطحکاک با پوست حساس نوزاد ایجاد شود. نوارهای ضد نشتی
+                    لایه رویی از الیاف پنبه‌ای نرم تهیه شده تا کمترین اصطحکاک با پوست حساس نوزاد ایجاد شود. نوارهای ضد
+                    نشتی
                     دوطرفه دور کمر و پا، نشت شبانه را به حداقل می‌رساند.
                     بدون عطر، بدون کلر و بدون لوسیون - مناسب پوست‌های حساس.
                 </p>
@@ -539,8 +545,11 @@
 
         </div>
     </footer>
+
     <script src="/frontend/js/products.js"></script>
+    <script src="/frontend/js/basket.js"></script>
     <script src="/frontend/js/cartloader.js"></script>
+
 </body>
 
 </html>

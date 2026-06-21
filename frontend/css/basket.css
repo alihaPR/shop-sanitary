@@ -61,7 +61,7 @@
        align-items: center;
        justify-content: center;
        gap: 0;
-       padding: 28px 0;
+       padding-bottom: 20px;
        max-width: 500px;
        margin: 0 auto;
    }
@@ -139,8 +139,9 @@
 
    .cart-layout {
        display: flex;
-       align-items: center;
+       align-items: start;
        justify-content: space-around;
+       margin-top: 20px;
    }
 
    .cart-item {

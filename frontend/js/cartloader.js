@@ -1,20 +1,9 @@
-// =====================================================
-// cart-loader.js
-// این فایل رو توی cart.html قبل از بسته شدن </body> اضافه کن:
-// <script src="/frontend/js/products.js"></script>
-// <script src="/frontend/js/cart-loader.js"></script>
-// =====================================================
-
 document.addEventListener("DOMContentLoaded", function () {
 
-  // خوندن id از URL
   const params = new URLSearchParams(window.location.search);
   const productId = parseInt(params.get("id"));
-
-  // پیدا کردن محصول
   const product = products.find(p => p.id === productId);
 
-  // اگه محصول پیدا نشد
   if (!product) {
     document.querySelector(".main-card").innerHTML = `
       <div style="text-align:center; padding: 60px; width:100%">
@@ -24,53 +13,36 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // ---- قیمت ----
   const hasDiscount = product.discountPercent > 0;
   const finalPrice = hasDiscount
     ? Math.round(product.price * (1 - product.discountPercent / 100))
     : product.price;
 
-  function formatPrice(p) {
-    return p.toLocaleString("fa-IR");
-  }
+  function formatPrice(p) { return p.toLocaleString("fa-IR"); }
 
-  // ---- عنوان صفحه ----
   document.title = product.name;
 
-  // ---- عکس محصول ----
   const mainImg = document.querySelector(".main-img");
-  if (mainImg) {
-    mainImg.style.backgroundImage = `url(${product.image})`;
-    mainImg.innerHTML = ""; // حذف SVG پیش‌فرض
-  }
+  if (mainImg) { mainImg.style.backgroundImage = `url(${product.image})`; mainImg.innerHTML = ""; }
 
-  // ---- برند ----
   const brandLine = document.querySelector(".brand-line");
-  if (brandLine) brandLine.textContent = product.brand;
+  if (brandLine) brandLine.textContent = product.brand || "";
 
-  // ---- نام محصول ----
   const h1 = document.querySelector(".info-side h1");
   if (h1) h1.textContent = product.name;
 
-  // ---- ویژگی‌ها ----
   const featList = document.querySelector(".feat-list");
   if (featList && product.features) {
     featList.innerHTML = product.features.map(f => `
       <div class="feat-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 12l2 2 4-4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/></svg>
         <span>${f}</span>
-      </div>
-    `).join("");
+      </div>`).join("");
   }
 
-  // ---- قیمت ----
   const priceNum = document.querySelector(".price-num");
-  const priceUnit = document.querySelector(".price-unit");
   if (priceNum) priceNum.textContent = formatPrice(finalPrice);
 
-  // نمایش قیمت قبل از تخفیف
   if (hasDiscount) {
     const priceRow = document.querySelector(".price-row");
     if (priceRow) {
@@ -78,39 +50,114 @@ document.addEventListener("DOMContentLoaded", function () {
       oldPrice.style.cssText = "font-size:13px; color:#83887F; text-decoration:line-through;";
       oldPrice.textContent = formatPrice(product.price) + " تومان";
       priceRow.insertBefore(oldPrice, priceRow.firstChild);
-
-      // تگ تخفیف
       const tag = document.querySelector(".best-price-tag");
       if (tag) tag.textContent = `${product.discountPercent}٪ تخفیف ویژه`;
     }
   }
 
-  // ---- تعداد خریداران ----
   const extraBuyers = document.querySelector(".extra-buyers");
-  if (extraBuyers) extraBuyers.textContent = `${product.buyers} نفر در حال خرید این کالا`;
+  if (extraBuyers && product.buyers) extraBuyers.textContent = `${product.buyers} نفر در حال خرید این کالا`;
 
-  // ---- گارانتی توی seller-card ----
   const checkItems = document.querySelectorAll(".check-item span");
-  if (checkItems.length >= 1) {
-    checkItems[0].innerHTML = `عملکرد <b>98%</b> رضایت از کالا`;
-  }
-  if (checkItems.length >= 2) {
-    checkItems[1].innerHTML = `<b>${product.warranty}</b> گارانتی اصالت کالا`;
-  }
+  if (checkItems.length >= 1) checkItems[0].innerHTML = `عملکرد <b>98%</b> رضایت از کالا`;
+  if (checkItems.length >= 2 && product.warranty) checkItems[1].innerHTML = `<b>${product.warranty}</b> گارانتی اصالت کالا`;
 
-  // ---- جدول مشخصات ----
   const featureTable = document.querySelector(".feature-table");
   if (featureTable && product.specs) {
-    featureTable.innerHTML = product.specs.map(s => `
-      <tr>
-        <td>${s.label}</td>
-        <td>${s.value}</td>
-      </tr>
-    `).join("");
+    featureTable.innerHTML = product.specs.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join("");
   }
 
-  // ---- توضیحات ----
   const descText = document.querySelector(".desc-text");
-  if (descText) descText.textContent = product.description;
+  if (descText && product.description) descText.textContent = product.description;
+
+
+  // ─────────────────────────────────────────────
+  //  کنترل دکمه سبد — از container ثابت استفاده میکنیم
+  // ─────────────────────────────────────────────
+  const container = document.getElementById("cart-btn-container");
+
+  function getQty() {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const item = cart.find(i => i.id === product.id);
+    return item ? item.qty : 0;
+  }
+
+  function setQty(qty) {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    if (qty <= 0) {
+      const newCart = cart.filter(i => i.id !== product.id);
+      localStorage.setItem("cart", JSON.stringify(newCart));
+    } else {
+      const item = cart.find(i => i.id === product.id);
+      if (item) item.qty = qty;
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    updateCartBadge();
+    renderCartUI();
+  }
+
+  function renderCartUI() {
+    const qty = getQty();
+
+    if (qty <= 0) {
+      container.innerHTML = `<button class="btn-cart" id="addToCartBtn">افزودن به سبد خرید</button>`;
+      document.getElementById("addToCartBtn").addEventListener("click", () => {
+        addToCart(product);
+        updateCartBadge();
+        renderCartUI();
+        showToast();
+      });
+    } else {
+      container.innerHTML = `
+        <div class="btn-cart-wrap">
+          <div class="cart-status-text">
+            <span>در سبد شما</span>
+            <a href="/frontend/basket.html">مشاهده سبد خرید</a>
+          </div>
+          <div class="qty-control">
+            <button class="qty-ctrl-btn" id="qtyPlus">+</button>
+            <span class="qty-ctrl-num">${qty}</span>
+            <button class="qty-ctrl-btn" id="qtyMinus">−</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("qtyPlus").addEventListener("click", () => setQty(getQty() + 1));
+      document.getElementById("qtyMinus").addEventListener("click", () => setQty(getQty() - 1));
+    }
+  }
+
+  renderCartUI();
+  updateCartBadge();
+
+
+  // ─────────────────────────────────────────────
+  //  Toast
+  // ─────────────────────────────────────────────
+  function showToast() {
+    const existing = document.getElementById("cart-toast");
+    if (existing) existing.remove();
+
+    const toast = document.createElement("div");
+    toast.id = "cart-toast";
+    toast.innerHTML = `
+      <div class="toast-content">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3C6E55" stroke-width="2.5">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span>کالا اضافه شد!</span>
+      </div>
+      <div class="toast-actions">
+        <a href="/frontend/basket.html" class="toast-btn-go">برو به سبد خرید</a>
+        <button class="toast-btn-close" onclick="document.getElementById('cart-toast').remove()">✕</button>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add("show"));
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 400);
+    }, 4000);
+  }
 
 });
