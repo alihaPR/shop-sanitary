@@ -1,64 +1,70 @@
 /* -----------------------------------------main-head👇------------------------------------------------ */
-.bannerSwiper{
-    width:100%;
-    height:300px;
-    border-radius:20px;
-    overflow:hidden;
-    position:relative;
+.bannerSwiper {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
 }
 
-.banner{
-    width:100%;
-    height:300px;
+.banner {
+    width: 100%;
+    height: 300px;
 
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
-.banner-btns{
+.bannerSwiper:hover .banner-btns {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s ease;
 
-    position:absolute;
+}
 
-    right:25px;
-    bottom:25px;
-
-    display:flex;
-    gap:10px;
-
-    z-index:50;
+.banner-btns {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    display: flex;
+    gap: 10px;
+    z-index: 50;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s ease;
 }
 
 .banner-prev,
-.banner-next{
+.banner-next {
 
-    width:45px;
-    height:45px;
+    width: 45px;
+    height: 45px;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    background:#fff;
+    background: #fff;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    transition:.3s;
+    transition: .3s;
 
-    font-size:22px;
+    font-size: 22px;
 }
 
 .banner-prev:hover,
-.banner-next:hover{
+.banner-next:hover {
 
-    background:#f2f2f2;
+    background: #f2f2f2;
 
 }
 
-.swiper-button-disabled{
-    opacity:1 !important;
+.swiper-button-disabled {
+    opacity: 1 !important;
 }
 
 /* -----------------------------------------main-story👇------------------------------------------------ */
@@ -344,7 +350,6 @@
 }
 
 .main-category-cart:hover {
-    transform: scale(1.04);
     transition: 0.5s ease;
     border: 1px solid #0183FF;
 }

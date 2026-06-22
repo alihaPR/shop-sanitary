@@ -2,7 +2,7 @@
 
 
    .empty-basket-wraper {
-       padding: 30px 0;
+       padding: 0 0 30px 0;
    }
 
    .empty-state {
@@ -11,7 +11,7 @@
        align-items: center;
        justify-content: center;
        text-align: center;
-       padding: 80px 24px;
+       padding: 80px 24px ;
        background: #fff;
        border-radius: 20px;
        border: 1px solid #d6d4d4;
