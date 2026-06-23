@@ -53,11 +53,26 @@ document.addEventListener("DOMContentLoaded", function () {
       bodybrand.style.display = Flagb ? 'block' : 'none'
       Flagb = !Flagb
     })
+
+
   }
 
   // خوندن category از URL
   const params = new URLSearchParams(window.location.search)
   const categoryParam = params.get("category")
+  const searchParam = params.get("search")
+  if (searchParam) {
+    const grid = document.getElementById("products-grid")
+    const filtered = products.filter(p =>
+      p.name.toLowerCase().includes(searchParam.toLowerCase()) ||
+      p.brand.toLowerCase().includes(searchParam.toLowerCase())
+    )
+    grid.innerHTML = ""
+    filtered.length === 0
+      ? grid.innerHTML = `<p style="color:#aaa;font-size:14px;padding:40px 0">محصولی یافت نشد.</p>`
+      : filtered.forEach(p => grid.appendChild(createCard(p)))
+    return
+  }
 
   // نمایش عنوان دسته‌بندی فعال
   if (categoryParam && document.getElementById("active-category-title")) {
