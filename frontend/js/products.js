@@ -31,6 +31,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ------------------------------------ product data -----------------------------------
 
+// ------------------------------------ filter toggles -----------------------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const filterprice = document.getElementById('filter-price')
+  const bodyprice = document.querySelector('.price-body')
+  if (filterprice && bodyprice) {
+    let Flagp = true
+    filterprice.addEventListener('click', function () {
+      bodyprice.style.display = Flagp ? 'block' : 'none'
+      Flagp = !Flagp
+    })
+  }
+
+  const filterbrand = document.getElementById('filter-brand')
+  const bodybrand = document.querySelector('.brand-body')
+  if (filterbrand && bodybrand) {
+    let Flagb = true
+    filterbrand.addEventListener('click', function () {
+      bodybrand.style.display = Flagb ? 'block' : 'none'
+      Flagb = !Flagb
+    })
+  }
+
+  // خوندن category از URL
+  const params = new URLSearchParams(window.location.search)
+  const categoryParam = params.get("category")
+
+  // نمایش عنوان دسته‌بندی فعال
+  if (categoryParam && document.getElementById("active-category-title")) {
+    const categoryNames = {
+      "پوشک-کودک": "پوشک کودک",
+      "پوشک-بزرگسال": "پوشک بزرگسال",
+      "نوار-بهداشتی": "نوار بهداشتی",
+      "پنبه": "پنبه",
+      "دستمال-مرطوب": "دستمال مرطوب"
+    }
+    document.getElementById("active-category-title").textContent =
+      categoryNames[categoryParam] || categoryParam
+    document.getElementById("active-category-title").style.display = "block"
+  }
+
+  if (document.getElementById("products-grid")) {
+    renderProducts(categoryParam)
+  }
+
+})
+
+// ------------------------------------ product data -----------------------------------
+
 const products = [
   {
     id: 1,
@@ -39,6 +89,7 @@ const products = [
     discountPercent: 20,
     image: "./img/poshinebozorgsalL.png",
     brand: "گلبهار",
+    category: "پوشک-بزرگسال",
     buyers: 215,
     warranty: "۱۸ ماهه",
     features: [
@@ -56,7 +107,7 @@ const products = [
       { label: "نشانگر رطوبت", value: "دارد" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پوشینه بزرگسال گلبهار سایز L با هسته سلولزی فوق‌جاذب، رطوبت را در کسری از ثانیه جذب می‌کند و پوست را تا ۸ ساعت خشک نگه می‌دارد. لایه رویی از الیاف پنبه‌ای نرم تهیه شده تا حداقل اصطکاک با پوست حساس ایجاد شود. مناسب برای افراد با محدودیت حرکتی و بیماران بستری."
+    description: "پوشینه بزرگسال گلبهار سایز L با هسته سلولزی فوق‌جاذب، رطوبت را در کسری از ثانیه جذب می‌کند و پوست را تا ۸ ساعت خشک نگه می‌دارد."
   },
   {
     id: 2,
@@ -65,6 +116,7 @@ const products = [
     discountPercent: 0,
     image: "./img/poshakbozorgsalbig.png",
     brand: "گلبهار",
+    category: "پوشک-بزرگسال",
     buyers: 98,
     warranty: "۱۸ ماهه",
     features: [
@@ -82,7 +134,7 @@ const products = [
       { label: "نشانگر رطوبت", value: "دارد" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پوشینه بزرگسال گلبهار سایز M با طراحی آناتومیک، راحتی حداکثری را برای کاربر فراهم می‌کند. سطح نرم داخلی از تحریک پوست جلوگیری کرده و سیستم جذب دو لایه از نشت جلوگیری می‌کند."
+    description: "پوشینه بزرگسال گلبهار سایز M با طراحی آناتومیک، راحتی حداکثری را برای کاربر فراهم می‌کند."
   },
   {
     id: 3,
@@ -91,6 +143,7 @@ const products = [
     discountPercent: 15,
     image: "./img/poshakkodakbig.png",
     brand: "نازنوش",
+    category: "پوشک-کودک",
     buyers: 340,
     warranty: "۱۲ ماهه",
     features: [
@@ -109,7 +162,7 @@ const products = [
       { label: "نشانگر رطوبت", value: "دارد" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پوشک نازنوش سایز ۴ با فناوری هسته سلولزی فوق‌جاذب، رطوبت را در کسری از ثانیه به درون خود کشیده و پوست کودک را تا ۱۲ ساعت خشک نگه می‌دارد. لایه رویی از الیاف پنبه‌ای نرم تهیه شده تا کمترین اصطکاک با پوست حساس نوزاد ایجاد شود. بدون عطر، بدون کلر و بدون لوسیون - مناسب پوست‌های حساس."
+    description: "پوشک نازنوش سایز ۴ با فناوری هسته سلولزی فوق‌جاذب، پوست کودک را تا ۱۲ ساعت خشک نگه می‌دارد."
   },
   {
     id: 4,
@@ -118,6 +171,7 @@ const products = [
     discountPercent: 0,
     image: "./img/poshakkodak.png",
     brand: "نازنوش",
+    category: "پوشک-کودک",
     buyers: 187,
     warranty: "۱۲ ماهه",
     features: [
@@ -136,7 +190,7 @@ const products = [
       { label: "نشانگر رطوبت", value: "دارد" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پوشک نازنوش سایز نوزادی با طراحی ویژه برای نوزادان تازه متولد شده، از پوست حساس آن‌ها محافظت می‌کند. سطح داخلی فوق‌العاده نرم و لطیف بوده و برش مخصوص ناف از فشار روی بند ناف جلوگیری می‌کند."
+    description: "پوشک نازنوش سایز نوزادی با طراحی ویژه برای نوزادان تازه متولد شده، از پوست حساس آن‌ها محافظت می‌کند."
   },
   {
     id: 5,
@@ -145,6 +199,7 @@ const products = [
     discountPercent: 10,
     image: "./img/navarbig.png",
     brand: "نرمین",
+    category: "نوار-بهداشتی",
     buyers: 126,
     warranty: "۶ ماهه",
     features: [
@@ -161,7 +216,7 @@ const products = [
       { label: "نوع جذب", value: "جذب سریع" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "نوار بهداشتی بالدار ساده نرمین با لایه رویی نرم و لطیف، راحتی کامل را در طول روز فراهم می‌کند. بال‌های محافظ دوطرفه از نشت جانبی جلوگیری کرده و طراحی باریک آن زیر لباس کاملاً نامحسوس است."
+    description: "نوار بهداشتی بالدار ساده نرمین با لایه رویی نرم و لطیف، راحتی کامل را در طول روز فراهم می‌کند."
   },
   {
     id: 6,
@@ -170,6 +225,7 @@ const products = [
     discountPercent: 0,
     image: "./img/panbehidrofi.png",
     brand: "سانا",
+    category: "پنبه",
     buyers: 89,
     warranty: "۶ ماهه",
     features: [
@@ -186,7 +242,7 @@ const products = [
       { label: "بسته‌بندی", value: "کیسه فشرده" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پنبه هیدروفیل سانا از خالص‌ترین الیاف پنبه طبیعی تهیه شده و قابلیت جذب بالای آب و مایعات را دارد. مناسب برای مصارف پزشکی، آرایشی و بهداشتی. بدون مواد شیمیایی اضافه و کاملاً ایمن برای پوست."
+    description: "پنبه هیدروفیل سانا از خالص‌ترین الیاف پنبه طبیعی تهیه شده و قابلیت جذب بالای آب و مایعات را دارد."
   },
   {
     id: 7,
@@ -195,6 +251,7 @@ const products = [
     discountPercent: 25,
     image: "./img/panbe100g.png",
     brand: "سانا",
+    category: "پنبه",
     buyers: 203,
     warranty: "۶ ماهه",
     features: [
@@ -211,7 +268,7 @@ const products = [
       { label: "بسته‌بندی", value: "کیسه زیپ‌دار" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پنبه طبیعی سانا ۱۰۰ گرمی برای استفاده‌های روزمره آرایشی و بهداشتی مناسب است. بافت نرم و لطیف آن برای پاک کردن آرایش، استفاده با لوسیون و کرم، و مصارف پزشکی خانگی ایده‌آل است."
+    description: "پنبه طبیعی سانا ۱۰۰ گرمی برای استفاده‌های روزمره آرایشی و بهداشتی مناسب است."
   },
   {
     id: 8,
@@ -220,6 +277,7 @@ const products = [
     discountPercent: 0,
     image: "./img/panbe50g.png",
     brand: "سانا",
+    category: "پنبه",
     buyers: 156,
     warranty: "۶ ماهه",
     features: [
@@ -236,7 +294,7 @@ const products = [
       { label: "بسته‌بندی", value: "کیسه زیپ‌دار" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "پنبه طبیعی سانا ۵۰ گرمی نسخه کوچک و مناسب برای سفر است. همان کیفیت پنبه ۱۰۰ گرمی در بسته‌بندی جمع‌وجور که به راحتی در کیف جا می‌شود."
+    description: "پنبه طبیعی سانا ۵۰ گرمی نسخه کوچک و مناسب برای سفر است."
   },
   {
     id: 9,
@@ -245,6 +303,7 @@ const products = [
     discountPercent: 5,
     image: "./img/navarbehdashty.png",
     brand: "نرمین",
+    category: "نوار-بهداشتی",
     buyers: 78,
     warranty: "۶ ماهه",
     features: [
@@ -261,7 +320,7 @@ const products = [
       { label: "نوع جذب", value: "جذب عمیق دو لایه" },
       { label: "کشور سازنده", value: "ایران" }
     ],
-    description: "نوار بهداشتی بالدار مشبک نرمین با رویه تنفس‌پذیر مشبک، جریان هوا را حفظ کرده و از تعریق و تحریک پوست جلوگیری می‌کند. سیستم جذب دو لایه ظرفیت بالایی داشته و بال‌های محکم از هرگونه نشت جلوگیری می‌کنند."
+    description: "نوار بهداشتی بالدار مشبک نرمین با رویه تنفس‌پذیر مشبک، جریان هوا را حفظ کرده و از تعریق جلوگیری می‌کند."
   }
 ]
 
@@ -269,6 +328,7 @@ const products = [
 
 const PER_PAGE = 8
 let currentPage = 1
+let activeCategory = null
 
 function getDiscountedPrice(price, percent) {
   return Math.round(price * (1 - percent / 100))
@@ -276,6 +336,11 @@ function getDiscountedPrice(price, percent) {
 
 function formatPrice(price) {
   return price.toLocaleString("fa-IR")
+}
+
+function getFilteredProducts() {
+  if (!activeCategory) return products
+  return products.filter(p => p.category === activeCategory)
 }
 
 function createCard(product) {
@@ -310,20 +375,36 @@ function createCard(product) {
   return card
 }
 
-function renderProducts() {
+function renderProducts(categoryFilter) {
+  if (categoryFilter) activeCategory = categoryFilter
+
   const grid = document.getElementById("products-grid")
   if (!grid) return
+
+  const filtered = getFilteredProducts()
   const start = (currentPage - 1) * PER_PAGE
-  const pageItems = products.slice(start, start + PER_PAGE)
+  const pageItems = filtered.slice(start, start + PER_PAGE)
+
   grid.innerHTML = ""
+
+  if (pageItems.length === 0) {
+    grid.innerHTML = `<p style="color:#aaa; font-size:14px; padding:40px 0">محصولی در این دسته‌بندی یافت نشد.</p>`
+    return
+  }
+
   pageItems.forEach(p => grid.appendChild(createCard(p)))
-  renderPagination()
+
+  // آپدیت تعداد در control-bar
+  const countEl = document.querySelector(".control-bar-count")
+  if (countEl) countEl.textContent = `${filtered.length} محصول`
+
+  renderPagination(filtered.length)
 }
 
-function renderPagination() {
+function renderPagination(totalItems) {
   const container = document.getElementById("pagination")
   if (!container) return
-  const totalPages = Math.ceil(products.length / PER_PAGE)
+  const totalPages = Math.ceil((totalItems || products.length) / PER_PAGE)
   container.innerHTML = ""
   if (totalPages <= 1) return
 
@@ -358,7 +439,8 @@ function renderPagination() {
 }
 
 function goTo(page) {
-  const totalPages = Math.ceil(products.length / PER_PAGE)
+  const filtered = getFilteredProducts()
+  const totalPages = Math.ceil(filtered.length / PER_PAGE)
   if (page < 1 || page > totalPages) return
   currentPage = page
   renderProducts()
