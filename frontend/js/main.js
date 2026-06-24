@@ -5,7 +5,7 @@ new Swiper(".bannerSwiper",{
     speed:500,
 
     autoplay:{
-        delay:5280,
+        delay:5000,
         disableOnInteraction:false,
     },
 
