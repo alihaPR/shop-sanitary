@@ -575,3 +575,8 @@
     object-fit: contain;
 }
 
+.cart {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
