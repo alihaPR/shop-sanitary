@@ -131,7 +131,7 @@ body {
     position: absolute;
     top: -6px;
     left: -6px;
-    background:var(--clay);
+    background:#ef4444;
     color: #fff;
     font-size: 10px;
     font-weight: 700;
