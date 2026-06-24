@@ -61,7 +61,7 @@
        align-items: center;
        justify-content: center;
        gap: 0;
-       padding-bottom: 20px;
+       padding-bottom: 10px;
        max-width: 500px;
        margin: 0 auto;
    }
@@ -132,7 +132,7 @@
    }
 
    .full-basket {
-       padding: 40px 0;
+       padding: 0 0 40px;
        display: none;
 
    }
