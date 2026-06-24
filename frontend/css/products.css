@@ -216,6 +216,7 @@
     display: flex;
     gap: 17px;
     margin-top: 28px;
+    margin-bottom: 28px;
 }
 
 .filter {
