@@ -5,9 +5,11 @@
     box-sizing: border-box;
     font-family: 'shabnam-light';
 }
-html{
+
+html {
     scroll-behavior: smooth;
 }
+
 body {
     background-color: #f9f9f9;
 }
@@ -71,6 +73,12 @@ body {
     gap: 15px;
 }
 
+.header-main-right a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
 .search-wraper {
     background-color: var(--bg-color-6);
     display: flex;
@@ -131,7 +139,7 @@ body {
     position: absolute;
     top: -6px;
     left: -6px;
-    background:#ef4444;
+    background: #ef4444;
     color: #fff;
     font-size: 10px;
     font-weight: 700;
@@ -197,6 +205,7 @@ body {
 }
 
 .li-category:hover .daste-bandy-wraper {
+    transition: 0.2s ease;
     visibility: visible;
     opacity: 1;
 }
@@ -303,8 +312,9 @@ body {
 .phone p {
     font-size: 15px;
 }
+
 /* ------------------------------------------------------------------------------------------------------------------ */
-  .main-header {
+.main-header {
     margin: 35px 0;
 
 }
@@ -360,17 +370,24 @@ body {
 
 .logo-mark {
     width: 36px;
-    height: 36px;
     border: 1px solid var(--bg-color-);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
+    color: #111;
+
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: start;
 }
 
 .logo-name {
-    font-size: 1.15rem;
+    font-size: 1.10rem;
     font-weight: 300;
     color: #111;
     letter-spacing: -0.3px;
@@ -487,7 +504,7 @@ body {
     gap: 10px;
     padding: 20px 0;
     flex-wrap: wrap;
-    
+
 }
 
 .trust-label {
@@ -511,7 +528,7 @@ body {
     color: #666;
     background: #fafafa;
     transition: all 0.18s;
-    
+
 }
 
 .govahi:hover {

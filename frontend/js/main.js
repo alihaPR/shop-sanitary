@@ -2,10 +2,10 @@ new Swiper(".bannerSwiper",{
 
     loop:true,
 
-    speed:800,
+    speed:500,
 
     autoplay:{
-        delay:4000,
+        delay:5280,
         disableOnInteraction:false,
     },
 
