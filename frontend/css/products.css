@@ -319,6 +319,7 @@
 
 .price-body {
     display: none;
+    direction: rtl;
 }
 
 .price-range {
@@ -603,14 +604,14 @@
 /* ── dual range slider ── */
 .price-range-wrap {
   position: relative;
-  direction: ltr;
+  direction: rtl;
   height: 36px;
   margin: 12px 0;
 }
-
 .price-range-wrap input[type="range"] {
   position: absolute;
   width: 100%;
+  left: 0;
   height: 4px;
   background: none;
   pointer-events: none;
@@ -620,6 +621,33 @@
   top: 50%;
   transform: translateY(-50%);
   margin: 0;
+  padding: 0;
+}
+
+.price-range-wrap input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2377f5;
+  border: 3px solid #fff;
+  cursor: pointer;
+  pointer-events: all;
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+
+.price-range-wrap input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2377f5;
+  border: 3px solid #fff;
+  cursor: pointer;
+  pointer-events: all;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
 }
 
 .price-range-wrap::before {
@@ -627,7 +655,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 100%;
+left: 0;
+width: 100%;
   height: 4px;
   background: #e0e0e0;
   border-radius: 4px;
@@ -643,38 +672,8 @@
   border-radius: 4px;
   z-index: 1;
   pointer-events: none;
-}
-
-
-.price-range-wrap input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #2377f5;
-  cursor: pointer;
-  pointer-events: all;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  transition: box-shadow 0.15s;
-}
-
-.price-range-wrap input[type="range"]::-webkit-slider-thumb:hover {
-  box-shadow: 0 0 0 6px rgba(35,119,245,0.15);
-}
-
-.price-range-wrap input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #2377f5;
-  cursor: pointer;
-  pointer-events: all;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  right: auto;
+  left: 0;
 }
 
 /* sort active */

@@ -262,36 +262,32 @@ let rangeMin, rangeMax, track
 
 function updateTrack() {
   if (!rangeMin || !rangeMax || !track) return
-  const valA = parseInt(rangeMin.value)
-  const valB = parseInt(rangeMax.value)
-  const low = Math.min(valA, valB)
-  const high = Math.max(valA, valB)
+  const low = parseInt(rangeMin.value)
+  const high = parseInt(rangeMax.value)
   const lowPct = (low / MAX_VAL) * 100
   const highPct = (high / MAX_VAL) * 100
-  track.style.left = lowPct + '%'
+  track.style.right = lowPct + '%'
+  track.style.left = (100 - highPct) + '%'
   track.style.width = (highPct - lowPct) + '%'
   priceMin = low
   priceMax = high === MAX_VAL ? Infinity : high
 }
 
 function syncInputsFromRange(priceInputs) {
-  const valA = parseInt(rangeMin.value)
-  const valB = parseInt(rangeMax.value)
-  const low = Math.min(valA, valB)
-  const high = Math.max(valA, valB)
+  const low = parseInt(rangeMin.value)
+  const high = parseInt(rangeMax.value)
   if (priceInputs[0]) priceInputs[0].value = formatPrice(low)
   if (priceInputs[1]) priceInputs[1].value = formatPrice(high)
 }
 
 function resetRange(priceInputs) {
-  if (rangeMin) rangeMin.value = MAX_VAL
-  if (rangeMax) rangeMax.value = 0
+  if (rangeMin) rangeMin.value = 0
+  if (rangeMax) rangeMax.value = MAX_VAL
   priceMin = 0
   priceMax = Infinity
   updateTrack()
   syncInputsFromRange(priceInputs)
 }
-
 // ------------------------------------ init -----------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
