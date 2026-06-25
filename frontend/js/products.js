@@ -56,7 +56,7 @@ const products = [
   },
   {
     id: 6, name: "پنبه هیدروفیل ۲۰۰ گرمی", price: 175000, discountPercent: 30,
-    image: "./img/panbe100g.png", brand: "سانا", category: "پنبه",
+    image: "./img/panbehidrofi.png", brand: "سانا", category: "پنبه",
     buyers: 89, available: false, warranty: "۶ ماهه",
     features: ["پنبه خالص طبیعی ۱۰۰٪","جذب بالای مایعات","مناسب کاربرد پزشکی","بسته‌بندی بهداشتی"],
     specs: [{label:"وزن",value:"۲۰۰ گرم"},{label:"جنس",value:"پنبه طبیعی ۱۰۰٪"},{label:"کشور سازنده",value:"ایران"}],
