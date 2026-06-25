@@ -295,7 +295,11 @@
 
                             <div class="price-body">
 
-                                <input type="range" class="price-range">
+                                <div class="price-range-wrap">
+                                    <div class="price-range-track"></div>
+                                    <input type="range" id="rangeMin" min="0" max="400000" value="0" step="5000">
+                                    <input type="range" id="rangeMax" min="0" max="400000" value="400000" step="5000">
+                                </div>
 
                                 <div class="price-label">
                                     <span>محدوده قیمت از</span>
@@ -387,7 +391,7 @@
                                     <div class="brand-label-item">
                                         <img src="" alt="">
                                         <input type="checkbox" name="" id="">
-                                        <span>گلبهار</span>
+                                        <span>خر</span>
                                     </div>
 
                                 </div>
