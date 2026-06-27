@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/frontend/css/global.css">
     <link rel="stylesheet" href="/frontend/css/toast.css">
     <title>products info</title>
+    <script src="./js/animation.js"></script>
+
 
 </head>
 
@@ -19,8 +21,8 @@
                 <div class="header-main-wraper">
 
                     <div class="header-main-right">
-                        <a href="/frontend/index.html">NSG</a>
-                        <div class="search-wraper">
+                        <a href="/frontend/index.html" data-anim="fade-left" data-delay="120">NSG</a>
+                        <div class="search-wraper" data-anim="fade-left" data-delay="130">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_1455_1831" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2"
@@ -49,7 +51,8 @@
                     </div>
 
                     <div class="header-main-left">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="22" height="22" data-anim="fade-left" data-delay="140" viewBox="0 0 24 24"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_1455_1838" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="3"
                                 y="1" width="19" height="18">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.00012 1H21.497V18.348H3.00012V1Z"
@@ -65,7 +68,7 @@
                                 fill="black" />
                         </svg>
 
-                        <a href="./login.html">
+                        <a href="./login.html" data-anim="fade-left" data-delay="150">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -80,7 +83,7 @@
                             </svg>
                             <p>ورود | ثبت نام</p>
                         </a>
-                        <a href="./basket.html" class="header-basket">
+                        <a href="./basket.html" class="header-basket" data-anim="fade-left" data-delay="150">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_1455_1901" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7"
@@ -116,7 +119,7 @@
             <div class="container">
                 <div class="header-nav-wraper">
                     <ul>
-                        <li class="li-category">
+                        <li class="li-category" data-anim="fade-left" data-delay="100">
 
                             <a href="#" class="nav nav-category">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -216,26 +219,26 @@
 
                         </li>
 
-                        <li class="nav-line">
+                        <li class="nav-line" data-anim="fade-left" data-delay="110">
                             |
                         </li>
-                        <li>
+                        <li data-anim="fade-left" data-delay="120">
                             <a href="/frontend/index.html" class="nav">صفحه اصلی</a>
                         </li>
-                        <li>
+                        <li data-anim="fade-left" data-delay="130">
                             <a href="/frontend/products.html" class="nav">محصولات</a>
                         </li>
-                        <li>
+                        <li data-anim="fade-left" data-delay="140">
                             <a href="#main-about-id" class="nav">درباره ما</a>
                         </li>
-                        <li>
+                        <li data-anim="fade-left" data-delay="150">
                             <a href="#" class="nav">تماس با ما</a>
                         </li>
 
                     </ul>
 
 
-                    <div class="header-nav-left-item">
+                    <div class="header-nav-left-item" data-anim="fade-left" data-delay="150">
                         <div class="header-phone">
                             <a href="#" class="phone">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -257,7 +260,7 @@
     <section class="info">
         <div class="container">
             <div class="main-header">
-                <div class="breadcrumb">
+                <div class="breadcrumb" data-anim="fade-left" data-delay="110">
                     <a href="index.html">خانه</a>
                     <span class="breadcrumb-line">|</span>
                     <a href="/frontend/products.html">محصولات</a>
@@ -265,7 +268,7 @@
                     <span>مشخصات محصول</span>
                 </div>
             </div>
-            <div class="wrap">
+            <div class="wrap" data-anim="fade-down" data-delay="110">
 
                 <div class="card main-card">
 
@@ -389,7 +392,7 @@
         </div>
     </section>
 
-    <section class="products-info">
+    <section class="products-info" data-anim="fade-down" data-delay="110">
         <div class="container">
             <div class="card lower-card" id="products-info-id">
                 <div class="section-title">مشخصات کامل محصول</div>
@@ -444,9 +447,12 @@
     <footer class="footer">
         <div class="footer-container">
 
+
+
             <div class="footer-content">
 
-                <div class="footer-brand">
+
+                <div class="footer-brand" data-anim="fade-down" data-delay="310">
                     <a href="index.html" class="logo">
                         <div class="logo-mark">NSG</div>
                         <span class="logo-name">نرمین سانا <strong>گستر</strong></span>
@@ -456,7 +462,7 @@
                         تضمینی.
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="اینستاگرام">
+                        <a href="#" class="social-link" title="اینستاگرام" data-anim="fade-left" data-delay="290">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -464,21 +470,21 @@
                                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                             </svg>
                         </a>
-                        <a href="#" class="social-link" title="تلگرام">
+                        <a href="#" class="social-link" title="تلگرام" data-anim="fade-left" data-delay="290">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M22 2L11 13" />
                                 <path d="M22 2L15 22l-4-9-9-4 20-7z" />
                             </svg>
                         </a>
-                        <a href="#" class="social-link" title="واتساپ">
+                        <a href="#" class="social-link" title="واتساپ" data-anim="fade-left" data-delay="290">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path
                                     d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
                             </svg>
                         </a>
-                        <a href="#" class="social-link" title="آپارات">
+                        <a href="#" class="social-link" title="آپارات" data-anim="fade-left" data-delay="290">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <circle cx="12" cy="12" r="10" />
@@ -488,7 +494,7 @@
                     </div>
                 </div>
 
-                <div class="footer-col">
+                <div class="footer-col" data-anim="fade-down" data-delay="320">
                     <h5>صفحات</h5>
                     <ul>
                         <li><a href="/frontend/index.html">خانه</a></li>
@@ -499,7 +505,9 @@
                     </ul>
                 </div>
 
-                <div class="footer-col">
+
+
+                <div class="footer-col" data-anim="fade-down" data-delay="330">
                     <h5>تماس</h5>
                     <div class="contact-list">
                         <div class="contact-row">
@@ -521,7 +529,8 @@
                     </div>
                 </div>
 
-                <div class="footer-khabarname">
+
+                <div class="footer-khabarname" data-anim="fade-down" data-delay="340">
                     <h3>برای دریافت خبرنامه ما ثبت نام کنید</h3>
                     <p>ایمیلی را برای دریافت کلیه معاملات و اخبار داغ که بیشترین سود را برای شما دارند ارسال کنید</p>
                     <div class="email-wraper">
@@ -536,13 +545,13 @@
 
             <div class="govahi-wraper">
                 <div class="footer-govahi">
-                    <span class="govahi">گواهی‌ها</span>
-                    <div class="govahi"><span class="govahi-icon">✓</span> نماد اعتماد الکترونیکی</div>
-                    <div class="govahi"><span class="govahi-icon">🔒</span> پرداخت امن</div>
-                    <div class="govahi"><span class="govahi-icon">★</span> استاندارد ملی</div>
-                    <div class="govahi"><span class="govahi-icon">⚡</span> ارسال سریع</div>
+                    <span class="govahi" data-anim="fade-down" data-delay="340">گواهی‌ها</span>
+                    <div class="govahi" data-anim="fade-down" data-delay="340"><span class="govahi-icon">✓</span> نماد اعتماد الکترونیکی</div>
+                    <div class="govahi" data-anim="fade-down" data-delay="340"><span class="govahi-icon">🔒</span> پرداخت امن</div>
+                    <div class="govahi" data-anim="fade-down" data-delay="340"><span class="govahi-icon">★</span> استاندارد ملی</div>
+                    <div class="govahi" data-anim="fade-down" data-delay="340"><span class="govahi-icon">⚡</span> ارسال سریع</div>
                 </div>
-                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="scroll-top">
+                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="scroll-top" data-anim="fade-down" data-delay="340">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.7257 4.25L11.7257 19.25" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -552,6 +561,7 @@
 
                 </button>
             </div>
+
 
             <div class="footer-bottom">
                 <span class="footer-copy">© 1405 نرمین سانا گستر. تمامی حقوق محفوظ است.</span>
