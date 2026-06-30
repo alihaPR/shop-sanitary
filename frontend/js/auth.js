@@ -43,6 +43,7 @@ registerForm.addEventListener("submit", async function (e) {
     const phone = registerForm.querySelector('input[name="phone"]').value;
     const password = registerForm.querySelector('input[name="password"]').value;
     const email = registerForm.querySelector('input[name="email"]').value;
+    console.log({ name, phone, password, email });
 
     try {
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
