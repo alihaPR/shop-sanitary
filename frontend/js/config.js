@@ -1,0 +1,1 @@
+const API_BASE_URL = "https://shop-sanitary-production.up.railway.app/api"
