@@ -36,10 +36,41 @@ loginForm.addEventListener('submit', function (e) {
     show(otp);
 });
 
-registerForm.addEventListener('submit', function (e) {
+registerForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    lastScreen = register;
-    show(otp);
+
+    const name = registerForm.querySelector('input[name="fullname"]').value;
+    const phone = registerForm.querySelector('input[name="phone"]').value;
+    const password = registerForm.querySelector('input[name="password"]').value;
+    const email = registerForm.querySelector('input[name="email"]').value;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                phone,
+                password,
+                email
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("ثبت نام با موفقیت انجام شد");
+            console.log(data);
+        } else {
+            alert(data.message);
+        }
+
+    } catch (err) {
+        alert("خطا در اتصال به سرور");
+        console.error(err);
+    }
 });
 
 let backBtn = document.querySelector('.back-btn');
