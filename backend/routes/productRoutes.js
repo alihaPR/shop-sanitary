@@ -33,6 +33,49 @@ router.get('/', async (req, res) => {
   }
 })
 
+// Seed Products (فقط موقت)
+router.get('/seed', async (req, res) => {
+  try {
+    await Product.deleteMany();
+
+    const products = [
+      {
+        name: "پوشینه بزرگسال گلبهار سایز L",
+        price: 300000,
+        discountPercent: 20,
+        image: "./img/poshinebozorgsalL.png",
+        brand: "گلبهار",
+        category: "پوشک-بزرگسال",
+        buyers: 215,
+        available: true,
+        warranty: "۱۸ ماهه",
+        description: "پوشینه بزرگسال گلبهار"
+      },
+      {
+        name: "پوشینه بزرگسال گلبهار سایز M",
+        price: 85000,
+        discountPercent: 0,
+        image: "./img/poshakbozorgsalbig.png",
+        brand: "گلبهار",
+        category: "پوشک-بزرگسال",
+        buyers: 98,
+        available: true,
+        warranty: "۱۸ ماهه",
+        description: "پوشینه بزرگسال گلبهار M"
+      }
+    ];
+
+    await Product.insertMany(products);
+
+    res.json({
+      message: "محصولات وارد شدند",
+      count: products.length
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 // یه محصول
 // GET /api/products/:id
 router.get('/:id', async (req, res) => {
