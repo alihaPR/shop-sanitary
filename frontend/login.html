@@ -35,15 +35,23 @@
                 </a>
             </p>
 
-            <label for="phone" class="log-label">
-                شماره موبایل را وارد کنید
+            <label class="log-label">
+                ایمیل
             </label>
 
             <div class="log-input">
-                <input class="log-input-input" type="tel" id="phone" name="phone" required placeholder="شماره موبایل">
+                <input class="log-input-input" type="email" name="email" required placeholder="ایمیل">
             </div>
 
-            <button class="log-btn" id="login-btn-submit" type="submit" >
+            <label class="log-label">
+                رمز عبور
+            </label>
+
+            <div class="log-input">
+                <input class="log-input-input" type="password" name="password" required placeholder="رمز عبور">
+            </div>
+
+            <button class="log-btn" id="login-btn-submit" type="submit">
                 ادامه و ورود به حساب
             </button>
 
@@ -93,13 +101,15 @@
 
             <div class="register-inputs">
                 <div class="register-input">
-                    <input class="log-input-input" type="text" name="fullname" required placeholder="نام و نام خانوادگی">
+                    <input class="log-input-input" type="text" name="fullname" required
+                        placeholder="نام و نام خانوادگی">
                 </div>
                 <div class="register-input">
                     <input class="log-input-input" type="tel" name="phone" required placeholder="شماره موبایل">
                 </div>
                 <div class="register-input">
-                    <input class="log-input-input" type="password" name="password" required minlength="8" placeholder="رمز عبور">
+                    <input class="log-input-input" type="password" name="password" required minlength="8"
+                        placeholder="رمز عبور">
                 </div>
                 <div class="register-input">
                     <input class="log-input-input" type="email" name="email" placeholder="ایمیل (اختیاری)">
@@ -141,8 +151,8 @@
 
         </form>
     </div>
-<script src="./js/config.js"></script>
-<script src="./js/auth.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/auth.js"></script>
 </body>
 
 </html>

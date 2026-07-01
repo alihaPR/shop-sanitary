@@ -30,10 +30,41 @@ switchlogin.addEventListener('click', function (e) {
     show(login);
 });
 
-loginForm.addEventListener('submit', function (e) {
+loginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    lastScreen = login;
-    show(otp);
+
+    const email = loginForm.querySelector('input[name="email"]').value;
+    const password = loginForm.querySelector('input[name="password"]').value;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data));
+
+            alert("ورود با موفقیت انجام شد");
+
+            window.location.href = "index.html";
+        } else {
+            alert(data.message);
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("خطا در اتصال به سرور");
+    }
 });
 
 registerForm.addEventListener("submit", async function (e) {
