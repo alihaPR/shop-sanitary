@@ -8,7 +8,7 @@ function saveCart(cart) {
 
 function addToCart(product) {
   const cart = getCart();
-  const existing = cart.find(item => item.id === product.id);
+  const existing = cart.find(item => item._id === product._id);
   if (existing) {
     existing.qty += 1;
   } else {
@@ -20,7 +20,7 @@ function addToCart(product) {
 
 function removeFromCart(productId) {
   let cart = getCart();
-  cart = cart.filter(item => item.id !== productId);
+  cart = cart.filter(item => item._id !== productId);
   saveCart(cart);
   if (document.querySelector(".cart-items-wrap")) renderBasket();
   updateCartBadge();
@@ -34,7 +34,7 @@ function clearCart() {
 
 function changeQty(productId, delta) {
   const cart = getCart();
-  const item = cart.find(i => i.id === productId);
+  const item = cart.find(i => i._id === productId);
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) {
@@ -94,7 +94,7 @@ function renderBasket() {
 
     const div = document.createElement("div");
     div.className = "cart-item";
-    div.dataset.id = item.id;
+div.dataset.id = item._id;    
 
     div.innerHTML = `
       <div class="item-img" style="background-image: url('${item.image}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
@@ -104,15 +104,15 @@ function renderBasket() {
         <div class="item-unit">هر بسته ${formatPrice(finalPrice)} تومان</div>
       </div>
       <div class="item-qty">
-        <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+        <button class="qty-btn" >−</button>
         <span class="qty-num">${item.qty}</span>
-        <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        <button class="qty-btn" onclick="changeQty('${item._id}', 1)">+</button>
       </div>
       <div class="item-price">
         <span class="price">${formatPrice(totalPrice)}</span>
         <span class="unit-price">تومان</span>
       </div>
-      <button class="item-remove" onclick="removeFromCart(${item.id})" title="حذف">✕</button>
+      <button class="item-remove" onclick="removeFromCart('${item._id}')" title="حذف">✕</button>
     `;
 
     if (couponBox) {
@@ -146,7 +146,7 @@ function renderSummary(cart) {
 
   const freeShipping = subtotal >= 500000;
   const shippingCost = freeShipping ? 0 : shipping;
-  const total = subtotal + shippingCost;
+  const total = subtotal + shippingCost;onclick="changeQty('${item._id}', -1)"
 
   const rows = document.querySelectorAll(".summary-row .value");
   if (rows[0]) rows[0].textContent = formatPrice(subtotal) + " تومان";
