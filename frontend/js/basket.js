@@ -104,7 +104,7 @@ div.dataset.id = item._id;
         <div class="item-unit">هر بسته ${formatPrice(finalPrice)} تومان</div>
       </div>
       <div class="item-qty">
-        <button class="qty-btn" >−</button>
+        <button class="qty-btn" onclick="changeQty('${item._id}', -1)" >−</button>
         <span class="qty-num">${item.qty}</span>
         <button class="qty-btn" onclick="changeQty('${item._id}', 1)">+</button>
       </div>
