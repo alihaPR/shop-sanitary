@@ -102,7 +102,7 @@ function createCard(product) {
 
   const card = document.createElement("a")
   card.className = "cart"
-  card.href = `/frontend/cart.html?id=${product.id}`
+  card.href = `cart.html?id=${product._id}`
 
   const svgBasket = `<svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M6.32759 8.3474L6.93059 15.5194C6.97459 16.0714 7.42559 16.4854 7.97659 16.4854H7.98059H18.8916H18.8936C19.4146 16.4854 19.8596 16.0974 19.9336 15.5824L20.8836 9.0234C20.9056 8.8674 20.8666 8.7114 20.7716 8.5854C20.6776 8.4584 20.5396 8.3764 20.3836 8.3544C20.1746 8.3624 11.5016 8.3504 6.32759 8.3474ZM7.97459 17.9854C6.65759 17.9854 5.54259 16.9574 5.43559 15.6424L4.51959 4.7484L3.01259 4.4884C2.60359 4.4164 2.33059 4.0294 2.40059 3.6204C2.47259 3.2114 2.86759 2.9454 3.26759 3.0094L5.34759 3.3694C5.68259 3.4284 5.93759 3.7064 5.96659 4.0464L6.20159 6.8474C20.4776 6.8534 20.5236 6.8604 20.5926 6.8684C21.1496 6.9494 21.6396 7.2404 21.9736 7.6884C22.3076 8.1354 22.4476 8.6864 22.3676 9.2384L21.4186 15.7964C21.2396 17.0444 20.1556 17.9854 18.8956 17.9854H18.8906H7.98259H7.97459Z" fill="black"/>
@@ -391,22 +391,22 @@ document.addEventListener("DOMContentLoaded", function () {
     el.style.display = "block"
   }
 
-if (document.getElementById("products-grid")) {
+  if (document.getElementById("products-grid")) {
 
     fetch(`${API_BASE_URL}/products`)
-        .then(res => res.json())
-        .then(data => {
-            products = data;
-            renderProducts(categoryParam);
-        })
-        .catch(err => {
-            console.error(err);
-        });
+      .then(res => res.json())
+      .then(data => {
+        products = data;
+        renderProducts(categoryParam);
+      })
+      .catch(err => {
+        console.error(err);
+      });
 
-}
+  }
 
 })
 
 if (typeof module !== "undefined") {
-    module.exports = products;
+  module.exports = products;
 }

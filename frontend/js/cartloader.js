@@ -1,8 +1,12 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
 
-  const params = new URLSearchParams(window.location.search);
-  const productId = parseInt(params.get("id"));
-  const product = products.find(p => p.id === productId);
+const API_BASE_URL = "https://shop-sanitary-production.up.railway.app/api";
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+const product = await response.json();
 
   if (!product) {
     document.querySelector(".main-card").innerHTML = `
