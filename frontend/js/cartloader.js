@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-const API_BASE_URL = "https://shop-sanitary-production.up.railway.app/api";
+  const API_BASE_URL = "https://shop-sanitary-production.up.railway.app/api";
 
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
 
-const response = await fetch(`${API_BASE_URL}/products/${productId}`);
-const product = await response.json();
+  const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+  const product = await response.json();
 
   if (!product) {
     document.querySelector(".main-card").innerHTML = `
@@ -82,17 +82,17 @@ const product = await response.json();
 
   function getQty() {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const item = cart.find(i => i.id === product.id);
+    const item = cart.find(i => i._id === product._id);
     return item ? item.qty : 0;
   }
 
   function setQty(qty) {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     if (qty <= 0) {
-      const newCart = cart.filter(i => i.id !== product.id);
+      const newCart = cart.filter(i => i._id !== product._id);
       localStorage.setItem("cart", JSON.stringify(newCart));
     } else {
-      const item = cart.find(i => i.id === product.id);
+      const item = cart.find(i => i._id === product._id);
       if (item) item.qty = qty;
       localStorage.setItem("cart", JSON.stringify(cart));
     }
