@@ -146,7 +146,7 @@ function renderSummary(cart) {
 
   const freeShipping = subtotal >= 500000;
   const shippingCost = freeShipping ? 0 : shipping;
-  const total = subtotal + shippingCost;onclick="changeQty('${item._id}', -1)"
+  const total = subtotal + shippingCost;
 
   const rows = document.querySelectorAll(".summary-row .value");
   if (rows[0]) rows[0].textContent = formatPrice(subtotal) + " تومان";
