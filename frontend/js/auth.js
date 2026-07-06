@@ -98,6 +98,7 @@ registerForm.addEventListener("submit", async function (e) {
         } else {
             alert(data.message);
         }
+        console.log(data);
 
     } catch (err) {
         alert("خطا در اتصال به سرور");

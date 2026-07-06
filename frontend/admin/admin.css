@@ -1,75 +1,718 @@
+:root{
+
+    --primary:#00b5b8;
+    --primary-hover:#00979a;
+
+    --sidebar:#111827;
+
+    --bg:#f5f7fb;
+
+    --white:#ffffff;
+
+    --text:#111827;
+
+    --text-light:#6b7280;
+
+    --border:#e5e7eb;
+
+    --shadow:0 10px 35px rgba(0,0,0,.08);
+
+    --radius:16px;
+
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:IRANYekan,sans-serif;
 }
 
 body{
-    background:#f5f7fb;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:IRANYekan,sans-serif;
+
+    overflow:hidden;
+
 }
+
+/* ===========================
+        Layout
+=========================== */
 
 .admin-container{
+
     display:flex;
-    min-height:100vh;
+
+    height:100vh;
+
 }
+
+/* ===========================
+        Sidebar
+=========================== */
 
 #sidebar{
-    width:260px;
-    background:#1f2937;
+
+    width:270px;
+
+    background:var(--sidebar);
+
     color:#fff;
-    transition:.3s;
+
+    padding:24px 18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    box-shadow:6px 0 25px rgba(0,0,0,.15);
+
 }
+
+.sidebar-logo{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:70px;
+
+    margin-bottom:30px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.sidebar-logo h2{
+
+    font-size:28px;
+
+    letter-spacing:3px;
+
+}
+
+.sidebar-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.menu-item{
+
+    width:100%;
+
+    height:54px;
+
+    border:none;
+
+    background:none;
+
+    color:#d1d5db;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.menu-item:hover{
+
+    background:rgba(255,255,255,.06);
+
+    color:#fff;
+
+}
+
+.menu-item.active{
+
+    background:var(--primary);
+
+    color:#fff;
+
+    box-shadow:0 10px 25px rgba(0,181,184,.35);
+
+}
+
+.menu-icon{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.08);
+
+    flex-shrink:0;
+
+}
+
+.menu-icon svg{
+
+    width:20px;
+
+    height:20px;
+
+    fill:currentColor;
+
+}
+
+.menu-item.active .menu-icon{
+
+    background:rgba(255,255,255,.18);
+
+}
+
+/* ===========================
+        Logout
+=========================== */
+
+.logout-btn{
+
+    margin-top:auto;
+
+    height:54px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#ef4444;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.logout-btn:hover{
+
+    background:#dc2626;
+
+}
+
+/* ===========================
+        Content
+=========================== */
 
 .content{
+
     flex:1;
+
     display:flex;
+
     flex-direction:column;
+
 }
+
+/* ===========================
+        Header
+=========================== */
 
 #header{
-    height:70px;
+
+    height:80px;
+
     background:#fff;
-    border-bottom:1px solid #e5e7eb;
+
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
-    padding:0 30px;
+
+    align-items:center;
+
+    padding:0 35px;
+
+    box-shadow:var(--shadow);
+
+    z-index:10;
+
 }
 
-#main-content{
-    flex:1;
-    padding:30px;
-    overflow:auto;
-}
-/* ---------------------------------------------------------layout----------------------------------------------------------------- */
-.header-left h2{
+.header-title{
 
     font-size:22px;
-    color:#111827;
+
+    font-weight:700;
 
 }
 
-.header-right{
+.header-user{
 
     display:flex;
+
     align-items:center;
-    gap:15px;
+
+    gap:12px;
 
 }
 
-#admin-name{
+.header-user img{
 
-    font-weight:bold;
-    color:#374151;
+    width:42px;
 
-}
+    height:42px;
 
-.admin-avatar{
-
-    width:45px;
-    height:45px;
     border-radius:50%;
-    border:2px solid #ddd;
+
+    object-fit:cover;
+
+}
+
+/* ===========================
+        Main
+=========================== */
+
+#main-content{
+
+    flex:1;
+
+    overflow:auto;
+
+    padding:30px;
+
+}
+
+/* Scroll */
+
+#main-content::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+#main-content::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:10px;
+
+}
+/* ===========================
+        Dashboard
+=========================== */
+
+.dashboard-title{
+
+    margin-bottom:30px;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+.dashboard-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.card-info span{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+.card-info h2{
+
+    margin-top:10px;
+
+    font-size:30px;
+
+}
+
+.card-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:16px;
+
+    background:#00b5b8;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+/* -------------------------product----------------------- */
+.modal-header{
+
+    padding:20px 25px;
+
+    border-bottom:1px solid #eee;
+
+    flex-shrink:0;
+
+}
+
+.add-product-btn{
+
+    background:#00b5b8;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.products-table{
+
+    width:100%;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    border-collapse:collapse;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+}
+
+.products-table th{
+
+    background:#f3f4f6;
+
+    padding:18px;
+
+}
+
+.products-table td{
+
+    padding:18px;
+
+    text-align:center;
+
+    border-top:1px solid #eee;
+
+}
+
+.table-image{
+
+    width:65px;
+
+    height:65px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+}
+
+.edit-btn{
+
+    background:#00b5b8;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 15px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    margin-left:8px;
+
+}
+
+.delete-btn{
+
+    background:#ef4444;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 15px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+/* ===========================
+        Product Modal
+=========================== */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+    backdrop-filter:blur(3px);
+
+}
+
+.product-modal{
+
+    width:700px;
+
+    max-width:95%;
+
+    max-height:90vh;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+}
+
+@keyframes showModal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.modal-header h2{
+
+    font-size:24px;
+
+}
+
+.close-modal{
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#f3f4f6;
+
+    font-size:18px;
+
+}
+
+#productForm{
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    overflow-y:auto;
+
+}
+#productForm button[type="submit"]{
+
+    margin-top:15px;
+
+    min-height:50px;
+
+}
+
+#productForm input,
+#productForm textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+#productForm input:focus,
+#productForm textarea:focus{
+
+    border-color:#00b5b8;
+
+}
+
+#productForm textarea{
+
+    resize:none;
+
+    height:120px;
+
+}
+
+#productForm button{
+
+    height:50px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#00b5b8;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+.spec-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr auto;
+
+    gap:12px;
+
+    margin-bottom:12px;
+
+}
+#addSpecification{
+
+    align-self:flex-start;
+
+    margin-bottom:15px;
 
 }

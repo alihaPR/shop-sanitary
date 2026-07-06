@@ -2,6 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const Product = require("./models/Product");
+const User = require("./models/User");
+const Order = require("./models/Order");
 
 dotenv.config()
 connectDB()
@@ -26,3 +29,59 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+
+
+
+// ===============dashbord rout=============
+app.get("/api/admin/stats", verifyToken, verifyAdmin, async (req, res) => {
+
+    try {
+
+        const productCount = await Product.countDocuments();
+
+        const userCount = await User.countDocuments();
+
+        const orderCount = await Order.countDocuments();
+
+        res.json({
+            productCount,
+            userCount,
+            orderCount
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
+// =====================================rout order==================
+app.get("/api/admin/stats", protect, admin, async (req, res) => {
+
+    try {
+
+        const productCount = await Product.countDocuments();
+
+        const userCount = await User.countDocuments();
+
+        const orderCount = await Order.countDocuments();
+
+        res.json({
+            productCount,
+            userCount,
+            orderCount
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
