@@ -1,17 +1,17 @@
-new Swiper(".bannerSwiper",{
+new Swiper(".bannerSwiper", {
 
-    loop:true,
+    loop: true,
 
-    speed:500,
+    speed: 500,
 
-    autoplay:{
-        delay:5000,
-        disableOnInteraction:false,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
     },
 
-    navigation:{
-        nextEl:".banner-next",
-        prevEl:".banner-prev",
+    navigation: {
+        nextEl: ".banner-next",
+        prevEl: ".banner-prev",
     }
 
 });
@@ -105,3 +105,80 @@ slider.addEventListener("scroll", updateButtons);
 window.addEventListener("load", updateButtons);
 
 window.addEventListener("resize", updateButtons);
+
+
+// -==============================================================================================================-
+
+
+new Swiper(".categorySwiper", {
+
+    slidesPerView: "auto",
+
+    spaceBetween: 18,
+
+    speed: 500,
+
+    grabCursor: true,
+
+    navigation: {
+        nextEl: ".category-next",
+        prevEl: ".category-prev",
+    },
+
+    breakpoints: {
+
+        0: {
+            spaceBetween: 14,
+        },
+
+        768: {
+            spaceBetween: 18,
+        },
+
+        1024: {
+            spaceBetween: 28,
+        }
+
+    }
+
+});
+
+// 
+new Swiper(".productsSwiper", {
+
+    slidesPerView: 5,
+
+    spaceBetween: 15,
+
+    speed: 500,
+
+    navigation: {
+        nextEl: ".products-next",
+        prevEl: ".products-prev",
+    },
+
+    breakpoints: {
+
+        0: {
+            slidesPerView: "auto",
+            spaceBetween: 12,
+        },
+
+        480: {
+            slidesPerView: "auto",
+            spaceBetween: 12,
+        },
+
+        768: {
+            slidesPerView: "auto",
+            spaceBetween: 15,
+        },
+
+        1024: {
+            slidesPerView: 5,
+            spaceBetween: 15,
+        }
+
+    }
+
+});

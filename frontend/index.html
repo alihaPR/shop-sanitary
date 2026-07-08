@@ -326,7 +326,7 @@
 
             <!-- svg -->
             <!-- <span>خانه</span> -->
-            <svg  width="22" height="22" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
                 <path
                     d="M 23.951172 4 A 1.50015 1.50015 0 0 0 23.072266 4.3222656 L 8.859375 15.519531 C 7.0554772 16.941163 6 19.113506 6 21.410156 L 6 40.5 C 6 41.863594 7.1364058 43 8.5 43 L 18.5 43 C 19.863594 43 21 41.863594 21 40.5 L 21 30.5 C 21 30.204955 21.204955 30 21.5 30 L 26.5 30 C 26.795045 30 27 30.204955 27 30.5 L 27 40.5 C 27 41.863594 28.136406 43 29.5 43 L 39.5 43 C 40.863594 43 42 41.863594 42 40.5 L 42 21.410156 C 42 19.113506 40.944523 16.941163 39.140625 15.519531 L 24.927734 4.3222656 A 1.50015 1.50015 0 0 0 23.951172 4 z M 24 7.4101562 L 37.285156 17.876953 C 38.369258 18.731322 39 20.030807 39 21.410156 L 39 40 L 30 40 L 30 30.5 C 30 28.585045 28.414955 27 26.5 27 L 21.5 27 C 19.585045 27 18 28.585045 18 30.5 L 18 40 L 9 40 L 9 21.410156 C 9 20.030807 9.6307412 18.731322 10.714844 17.876953 L 24 7.4101562 z">
                 </path>
@@ -338,7 +338,7 @@
 
             <!-- svg -->
             <!-- <span>دسته‌بندی</span> -->
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M6.25 3.5C3.5 3.5 3.5 3.708 3.5 6.25V6.275C3.5 7.382 3.5 8.182 3.771 8.52C4.036 8.848 4.823 9 6.25 9C7.677 9 8.464 8.847 8.729 8.519C9 8.182 9 7.382 9 6.274C9 3.708 9 3.5 6.25 3.5ZM6.25 10.5C4.564 10.5 3.299 10.323 2.604 9.46C2 8.711 2 7.689 2 6.275L2.75 6.25H2C2 3.38 2.181 2 6.25 2C10.319 2 10.5 3.38 10.5 6.25C10.5 7.688 10.5 8.711 9.896 9.46C9.201 10.323 7.936 10.5 6.25 10.5Z"
                     fill="black"></path>
@@ -358,7 +358,7 @@
 
             <!-- svg -->
             <!-- <span>جستجو</span> -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_1455_1831" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="2" width="20"
                     height="20">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2H21.4768V21.477H2V2Z" fill="white"></path>
@@ -386,7 +386,7 @@
 
             <!-- svg -->
             <!-- <span>سبد خرید</span> -->
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_1455_1901" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7" y="2" width="10"
                     height="9">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.21094 2H16.2729V10.3057H7.21094V2Z"
@@ -415,7 +415,7 @@
 
             <!-- svg -->
             <!-- <span>حساب</span> -->
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M15.791 12.75H3.75C3.336 12.75 3 12.414 3 12C3 11.586 3.336 11.25 3.75 11.25H15.791C16.205 11.25 16.541 11.586 16.541 12C16.541 12.414 16.205 12.75 15.791 12.75Z"
                     fill="black" />
@@ -598,69 +598,90 @@
                     <div class="product-title-line"></div>
                 </div>
 
-                <div class="main-category-wrapper">
+                <div class="swiper categorySwiper">
 
-                    <div class="category-cart" onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+                    <div class="swiper-wrapper">
 
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
                         </div>
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
 
-                        <p class="category-cart_text">پوشک بزرگسال</p>
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-cart">
+                            <div class="category-cart"
+                                onclick="window.location.href='products.html?category=پوشک-بزرگسال'">
+
+                                <div class="category-cart_img">
+                                    <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
+                                </div>
+
+                                <p class="category-cart_text">پوشک بزرگسال</p>
+
+                            </div>
+                        </div>
 
                     </div>
 
-                    <div class="category-cart" onclick="window.location.href='products.html?category=پوشک-کودک'">
-
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
-                        </div>
-
-                        <p class="category-cart_text">پوشک بزرگسال</p>
-
-                    </div>
-
-                    <div class="category-cart" onclick="window.location.href='products.html?category=دستمال-مرطوب'">
-
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
-                        </div>
-
-                        <p class="category-cart_text">پوشک بزرگسال</p>
-
-                    </div>
-
-                    <div class="category-cart" onclick="window.location.href='products.html?category=نوار-بهداشتی'">
-
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
-                        </div>
-
-                        <p class="category-cart_text">پوشک بزرگسال</p>
-
-                    </div>
-
-                    <div class="category-cart" onclick="window.location.href='products.html?category=پنبه'">
-
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
-                        </div>
-
-                        <p class="category-cart_text">پوشک بزرگسال</p>
-
-                    </div>
-
-                    <div class="category-cart" onclick="window.location.href='products.html?category=پنبه'">
-
-                        <div class="category-cart_img">
-                            <img src="/frontend/img/poshinebozorgsalL.png" alt="#">
-                        </div>
-
-                        <p class="category-cart_text">پوشک بزرگسال</p>
-
-                    </div>
+                    <button class="category-btn category-prev">❮</button>
+                    <button class="category-btn category-next">❯</button>
 
                 </div>
+
             </div>
         </section>
 
@@ -670,8 +691,10 @@
                 <div class="products-title">
                     <div class="product-title-wrapper">
                         <h2>محصولات</h2>
+
                         <a href="/frontend/products.html" class="products-title-a">
                             <p>مشاهده محصولات</p>
+
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.25 12.2743L19.25 12.2743" stroke-width="1.5" stroke-linecap="round"
@@ -681,119 +704,234 @@
                             </svg>
                         </a>
                     </div>
+
                     <div class="product-title-line"></div>
                 </div>
 
-                <div class="main-products-cart-wraper">
-                    <div class="products-cart">
-                        <div class="cart-products-img image-1">
-                            <div class="cart-svg-products">
 
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+                <div class="swiper productsSwiper">
+
+                    <div class="swiper-wrapper">
+
+                        <!-- محصول -->
+
+                        <div class="swiper-slide">
+
+                            <div class="products-cart">
+
+                                <div class="cart-products-img image-1">
+
+                                    <div class="cart-svg-products">
+
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
+                                                stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="cart-content">
+
+                                    <h3>پنبه 100 گرمی</h3>
+
+                                    <p>پنبه طبی خالص، مناسب مصارف پزشکی و آرایشی</p>
+
+                                    <div class="cart-line"></div>
+
+                                    <div class="price">100,000 تومان</div>
+
+                                </div>
+
+                                <button onclick="window.location.href='cart.html?id=7'">
+                                    مشاهده محصول
+                                </button>
+
                             </div>
 
                         </div>
-                        <div class="cart-content">
-                            <h3>پنبه 100 گرمی</h3>
-                            <p>پنبه طبی خالص, مناسب مصارف پزشکی و آرایشی</p>
-                            <div class="cart-line"></div>
-                            <div class="price">100,000 تومان</div>
-                        </div>
-                        <button onclick="window.location.href='cart.html?id=7'">مشاهده محصول</button>
-                    </div>
-                    <div class="products-cart">
-                        <div class="cart-products-img image-2">
-                            <div class="cart-svg-products">
 
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+
+                        <!-- محصول -->
+
+                        <div class="swiper-slide">
+
+                            <div class="products-cart">
+
+                                <div class="cart-products-img image-2">
+
+                                    <div class="cart-svg-products">
+
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
+                                                stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="cart-content">
+
+                                    <h3>نوار بهداشتی بالدار</h3>
+
+                                    <p>نرم، ضد حساسیت با محافظت کامل</p>
+
+                                    <div class="cart-line"></div>
+
+                                    <div class="price">125,000 تومان</div>
+
+                                </div>
+
+                                <button onclick="window.location.href='cart.html?id=9'">
+                                    مشاهده محصول
+                                </button>
+
                             </div>
-                        </div>
-                        <div class="cart-content">
-                            <h3>نوار بهداشتی بالدار</h3>
-                            <p>نرم,ضد حساسیت با محافظت کامل</p>
-                            <div class="cart-line"></div>
-                            <div class="price">125,000 تومان</div>
-                        </div>
-                        <button onclick="window.location.href='cart.html?id=9'">مشاهده محصول</button>
 
-                    </div>
-                    <div class="products-cart">
-                        <div class="cart-products-img image-3">
-                            <div class="cart-svg-products">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+                        </div>
+
+
+                        <!-- محصول -->
+
+                        <div class="swiper-slide">
+
+                            <div class="products-cart">
+
+                                <div class="cart-products-img image-3">
+
+                                    <div class="cart-svg-products">
+
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
+                                                stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="cart-content">
+
+                                    <h3>پنبه هیدروفیل</h3>
+
+                                    <p>بسته بزرگ، صرفه‌جویی برای خانه</p>
+
+                                    <div class="cart-line"></div>
+
+                                    <div class="price">200,000 تومان</div>
+
+                                </div>
+
+                                <button onclick="window.location.href='cart.html?id=6'">
+                                    مشاهده محصول
+                                </button>
+
                             </div>
-                        </div>
-                        <div class="cart-content">
-                            <h3>پنبه هیدروفیل</h3>
-                            <p>بسته بزرگ, صرفه جویی برای خانه</p>
-                            <div class="cart-line"></div>
-                            <div class="price">200,000 تومان</div>
-                        </div>
-                        <button onclick="window.location.href='cart.html?id=6'">مشاهده محصول</button>
 
-                    </div>
-                    <div class="products-cart">
-                        <div class="cart-products-img image-4">
-                            <div class="cart-svg-products">
+                        </div>
 
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+
+                        <!-- محصول -->
+
+                        <div class="swiper-slide">
+
+                            <div class="products-cart">
+
+                                <div class="cart-products-img image-4">
+
+                                    <div class="cart-svg-products">
+
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
+                                                stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="cart-content">
+
+                                    <h3>پوشینه بزرگسال سایز L</h3>
+
+                                    <p>جذب بالا، راحت در استفاده روزانه</p>
+
+                                    <div class="cart-line"></div>
+
+                                    <div class="price">315,000 تومان</div>
+
+                                </div>
+
+                                <button onclick="window.location.href='cart.html?id=1'">
+                                    مشاهده محصول
+                                </button>
+
                             </div>
-                        </div>
-                        <div class="cart-content">
-                            <h3>پوشینه بزرگسال سایز L</h3>
-                            <p>جذب بالا, راحت در استفاده روزانه</p>
-                            <div class="cart-line"></div>
-                            <div class="price">315,000 تومان</div>
-                        </div>
-                        <button onclick="window.location.href='cart.html?id=1'">مشاهده محصول</button>
 
-                    </div>
-                    <div class="products-cart">
-                        <div class="cart-products-img image-5">
-                            <div class="cart-svg-products">
+                        </div>
 
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+
+                        <!-- محصول -->
+
+                        <div class="swiper-slide">
+
+                            <div class="products-cart">
+
+                                <div class="cart-products-img image-5">
+
+                                    <div class="cart-svg-products">
+
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.875 3H6.375C4.51104 3 3 4.51103 3 6.37498V17.625C3 19.489 4.51104 21 6.375 21H17.625C19.489 21 21 19.489 21 17.625V13.1249M21 8.06261V3L15.3744 3.00027M21 3L11.4367 12.5622"
+                                                stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="cart-content">
+
+                                    <h3>پوشک بچه</h3>
+
+                                    <p>نرم و ایمن برای پوست حساس نوزاد</p>
+
+                                    <div class="cart-line"></div>
+
+                                    <div class="price">240,000 تومان</div>
+
+                                </div>
+
+                                <button onclick="window.location.href='cart.html?id=4'">
+                                    مشاهده محصول
+                                </button>
+
                             </div>
+
                         </div>
-                        <div class="cart-content">
-                            <h3>پوشک بچه</h3>
-                            <p>نرم و ایمن برای پوست حساس نوزاد</p>
-                            <div class="cart-line"></div>
-                            <div class="price">240,000 تومان</div>
-                        </div>
-                        <button onclick="window.location.href='cart.html?id=4'">مشاهده محصول</button>
 
                     </div>
+
+                    <button class="products-btn products-prev">❮</button>
+                    <button class="products-btn products-next">❯</button>
+
                 </div>
 
             </div>
