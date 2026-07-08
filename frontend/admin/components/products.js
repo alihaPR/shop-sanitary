@@ -71,7 +71,7 @@ async function renderProducts() {
                          ویرایش
                         </button>
 
-                            <button class="delete-btn">
+                            <button class="delete-btn" data-id="${product._id}">
                                 حذف
                             </button>
 
@@ -97,6 +97,16 @@ async function renderProducts() {
             const product = products.find(p => p._id === id);
 
             openProductModal(product);
+
+        });
+
+    });
+
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            deleteProduct(btn.dataset.id);
 
         });
 
@@ -322,6 +332,51 @@ async function submitProduct(e) {
 
         document.querySelector(".modal-overlay").remove();
         editingProductId = null;
+        renderProducts();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
+
+}
+async function deleteProduct(id) {
+
+    const confirmDelete = confirm(
+        "آیا از حذف این محصول مطمئن هستید؟"
+    );
+
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("token");
+
+    try {
+
+        const res = await fetch(
+            `https://shop-sanitary-production.up.railway.app/api/products/${id}`,
+            {
+                method: "DELETE",
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+
+            throw new Error(data.message);
+
+        }
+
+        alert("✅ محصول با موفقیت حذف شد.");
+
         renderProducts();
 
     } catch (err) {
