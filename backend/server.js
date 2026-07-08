@@ -5,7 +5,7 @@ const connectDB = require('./config/db')
 const Product = require("./models/Product");
 const User = require("./models/User");
 const Order = require("./models/Order");
-
+const { protect, admin } = require("./middleware/auth");
 dotenv.config()
 connectDB()
 
@@ -34,7 +34,7 @@ app.listen(PORT, () => {
 
 
 // ===============dashbord rout=============
-app.get("/api/admin/stats", verifyToken, verifyAdmin, async (req, res) => {
+app.get("/api/admin/stats", protect, admin, async (req, res) => {
 
     try {
 
