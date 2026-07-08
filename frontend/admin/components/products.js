@@ -1,3 +1,4 @@
+let editingProductId = null;
 async function renderProducts() {
 
     const token = localStorage.getItem("token");
@@ -66,9 +67,9 @@ async function renderProducts() {
 
                         <td>
 
-                            <button class="edit-btn">
-                                ویرایش
-                            </button>
+                        <button class="edit-btn"  data-id="${product._id}">
+                         ویرایش
+                        </button>
 
                             <button class="delete-btn">
                                 حذف
@@ -87,8 +88,22 @@ async function renderProducts() {
     `;
     document.querySelector(".add-product-btn").addEventListener("click", openProductModal);
 
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            const id = btn.dataset.id;
+
+            const product = products.find(p => p._id === id);
+
+            openProductModal(product);
+
+        });
+
+    });
+
 }
-function openProductModal() {
+function openProductModal(product = null) {
 
     document.body.insertAdjacentHTML("beforeend", `
 
@@ -155,6 +170,28 @@ function openProductModal() {
         </div>
 
     `);
+    if (product) {
+
+        editingProductId = product._id;
+
+        document.getElementById("productName").value = product.name;
+
+        document.getElementById("productPrice").value = product.price;
+
+        document.getElementById("productCategory").value = product.category;
+
+        document.getElementById("productBrand").value = product.brand;
+
+        document.getElementById("productImage").value = product.image;
+
+        document.getElementById("productDescription").value = product.description;
+
+    }
+    else {
+
+        editingProductId = null;
+
+    }
     document.getElementById("productForm").addEventListener("submit", submitProduct);
 
     document.querySelector(".close-modal").onclick = () => {
@@ -242,37 +279,49 @@ async function submitProduct(e) {
 
     try {
 
-        const res = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/products",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    name,
-                    description,
-                    price,
-                    image,
-                    brand,
-                    category,
-                    specs: specifications,
-                    features: []
-                })
-            }
-        );
+        const url = editingProductId
+            ? `https://shop-sanitary-production.up.railway.app/api/products/${editingProductId}`
+            : "https://shop-sanitary-production.up.railway.app/api/products";
 
+        const method = editingProductId ? "PUT" : "POST";
+
+        const res = await fetch(url, {
+
+            method,
+
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+
+            body: JSON.stringify({
+
+                name,
+                description,
+                price,
+                image,
+                brand,
+                category,
+                specs: specifications,
+                features: []
+
+            })
+
+        });
         const data = await res.json();
 
         if (!res.ok) {
             throw new Error(data.message || "خطا در ثبت محصول");
         }
 
-        alert("✅ محصول با موفقیت اضافه شد.");
+        alert(
+            editingProductId
+                ? "✅ محصول با موفقیت ویرایش شد."
+                : "✅ محصول با موفقیت اضافه شد."
+        );
 
         document.querySelector(".modal-overlay").remove();
-
+        editingProductId = null;
         renderProducts();
 
     } catch (err) {
