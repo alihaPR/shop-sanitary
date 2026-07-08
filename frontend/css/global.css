@@ -2598,5 +2598,165 @@ body {
 
 }
 
-/* Very Small */
-@media (max-width:360px) {}
+@media (max-width:360px){
+
+    .container{
+        padding-inline:12px;
+    }
+
+    /* ---------- Header ---------- */
+
+    .mobile-header{
+        padding:8px 12px;
+        gap:8px;
+    }
+
+    .search-wraper{
+        height:34px;
+        padding:0 10px;
+    }
+
+    .search-wraper input{
+        font-size:12px;
+    }
+
+    .mobile-header-icon{
+        width:32px;
+        height:32px;
+    }
+
+    /* ---------- Banner ---------- */
+
+    .bannerSwiper,
+    .banner{
+        height:145px;
+    }
+
+    /* ---------- Story ---------- */
+
+    .story-item{
+        width:64px;
+    }
+
+    .story{
+        width:58px;
+        height:58px;
+    }
+
+    .story-image{
+        width:52px;
+        height:52px;
+    }
+
+    .story-item p{
+        font-size:10px;
+    }
+
+    /* ---------- Category ---------- */
+
+    .category-cart{
+        width:72px;
+    }
+
+    .category-cart_img{
+        width:66px;
+        height:66px;
+        padding:10px;
+    }
+
+    .category-cart_img img{
+        width:48px;
+    }
+
+    .category-cart_text{
+        font-size:10px;
+    }
+
+    /* ---------- Products ---------- */
+
+    .products-cart{
+        width:180px;
+        padding:10px;
+    }
+
+    .cart-products-img{
+        width:150px;
+        height:150px;
+    }
+
+    .cart-content h3{
+        font-size:13px;
+    }
+
+    .cart-content p{
+        font-size:11px;
+        height:34px;
+    }
+
+    .price{
+        font-size:12px;
+    }
+
+    .products-cart button{
+        height:28px;
+        font-size:10px;
+    }
+
+    /* ---------- Footer ---------- */
+
+    .footer{
+        padding-top:50px;
+    }
+
+    .footer-brand .logo-name{
+        font-size:17px;
+    }
+
+    .footer-desc{
+        font-size:12px;
+    }
+
+    .footer-khabarname h3{
+        font-size:15px;
+    }
+
+    .footer-khabarname p{
+        font-size:12px;
+    }
+
+    .email-wraper input{
+        height:42px;
+        font-size:12px;
+    }
+
+    .email-wraper a{
+        height:42px;
+        font-size:12px;
+        padding:0 18px;
+    }
+
+    .footer-bottom{
+        font-size:11px;
+    }
+
+    /* ---------- Bottom Nav ---------- */
+
+    .bottom-nav{
+        height:58px;
+        padding:0 4px;
+    }
+
+    .bottom-nav a{
+        gap:3px;
+    }
+
+    .bottom-nav svg{
+        width:19px;
+        height:19px;
+    }
+
+    .bottom-nav span{
+        font-size:9px;
+    }
+
+}
