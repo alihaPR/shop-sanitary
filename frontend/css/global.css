@@ -2450,8 +2450,153 @@ body {
 
 }
 
-/* Small Mobile */
-@media (max-width:430px) {}
+@media (max-width:430px){
+
+    .container{
+        padding-inline:14px;
+    }
+
+    /* ---------- Header ---------- */
+
+    .mobile-header{
+        padding:8px 12px;
+    }
+
+    .mobile-header-icon{
+        width:32px;
+        height:32px;
+    }
+
+    .mobile-header-icon svg{
+        width:18px;
+        height:18px;
+    }
+
+    .search-wraper{
+        height:34px;
+        padding:0 10px;
+    }
+
+    .search-wraper input{
+        font-size:12px;
+    }
+
+    /* ---------- Banner ---------- */
+
+    .bannerSwiper,
+    .banner{
+        height:165px;
+    }
+
+    /* ---------- Story ---------- */
+
+    .story-item{
+        width:66px;
+    }
+
+    .story{
+        width:60px;
+        height:60px;
+    }
+
+    .story-image{
+        width:52px;
+        height:52px;
+    }
+
+    .story-item p{
+        font-size:10px;
+    }
+
+    /* ---------- Category ---------- */
+
+    .category-cart{
+        width:82px;
+    }
+
+    .category-cart_img{
+        width:72px;
+        height:72px;
+        padding:10px;
+    }
+
+    .category-cart_img img{
+        width:52px;
+    }
+
+    .category-cart_text{
+        font-size:10px;
+    }
+
+    /* ---------- Products ---------- */
+
+    .products-cart{
+        padding:12px;
+    }
+
+    .cart-products-img{
+        width:150px;
+        height:150px;
+    }
+
+    .cart-content h3{
+        font-size:14px;
+    }
+
+    .cart-content p{
+        font-size:12px;
+        height:36px;
+    }
+
+    .price{
+        font-size:12px;
+    }
+
+    .products-cart button{
+        height:28px;
+        font-size:11px;
+    }
+
+    /* ---------- Footer ---------- */
+
+    .footer{
+        padding-top:50px;
+    }
+
+    .footer-desc{
+        font-size:12px;
+        line-height:2;
+    }
+
+    .footer-collapse{
+        font-size:14px;
+    }
+
+    .contact-row span{
+        font-size:12px;
+    }
+
+    .footer-copy{
+        font-size:11px;
+        text-align:center;
+    }
+
+    /* ---------- Bottom Nav ---------- */
+
+    .bottom-nav{
+        height:60px;
+    }
+
+    .bottom-nav-link svg{
+        width:18px;
+        height:18px;
+    }
+
+    .bottom-nav-link span{
+        font-size:9px;
+    }
+
+}
 
 /* Very Small */
 @media (max-width:360px) {}
