@@ -19,20 +19,41 @@ router.get("/", protect, admin, async (req, res) => {
 // DELETE /api/users/:id
 router.delete("/:id", protect, admin, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
 
-    if (!user) {
-      return res.status(404).json({
-        message: "کاربر پیدا نشد",
+    // جلوگیری از حذف حساب خود
+    if (req.user._id.toString() === req.params.id) {
+      return res.status(400).json({
+        message: "نمی‌توانید حساب خودتان را حذف کنید."
       });
     }
 
+    // پیدا کردن کاربر
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "کاربر پیدا نشد"
+      });
+    }
+
+    // جلوگیری از حذف هر ادمین
+if (req.user._id.toString() === req.params.id) {
+
+  return res.status(400).json({
+    message: "نمی‌توانید حساب خودتان را حذف کنید."
+  });
+
+}
+
+    await User.findByIdAndDelete(req.params.id);
+
     res.json({
-      message: "کاربر حذف شد",
+      message: "کاربر حذف شد"
     });
+
   } catch (err) {
     res.status(500).json({
-      message: err.message,
+      message: err.message
     });
   }
 });

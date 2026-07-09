@@ -159,6 +159,7 @@ function openProductModal(product = null) {
                      <button
                          type="button"
                          id="addSpecification"
+                         class="add-specification"
                      >
 
                      + افزودن مشخصه
