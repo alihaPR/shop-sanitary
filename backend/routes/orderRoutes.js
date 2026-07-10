@@ -22,8 +22,16 @@ router.post('/', protect, async (req, res) => {
     })
 
     res.status(201).json(order)
-  } catch (error) {
-    res.status(500).json({ message: error.message })
+  }
+  catch (error) {
+
+    console.error("========== ORDER DETAIL ERROR ==========");
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message
+    });
+
   }
 })
 
