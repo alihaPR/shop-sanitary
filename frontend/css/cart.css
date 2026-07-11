@@ -127,7 +127,8 @@
 
   .btn-cart {
       width: 100%;
-      background: var(--clay);
+      /* background: var(--clay); */
+      background:#3AA6A0 ;
       color: #fff;
       border: none;
       padding: 12px;
@@ -139,7 +140,7 @@
   }
 
   .btn-cart:hover {
-      background: #c44440;
+      background: #318d88;
   }
 
   .buy-card .note {

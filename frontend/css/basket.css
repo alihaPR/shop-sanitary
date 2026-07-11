@@ -43,10 +43,10 @@
        justify-content: center;
        gap: 8px;
        padding: 10px 20px;
-       background: #0891b2;
+       /* background: #0891b2; */
+       background: #3AA6A0;
        color: #fff;
        border-radius: 12px;
-       font-family: 'shabnam';
        font-size: 14px;
        font-weight: 700;
        text-decoration: none;
@@ -87,7 +87,7 @@
    }
 
    .step.done:not(:last-child)::after {
-       background: #0891b2;
+       background: #3AA6A0;
    }
 
    .step-num {
@@ -107,13 +107,14 @@
    }
 
    .step.active .step-num {
-       background: #0891b2;
+       background: #3AA6A0;
        color: #fff;
-       box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.15);
+       box-shadow: 0 0 0 4px #3aa6a149;
    }
 
    .step.done .step-num {
-       background: #0891b2;
+       /* background: #0891b2; */
+       background: #3AA6A0;
        color: #fff;
    }
 
@@ -124,11 +125,11 @@
    }
 
    .step.active .step-label {
-       color: #0891b2;
+       color: #3AA6A0;
    }
 
    .step.done .step-label {
-       color: #0891b2;
+       color: #3AA6A0;
    }
 
    .full-basket {
@@ -447,7 +448,8 @@
    .summary-total .value {
        font-size: 1.3rem;
        font-weight: 800;
-       color: #0891b2;
+       /* color: #0891b2; */
+       color:#3AA6A0;
    }
 
    .summary-total .value small {
@@ -461,7 +463,8 @@
        display: block;
        width: 100%;
        padding: 15px;
-       background: linear-gradient(135deg, #0891b2, #06b6d4);
+       /* background: linear-gradient(135deg, #0891b2, #06b6d4); */
+       background: linear-gradient(135deg, #2F8C87, #57C3BD);
        color: #fff;
        border: none;
        border-radius: 14px;

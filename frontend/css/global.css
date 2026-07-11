@@ -3,7 +3,7 @@
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-    font-family: 'shabnam-light';
+    font-family: 'regular';
 }
 
 html {
@@ -13,6 +13,12 @@ html {
 body {
     background-color: #f9f9f9;
 }
+
+body::selection{
+    background-color: #3AA6A0;
+    color: #fff;
+}
+
 
 :root {
     --bg-color-1: #777676;
@@ -25,20 +31,24 @@ body {
     --bg-color-8: #e2dbdb;
 }
 
-@font-face {
-    font-family: "vazir-bold";
-    src: url(/frontend/font/Vazir-Bold.ttf) format(truetype)
-}
 
 @font-face {
-    font-family: "shabnam";
-    src: url(/frontend/font/Shabnam-Bold.ttf) format(truetype);
+    font-family: "regular";
+    src: url(/frontend/font/iranyekanwebregular.b95439c1.b95439c1.woff) format(woff);
+}
+@font-face {
+    font-family: "medium";
+    src: url(/frontend/font/iranyekanwebmedium.2d4f96e5.2d4f96e5.woff) format(woff);
+}
+@font-face {
+    font-family: "bold";
+    src: url(/frontend/font/iranyekanwebbold.e298fdc6.e298fdc6.woff) format(woff);
+}
+@font-face {
+    font-family: "extrabold";
+    src: url(/frontend/font/iranyekanwebextrabold.9346e9a2.9346e9a2.woff) format(woff);
 }
 
-@font-face {
-    font-family: "shabnam-light";
-    src: url(/frontend/font/Shabnam-Light.ttf) format(truetype);
-}
 
 /* ----------------------------------------------- header -----------------------------------------------  */
 
@@ -112,26 +122,33 @@ body {
 .header-main-left a {
     padding: 0 15px;
     height: 35px;
-    background-color: var(--bg-color-6);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     text-decoration: none;
-    color: var(--bg-color-2);
     font-size: 13px;
 }
 
-.header-basket {
+.main-left-login__icon{
+    /* background-color: var(--bg-color-6); */
+    /* background-color: #5BC0BE; */
+    background-color: #3AA6A0;
+    color: #ffff;
+}
+.main-left-login__icon svg{
+    fill: #ffff;
+}
+.main-left-basket__icon{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 35px;
     height: 35px;
-    background-color: var(--bg-color-6);
-    border-radius: 6px;
-
+    border-radius: 6px;    
+    background-color: #f9f9f9;
+    border: 1.5px solid #eee; 
 }
 
 .header-basket {
@@ -142,7 +159,8 @@ body {
     position: absolute;
     top: -6px;
     left: -6px;
-    background: #ef4444;
+    /* background: #ef4444; */
+    background-color: #000000;
     color: #fff;
     font-size: 10px;
     font-weight: 700;
@@ -376,7 +394,6 @@ body {
 }
 
 .breadcrumb a {
-    font-family: 'shabnam-light';
     text-decoration: none;
     color: #838383;
 }
@@ -545,7 +562,8 @@ body {
 
 .logo-name strong {
     font-weight: 800;
-    color: var(--bg-color-4);
+    /* color: var(--bg-color-4); */
+    color:#3AA6A0 ;
 }
 
 .footer-desc {
@@ -577,9 +595,11 @@ body {
 }
 
 .social-link:hover {
-    border-color: var(--bg-color-4);
+    /* border-color: var(--bg-color-4); */
     background: #f0faf5;
-    color: var(--bg-color-4);
+    /* color: var(--bg-color-4); */
+    color: #3AA6A0;
+    border-color: #3AA6A0;
     transform: translateY(-2px);
 }
 
@@ -629,6 +649,7 @@ body {
 
 .footer-col ul li a:hover {
     color: var(--bg-color-4);
+    color: #3AA6A0;
 }
 
 
@@ -648,7 +669,8 @@ body {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--bg-color-4);
+    /* background: var(--bg-color-4); */
+    background: #3AA6A0;
     margin-top: 6px;
     flex-shrink: 0;
 }
@@ -702,7 +724,8 @@ body {
 
 .govahi:hover {
     border-color: var(--bg-color-6);
-    color: var(--bg-color-4);
+    /* color: var(--bg-color-4); */
+    color:#3AA6A0 ;
     background: #f0faf5;
 }
 
@@ -796,7 +819,8 @@ body {
     justify-content: center;
     height: 35px;
     width: 60px;
-    background-color: var(--bg-color-4);
+    /* background-color: var(--bg-color-4); */
+    background-color: #3AA6A0;
 
 }
 
@@ -819,7 +843,8 @@ body {
 }
 
 .scroll-top:hover {
-    background: var(--bg-color-4);
+    /* background: var(--bg-color-4); */
+    background: #3AA6A0;
     transform: translateY(-3px);
 }
 
