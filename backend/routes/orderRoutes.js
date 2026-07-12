@@ -51,23 +51,42 @@ router.get('/myorders', protect, async (req, res) => {
 // یه سفارش خاص
 // GET /api/orders/:id
 router.get('/:id', protect, async (req, res) => {
+
   try {
+
+
+
     const order = await Order.findById(req.params.id)
-      .populate('user', 'name email phone')
-      .populate('items.product', 'name image')
+      .populate('user', 'name email phone');
+    if (!order) {
+      return res.status(404).json({
+        message: 'سفارش یافت نشد'
 
-    if (!order) return res.status(404).json({ message: 'سفارش یافت نشد' })
+      });
 
-    // فقط صاحب سفارش یا ادمین
-    if (order.user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'دسترسی ندارید' })
     }
 
-    res.json(order)
+    if (
+      order.user._id.toString() !== req.user._id.toString() &&
+
+      req.user.role !== 'admin'
+    ) {
+      return res.status(403).json({
+        message: 'دسترسی ندارید'
+      });
+
+    }
+    res.json(order);
+
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    console.error(error);
+    res.status(500).json({
+      message: error.message
+    });
+
   }
-})
+
+});
 
 // همه سفارشات — فقط ادمین
 // GET /api/orders
