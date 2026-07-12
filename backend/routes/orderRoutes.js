@@ -50,40 +50,30 @@ router.get('/myorders', protect, async (req, res) => {
 
 // یه سفارش خاص
 // GET /api/orders/:id
-// router.get('/:id', protect, async (req, res) => {
-//   try {
+router.get('/:id', protect, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate('user', 'name email')
+      .populate('items.product', 'name image')
 
-//     console.log("Requested ID:", req.params.id);
+    if (!order) {
+      return res.status(404).json({
+        message: "سفارش پیدا نشد"
+      });
+    }
 
-//     const order = await Order.findById(req.params.id);
+    return res.json(order);
 
-//     console.log("ORDER FOUND:", order);
+  } catch (error) {
 
-//     if (!order) {
-//       return res.status(404).json({
-//         message: "سفارش پیدا نشد"
-//       });
-//     }
+    console.error("DETAIL ERROR:");
+    console.error(error);
 
-//     return res.json(order);
-
-//   } catch (error) {
-
-//     console.error("DETAIL ERROR:");
-//     console.error(error);
-
-//     return res.status(500).json({
-//       message: error.message
-//     });
-
-//   }
-// });
-router.get("/:id", protect, async (req, res) => {
-
-    return res.json({
-        ok: true
+    return res.status(500).json({
+      message: error.message
     });
 
+  }
 });
 
 // همه سفارشات — فقط ادمین
