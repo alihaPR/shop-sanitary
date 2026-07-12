@@ -134,6 +134,18 @@ async function openOrderModal(id) {
 
     const order = await res.json();
 
+    if (!res.ok) {
+        alert(order.message || "خطا در دریافت جزئیات سفارش");
+        console.error("Order fetch error:", order);
+        return;
+    }
+
+    if (!order || !order._id) {
+        alert("پاسخ نامعتبر از سرور دریافت شد");
+        console.error("Invalid order response:", order);
+        return;
+    }
+
 
     document.body.insertAdjacentHTML(
         "beforeend",
@@ -171,6 +183,30 @@ async function openOrderModal(id) {
                     <p>
                     📧 ایمیل:
                     ${order.user?.email || "-"}
+                    </p>
+
+
+                    <p>
+                    📱 تلفن گیرنده:
+                    ${order.shippingAddress?.phone || "-"}
+                    </p>
+
+
+                    <p>
+                    🏙️ شهر:
+                    ${order.shippingAddress?.city || "-"}
+                    </p>
+
+
+                    <p>
+                    📍 آدرس:
+                    ${order.shippingAddress?.address || "-"}
+                    </p>
+
+
+                    <p>
+                    📮 کدپستی:
+                    ${order.shippingAddress?.postalCode || "-"}
                     </p>
 
 
@@ -266,7 +302,7 @@ async function openOrderModal(id) {
         <small>
 
             تعداد:
-            ${item.quantity}
+            ${item.qty ?? item.quantity ?? "-"}
 
         </small>
 
