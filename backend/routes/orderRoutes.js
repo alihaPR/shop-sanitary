@@ -50,41 +50,39 @@ router.get('/myorders', protect, async (req, res) => {
 
 // یه سفارش خاص
 // GET /api/orders/:id
-router.get('/:id', protect, async (req, res) => {
+// router.get('/:id', protect, async (req, res) => {
+//   try {
 
-  try {
+//     console.log("Requested ID:", req.params.id);
 
+//     const order = await Order.findById(req.params.id);
 
+//     console.log("ORDER FOUND:", order);
 
-    const order = await Order.findById(req.params.id)
-      .populate('user', 'name email phone');
-    if (!order) {
-      return res.status(404).json({
-        message: 'سفارش یافت نشد'
+//     if (!order) {
+//       return res.status(404).json({
+//         message: "سفارش پیدا نشد"
+//       });
+//     }
 
-      });
+//     return res.json(order);
 
-    }
+//   } catch (error) {
 
-    if (
-      order.user._id.toString() !== req.user._id.toString() &&
+//     console.error("DETAIL ERROR:");
+//     console.error(error);
 
-      req.user.role !== 'admin'
-    ) {
-      return res.status(403).json({
-        message: 'دسترسی ندارید'
-      });
+//     return res.status(500).json({
+//       message: error.message
+//     });
 
-    }
-    res.json(order);
+//   }
+// });
+router.get("/:id", protect, async (req, res) => {
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message
+    return res.json({
+        ok: true
     });
-
-  }
 
 });
 
