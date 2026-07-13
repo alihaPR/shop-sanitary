@@ -442,11 +442,13 @@ body {
     border-collapse: collapse;
     box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
 
+
 }
 
 .products-table th {
     background: #f3f4f6;
     padding: 18px;
+   
 }
 
 .products-table td {
@@ -706,6 +708,38 @@ body {
 
     max-width: 95%;
     padding: 20px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+}
+
+.order-modal .modal-header {
+
+    flex-shrink: 0;
+
+}
+
+.order-modal-body {
+
+    overflow-y: auto;
+    flex: 1;
+    padding-left: 6px;
+
+}
+
+.order-modal-body::-webkit-scrollbar {
+
+    width: 8px;
+
+}
+
+.order-modal-body::-webkit-scrollbar-thumb {
+
+    background: #d1d5db;
+
+    border-radius: 10px;
 
 }
 

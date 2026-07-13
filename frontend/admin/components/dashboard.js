@@ -11,6 +11,7 @@ async function renderDashboard() {
     });
 
     const data = await res.json();
+    console.log(data);
 
     document.getElementById("main-content").innerHTML=`
 

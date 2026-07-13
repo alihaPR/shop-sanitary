@@ -172,6 +172,8 @@ async function openOrderModal(id) {
 
 
 
+                <div class="order-modal-body">
+
                 <div class="order-info">
 
                     <p>
@@ -333,6 +335,8 @@ async function openOrderModal(id) {
                 ${order.totalPrice.toLocaleString()} تومان
 
                 </span>
+
+                </div>
 
                 </div>
 
