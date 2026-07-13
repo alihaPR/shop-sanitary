@@ -91,7 +91,7 @@ app.get("/api/admin/stats", protect, admin, async (req, res) => {
             }
         ]);
 
-        
+
 
         res.json({
             productCount,
@@ -122,10 +122,25 @@ app.get("/api/admin/stats", protect, admin, async (req, res) => {
 
         const orderCount = await Order.countDocuments();
 
+        const revenue = await Order.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalRevenue: {
+                        $sum: "$totalPrice"
+                    }
+                }
+            }
+        ]);
+
         res.json({
             productCount,
             userCount,
-            orderCount
+            orderCount,
+            statusStats,
+            categoryStats,
+            weeklyOrders,
+            revenue: revenue[0]?.totalRevenue || 0
         });
 
     } catch (err) {
