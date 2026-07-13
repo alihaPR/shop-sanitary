@@ -407,6 +407,10 @@ body {
 }
 
 
+
+
+
+
 /* -------------------------product----------------------- */
 .modal-header {
     padding: 20px 0;
@@ -1016,3 +1020,52 @@ body {
     cursor: pointer;
     margin-left: 8px;
 }
+
+/* ===========================
+        Dashboard Charts
+=========================== */
+
+.charts-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+    gap:24px;
+    margin-top:30px;
+}
+
+.chart-card{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    border:1px solid #ececec;
+    transition:.3s;
+}
+
+.chart-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.chart-card h3{
+    font-size:18px;
+    font-weight:700;
+    color:#333;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.chart-card canvas{
+    width:100% !important;
+    height:320px !important;
+}
+
+@media(max-width:900px){
+
+    .charts-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+

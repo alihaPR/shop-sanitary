@@ -2,10 +2,10 @@ async function renderDashboard() {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://shop-sanitary-production.up.railway.app/api/admin/stats",{
+    const res = await fetch("https://shop-sanitary-production.up.railway.app/api/admin/stats", {
 
-        headers:{
-            Authorization:`Bearer ${token}`
+        headers: {
+            Authorization: `Bearer ${token}`
         }
 
     });
@@ -13,12 +13,11 @@ async function renderDashboard() {
     const data = await res.json();
     console.log(data);
 
-    document.getElementById("main-content").innerHTML=`
+    document.getElementById("main-content").innerHTML = `
 
         <h2 class="dashboard-title">
             داشبورد مدیریت
         </h2>
-
         <div class="dashboard-cards">
 
             <div class="dashboard-card">
@@ -81,8 +80,114 @@ async function renderDashboard() {
 
             </div>
 
-        </div>
+            </div>
+            
+
+            <div class="charts-container">
+
+                <div class="chart-card">
+                    <h3>وضعیت سفارش‌ها</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>دسته‌بندی محصولات</h3>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>سفارش‌های ۷ روز اخیر</h3>
+                    <canvas id="weeklyChart"></canvas>
+                </div>
+
+               </div>
+
+
+
+
+
 
     `;
 
+    // وضعیت سفارش‌ها
+    new Chart(document.getElementById("statusChart"), {
+        type: "pie",
+        data: {
+            labels: data.statusStats.map(item => {
+                switch (item._id) {
+                    case "pending": return "در انتظار";
+                    case "processing": return "در حال پردازش";
+                    case "shipped": return "ارسال شده";
+                    case "delivered": return "تحویل شده";
+                    case "cancelled": return "لغو شده";
+                    default: return item._id;
+                }
+            }),
+            datasets: [{
+                data: data.statusStats.map(item => item.count)
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+
+    });
+
+    // دسته‌بندی محصولات
+    new Chart(document.getElementById("categoryChart"), {
+        type: "bar",
+        data: {
+            labels: data.categoryStats.map(item => item._id),
+            datasets: [{
+                label: "تعداد محصولات",
+                data: data.categoryStats.map(item => item.count)
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+    // سفارش‌های هفت روز اخیر
+    new Chart(document.getElementById("weeklyChart"), {
+        type: "line",
+        data: {
+            labels: data.weeklyOrders.map(item => item._id),
+            datasets: [{
+                label: "تعداد سفارش",
+                data: data.weeklyOrders.map(item => item.count)
+            }]
+        }
+        , options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
 }
+
+
+
+
+
+
+
+
+

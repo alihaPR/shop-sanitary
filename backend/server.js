@@ -90,6 +90,9 @@ app.get("/api/admin/stats", protect, admin, async (req, res) => {
                 }
             }
         ]);
+
+        
+
         res.json({
             productCount,
             userCount,
