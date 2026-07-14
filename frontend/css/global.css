@@ -322,7 +322,7 @@ body::selection{
     justify-content: start;
     align-items: center;
     gap: 10px;
-
+    font-size: 14px;
 }
 
 .daste-bandt-items img {
@@ -341,7 +341,7 @@ body::selection{
 .nav {
     text-decoration: none;
     color: var(--bg-color-1);
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .nav-line {
@@ -383,7 +383,7 @@ body::selection{
 }
 
 .phone p {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
@@ -688,6 +688,11 @@ body::selection{
 .contact-row-inner span {
     font-size: 13.5px;
     color: #555;
+}
+.contact-row-inner a{
+    color: #555;
+    font-size: 13.5px;
+    text-decoration: none;
 }
 
 
