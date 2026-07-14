@@ -14,7 +14,7 @@ body {
     background-color: #f9f9f9;
 }
 
-body::selection{
+body::selection {
     background-color: #3AA6A0;
     color: #fff;
 }
@@ -36,14 +36,17 @@ body::selection{
     font-family: "regular";
     src: url(/frontend/font/iranyekanwebregular.b95439c1.b95439c1.woff) format(woff);
 }
+
 @font-face {
     font-family: "medium";
     src: url(/frontend/font/iranyekanwebmedium.2d4f96e5.2d4f96e5.woff) format(woff);
 }
+
 @font-face {
     font-family: "bold";
     src: url(/frontend/font/iranyekanwebbold.e298fdc6.e298fdc6.woff) format(woff);
 }
+
 @font-face {
     font-family: "extrabold";
     src: url(/frontend/font/iranyekanwebextrabold.9346e9a2.9346e9a2.woff) format(woff);
@@ -131,24 +134,26 @@ body::selection{
     font-size: 13px;
 }
 
-.main-left-login__icon{
+.main-left-login__icon {
     /* background-color: var(--bg-color-6); */
     /* background-color: #5BC0BE; */
     background-color: #3AA6A0;
     color: #ffff;
 }
-.main-left-login__icon svg{
+
+.main-left-login__icon svg {
     fill: #ffff;
 }
-.main-left-basket__icon{
+
+.main-left-basket__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 35px;
     height: 35px;
-    border-radius: 6px;    
+    border-radius: 6px;
     background-color: #f9f9f9;
-    border: 1.5px solid #eee; 
+    border: 1.5px solid #eee;
 }
 
 .header-basket {
@@ -371,18 +376,23 @@ body::selection{
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #f9f9f9;
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1.5px solid #eee;
+
 }
 
 .phone {
-    color: var(--bg-color-2);
-    text-decoration: none;
+    gap: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    text-decoration: none;
 }
 
-.phone p {
+.phone-number {
+    color: var(--bg-color-2);
     font-size: 14px;
 }
 
@@ -565,7 +575,7 @@ body::selection{
 .logo-name strong {
     font-weight: 800;
     /* color: var(--bg-color-4); */
-    color:#3AA6A0 ;
+    color: #3AA6A0;
 }
 
 .footer-desc {
@@ -689,7 +699,8 @@ body::selection{
     font-size: 13.5px;
     color: #555;
 }
-.contact-row-inner a{
+
+.contact-row-inner a {
     color: #555;
     font-size: 13.5px;
     text-decoration: none;
@@ -732,7 +743,7 @@ body::selection{
 .govahi:hover {
     border-color: var(--bg-color-6);
     /* color: var(--bg-color-4); */
-    color:#3AA6A0 ;
+    color: #3AA6A0;
     background: #f0faf5;
 }
 
@@ -2482,313 +2493,313 @@ body::selection{
 
 }
 
-@media (max-width:430px){
+@media (max-width:430px) {
 
-    .container{
-        padding-inline:14px;
+    .container {
+        padding-inline: 14px;
     }
 
     /* ---------- Header ---------- */
 
-    .mobile-header{
-        padding:8px 12px;
+    .mobile-header {
+        padding: 8px 12px;
     }
 
-    .mobile-header-icon{
-        width:32px;
-        height:32px;
+    .mobile-header-icon {
+        width: 32px;
+        height: 32px;
     }
 
-    .mobile-header-icon svg{
-        width:18px;
-        height:18px;
+    .mobile-header-icon svg {
+        width: 18px;
+        height: 18px;
     }
 
-    .search-wraper{
-        height:34px;
-        padding:0 10px;
+    .search-wraper {
+        height: 34px;
+        padding: 0 10px;
     }
 
-    .search-wraper input{
-        font-size:12px;
+    .search-wraper input {
+        font-size: 12px;
     }
 
     /* ---------- Banner ---------- */
 
     .bannerSwiper,
-    .banner{
-        height:165px;
+    .banner {
+        height: 165px;
     }
 
     /* ---------- Story ---------- */
 
-    .story-item{
-        width:66px;
+    .story-item {
+        width: 66px;
     }
 
-    .story{
-        width:60px;
-        height:60px;
+    .story {
+        width: 60px;
+        height: 60px;
     }
 
-    .story-image{
-        width:52px;
-        height:52px;
+    .story-image {
+        width: 52px;
+        height: 52px;
     }
 
-    .story-item p{
-        font-size:10px;
+    .story-item p {
+        font-size: 10px;
     }
 
     /* ---------- Category ---------- */
 
-    .category-cart{
-        width:82px;
+    .category-cart {
+        width: 82px;
     }
 
-    .category-cart_img{
-        width:72px;
-        height:72px;
-        padding:10px;
+    .category-cart_img {
+        width: 72px;
+        height: 72px;
+        padding: 10px;
     }
 
-    .category-cart_img img{
-        width:52px;
+    .category-cart_img img {
+        width: 52px;
     }
 
-    .category-cart_text{
-        font-size:10px;
+    .category-cart_text {
+        font-size: 10px;
     }
 
     /* ---------- Products ---------- */
 
-    .products-cart{
-        padding:12px;
+    .products-cart {
+        padding: 12px;
     }
 
-    .cart-products-img{
-        width:150px;
-        height:150px;
+    .cart-products-img {
+        width: 150px;
+        height: 150px;
     }
 
-    .cart-content h3{
-        font-size:14px;
+    .cart-content h3 {
+        font-size: 14px;
     }
 
-    .cart-content p{
-        font-size:12px;
-        height:36px;
+    .cart-content p {
+        font-size: 12px;
+        height: 36px;
     }
 
-    .price{
-        font-size:12px;
+    .price {
+        font-size: 12px;
     }
 
-    .products-cart button{
-        height:28px;
-        font-size:11px;
+    .products-cart button {
+        height: 28px;
+        font-size: 11px;
     }
 
     /* ---------- Footer ---------- */
 
-    .footer{
-        padding-top:50px;
+    .footer {
+        padding-top: 50px;
     }
 
-    .footer-desc{
-        font-size:12px;
-        line-height:2;
+    .footer-desc {
+        font-size: 12px;
+        line-height: 2;
     }
 
-    .footer-collapse{
-        font-size:14px;
+    .footer-collapse {
+        font-size: 14px;
     }
 
-    .contact-row span{
-        font-size:12px;
+    .contact-row span {
+        font-size: 12px;
     }
 
-    .footer-copy{
-        font-size:11px;
-        text-align:center;
+    .footer-copy {
+        font-size: 11px;
+        text-align: center;
     }
 
     /* ---------- Bottom Nav ---------- */
 
-    .bottom-nav{
-        height:60px;
+    .bottom-nav {
+        height: 60px;
     }
 
-    .bottom-nav-link svg{
-        width:18px;
-        height:18px;
+    .bottom-nav-link svg {
+        width: 18px;
+        height: 18px;
     }
 
-    .bottom-nav-link span{
-        font-size:9px;
+    .bottom-nav-link span {
+        font-size: 9px;
     }
 
 }
 
-@media (max-width:360px){
+@media (max-width:360px) {
 
-    .container{
-        padding-inline:12px;
+    .container {
+        padding-inline: 12px;
     }
 
     /* ---------- Header ---------- */
 
-    .mobile-header{
-        padding:8px 12px;
-        gap:8px;
+    .mobile-header {
+        padding: 8px 12px;
+        gap: 8px;
     }
 
-    .search-wraper{
-        height:34px;
-        padding:0 10px;
+    .search-wraper {
+        height: 34px;
+        padding: 0 10px;
     }
 
-    .search-wraper input{
-        font-size:12px;
+    .search-wraper input {
+        font-size: 12px;
     }
 
-    .mobile-header-icon{
-        width:32px;
-        height:32px;
+    .mobile-header-icon {
+        width: 32px;
+        height: 32px;
     }
 
     /* ---------- Banner ---------- */
 
     .bannerSwiper,
-    .banner{
-        height:145px;
+    .banner {
+        height: 145px;
     }
 
     /* ---------- Story ---------- */
 
-    .story-item{
-        width:64px;
+    .story-item {
+        width: 64px;
     }
 
-    .story{
-        width:58px;
-        height:58px;
+    .story {
+        width: 58px;
+        height: 58px;
     }
 
-    .story-image{
-        width:52px;
-        height:52px;
+    .story-image {
+        width: 52px;
+        height: 52px;
     }
 
-    .story-item p{
-        font-size:10px;
+    .story-item p {
+        font-size: 10px;
     }
 
     /* ---------- Category ---------- */
 
-    .category-cart{
-        width:72px;
+    .category-cart {
+        width: 72px;
     }
 
-    .category-cart_img{
-        width:66px;
-        height:66px;
-        padding:10px;
+    .category-cart_img {
+        width: 66px;
+        height: 66px;
+        padding: 10px;
     }
 
-    .category-cart_img img{
-        width:48px;
+    .category-cart_img img {
+        width: 48px;
     }
 
-    .category-cart_text{
-        font-size:10px;
+    .category-cart_text {
+        font-size: 10px;
     }
 
     /* ---------- Products ---------- */
 
-    .products-cart{
-        width:180px;
-        padding:10px;
+    .products-cart {
+        width: 180px;
+        padding: 10px;
     }
 
-    .cart-products-img{
-        width:150px;
-        height:150px;
+    .cart-products-img {
+        width: 150px;
+        height: 150px;
     }
 
-    .cart-content h3{
-        font-size:13px;
+    .cart-content h3 {
+        font-size: 13px;
     }
 
-    .cart-content p{
-        font-size:11px;
-        height:34px;
+    .cart-content p {
+        font-size: 11px;
+        height: 34px;
     }
 
-    .price{
-        font-size:12px;
+    .price {
+        font-size: 12px;
     }
 
-    .products-cart button{
-        height:28px;
-        font-size:10px;
+    .products-cart button {
+        height: 28px;
+        font-size: 10px;
     }
 
     /* ---------- Footer ---------- */
 
-    .footer{
-        padding-top:50px;
+    .footer {
+        padding-top: 50px;
     }
 
-    .footer-brand .logo-name{
-        font-size:17px;
+    .footer-brand .logo-name {
+        font-size: 17px;
     }
 
-    .footer-desc{
-        font-size:12px;
+    .footer-desc {
+        font-size: 12px;
     }
 
-    .footer-khabarname h3{
-        font-size:15px;
+    .footer-khabarname h3 {
+        font-size: 15px;
     }
 
-    .footer-khabarname p{
-        font-size:12px;
+    .footer-khabarname p {
+        font-size: 12px;
     }
 
-    .email-wraper input{
-        height:42px;
-        font-size:12px;
+    .email-wraper input {
+        height: 42px;
+        font-size: 12px;
     }
 
-    .email-wraper a{
-        height:42px;
-        font-size:12px;
-        padding:0 18px;
+    .email-wraper a {
+        height: 42px;
+        font-size: 12px;
+        padding: 0 18px;
     }
 
-    .footer-bottom{
-        font-size:11px;
+    .footer-bottom {
+        font-size: 11px;
     }
 
     /* ---------- Bottom Nav ---------- */
 
-    .bottom-nav{
-        height:58px;
-        padding:0 4px;
+    .bottom-nav {
+        height: 58px;
+        padding: 0 4px;
     }
 
-    .bottom-nav a{
-        gap:3px;
+    .bottom-nav a {
+        gap: 3px;
     }
 
-    .bottom-nav svg{
-        width:19px;
-        height:19px;
+    .bottom-nav svg {
+        width: 19px;
+        height: 19px;
     }
 
-    .bottom-nav span{
-        font-size:9px;
+    .bottom-nav span {
+        font-size: 9px;
     }
 
 }
