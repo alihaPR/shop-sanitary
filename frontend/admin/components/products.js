@@ -274,12 +274,12 @@ async function submitProduct(e) {
 
     document.querySelectorAll(".spec-row").forEach(row => {
 
-        const title = row.querySelector(".spec-title").value.trim();
+        const label = row.querySelector(".spec-title").value.trim();
         const value = row.querySelector(".spec-value").value.trim();
 
-        if (title && value) {
+        if (label && value) {
             specifications.push({
-                title,
+                label,
                 value
             });
         }
