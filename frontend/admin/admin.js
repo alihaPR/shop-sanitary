@@ -52,3 +52,10 @@ async function checkAdminAccess() {
 }
 
 // checkAdminAccess();
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await checkAdminAccess();
+
+    renderDashboard();
+
+});

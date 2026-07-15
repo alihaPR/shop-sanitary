@@ -292,10 +292,15 @@ async function openOrderModal(id) {
 <div class="order-product-item">
 
     <div>
+    <img
+                src="../${item.product?.image || ""}"
+                class="table-image"
+                style="width:60px;height:60px;border-radius:8px;object-fit:cover;"
+      >
 
         <strong>
 
-            ${item.name}
+                ${item.product?.name || item.name || "محصول"}
 
         </strong>
 
@@ -304,7 +309,7 @@ async function openOrderModal(id) {
         <small>
 
             تعداد:
-            ${item.qty ?? item.quantity ?? "-"}
+            ${item.quantity ?? item.qty ?? item.count ?? 1}
 
         </small>
 
@@ -312,7 +317,7 @@ async function openOrderModal(id) {
 
     <div>
 
-        ${item.price.toLocaleString()} تومان
+        ${(item.price || 0).toLocaleString()} تومان
 
     </div>
 
@@ -322,7 +327,7 @@ async function openOrderModal(id) {
 
 
                         `).join("")
-                      }
+        }
 
 
                 </div>

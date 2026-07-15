@@ -137,7 +137,33 @@ function openProductModal(product = null) {
 
                     <input id="productStock" type="number" placeholder="موجودی">
 
-                    <input id="productCategory" type="text" placeholder="دسته بندی">
+                   <select id="productCategory">
+
+    <option value="">
+        انتخاب دسته‌بندی
+    </option>
+
+    <option value="پوشک-کودک">
+        پوشک کودک
+    </option>
+
+    <option value="پوشک-بزرگسال">
+        پوشک بزرگسال
+    </option>
+
+    <option value="نوار-بهداشتی">
+        نوار بهداشتی
+    </option>
+
+    <option value="پنبه">
+        پنبه
+    </option>
+
+    <option value="دستمال-مرطوب">
+        دستمال مرطوب
+    </option>
+
+</select> 
 
                     <input id="productBrand" type="text" placeholder="برند">
 
@@ -185,17 +211,13 @@ function openProductModal(product = null) {
 
         editingProductId = product._id;
 
-        document.getElementById("productName").value = product.name;
-
-        document.getElementById("productPrice").value = product.price;
-
-        document.getElementById("productCategory").value = product.category;
-
-        document.getElementById("productBrand").value = product.brand;
-
-        document.getElementById("productImage").value = product.image;
-
-        document.getElementById("productDescription").value = product.description;
+        document.getElementById("productName").value = product.name || "";
+        document.getElementById("productPrice").value = product.price || "";
+        document.getElementById("productStock").value = product.stock || 0;
+        document.getElementById("productCategory").value = product.category || "";
+        document.getElementById("productBrand").value = product.brand || "";
+        document.getElementById("productImage").value = product.image || "";
+        document.getElementById("productDescription").value = product.description || "";
 
     }
     else {
@@ -266,6 +288,7 @@ async function submitProduct(e) {
     const name = document.getElementById("productName").value.trim();
     const description = document.getElementById("productDescription").value.trim();
     const price = Number(document.getElementById("productPrice").value);
+    const stock = Number(document.getElementById("productStock").value);
     const category = document.getElementById("productCategory").value;
     const brand = document.getElementById("productBrand").value.trim();
     const image = document.getElementById("productImage").value.trim();
@@ -308,6 +331,7 @@ async function submitProduct(e) {
             body: JSON.stringify({
 
                 name,
+                stock,
                 description,
                 price,
                 image,
