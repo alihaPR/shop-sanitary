@@ -16,11 +16,21 @@ async function renderOrders() {
 
     document.getElementById("main-content").innerHTML = `
 
-        <div class="products-header">
+ <div class="products-header">
 
-            <h2>مدیریت سفارش‌ها</h2>
+    <h2>مدیریت سفارش‌ها</h2>
 
-        </div>
+    <div class="products-actions">
+
+        <input
+            type="text"
+            id="orderSearch"
+            placeholder="جستجوی سفارش..."
+        >
+
+    </div>
+
+</div>
 
         <table class="products-table">
 
@@ -101,6 +111,23 @@ async function renderOrders() {
         </table>
 
     `;
+    const orderSearch = document.getElementById("orderSearch");
+
+    orderSearch.addEventListener("input", () => {
+
+        const keyword = orderSearch.value.toLowerCase();
+
+        document.querySelectorAll(".products-table tbody tr").forEach(row => {
+
+            row.style.display = row.innerText
+                .toLowerCase()
+                .includes(keyword)
+                ? ""
+                : "none";
+
+        });
+
+    });
     document.querySelectorAll(".view-order-btn").forEach(btn => {
 
         btn.addEventListener("click", () => {

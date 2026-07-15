@@ -11,17 +11,25 @@ async function renderProducts() {
 
     document.getElementById("main-content").innerHTML = `
 
-        <div class="products-header">
+<div class="products-header">
 
-            <h2>مدیریت محصولات</h2>
+    <h2>مدیریت محصولات</h2>
 
-            <button class="add-product-btn">
+    <div class="products-actions">
 
-                + افزودن محصول
+        <input
+            type="text"
+            id="productSearch"
+            placeholder="جستجوی محصول..."
+        >
 
-            </button>
+        <button class="add-product-btn">
+            + افزودن محصول
+        </button>
 
-        </div>
+    </div>
+
+</div>
 
         <table class="products-table">
 
@@ -86,6 +94,23 @@ async function renderProducts() {
         </table>
 
     `;
+    const searchInput = document.getElementById("productSearch");
+
+    searchInput.addEventListener("input", () => {
+
+        const keyword = searchInput.value.toLowerCase();
+
+        document.querySelectorAll(".products-table tbody tr").forEach(row => {
+
+            const text = row.innerText.toLowerCase();
+
+            row.style.display = text.includes(keyword)
+                ? ""
+                : "none";
+
+        });
+
+    });
     document.querySelector(".add-product-btn").addEventListener("click", openProductModal);
 
     document.querySelectorAll(".edit-btn").forEach(btn => {

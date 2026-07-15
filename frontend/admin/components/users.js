@@ -21,11 +21,21 @@ async function renderUsers() {
 
     document.getElementById("main-content").innerHTML = `
 
-        <div class="products-header">
+ <div class="products-header">
 
-            <h2>مدیریت کاربران</h2>
+    <h2>مدیریت کاربران</h2>
 
-        </div>
+    <div class="products-actions">
+
+        <input
+            type="text"
+            id="userSearch"
+            placeholder="جستجوی کاربر..."
+        >
+
+    </div>
+
+</div>
 
         <table class="products-table">
 
@@ -102,6 +112,23 @@ async function renderUsers() {
         </table>
 
     `;
+    const userSearch = document.getElementById("userSearch");
+
+    userSearch.addEventListener("input", () => {
+
+        const keyword = userSearch.value.toLowerCase().trim();
+
+        document.querySelectorAll(".products-table tbody tr").forEach(row => {
+
+            const userName = row.children[1].innerText.toLowerCase();
+
+            row.style.display = userName.includes(keyword)
+                ? ""
+                : "none";
+
+        });
+
+    });
 
     document.querySelectorAll(".edit-user-btn").forEach(btn => {
 
