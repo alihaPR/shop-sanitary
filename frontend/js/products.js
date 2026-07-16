@@ -410,3 +410,66 @@ document.addEventListener("DOMContentLoaded", function () {
 if (typeof module !== "undefined") {
   module.exports = products;
 }
+
+// ------------------------------------------------------------------------------------------------
+const filterHTML = document.querySelector(".filter-box").outerHTML;
+
+const sortHTML = `
+<ul class="mobile-sort-list">
+    <li data-sort="newest">جدیدترین</li>
+    <li data-sort="cheap">ارزان‌ترین</li>
+    <li data-sort="expensive">گران‌ترین</li>
+    <li data-sort="stock">موجودی</li>
+    <li data-sort="bestseller">پرفروش‌ترین</li>
+</ul>
+`;
+
+const sheet = document.querySelector(".mobile-sheet");
+const overlay = document.querySelector(".mobile-sheet-overlay");
+const title = document.querySelector(".sheet-title");
+const content = document.querySelector(".sheet-content");
+
+document.querySelector(".mobile-filter-btn").addEventListener("click", () => {
+
+    title.textContent = "فیلترها";
+
+    content.innerHTML = filterHTML;
+
+    sheet.classList.add("active");
+    overlay.classList.add("active");
+
+});
+
+document.querySelector(".mobile-sort-btn").addEventListener("click", () => {
+
+    title.textContent = "مرتب سازی";
+
+    content.innerHTML = sortHTML;
+
+    sheet.classList.add("active");
+    overlay.classList.add("active");
+
+});
+
+function closeSheet() {
+
+    sheet.classList.remove("active");
+    overlay.classList.remove("active");
+
+}
+
+overlay.addEventListener("click", closeSheet);
+
+document.querySelector(".sheet-close").addEventListener("click", closeSheet);
+
+document.addEventListener("click", (e) => {
+
+    if (!e.target.matches(".mobile-sort-list li")) return;
+
+    const type = e.target.dataset.sort;
+
+    sortProducts(type);
+
+    closeSheet();
+
+});

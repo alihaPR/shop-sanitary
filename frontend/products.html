@@ -427,7 +427,7 @@
         <div class="container">
 
             <div class="main-header">
-                <div class="breadcrumb" >
+                <div class="breadcrumb">
                     <a href="index.html">خانه</a>
                     <span class="breadcrumb-line">|</span>
                     <span>محصولات</span>
@@ -435,7 +435,7 @@
             </div>
             <section class="main-row">
 
-                <aside class="filter" >
+                <aside class="filter">
 
                     <h5 class="filter-title">فیلتر محصولات</h5>
 
@@ -577,6 +577,17 @@
                 </aside>
 
                 <div class="products">
+                    <div class="mobile-toolbar">
+
+                        <button class="mobile-filter-btn">
+                            فیلترها
+                        </button>
+
+                        <button class="mobile-sort-btn">
+                            مرتب سازی
+                        </button>
+
+                    </div>
                     <div class="control-bar">
                         <ul class="control-bar-wrapper">
                             <span>مرتب سازی بر اساس :</span>
@@ -603,13 +614,35 @@
 
                         <p class="control-bar-count" href="">Showing all 8 results</ح>
                     </div>
-                    <div id="products-grid" ></div>
-                    <div id="pagination" ></div>
+                    <div id="products-grid"></div>
+                    <div id="pagination"></div>
                 </div>
 
             </section>
         </div>
     </main>
+    
+    <!-- Overlay -->
+    <div class="mobile-sheet-overlay"></div>
+
+    <!-- Bottom Sheet -->
+    <div class="mobile-sheet">
+
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-header">
+            <h3 class="sheet-title">فیلترها</h3>
+
+            <button class="sheet-close">
+                ✕
+            </button>
+        </div>
+
+        <div class="sheet-content">
+
+        </div>
+
+    </div>
 
     <footer class="footer">
         <div class="footer-container">
