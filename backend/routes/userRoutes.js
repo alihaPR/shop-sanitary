@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const User = require("../models/User");
+const Order = require("../models/Order");
 const { protect, admin } = require("../middleware/auth");
 
 // همه کاربران (فقط ادمین)
@@ -80,6 +81,61 @@ router.put("/:id/role", protect, admin, async (req, res) => {
       message: err.message,
     });
   }
+});
+router.get("/dashboard", protect, async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.user._id).select("name");
+
+        const orders = await Order.find({
+            user: req.user._id
+        }).sort({
+            createdAt: -1
+        });
+
+        const orderCount = orders.length;
+
+        const pending = orders.filter(o => o.status === "pending").length;
+
+        const processing = orders.filter(o => o.status === "processing").length;
+
+        const shipped = orders.filter(o => o.status === "shipped").length;
+
+        const delivered = orders.filter(o => o.status === "delivered").length;
+
+        const totalSpent = orders.reduce((sum, order) => sum + order.totalPrice, 0);
+
+        const lastOrder = orders[0] || null;
+
+        res.json({
+
+            userName: user.name,
+
+            orderCount,
+
+            pending,
+
+            processing,
+
+            shipped,
+
+            delivered,
+
+            totalSpent,
+
+            lastOrder
+
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
 });
 
 module.exports = router;
