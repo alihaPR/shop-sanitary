@@ -33,7 +33,7 @@ switchlogin.addEventListener('click', function (e) {
 loginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const email = loginForm.querySelector('input[name="email"]').value;
+    const phone = loginForm.querySelector('input[name="phone"]').value.trim();
     const password = loginForm.querySelector('input[name="password"]').value;
 
     try {
@@ -43,7 +43,7 @@ loginForm.addEventListener("submit", async function (e) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email,
+                phone,
                 password
             })
         });
@@ -70,11 +70,21 @@ loginForm.addEventListener("submit", async function (e) {
 registerForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = registerForm.querySelector('input[name="fullname"]').value;
-    const phone = registerForm.querySelector('input[name="phone"]').value;
+    const name = registerForm.querySelector('input[name="fullname"]').value.trim();
+    const phone = registerForm.querySelector('input[name="phone"]').value.trim();
     const password = registerForm.querySelector('input[name="password"]').value;
-    const email = registerForm.querySelector('input[name="email"]').value;
-    console.log({ name, phone, password, email });
+    const confirmPassword = registerForm.querySelector('input[name="confirmPassword"]').value;
+    if (!/^09\d{9}$/.test(phone)) {
+
+        return alert("شماره موبایل معتبر نیست.");
+
+    }
+
+    if (password !== confirmPassword) {
+
+        return alert("تکرار رمز عبور صحیح نیست.");
+
+    }
 
     try {
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -83,10 +93,11 @@ registerForm.addEventListener("submit", async function (e) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+
                 name,
                 phone,
-                password,
-                email
+                password
+
             })
         });
 
