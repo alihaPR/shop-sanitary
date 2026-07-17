@@ -157,4 +157,36 @@ router.get("/profile", protect, async (req, res) => {
     }
 
 });
+
+router.put("/profile", protect, async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+
+            return res.status(404).json({
+                message: "کاربر پیدا نشد"
+            });
+
+        }
+
+        user.name = req.body.name || user.name;
+        user.phone = req.body.phone || user.phone;
+        user.address = req.body.address || user.address;
+
+        await user.save();
+
+        res.json(user);
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
 module.exports = router;

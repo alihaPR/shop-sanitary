@@ -1,45 +1,113 @@
-<div class="profile-card">
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
-    <div class="profile-header">
+<head>
 
-        <img src="../img/user.png" class="avatar">
+<meta charset="UTF-8">
 
-        <h2 id="userName"></h2>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    </div>
+<title>پروفایل کاربری</title>
 
-    <div class="profile-info">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="profile.css">
 
-        <div class="info-item">
+</head>
 
-            <span>نام</span>
+<body>
 
-            <strong id="name"></strong>
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            NSG
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                داشبورد
+            </li>
+
+            <li onclick="location.href='orders.html'">
+                سفارش‌های من
+            </li>
+
+            <li class="active">
+                پروفایل
+            </li>
+
+            <li id="logout">
+                خروج
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main class="content">
+
+        <div class="profile-card">
+
+            <div class="profile-header">
+
+                <img src="../img/user.png" class="avatar">
+
+                <h2 id="userName"></h2>
+
+            </div>
+
+            <div class="profile-info">
+
+                <div class="info-item">
+
+                    <span>نام</span>
+
+                    <strong id="name"></strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>ایمیل</span>
+
+                    <strong id="email"></strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>شماره موبایل</span>
+
+                    <strong id="phone"></strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>آدرس</span>
+
+                    <strong id="address"></strong>
+
+                </div>
+
+            </div>
+
+            <button id="editProfile">
+
+                ویرایش اطلاعات
+
+            </button>
 
         </div>
 
-        <div class="info-item">
-
-            <span>ایمیل</span>
-
-            <strong id="email"></strong>
-
-        </div>
-
-        <div class="info-item">
-
-            <span>شماره موبایل</span>
-
-            <strong id="phone"></strong>
-
-        </div>
-
-    </div>
-
-    <button id="editProfile">
-
-        ویرایش اطلاعات
-
-    </button>
+    </main>
 
 </div>
+
+<script src="profile.js"></script>
+
+</body>
+
+</html>

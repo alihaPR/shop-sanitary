@@ -243,3 +243,128 @@ body{
     background:#1d4ed8;
 
 }
+
+/* ----------------------------------------profile------------------------------------------ */
+.profile-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    max-width:750px;
+
+    margin:auto;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+}
+
+.profile-header{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.avatar{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    border:4px solid #2563eb;
+
+    object-fit:cover;
+
+    margin-bottom:15px;
+
+}
+
+.profile-header h2{
+
+    color:#222;
+
+    font-size:28px;
+
+}
+
+.profile-info{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+.info-item{
+
+    background:#f8fafc;
+
+    padding:18px;
+
+    border-radius:12px;
+
+}
+
+.info-item span{
+
+    display:block;
+
+    color:#888;
+
+    margin-bottom:8px;
+
+}
+
+.info-item strong{
+
+    color:#222;
+
+    font-size:18px;
+
+}
+
+#editProfile{
+
+    margin-top:35px;
+
+    width:100%;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+#editProfile:hover{
+
+    background:#1d4ed8;
+
+}
+
+@media(max-width:768px){
+
+.profile-info{
+
+grid-template-columns:1fr;
+
+}
+
+}
