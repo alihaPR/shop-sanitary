@@ -99,6 +99,29 @@
                     ویرایش اطلاعات
 
                 </button>
+                <hr class="profile-divider">
+
+                <div class="security-section">
+
+                    <h3>
+
+                        امنیت حساب
+
+                    </h3>
+
+                    <p>
+
+                        برای افزایش امنیت حساب، رمز عبور خود را به‌صورت دوره‌ای تغییر دهید.
+
+                    </p>
+
+                    <button id="changePassword">
+
+                        تغییر رمز عبور
+
+                    </button>
+
+                </div>
 
             </div>
 
@@ -140,6 +163,41 @@
 
     </div>
 
+    <div class="modal-overlay" id="passwordModal">
+
+        <div class="edit-modal">
+
+            <h2>
+
+                تغییر رمز عبور
+
+            </h2>
+
+            <input id="currentPassword" type="password" placeholder="رمز عبور فعلی">
+
+            <input id="newPassword" type="password" placeholder="رمز عبور جدید">
+
+            <input id="confirmPassword" type="password" placeholder="تکرار رمز عبور جدید">
+
+            <div class="modal-buttons">
+
+                <button id="savePassword">
+
+                    ذخیره
+
+                </button>
+
+                <button id="closePassword">
+
+                    انصراف
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
     <script src="profile.js"></script>
 
 </body>

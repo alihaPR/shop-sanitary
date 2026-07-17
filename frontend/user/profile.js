@@ -47,7 +47,10 @@ document.getElementById("logout").onclick = () => {
 
 };
 
-// باز کردن مودال
+/* ===========================
+      ویرایش اطلاعات
+=========================== */
+
 document.getElementById("editProfile").onclick = () => {
 
     document.getElementById("editModal").style.display = "flex";
@@ -63,14 +66,12 @@ document.getElementById("editProfile").onclick = () => {
 
 };
 
-// بستن مودال
 document.getElementById("closeModal").onclick = () => {
 
     document.getElementById("editModal").style.display = "none";
 
 };
 
-// ذخیره اطلاعات
 document.getElementById("saveProfile").onclick = async () => {
 
     const body = {
@@ -115,6 +116,90 @@ document.getElementById("saveProfile").onclick = async () => {
         await loadProfile();
 
         alert("اطلاعات با موفقیت ذخیره شد.");
+
+    } catch (err) {
+
+        alert(err.message);
+
+    }
+
+};
+
+/* ===========================
+      تغییر رمز
+=========================== */
+
+document.getElementById("changePassword").onclick = () => {
+
+    document.getElementById("passwordModal").style.display = "flex";
+
+};
+
+document.getElementById("closePassword").onclick = () => {
+
+    document.getElementById("passwordModal").style.display = "none";
+
+};
+
+document.getElementById("savePassword").onclick = async () => {
+
+    const currentPassword =
+        document.getElementById("currentPassword").value;
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    if (newPassword !== confirmPassword) {
+
+        return alert("تکرار رمز عبور صحیح نیست.");
+
+    }
+
+    try {
+
+        const res = await fetch(
+            "https://shop-sanitary-production.up.railway.app/api/users/change-password",
+            {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Content-Type": "application/json",
+
+                    Authorization: `Bearer ${token}`
+
+                },
+
+                body: JSON.stringify({
+
+                    currentPassword,
+
+                    newPassword
+
+                })
+
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+
+            throw new Error(data.message);
+
+        }
+
+        alert("رمز عبور با موفقیت تغییر کرد.");
+
+        document.getElementById("passwordModal").style.display = "none";
+
+        document.getElementById("currentPassword").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
 
     } catch (err) {
 
