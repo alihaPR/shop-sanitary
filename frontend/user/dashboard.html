@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>پنل کاربری</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                NSG
+
+            </div>
+
+            <ul>
+
+                <li class="active">
+                    داشبورد
+                </li>
+
+                <li onclick="location.href='./orders.html'">
+                    سفارش های من
+                </li>
+
+                <li>
+                    پروفایل
+                </li>
+
+                <li>
+                    تغییر رمز
+                </li>
+
+                <li id="logout">
+                    خروج
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <main class="content">
+
+            <div class="topbar">
+
+                <h2 id="welcome">
+
+                    سلام 👋
+
+                </h2>
+
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>کل سفارش ها</h3>
+
+                    <span id="orderCount">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>در انتظار</h3>
+
+                    <span id="pending">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>درحال پردازش</h3>
+
+                    <span id="processing">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>ارسال شده</h3>
+
+                    <span id="shipped">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>تحویل شده</h3>
+
+                    <span id="delivered">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>مجموع خرید</h3>
+
+                    <span id="spent">0</span>
+
+                </div>
+
+            </div>
+
+            <div class="last-order">
+
+                <h2>
+
+                    آخرین سفارش
+
+                </h2>
+
+                <div id="lastOrderBox">
+
+                    سفارشی وجود ندارد
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>

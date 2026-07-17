@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>جزئیات سفارش</title>
+
+<link rel="stylesheet" href="/frontend/user/dashboard.css">
+<link rel="stylesheet" href="/frontend/user/order-details.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            NSG
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                داشبورد
+            </li>
+
+            <li onclick="location.href='orders.html'" class="active">
+                سفارش های من
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                پروفایل
+            </li>
+
+            <li id="logout">
+                خروج
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main class="content">
+
+        <button class="back-btn" onclick="history.back()">
+
+            ← بازگشت
+
+        </button>
+
+        <div id="orderDetails">
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="/frontend/user/order-details.js"></script>
+
+</body>
+
+</html>
