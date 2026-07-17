@@ -134,6 +134,49 @@ document.getElementById("changePassword").onclick = () => {
     document.getElementById("passwordModal").style.display = "flex";
 
 };
+const newPasswordInput = document.getElementById("newPassword");
+
+newPasswordInput.addEventListener("input", () => {
+
+    const password = newPasswordInput.value;
+
+    const length = password.length >= 8;
+
+    const upper = /[A-Z]/.test(password);
+
+    const lower = /[a-z]/.test(password);
+
+    const number = /[0-9]/.test(password);
+
+    toggleRule("ruleLength", length);
+
+    toggleRule("ruleUpper", upper);
+
+    toggleRule("ruleLower", lower);
+
+    toggleRule("ruleNumber", number);
+
+});
+
+function toggleRule(id, valid) {
+
+    const item = document.getElementById(id);
+
+    if (valid) {
+
+        item.classList.add("valid");
+
+        item.innerHTML = "✅ " + item.textContent.slice(2);
+
+    } else {
+
+        item.classList.remove("valid");
+
+        item.innerHTML = "❌ " + item.textContent.slice(2);
+
+    }
+
+}
 
 document.getElementById("closePassword").onclick = () => {
 
@@ -157,7 +200,19 @@ document.getElementById("savePassword").onclick = async () => {
         return alert("تکرار رمز عبور صحیح نیست.");
 
     }
+    const strongPassword =
+        newPassword.length >= 8 &&
+        /[A-Z]/.test(newPassword) &&
+        /[a-z]/.test(newPassword) &&
+        /[0-9]/.test(newPassword);
 
+    if (!strongPassword) {
+
+        return alert(
+            "رمز عبور باید حداقل ۸ کاراکتر، شامل حرف بزرگ، حرف کوچک و عدد باشد."
+        );
+
+    }
     try {
 
         const res = await fetch(
@@ -210,3 +265,38 @@ document.getElementById("savePassword").onclick = async () => {
 };
 
 loadProfile();
+/* ===========================
+      نمایش/مخفی کردن رمز فعلی
+=========================== */
+
+const toggleCurrentPassword =
+document.getElementById("toggleCurrentPassword");
+
+if (toggleCurrentPassword) {
+
+    toggleCurrentPassword.addEventListener("click", () => {
+
+        const input =
+        document.getElementById("currentPassword");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            toggleCurrentPassword.classList.remove("fa-eye");
+
+            toggleCurrentPassword.classList.add("fa-eye-slash");
+
+        } else {
+
+            input.type = "password";
+
+            toggleCurrentPassword.classList.remove("fa-eye-slash");
+
+            toggleCurrentPassword.classList.add("fa-eye");
+
+        }
+
+    });
+
+}

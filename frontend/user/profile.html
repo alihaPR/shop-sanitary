@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>پروفایل کاربری</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="profile.css">
 
@@ -173,9 +173,26 @@
 
             </h2>
 
-            <input id="currentPassword" type="password" placeholder="رمز عبور فعلی">
+            <div class="password-field">
+
+                <input id="currentPassword" type="password" placeholder="رمز عبور فعلی">
+
+                <i class="fa-solid fa-eye toggle-password" id="toggleCurrentPassword"></i>
+
+            </div>
 
             <input id="newPassword" type="password" placeholder="رمز عبور جدید">
+            <div class="password-rules" id="passwordRules">
+
+                <div id="ruleLength">❌ حداقل ۸ کاراکتر</div>
+
+                <div id="ruleUpper">❌ حداقل یک حرف بزرگ (A-Z)</div>
+
+                <div id="ruleLower">❌ حداقل یک حرف کوچک (a-z)</div>
+
+                <div id="ruleNumber">❌ حداقل یک عدد (0-9)</div>
+
+            </div>
 
             <input id="confirmPassword" type="password" placeholder="تکرار رمز عبور جدید">
 

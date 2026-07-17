@@ -524,3 +524,76 @@ grid-template-columns:1fr;
     background:#dc2626;
 
 }
+.password-rules{
+
+    margin:10px 0 20px;
+
+    padding:12px;
+
+    background:#fafafa;
+
+    border:1px solid #eee;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+}
+
+.password-rules div{
+
+    margin:6px 0;
+
+    color:#ef4444;
+
+    transition:.3s;
+
+}
+
+.password-rules .valid{
+
+    color:#16a34a;
+
+    font-weight:600;
+
+}
+
+.password-field{
+
+    position:relative;
+
+}
+
+.password-field input{
+
+    width:100%;
+
+    padding-left:45px;
+
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    left:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:#666;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.toggle-password:hover{
+
+    color:#2563eb;
+
+}
