@@ -248,3 +248,49 @@ height:220px;
 }
 
 }
+
+.status{
+
+    display:inline-block;
+
+    padding:7px 18px;
+
+    border-radius:25px;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+}
+
+.pending{
+
+    background:#f59e0b;
+
+}
+
+.processing{
+
+    background:#3b82f6;
+
+}
+
+.shipped{
+
+    background:#8b5cf6;
+
+}
+
+.delivered{
+
+    background:#22c55e;
+
+}
+
+.cancelled{
+
+    background:#ef4444;
+
+}

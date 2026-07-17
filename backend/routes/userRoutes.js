@@ -138,4 +138,23 @@ router.get("/dashboard", protect, async (req, res) => {
 
 });
 
+router.get("/profile", protect, async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.user._id).select("-password");
+
+        res.json(user);
+
+    } catch (err) {
+
+        res.status(500).json({
+
+            message: err.message
+
+        });
+
+    }
+
+});
 module.exports = router;

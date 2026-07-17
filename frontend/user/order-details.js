@@ -41,13 +41,17 @@ async function loadOrderDetails() {
 
                 <br>
 
-                <p>
+<p>
 
-                    <b>وضعیت:</b>
+    <b>وضعیت:</b>
 
-                    ${translateStatus(order.status)}
+    <span class="status ${order.status}">
 
-                </p>
+        ${translateStatus(order.status)}
+
+    </span>
+
+</p>
 
                 <br>
 
