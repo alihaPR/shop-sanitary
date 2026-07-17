@@ -3,110 +3,144 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>پروفایل کاربری</title>
+    <title>پروفایل کاربری</title>
 
-<link rel="stylesheet" href="dashboard.css">
-<link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="profile.css">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <aside class="sidebar">
+        <aside class="sidebar">
 
-        <div class="logo">
-            NSG
-        </div>
+            <div class="logo">
+                NSG
+            </div>
 
-        <ul>
+            <ul>
 
-            <li onclick="location.href='dashboard.html'">
-                داشبورد
-            </li>
+                <li onclick="location.href='dashboard.html'">
+                    داشبورد
+                </li>
 
-            <li onclick="location.href='orders.html'">
-                سفارش‌های من
-            </li>
+                <li onclick="location.href='orders.html'">
+                    سفارش‌های من
+                </li>
 
-            <li class="active">
-                پروفایل
-            </li>
+                <li class="active">
+                    پروفایل
+                </li>
 
-            <li id="logout">
-                خروج
-            </li>
+                <li id="logout">
+                    خروج
+                </li>
 
-        </ul>
+            </ul>
 
-    </aside>
+        </aside>
 
-    <main class="content">
+        <main class="content">
 
-        <div class="profile-card">
+            <div class="profile-card">
 
-            <div class="profile-header">
+                <div class="profile-header">
 
-                <img src="../img/user.png" class="avatar">
+                    <img src="../img/user.png" class="avatar">
 
-                <h2 id="userName"></h2>
+                    <h2 id="userName"></h2>
+
+                </div>
+
+                <div class="profile-info">
+
+                    <div class="info-item">
+
+                        <span>نام</span>
+
+                        <strong id="name"></strong>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span>ایمیل</span>
+
+                        <strong id="email"></strong>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span>شماره موبایل</span>
+
+                        <strong id="phone"></strong>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <span>آدرس</span>
+
+                        <strong id="address"></strong>
+
+                    </div>
+
+                </div>
+
+                <button id="editProfile">
+
+                    ویرایش اطلاعات
+
+                </button>
 
             </div>
 
-            <div class="profile-info">
+        </main>
 
-                <div class="info-item">
+    </div>
 
-                    <span>نام</span>
 
-                    <strong id="name"></strong>
 
-                </div>
+    <div class="modal-overlay" id="editModal">
 
-                <div class="info-item">
+        <div class="edit-modal">
 
-                    <span>ایمیل</span>
+            <h2>ویرایش اطلاعات</h2>
 
-                    <strong id="email"></strong>
+            <input id="editName" type="text" placeholder="نام">
 
-                </div>
+            <input id="editPhone" type="text" placeholder="شماره موبایل">
 
-                <div class="info-item">
+            <textarea id="editAddress" placeholder="آدرس"></textarea>
 
-                    <span>شماره موبایل</span>
+            <div class="modal-buttons">
 
-                    <strong id="phone"></strong>
+                <button id="saveProfile">
 
-                </div>
+                    ذخیره
 
-                <div class="info-item">
+                </button>
 
-                    <span>آدرس</span>
+                <button id="closeModal">
 
-                    <strong id="address"></strong>
+                    انصراف
 
-                </div>
+                </button>
 
             </div>
 
-            <button id="editProfile">
-
-                ویرایش اطلاعات
-
-            </button>
-
         </div>
 
-    </main>
+    </div>
 
-</div>
-
-<script src="profile.js"></script>
+    <script src="profile.js"></script>
 
 </body>
 
