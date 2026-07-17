@@ -189,4 +189,44 @@ router.put("/profile", protect, async (req, res) => {
     }
 
 });
+const bcrypt = require("bcryptjs");
+
+router.put("/change-password", protect, async (req, res) => {
+
+    try {
+
+        const { currentPassword, newPassword } = req.body;
+
+        const user = await User.findById(req.user._id);
+
+        const isMatch = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isMatch) {
+
+            return res.status(400).json({
+                message: "رمز فعلی اشتباه است."
+            });
+
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+
+        await user.save();
+
+        res.json({
+            message: "رمز عبور با موفقیت تغییر کرد."
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
 module.exports = router;
