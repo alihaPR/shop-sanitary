@@ -14,6 +14,7 @@ async function loadOrders() {
         );
 
         const orders = await res.json();
+        
 
         const container = document.getElementById("ordersContainer");
 
