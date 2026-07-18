@@ -7,8 +7,8 @@ async function loadDashboard() {
         const res = await fetch(
             "https://shop-sanitary-production.up.railway.app/api/users/dashboard",
             {
-                headers:{
-                    Authorization:`Bearer ${token}`
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
@@ -17,8 +17,11 @@ async function loadDashboard() {
 
         console.log(data);
 
-        document.getElementById("welcome").innerText =
-            `سلام ${data.userName} 👋`;
+        document.getElementById("userName").innerText = data.userName;
+
+        // اگر عکس کاربر فعلاً نداری
+        document.getElementById("userAvatar").src = "../img/user.png";
+
 
         document.getElementById("orderCount").innerText =
             data.orderCount;
@@ -38,7 +41,7 @@ async function loadDashboard() {
         document.getElementById("spent").innerText =
             data.totalSpent.toLocaleString() + " تومان";
 
-        if(data.lastOrder){
+        if (data.lastOrder) {
 
             document.getElementById("lastOrderBox").innerHTML = `
 
@@ -54,7 +57,7 @@ async function loadDashboard() {
 
         }
 
-    } catch(err){
+    } catch (err) {
 
         console.log(err);
 
@@ -64,10 +67,10 @@ async function loadDashboard() {
 
 loadDashboard();
 
-document.getElementById("logout").onclick = ()=>{
+document.getElementById("logout").onclick = () => {
 
     localStorage.removeItem("token");
 
-    location.href="../login.html";
+    location.href = "../login.html";
 
 };
