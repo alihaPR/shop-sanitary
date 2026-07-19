@@ -116,22 +116,58 @@ body {
 }
 
 .card {
-    background: #fff;
+    width: 240px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    background: #FFFFFF;
     border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+    padding: 10px ;
+}
+
+
+
+.cart-svg {
+    width: 54px;
+    height: 54px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.svg-1{
+    background-color: #E5F1EF;
+}
+.svg-2{
+    background-color: #E8FAF0;
+
+}
+.svg-3{
+    background-color: #FFFBEB;
+}
+.svg-4{
+    background-color: #e4f6fd;
+}
+.cart-content {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card h3 {
     color: #777;
-    margin-bottom: 15px;
-    font-size: 15px;
+
+    font-size: 12px;
 }
 
 .card span {
-    font-size: 34px;
+    font-size: 11px;
     font-weight: bold;
-    color: #2563eb;
+    color: black;
 }
 
 .last-order {
@@ -147,6 +183,8 @@ body {
 }
 
 #lastOrderBox {
+    width:218px ;
+    height: 273px;
     background: #f7f7f7;
     border-radius: 10px;
     padding: 20px;

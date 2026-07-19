@@ -16,27 +16,27 @@ async function loadDashboard() {
         const data = await res.json();
 
         console.log(data);
+        console.log(data.lastOrder.items[0]);
+        console.log("Data:", data);
+
 
         document.getElementById("userName").innerText = data.userName;
 
-        // اگر عکس کاربر فعلاً نداری
-        document.getElementById("userAvatar").src = "../img/user.png";
+      
 
+const currentOrders =
+    data.pending +
+    data.processing +
+    data.shipped;
 
-        document.getElementById("orderCount").innerText =
-            data.orderCount;
+document.getElementById("currentOrders").innerText =
+    currentOrders;
 
-        document.getElementById("pending").innerText =
-            data.pending;
+document.getElementById("delivered").innerText =
+    data.delivered;
 
-        document.getElementById("processing").innerText =
-            data.processing;
-
-        document.getElementById("shipped").innerText =
-            data.shipped;
-
-        document.getElementById("delivered").innerText =
-            data.delivered;
+document.getElementById("returned").innerText =
+    data.returned || 0;
 
         document.getElementById("spent").innerText =
             data.totalSpent.toLocaleString() + " تومان";
