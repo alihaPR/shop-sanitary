@@ -39,8 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (featList && product.features) {
     featList.innerHTML = product.features.map(f => `
       <div class="feat-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/></svg>
-        <span>${f}</span>
+        <span>${f}<br><b></b></span>
       </div>`).join("");
   }
 
