@@ -98,7 +98,6 @@
       padding: 5px 8px;
       display: inline-block;
       margin-bottom: 12px;
-      position: absolute;
   }
 
   .price-row {
@@ -331,7 +330,9 @@
   /* ----------------------------------- ریسپانسیو */
 
   @media (max-width:1200px) {
-
+      .best-price-tag {
+        position: absolute;
+      }
       .seller-card {
           width: 100%;
       }
@@ -368,6 +369,12 @@
   }
 
   @media (max-width:1024px) {
+      .buy-card {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+      }
 
       .wrap {
           flex-direction: column;
@@ -410,6 +417,12 @@
   }
 
   @media (max-width:768px) {
+      .buy-card {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+      }
 
       .info {
           margin: 16px 0;
@@ -483,6 +496,12 @@
   }
 
   @media (max-width:576px) {
+      .buy-card {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+      }
 
       .info {
           margin: 12px 0;
@@ -578,6 +597,12 @@
   }
 
   @media (max-width:430px) {
+      .buy-card {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+      }
 
       .main-card {
           padding: 10px;
@@ -662,6 +687,12 @@
   }
 
   @media (max-width:360px) {
+      .buy-card {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+      }
 
       .info {
           margin: 10px 0;
