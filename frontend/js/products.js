@@ -363,6 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // URL params
   const params = new URLSearchParams(window.location.search)
+  
   const categoryParam = params.get("category")
   const searchParam = params.get("search")
 

@@ -79,61 +79,86 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ── نتایج سرچ ──
-    function showResults(query) {
-      if (typeof products === "undefined") return
+    async function showResults(query) {
 
-      const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.brand.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 6)
+      try {
 
-      if (filtered.length === 0) {
-        dropdown.innerHTML = `<div style="padding:16px; text-align:center; color:#bbb; font-size:13px">نتیجه‌ای یافت نشد</div>`
-        dropdown.style.display = "block"
-        return
-      }
+        const res = await fetch(
+          `https://shop-sanitary-production.up.railway.app/api/products?search=${encodeURIComponent(query)}`
+        );
 
-      const categoryNames = {
-        "پوشک-کودک": "پوشک کودک",
-        "پوشک-بزرگسال": "پوشک بزرگسال",
-        "نوار-بهداشتی": "نوار بهداشتی",
-        "پنبه": "پنبه",
-        "دستمال-مرطوب": "دستمال مرطوب"
-      }
+        const filtered = await res.json();
+   
 
-      dropdown.innerHTML = `
-        <div style="padding:8px 14px 5px; font-size:11px; color:#aaa; font-weight:600; border-bottom:1px solid #f5f5f5; margin-bottom:2px">نتایج جستجو</div>
-        ${filtered.map(p => {
-          const hasDiscount = p.discountPercent > 0
-          const finalPrice = hasDiscount
-            ? Math.round(p.price * (1 - p.discountPercent / 100))
-            : p.price
-          return `
-            <div onclick="window.location.href='cart.html?id=${p.id}'"
-              style="display:flex; align-items:center; gap:12px; padding:9px 14px; cursor:pointer; border-bottom:1px solid #f9f9f9; transition:background 0.15s"
-              onmouseover="this.style.background='#f9f9f9'"
-              onmouseout="this.style.background='#fff'"
-            >
-              <img src="${p.image}" style="width:40px; height:40px; object-fit:contain; border-radius:7px; border:1px solid #f0f0f0; background:#fafafa; flex-shrink:0">
-              <div style="flex:1; min-width:0">
-                <div style="font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${p.name}</div>
-                <div style="font-size:11px; color:#0183FF; margin-top:2px">${categoryNames[p.category] || ""}</div>
-              </div>
-            </div>
-          `
-        }).join("")}
-        <div onclick="saveAndGo('${query}')"
-          style="padding:10px 14px; font-size:12.5px; color:#0183FF; font-weight:600; cursor:pointer; text-align:center; border-top:1px solid #f5f5f5; margin-top:2px"
-          onmouseover="this.style.background='#f5f9ff'"
-          onmouseout="this.style.background='#fff'"
-        >
-          مشاهده همه نتایج «${query}»
+        if (filtered.length === 0) {
+
+          dropdown.innerHTML =
+            `<div style="padding:16px;text-align:center;color:#bbb;font-size:13px">
+                    نتیجه‌ای یافت نشد
+                </div>`;
+
+          dropdown.style.display = "block";
+
+          return;
+
+        }
+
+        const categoryNames = {
+          "پوشک-کودک": "پوشک کودک",
+          "پوشک-بزرگسال": "پوشک بزرگسال",
+          "نوار-بهداشتی": "نوار بهداشتی",
+          "پنبه": "پنبه",
+          "دستمال-مرطوب": "دستمال مرطوب"
+        };
+
+        dropdown.innerHTML = `
+        <div style="padding:8px 14px 5px;font-size:11px;color:#aaa;font-weight:600;border-bottom:1px solid #f5f5f5;margin-bottom:2px">
+            نتایج جستجو
         </div>
-      `
-      dropdown.style.display = "block"
+
+        ${filtered.slice(0, 6).map(p => `
+
+        <div onclick="window.location.href='cart.html?id=${p._id}'"
+            style="display:flex;align-items:center;gap:12px;padding:9px 14px;cursor:pointer">
+
+            <img src="${p.image}"
+                 style="width:40px;height:40px;object-fit:contain">
+
+            <div>
+
+                <div>${p.name}</div>
+
+                <div style="font-size:12px;color:#0183FF">
+
+                    ${categoryNames[p.category] || ""}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `).join("")}
+
+        <div onclick="saveAndGo('${query}')"
+            style="padding:10px;text-align:center;color:#0183FF;cursor:pointer">
+
+            مشاهده همه نتایج
+
+        </div>
+        `;
+
+        dropdown.style.display = "block";
+
+      } catch (err) {
+
+        console.log(err);
+
+      }
+
     }
 
-    window.saveAndGo = function(query) {
+    window.saveAndGo = function (query) {
       saveToHistory(query)
       closeDropdown()
       window.location.href = `products.html?search=${encodeURIComponent(query)}`
