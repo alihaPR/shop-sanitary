@@ -105,10 +105,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (qty <= 0) {
       container.innerHTML = `<button class="btn-cart" id="addToCartBtn">افزودن به سبد خرید</button>`;
       document.getElementById("addToCartBtn").addEventListener("click", () => {
-        addToCart(product);
+
+        const added = addToCart(product);
+
+        if (!added) return;
+
         updateCartBadge();
+
         renderCartUI();
+
         showToast();
+
       });
     } else {
       container.innerHTML = `

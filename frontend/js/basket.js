@@ -7,15 +7,69 @@ function saveCart(cart) {
 }
 
 function addToCart(product) {
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+
+    // اگر Toast وجود ندارد، بساز
+    let toast = document.getElementById("toast-login");
+
+    if (!toast) {
+
+      toast = document.createElement("div");
+      toast.id = "toast-login";
+
+      toast.style.cssText = `
+                position:fixed;
+                bottom:25px;
+                right:25px;
+                background:#dc2626;
+                color:#fff;
+                padding:14px 18px;
+                border-radius:12px;
+                box-shadow:0 10px 30px rgba(0,0,0,.2);
+                font-size:14px;
+                z-index:999999;
+                opacity:0;
+                transform:translateY(20px);
+                transition:.3s;
+            `;
+
+      document.body.appendChild(toast);
+    }
+
+    toast.innerText = "ابتدا وارد حساب کاربری شوید";
+
+    toast.style.opacity = "1";
+    toast.style.transform = "translateY(0)";
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(20px)";
+    }, 1800);
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 1800);
+
+    return ;
+  }
+
   const cart = getCart();
+
   const existing = cart.find(item => item._id === product._id);
+
   if (existing) {
     existing.qty += 1;
   } else {
     cart.push({ ...product, qty: 1 });
   }
+
   saveCart(cart);
+
   updateCartBadge();
+  return true;
 }
 
 function removeFromCart(productId) {
@@ -94,7 +148,7 @@ function renderBasket() {
 
     const div = document.createElement("div");
     div.className = "cart-item";
-div.dataset.id = item._id;    
+    div.dataset.id = item._id;
 
     div.innerHTML = `
       <div class="item-img" style="background-image: url('${item.image}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
