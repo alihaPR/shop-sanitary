@@ -104,10 +104,18 @@ registerForm.addEventListener("submit", async function (e) {
         const data = await response.json();
 
         if (response.ok) {
+
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data));
+
             alert("ثبت نام با موفقیت انجام شد");
-            console.log(data);
+
+            window.location.href = "index.html";
+
         } else {
+
             alert(data.message);
+
         }
         console.log(data);
 
