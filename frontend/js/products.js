@@ -363,24 +363,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // URL params
   const params = new URLSearchParams(window.location.search)
-  
+
   const categoryParam = params.get("category")
   const searchParam = params.get("search")
 
-  if (searchParam) {
-    const grid = document.getElementById("products-grid")
-    if (grid) {
-      const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(searchParam.toLowerCase()) ||
-        p.brand.toLowerCase().includes(searchParam.toLowerCase())
-      )
-      grid.innerHTML = ""
-      filtered.length === 0
-        ? grid.innerHTML = `<p style="color:#aaa;font-size:14px;padding:40px 0">محصولی یافت نشد.</p>`
-        : filtered.forEach(p => grid.appendChild(createCard(p)))
-    }
-    return
-  }
 
   if (categoryParam && document.getElementById("active-category-title")) {
     const categoryNames = {
@@ -394,14 +380,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (document.getElementById("products-grid")) {
 
-    fetch(`${API_BASE_URL}/products`)
+    let url = `${API_BASE_URL}/products`;
+
+    if (searchParam) {
+
+      url += `?search=${encodeURIComponent(searchParam)}`;
+
+    }
+
+    fetch(url)
       .then(res => res.json())
       .then(data => {
+
         products = data;
+
         renderProducts(categoryParam);
+
       })
       .catch(err => {
+
         console.error(err);
+
       });
 
   }
@@ -413,7 +412,9 @@ if (typeof module !== "undefined") {
 }
 
 // ------------------------------------------------------------------------------------------------
-const filterHTML = document.querySelector(".filter-box").outerHTML;
+const filterBox = document.querySelector(".filter-box");
+
+const filterHTML = filterBox ? filterBox.outerHTML : "";
 
 const sortHTML = `
 <ul class="mobile-sort-list">
@@ -432,30 +433,30 @@ const content = document.querySelector(".sheet-content");
 
 document.querySelector(".mobile-filter-btn").addEventListener("click", () => {
 
-    title.textContent = "فیلترها";
+  title.textContent = "فیلترها";
 
-    content.innerHTML = filterHTML;
+  content.innerHTML = filterHTML;
 
-    sheet.classList.add("active");
-    overlay.classList.add("active");
+  sheet.classList.add("active");
+  overlay.classList.add("active");
 
 });
 
 document.querySelector(".mobile-sort-btn").addEventListener("click", () => {
 
-    title.textContent = "مرتب سازی";
+  title.textContent = "مرتب سازی";
 
-    content.innerHTML = sortHTML;
+  content.innerHTML = sortHTML;
 
-    sheet.classList.add("active");
-    overlay.classList.add("active");
+  sheet.classList.add("active");
+  overlay.classList.add("active");
 
 });
 
 function closeSheet() {
 
-    sheet.classList.remove("active");
-    overlay.classList.remove("active");
+  sheet.classList.remove("active");
+  overlay.classList.remove("active");
 
 }
 
@@ -465,12 +466,12 @@ document.querySelector(".sheet-close").addEventListener("click", closeSheet);
 
 document.addEventListener("click", (e) => {
 
-    if (!e.target.matches(".mobile-sort-list li")) return;
+  if (!e.target.matches(".mobile-sort-list li")) return;
 
-    const type = e.target.dataset.sort;
+  const type = e.target.dataset.sort;
 
-    sortProducts(type);
+  sortProducts(type);
 
-    closeSheet();
+  closeSheet();
 
 });
