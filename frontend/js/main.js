@@ -182,3 +182,118 @@ new Swiper(".productsSwiper", {
     }
 
 });
+//================================================================================================================\
+const homeProducts = [
+{
+    dbName: "پنبه ۱۰۰ گرمی",
+    title: "پنبه 100 گرمی",
+    text: "پنبه طبی خالص، مناسب مصارف پزشکی و آرایشی",
+    imageClass: "image-1"
+},
+{
+    dbName: "نوار بالدار مشبک",
+    title: "نوار بهداشتی بالدار",
+    text: "نرم، ضد حساسیت با محافظت کامل",
+    imageClass: "image-2"
+},
+{
+    dbName: "پنبه هیدروفیل ۲۰۰ گرمی",
+    title: "پنبه هیدروفیل",
+    text: "بسته بزرگ، صرفه‌جویی برای خانه",
+    imageClass: "image-3"
+},
+{
+    dbName: "پوشینه بزرگسال گلبهار سایز L",
+    title: "پوشینه بزرگسال سایز L",
+    text: "جذب بالا، راحت در استفاده روزانه",
+    imageClass: "image-4"
+},
+{
+    dbName: "پوشک نوزاد سایز کوچک",
+    title: "پوشک بچه",
+    text: "نرم و ایمن برای پوست حساس نوزاد",
+    imageClass: "image-5"
+}
+];
+
+async function loadHomeProducts() {
+
+    const wrapper = document.getElementById("products-home");
+
+    if (!wrapper) return;
+
+    try {
+
+        const res = await fetch(`${API_BASE_URL}/products`);
+
+        const products = await res.json();
+
+        wrapper.innerHTML = "";
+
+        homeProducts.forEach((item) => {
+
+            const product = products.find(p => p.name === item.dbName);
+
+            if (!product) return;
+
+            const finalPrice =
+                product.discountPercent > 0
+                    ? Math.round(product.price * (1 - product.discountPercent / 100))
+                    : product.price;
+
+            wrapper.innerHTML += `
+        <div class="swiper-slide">
+
+            <div class="products-cart">
+
+                <div class="cart-products-img ${item.imageClass}">
+
+                    <div class="cart-svg-products">
+                        <!-- svg -->
+                    </div>
+
+                </div>
+
+                <div class="cart-content">
+
+                    <h3>${item.title}</h3>
+
+                    <p>${item.text}</p>
+
+                    <div class="cart-line"></div>
+
+                    <div class="price">
+                        <strong>${finalPrice.toLocaleString("fa-IR")}</strong>
+                        تومان
+                    </div>
+
+                </div>
+
+                <button onclick="window.location.href='cart.html?id=${product._id}'">
+                    مشاهده محصول
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+        });
+
+        const swiper = document.querySelector(".productsSwiper").swiper;
+
+        if (swiper) {
+
+            swiper.update();
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", loadHomeProducts);
