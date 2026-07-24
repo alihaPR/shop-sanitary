@@ -1,6 +1,21 @@
 const token = localStorage.getItem("token");
 
 const orderId = localStorage.getItem("selectedOrder");
+async function loadUser() {
+
+    const res = await fetch(
+        "https://shop-sanitary-production.up.railway.app/api/users/profile",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    const user = await res.json();
+
+    document.getElementById("userName").textContent = user.name;
+}
 
 console.log("Order ID:", orderId);
 async function loadOrderDetails() {
@@ -148,4 +163,5 @@ document.getElementById("logout").onclick = () => {
 
 };
 
+loadUser();
 loadOrderDetails();
