@@ -26,58 +26,212 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   document.title = product.name;
 
-  const mainImg = document.querySelector(".main-img");
-  if (mainImg) { mainImg.style.backgroundImage = `url(${product.image})`; mainImg.innerHTML = ""; }
+  renderProduct(product);
+  renderDetails(product);
 
-  const brandLine = document.querySelector(".brand-line");
-  if (brandLine) brandLine.textContent = product.brand || "";
+  function renderProduct(product) {
 
-  const h1 = document.querySelector(".info-side h1");
-  if (h1) h1.textContent = product.name;
+    const productInfo = document.getElementById("product-info");
 
-  const featList = document.querySelector(".feat-list");
-  if (featList && product.features) {
-    featList.innerHTML = product.features.map(f => `
-      <div class="feat-item">
-        <span>${f}<br><b></b></span>
-      </div>`).join("");
+    productInfo.innerHTML = `
+  
+<div class="wrap">
+
+    <div class="card main-card">
+
+        <div class="image-side">
+
+            <div class="main-img"
+                 style="background-image:url('${product.image}')">
+            </div>
+
+            <div class="icon-row">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
+                </svg>
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <path d="M8.6 10.5 15.4 6.5M8.6 13.5 15.4 17.5"/>
+                </svg>
+
+            </div>
+
+        </div>
+
+        <div class="info-side">
+
+            <h1>${product.name}</h1>
+
+            <div class="brand-line">
+                ${product.brand || ""}
+            </div>
+
+            <div class="feat-title">
+                ویژگی ها
+            </div>
+
+            <ul class="feat-list">
+
+                ${(product.features || [])
+        .map(
+          feature => `
+                    <li class="feat-item">
+                        <span>${feature}</span>
+                    </li>
+                `
+        )
+        .join("")}
+
+            </ul>
+
+            <a class="more-link" href="#products-info-id">
+
+                <p>مشاهده همه ویژگی ها</p>
+
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M10.6664 5L3.99976 12L10.6664 19M3.99976 12L19.9998 12"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+                </svg>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="left-col">
+
+        <div class="card seller-card">
+
+            <div class="row-title">فروشنده</div>
+
+            <b class="name">
+                فروشگاه نرمین سانا گستر
+            </b>
+
+            <div class="check-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="9"/>
+                </svg>
+
+                <span>
+                    عملکرد <b>98%</b> رضایت از کالا
+                </span>
+            </div>
+
+            <div class="check-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2 4 5v6c0 5 8 11 8 11s8-6 8-11V5l-8-3Z"/>
+                </svg>
+
+                <span>
+                    <b>${product.warranty || "-"}</b>
+                    گارانتی اصالت کالا
+                </span>
+
+            </div>
+
+            <div class="check-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 7h13v9H3z"/>
+                    <path d="M16 10h4l1 3v3h-5z"/>
+                    <circle cx="7" cy="18" r="1.5"/>
+                    <circle cx="18" cy="18" r="1.5"/>
+                </svg>
+
+                <span>
+                    موجود در انبار، ارسال توسط فروشنده
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card buy-card">
+
+            ${hasDiscount
+        ? `<span class="best-price-tag">${product.discountPercent}٪ تخفیف ویژه</span>`
+        : ""
+      }
+
+            <div class="price-row">
+
+                ${hasDiscount
+        ? `<span style="font-size:13px;color:#83887F;text-decoration:line-through">
+                        ${formatPrice(product.price)} تومان
+                      </span>`
+        : ""
+      }
+
+                <span class="price-num">
+                    ${formatPrice(finalPrice)}
+                </span>
+
+                <span class="price-unit">
+                    تومان
+                </span>
+
+            </div>
+
+            <div id="cart-btn-container"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+`;
   }
 
-  const priceNum = document.querySelector(".price-num");
-  if (priceNum) priceNum.textContent = formatPrice(finalPrice);
+  function renderDetails(product) {
 
-  if (hasDiscount) {
-    const priceRow = document.querySelector(".price-row");
-    if (priceRow) {
-      const oldPrice = document.createElement("span");
-      oldPrice.style.cssText = "font-size:13px; color:#83887F; text-decoration:line-through;";
-      oldPrice.textContent = formatPrice(product.price) + " تومان";
-      priceRow.insertBefore(oldPrice, priceRow.firstChild);
-      const tag = document.querySelector(".best-price-tag");
-      if (tag) tag.textContent = `${product.discountPercent}٪ تخفیف ویژه`;
-    }
-  }
+  const productDetails = document.getElementById("product-details");
 
-  const extraBuyers = document.querySelector(".extra-buyers");
-  if (extraBuyers && product.buyers) extraBuyers.textContent = `${product.buyers} نفر در حال خرید این کالا`;
+  productDetails.innerHTML = `
 
-  const checkItems = document.querySelectorAll(".check-item span");
-  if (checkItems.length >= 1) checkItems[0].innerHTML = `عملکرد <b>98%</b> رضایت از کالا`;
-  if (checkItems.length >= 2 && product.warranty) checkItems[1].innerHTML = `<b>${product.warranty}</b> گارانتی اصالت کالا`;
+    <div class="card lower-card" id="products-info-id">
 
-  const featureTable = document.querySelector(".feature-table");
-  if (featureTable && product.specs) {
-    featureTable.innerHTML = product.specs.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join("");
-  }
+        <div class="section-title">
+            مشخصات کامل محصول
+        </div>
 
-  const descText = document.querySelector(".desc-text");
-  if (descText && product.description) descText.textContent = product.description;
+        <table class="feature-table">
 
+            ${(product.specs || []).map(spec => `
+                <tr>
+                    <td>${spec.label}</td>
+                    <td>${spec.value}</td>
+                </tr>
+            `).join("")}
+
+        </table>
+
+        <div class="section-title">
+            توضیحات محصول
+        </div>
+
+        <p class="desc-text">
+            ${product.description || ""}
+        </p>
+
+    </div>
+
+  `;
+
+}
 
   // ─────────────────────────────────────────────
   //  کنترل دکمه سبد — از container ثابت استفاده میکنیم
   // ─────────────────────────────────────────────
-  const container = document.getElementById("cart-btn-container");
 
   function getQty() {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -99,43 +253,66 @@ document.addEventListener("DOMContentLoaded", async function () {
     renderCartUI();
   }
 
-  function renderCartUI() {
-    const qty = getQty();
+function renderCartUI() {
 
-    if (qty <= 0) {
-      container.innerHTML = `<button class="btn-cart" id="addToCartBtn">افزودن به سبد خرید</button>`;
-      document.getElementById("addToCartBtn").addEventListener("click", () => {
+  const container = document.getElementById("cart-btn-container");
 
-        const added = addToCart(product);
+  if (!container) return;
 
-        if (!added) return;
+  const qty = getQty();
 
-        updateCartBadge();
+  if (qty <= 0) {
 
-        renderCartUI();
+    container.innerHTML = `
+      <button class="btn-cart" id="addToCartBtn">
+        افزودن به سبد خرید
+      </button>
+    `;
 
-        showToast();
+    document.getElementById("addToCartBtn").addEventListener("click", () => {
 
-      });
-    } else {
-      container.innerHTML = `
-        <div class="btn-cart-wrap">
-          <div class="cart-status-text">
-            <span>در سبد شما</span>
-            <a href="/frontend/basket.html">مشاهده سبد خرید</a>
-          </div>
-          <div class="qty-control">
-            <button class="qty-ctrl-btn" id="qtyPlus">+</button>
-            <span class="qty-ctrl-num">${qty}</span>
-            <button class="qty-ctrl-btn" id="qtyMinus">−</button>
-          </div>
+      const added = addToCart(product);
+
+      if (!added) return;
+
+      updateCartBadge();
+
+      renderCartUI();
+
+      showToast();
+
+    });
+
+  } else {
+
+    container.innerHTML = `
+      <div class="btn-cart-wrap">
+        <div class="cart-status-text">
+          <span>در سبد شما</span>
+          <a href="/frontend/basket.html">مشاهده سبد خرید</a>
         </div>
-      `;
 
-      document.getElementById("qtyPlus").addEventListener("click", () => setQty(getQty() + 1));
-      document.getElementById("qtyMinus").addEventListener("click", () => setQty(getQty() - 1));
-    }
+        <div class="qty-control">
+          <button class="qty-ctrl-btn" id="qtyPlus">+</button>
+
+          <span class="qty-ctrl-num">${qty}</span>
+
+          <button class="qty-ctrl-btn" id="qtyMinus">−</button>
+        </div>
+      </div>
+    `;
+
+    document
+      .getElementById("qtyPlus")
+      .addEventListener("click", () => setQty(getQty() + 1));
+
+    document
+      .getElementById("qtyMinus")
+      .addEventListener("click", () => setQty(getQty() - 1));
+
   }
+
+}
 
   renderCartUI();
   updateCartBadge();
