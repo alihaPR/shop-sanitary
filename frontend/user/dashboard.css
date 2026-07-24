@@ -683,3 +683,8 @@ body {
 .info-text-p {
     font-size: 16px;
 }
+#currentPassword{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
