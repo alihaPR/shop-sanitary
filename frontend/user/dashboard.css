@@ -426,8 +426,9 @@ body {
 
 }
 
-#editProfile {
 
+
+.edit-btn{
     width: 40px;
     height: 40px;
     display: flex;
@@ -437,10 +438,7 @@ body {
     border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
-
 }
-
-
 
 @media(max-width:768px) {
 

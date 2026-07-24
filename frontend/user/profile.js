@@ -315,3 +315,5 @@ if (toggleCurrentPassword) {
     });
 
 }
+
+loadProfile();
