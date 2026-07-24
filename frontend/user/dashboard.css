@@ -81,7 +81,8 @@ body {
     align-items: center;
     justify-content: center;
 }
-.user-box-svg__svg{
+
+.user-box-svg__svg {
     width: 20px;
     height: 20px;
 }
@@ -115,8 +116,9 @@ body {
 }
 
 .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    align-items: center;
+    justify-content: start;
     gap: 20px;
 }
 
@@ -195,10 +197,58 @@ body {
 #lastOrderBox {
     width: 218px;
     height: 273px;
-    background: #f7f7f7;
     border-radius: 10px;
-    padding: 20px;
+    padding-top: 20px;
 }
+
+.last-order-card {
+    width: 210px;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px;
+    border-radius: 6px;
+    background: #f9f9f9;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.order-row:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+.order-row span {
+    color: #666;
+    font-size: 13px;
+}
+
+.order-row strong {
+    font-size: 11px;
+    font-weight: 700;
+    color: #222;
+}
+
+.status-badge {
+    color: #fcfcfc;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#status-badge-text {
+    color: white;
+    font-size: 12px;
+}
+
 
 /* ===== Orders ===== */
 
@@ -431,7 +481,7 @@ body {
 
 
 
-.edit-btn{
+.edit-btn {
     width: 40px;
     height: 40px;
     display: flex;
@@ -683,7 +733,8 @@ body {
 .info-text-p {
     font-size: 16px;
 }
-#currentPassword{
+
+#currentPassword {
     display: flex;
     align-items: center;
     justify-content: center;
