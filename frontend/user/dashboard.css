@@ -428,31 +428,19 @@ body {
 
 #editProfile {
 
-    margin-top: 35px;
-
-    width: 100%;
-
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-
-    background: #2563eb;
-
-    color: #fff;
-
-    padding: 15px;
-
     border-radius: 12px;
-
     cursor: pointer;
-
     font-size: 16px;
 
 }
 
-#editProfile:hover {
 
-    background: #1d4ed8;
-
-}
 
 @media(max-width:768px) {
 
