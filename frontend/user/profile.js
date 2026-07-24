@@ -5,6 +5,7 @@ if (!token) {
 }
 
 let currentUser = {};
+let editingField = "";
 
 async function loadProfile() {
 
@@ -51,20 +52,40 @@ document.getElementById("logout").onclick = () => {
       ویرایش اطلاعات
 =========================== */
 
-document.getElementById("editProfile").onclick = () => {
+document.querySelectorAll(".edit-btn").forEach(btn => {
 
-    document.getElementById("editModal").style.display = "flex";
+    btn.onclick = () => {
 
-    document.getElementById("editName").value =
-        currentUser.name || "";
+        editingField = btn.dataset.field;
 
-    document.getElementById("editPhone").value =
-        currentUser.phone || "";
+        document.getElementById("editModal").style.display = "flex";
 
-    document.getElementById("editAddress").value =
-        currentUser.address || "";
+        const input = document.getElementById("editInput");
+        const title = document.getElementById("modalTitle");
 
-};
+        if (editingField === "name") {
+            title.textContent = "ویرایش نام";
+            input.value = currentUser.name || "";
+        }
+
+        if (editingField === "email") {
+            title.textContent = "ویرایش ایمیل";
+            input.value = currentUser.email || "";
+        }
+
+        if (editingField === "phone") {
+            title.textContent = "ویرایش شماره موبایل";
+            input.value = currentUser.phone || "";
+        }
+
+        if (editingField === "address") {
+            title.textContent = "ویرایش آدرس";
+            input.value = currentUser.address || "";
+        }
+
+    };
+
+});
 
 document.getElementById("closeModal").onclick = () => {
 
@@ -74,15 +95,9 @@ document.getElementById("closeModal").onclick = () => {
 
 document.getElementById("saveProfile").onclick = async () => {
 
-    const body = {
+    const body = {};
 
-        name: document.getElementById("editName").value,
-
-        phone: document.getElementById("editPhone").value,
-
-        address: document.getElementById("editAddress").value
-
-    };
+    body[editingField] = document.getElementById("editInput").value;
 
     try {
 
@@ -270,14 +285,14 @@ loadProfile();
 =========================== */
 
 const toggleCurrentPassword =
-document.getElementById("toggleCurrentPassword");
+    document.getElementById("toggleCurrentPassword");
 
 if (toggleCurrentPassword) {
 
     toggleCurrentPassword.addEventListener("click", () => {
 
         const input =
-        document.getElementById("currentPassword");
+            document.getElementById("currentPassword");
 
         if (input.type === "password") {
 
