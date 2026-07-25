@@ -90,35 +90,28 @@ async function loadOrderDetails() {
 
                 <div class="order-products">
 
-                  ${order.items.map(item => `
+                           ${order.items.map(item => `
 
-                        <div class="product-row">
+                            <div class="product-row">
 
- <img src="../${item.product.image}">
+                                <img src="../${item.product.image}" alt="${item.product.name}">
 
-<div>
+                                <div class="product-info">
 
-    <h4>${item.product.name}</h4>
+                                    <h4>${item.product.name}</h4>
 
-    <p>
-        تعداد :
-        ${item.qty || 1}
-    </p>
+                                    <div class="product-meta">
+                                        <span>تعداد: ${item.qty || 1}</span>
+                                        <span>قیمت: ${item.price.toLocaleString()} تومان</span>
+                                      </div>
 
-    <p>
-        قیمت :
-        ${item.price.toLocaleString()} تومان
-    </p>
+                                </div>
 
-</div>
+                             </div>
 
-                            </div>
+                              `).join("")}
 
-                        </div>
-
-                    `).join("")}
-
-                </div>
+                             </div>
 
             </div>
 
