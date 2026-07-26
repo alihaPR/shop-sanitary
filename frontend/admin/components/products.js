@@ -217,7 +217,7 @@ function openProductModal(product = null) {
 
                      </button>
 
-                     <hr>
+                     <hr >
 
                     <button type="submit">
 

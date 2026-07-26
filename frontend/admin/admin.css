@@ -64,15 +64,17 @@ body {
 /* ===========================
         Sidebar
 =========================== */
-#admin-name{
+#admin-name {
     color: black;
 }
-.admin-info{
+
+.admin-info {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
 }
+
 #sidebar {
 
     width: 270px;
@@ -96,7 +98,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-   padding: 0 0 10px 0;
+    padding: 0 0 10px 0;
     align-items: start;
     gap: 20px;
     height: 100px;
@@ -229,22 +231,23 @@ body {
 =========================== */
 
 #header {
-    height : 80px;
-    display : flex;
-    justify-content : end;
-    align-items : center;
-    padding : 0 35px;
-    z-index : 10;
+    height: 80px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0 35px;
+    z-index: 10;
 }
-.home-btn{
+
+.home-btn {
     width: 130px;
     height: 40px;
-    padding:10px 16px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    background:#ffffff;
-    color:#4e4e4e;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #ffffff;
+    color: #4e4e4e;
     font-size: 11.5px;
 }
 
@@ -356,14 +359,16 @@ body {
     transform: translateY(-6px);
 
 }
-.card-info{
+
+.card-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
 .card-info span {
-  
+
     color: #777;
 
     font-size: 14px;
@@ -395,13 +400,16 @@ body {
     align-items: center;
 
 }
-#cart-icon-1{
+
+#cart-icon-1 {
     background-color: #FFFBEB;
 }
-#cart-icon-2{
+
+#cart-icon-2 {
     background-color: #E8FAF0;
 }
-#cart-icon-3{
+
+#cart-icon-3 {
     background-color: #FEE7EF;
 }
 
@@ -413,11 +421,12 @@ body {
 /* -------------------------product----------------------- */
 .modal-header {
     padding: 20px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #646363;
     flex-shrink: 0;
 
 }
-.products-header{
+
+.products-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -451,7 +460,7 @@ body {
 .products-table th {
     background: #f3f4f6;
     padding: 18px;
-   
+
 }
 
 .products-table td {
@@ -492,9 +501,24 @@ body {
 
 }
 
+#productCategory {
+    border: 1px solid #ddd;
+    height: 51px;
+    padding: 14px;
+    border-radius: 14px;
+    color: var(--text);
+}
+
 /* ===========================
         Product Modal
-=========================== */
+=========================== */پ
+.product-modal hr,
+.product-modal hr,
+#productForm hr{
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 20px 0;
+}
 
 .modal-overlay {
 
@@ -515,23 +539,26 @@ body {
     backdrop-filter: blur(3px);
 
 }
-.save-user-role{
+
+.save-user-role {
     width: 100px;
     height: 42px;
     border: none;
     border-radius: 6px;
     background-color: #CCE8F4;
 }
-.close-user-modal{
+
+.close-user-modal {
     width: 35px;
     height: 35px;
     border: none;
     border-radius: 6px;
     background-color: #CCE8F4;
 }
+
 .product-modal {
 
-    width: 700px;
+    width: 800px;
 
     max-width: 95%;
 
@@ -627,8 +654,16 @@ body {
 
 }
 
-#productForm input,
 #productForm textarea {
+    min-height: 140px;
+    resize: vertical;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    margin-bottom:30px ;
+}
+
+#productForm input {
 
     width: 100%;
 
@@ -644,6 +679,9 @@ body {
 
     transition: .25s;
 
+}
+#productForm hr{
+    color: rgb(243, 241, 241);
 }
 
 #productForm input:focus,
@@ -681,28 +719,42 @@ body {
 
 .spec-row {
 
-    display: grid;
-
-    grid-template-columns: 1fr 1fr auto;
-
-    gap: 12px;
-
-    margin-bottom: 12px;
+    display:grid;
+    grid-template-columns:1fr 1fr 50px;
+    gap:12px;
+    align-items:center;
 
 }
 
+
+.delete-spec{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:8px;
+    background:#ef4444;
+    color:#fff;
+    cursor:pointer;
+    flex-shrink:0;
+}
 #addSpecification {
-
+    width: 200px;
     align-self: flex-start;
-
+    padding: 5px;
     margin-bottom: 15px;
 
 }
-.add-specification{
+
+.add-specification {
     width: 120px;
     height: 40px;
 }
 
+#specificationsContainer{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
 
 /* --------------------------------------order--------------------------------------------- */
 .order-modal {
@@ -993,7 +1045,8 @@ body {
     align-items: center;
     justify-content: center;
 }
-.edit-user-btn{
+
+.edit-user-btn {
     background: #CCE8F4;
     color: #18A6D9;
     border: none;
@@ -1002,16 +1055,18 @@ body {
     cursor: pointer;
     margin-left: 8px;
 }
-.delete-user-btn{
-        background: #FEE7EF;
+
+.delete-user-btn {
+    background: #FEE7EF;
     color: #F76699;
     border: none;
     padding: 8px 15px;
     border-radius: 6px;
     cursor: pointer;
 }
-.view-order-btn{
-        background: #CCE8F4;
+
+.view-order-btn {
+    background: #CCE8F4;
     color: #18A6D9;
     border: none;
     padding: 8px 15px;
@@ -1024,116 +1079,118 @@ body {
         Dashboard Charts
 =========================== */
 
-.charts-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
-    gap:24px;
-    margin-top:30px;
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
 }
 
-.chart-card{
-    background:#fff;
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    border:1px solid #ececec;
-    transition:.3s;
+.chart-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    border: 1px solid #ececec;
+    transition: .3s;
 }
 
-.chart-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
 }
 
-.chart-card h3{
-    font-size:18px;
-    font-weight:700;
-    color:#333;
-    margin-bottom:20px;
-    text-align:center;
+.chart-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.chart-card canvas{
-    width:100% !important;
-    height:320px !important;
+.chart-card canvas {
+    width: 100% !important;
+    height: 320px !important;
 }
 
-@media(max-width:900px){
+@media(max-width:900px) {
 
-    .charts-container{
+    .charts-container {
 
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
 
     }
 
 }
 
 /* search----------------------------------- */
-.products-actions{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.products-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-#productSearch{
-    width:260px;
-    padding:10px 15px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    outline:none;
-    font-family:inherit;
+#productSearch {
+    width: 260px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
 }
 
-#productSearch:focus{
-    border-color:#0d6efd;
+#productSearch:focus {
+    border-color: #0d6efd;
 }
-.products-actions{
-    display:flex;
-    align-items:center;
-    gap:15px;
+
+.products-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 #productSearch,
 #userSearch,
-#orderSearch{
+#orderSearch {
 
-    width:260px;
-    height:42px;
-    padding:0 15px;
+    width: 260px;
+    height: 42px;
+    padding: 0 15px;
 
-    border:1px solid #ddd;
-    border-radius:8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 
-    outline:none;
+    outline: none;
 
-    font-family:inherit;
-    font-size:14px;
+    font-family: inherit;
+    font-size: 14px;
 
-    transition:.3s;
+    transition: .3s;
 
 }
 
 #productSearch:focus,
 #userSearch:focus,
-#orderSearch:focus{
+#orderSearch:focus {
 
-    border-color:#0d6efd;
-    box-shadow:0 0 0 3px rgba(13,110,253,.15);
-
-}
-.products-header{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, .15);
 
 }
 
-.products-actions{
+.products-header {
 
-    display:flex;
-    align-items:center;
-    gap:15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+}
+
+.products-actions {
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
 }
