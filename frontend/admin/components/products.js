@@ -305,6 +305,12 @@ document.addEventListener("click", (e) => {
 async function submitProduct(e) {
 
     e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("ابتدا وارد حساب ادمین شوید.");
+        return;
+    }
 
     const name = document.getElementById("productName").value.trim();
     const description = document.getElementById("productDescription").value.trim();
@@ -333,6 +339,11 @@ async function submitProduct(e) {
             }
         );
 
+        if (!uploadRes.ok) {
+            const err = await uploadRes.json();
+            throw new Error(err.message || "خطا در آپلود تصویر");
+        }
+
         const uploadData = await uploadRes.json();
 
         image = uploadData.image;
@@ -355,7 +366,7 @@ async function submitProduct(e) {
 
     });
 
-    const token = localStorage.getItem("token");
+
 
     try {
 
