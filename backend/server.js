@@ -6,6 +6,9 @@ const Product = require("./models/Product");
 const User = require("./models/User");
 const Order = require("./models/Order");
 const { protect, admin } = require("./middleware/auth");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 dotenv.config()
 connectDB()
 
@@ -13,11 +16,73 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+
+    filename: (req, file, cb) => {
+        const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
+
+        cb(null, unique + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage,
+
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
+
+    fileFilter: (req, file, cb) => {
+
+        const types = /jpeg|jpg|png|webp/;
+
+        const ext = types.test(
+            path.extname(file.originalname).toLowerCase()
+        );
+
+        const mime = types.test(file.mimetype);
+
+        if (ext && mime) {
+
+            cb(null, true);
+
+        } else {
+
+            cb(new Error("Only image files are allowed"));
+
+        }
+
+    }
+});
 
 // routes
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/products', require('./routes/productRoutes'))
 app.use('/api/orders', require('./routes/orderRoutes'))
+app.use("/uploads", express.static("uploads"));
+
+app.post("/api/upload", verifyToken, upload.single("image"), (req, res) => {
+
+    if (!req.file) {
+
+        return res.status(400).json({
+            message: "No file uploaded"
+        });
+
+    }
+
+    res.json({
+        image: `/uploads/${req.file.filename}`
+    });
+
+});
 app.use('/api/contact', require('./routes/contactRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 

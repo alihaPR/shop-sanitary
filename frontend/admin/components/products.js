@@ -61,7 +61,7 @@ async function renderProducts() {
 
                         <td>
 
-                            <img src="../${product.image}" class="table-image">
+                            <img src="https://shop-sanitary-production.up.railway.app/${product.image}" class="table-image">
 
                         </td>
 
@@ -192,13 +192,10 @@ function openProductModal(product = null) {
 
                     <input id="productBrand" type="text" placeholder="برند">
 
-                    <input
-                            id="productImage"
-                            type="text"
-                             placeholder="مسیر عکس (مثلاً img/product1.png)"
-                    >
+                    <input id="productImageFile" type="file" accept="image/*">
 
                     <textarea id="productDescription" placeholder="توضیحات"></textarea>
+                    
                     <hr>
 
                      <h3>مشخصات کالا</h3>
@@ -241,7 +238,6 @@ function openProductModal(product = null) {
         document.getElementById("productStock").value = product.stock || 0;
         document.getElementById("productCategory").value = product.category || "";
         document.getElementById("productBrand").value = product.brand || "";
-        document.getElementById("productImage").value = product.image || "";
         document.getElementById("productDescription").value = product.description || "";
 
     }
@@ -316,7 +312,32 @@ async function submitProduct(e) {
     const stock = Number(document.getElementById("productStock").value);
     const category = document.getElementById("productCategory").value;
     const brand = document.getElementById("productBrand").value.trim();
-    const image = document.getElementById("productImage").value.trim();
+    let image = "";
+
+    const imageFile = document.getElementById("productImageFile");
+
+    if (imageFile.files.length > 0) {
+
+        const formData = new FormData();
+
+        formData.append("image", imageFile.files[0]);
+
+        const uploadRes = await fetch(
+            "https://shop-sanitary-production.up.railway.app/api/upload",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            }
+        );
+
+        const uploadData = await uploadRes.json();
+
+        image = uploadData.image;
+
+    }
 
     const specifications = [];
 
