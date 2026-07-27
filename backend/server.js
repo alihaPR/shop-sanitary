@@ -5,7 +5,7 @@ const connectDB = require('./config/db')
 const Product = require("./models/Product");
 const User = require("./models/User");
 const Order = require("./models/Order");
-const { protect, admin, verifyToken } = require("./middleware/auth");
+const { protect, admin } = require("./middleware/auth");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
@@ -68,7 +68,7 @@ app.use('/api/products', require('./routes/productRoutes'))
 app.use('/api/orders', require('./routes/orderRoutes'))
 app.use("/uploads", express.static("uploads"));
 
-app.post("/api/upload", verifyToken, upload.single("image"), (req, res) => {
+app.post("/api/upload", protect, upload.single("image"), (req, res) => {
 
     if (!req.file) {
 
