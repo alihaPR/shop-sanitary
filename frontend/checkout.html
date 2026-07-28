@@ -15,7 +15,7 @@
 </head>
 
 <body>
-        <header class="header">
+    <header class="header">
         <div class="container">
 
             <div class="header-main">
@@ -427,65 +427,223 @@
 
     </nav>
 
-    <div class="checkout-container">
+    <main class="checkout-page">
 
-        <div class="checkout-box">
+        <div class="checkout-container">
 
-            <h3>اطلاعات گیرنده</h3>
+            <!-- فرم اطلاعات ارسال -->
+            <section class="checkout-form-box">
 
-            <div class="form-group">
-                <label>نام و نام خانوادگی</label>
-                <input id="fullname" type="text">
-            </div>
+                <div class="checkout-header">
 
-            <div class="form-group">
-                <label>شماره موبایل</label>
-                <input id="phone" type="text">
-            </div>
+                    <div>
 
-            <div class="form-group">
-                <label>شهر</label>
-                <input id="city" type="text">
-            </div>
+                        <h2>اطلاعات ارسال سفارش</h2>
 
-            <div class="form-group">
-                <label>کد پستی</label>
-                <input id="postalCode" type="text">
-            </div>
+                        <p>
+                            لطفاً اطلاعات آدرس گیرنده را با دقت وارد کنید.
+                        </p>
 
-            <div class="form-group">
-                <label>آدرس</label>
-                <textarea id="address" rows="5"></textarea>
-            </div>
+                    </div>
+
+                    <a href="cart.html" class="back-cart">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        بازگشت به سبد خرید
+                    </a>
+
+                </div>
+
+                <form id="checkoutForm" novalidate>
+
+                    <!-- استان و شهر -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="province">
+                                استان
+                                <span>*</span>
+                            </label>
+
+                            <select id="province" name="province" required>
+
+                                <option value="">
+                                    انتخاب استان
+                                </option>
+
+                            </select>
+                            <span class="error-message"></span>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                شهر
+                                <span>*</span>
+                            </label>
+
+                            <select id="city" name="city" required>
+
+                                <option value="">
+                                    انتخاب شهر
+                                </option>
+
+                            </select>
+                            <span class="error-message"></span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- آدرس -->
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            آدرس
+                            <span>*</span>
+                        </label>
+
+                        <textarea id="address" name="address" rows="4"
+                            placeholder="مثال: همدان، خیابان بوعلی، کوچه ۱۲، پلاک ۸، طبقه دوم" required></textarea>
+
+                        <span class="error-message"></span>
+                    </div>
+
+
+                    <!-- پلاک و واحد -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="plaque">
+                                پلاک
+                                <span>*</span>
+                            </label>
+
+                            <input type="text" id="plaque" name="plaque" placeholder="مثلاً ۱۲" required>
+
+                            <span class="error-message"></span>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="unit">
+
+                                واحد
+
+                            </label>
+
+                            <input type="text" id="unit" name="unit" placeholder="اختیاری">
+
+                            <span class="error-message"></span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- کد پستی -->
+
+                    <div class="form-group">
+
+                        <label for="postalCode">
+
+                            کد پستی
+                            <span>*</span>
+
+                        </label>
+
+                        <input type="text" id="postalCode" name="postalCode" maxlength="10" inputmode="numeric"
+                            placeholder="کد پستی ۱۰ رقمی" required>
+
+                        <span class="error-message"></span>
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- خلاصه سفارش -->
+
+            <aside class="checkout-summary">
+
+                <div class="checkout-box">
+
+                    <h3>
+                        خلاصه سفارش
+                    </h3>
+
+                    <div class="summary-row">
+
+                        <span>
+                            مبلغ کالا
+                        </span>
+
+                        <span id="subtotal">
+                            ۰ تومان
+                        </span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>
+                            هزینه ارسال
+                        </span>
+
+                        <span id="shipping">
+                            ۰ تومان
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row total">
+
+                        <span>
+                            مبلغ قابل پرداخت
+                        </span>
+
+                        <span id="total">
+                            ۰ تومان
+                        </span>
+
+                    </div>
+
+                    <button type="submit" id="checkout-btn" form="checkoutForm">
+
+                        ثبت سفارش و ادامه پرداخت
+
+                    </button>
+
+                    <span class="Tip">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 3.5C7.313 3.5 3.5 7.313 3.5 12C3.5 16.687 7.313 20.5 12 20.5C16.687 20.5 20.5 16.687 20.5 12C20.5 7.313 16.687 3.5 12 3.5ZM12 22C6.486 22 2 17.514 2 12C2 6.486 6.486 2 12 2C17.514 2 22 6.486 22 12C22 17.514 17.514 22 12 22Z"
+                                fill="#5c5c5c" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.9941 13.373C11.5801 13.373 11.2441 13.037 11.2441 12.623V8.20398C11.2441 7.78998 11.5801 7.45398 11.9941 7.45398C12.4081 7.45398 12.7441 7.78998 12.7441 8.20398V12.623C12.7441 13.037 12.4081 13.373 11.9941 13.373Z"
+                                fill="#5c5c5c" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.0039 16.7959C11.4509 16.7959 10.9989 16.3489 10.9989 15.7959C10.9989 15.2429 11.4419 14.7959 11.9939 14.7959H12.0039C12.5569 14.7959 13.0039 15.2429 13.0039 15.7959C13.0039 16.3489 12.5569 16.7959 12.0039 16.7959Z"
+                                fill="#5c5c5c" />
+                        </svg>
+                        <span> مبلغ سفارش هنوز پرداخت نشده و‌ در صورت اتمام موجودی، کالاها از سبد حذف می‌شوند.</span>
+                    </span>
+
+                </div>
+
+            </aside>
 
         </div>
 
-        <div class="checkout-box">
-
-            <h3>خلاصه سفارش</h3>
-
-            <div class="summary-row">
-                <span>مبلغ کالا</span>
-                <span id="subtotal">۰</span>
-            </div>
-
-            <div class="summary-row">
-                <span>هزینه ارسال</span>
-                <span id="shipping">۰</span>
-            </div>
-
-            <div class="summary-row total">
-                <span>مبلغ قابل پرداخت</span>
-                <span id="total">۰</span>
-            </div>
-
-            <button id="checkout-btn">
-                ثبت سفارش و پرداخت
-            </button>
-
-        </div>
-
-    </div>
+    </main>
 
     <footer class="footer">
         <div class="footer-container">
@@ -688,6 +846,7 @@
 
     <script src="./js/config.js"></script>
     <script src="./js/authUI.js"></script>
+    <script src="./assets/js/utils/validation.js"></script>
     <script src="./js/checkout.js"></script>
 
 </body>

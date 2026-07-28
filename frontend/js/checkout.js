@@ -1,3 +1,82 @@
+const checkoutForm = document.getElementById("checkoutForm");
+function validateCheckoutForm() {
+
+  clearErrors(checkoutForm);
+
+  let valid = true;
+
+  const province = document.getElementById("province");
+  const city = document.getElementById("city");
+  const address = document.getElementById("address");
+  const plaque = document.getElementById("plaque");
+  const postalCode = document.getElementById("postalCode");
+
+  if (!province.value) {
+
+    setError(province, "استان را انتخاب کنید.");
+
+    valid = false;
+
+  } else {
+
+    setSuccess(province);
+
+  }
+
+  if (!city.value) {
+
+    setError(city, "شهر را انتخاب کنید.");
+
+    valid = false;
+
+  } else {
+
+    setSuccess(city);
+
+  }
+
+  if (address.value.trim().length < 10) {
+
+    setError(address, "آدرس را کامل وارد کنید.");
+
+    valid = false;
+
+  } else {
+
+    setSuccess(address);
+
+  }
+
+  if (!plaque.value.trim()) {
+
+    setError(plaque, "پلاک را وارد کنید.");
+
+    valid = false;
+
+  } else {
+
+    setSuccess(plaque);
+
+  }
+
+  const postal = postalCode.value.trim();
+
+  if (!/^\d{10}$/.test(postal)) {
+
+    setError(postalCode, "کد پستی باید ۱۰ رقم باشد.");
+
+    valid = false;
+
+  } else {
+
+    setSuccess(postalCode);
+
+  }
+
+  return valid;
+
+}
+
 // -------------------- helpers --------------------
 
 function getCart() {
@@ -34,12 +113,10 @@ document.getElementById("total").textContent =
 
 // -------------------- checkout --------------------
 
-document
-  .getElementById("checkout-btn")
-  .addEventListener("click", checkout);
+checkoutForm.addEventListener("submit", checkout);
 
-async function checkout() {
-
+async function checkout(e) {
+  e.preventDefault();
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -51,6 +128,12 @@ async function checkout() {
   if (cart.length === 0) {
     alert("سبد خرید خالی است.");
     return;
+  }
+
+  if (!validateCheckoutForm()) {
+
+    return;
+
   }
 
   const fullname = document.getElementById("fullname").value.trim();
@@ -65,22 +148,22 @@ async function checkout() {
   }
 
   const order = {
+
     items: cart.map(item => ({
       product: item._id,
-      quantity: item.qty,
-      price: item.price
+      quantity: item.qty
     })),
 
     shippingAddress: {
-      fullname,
-      phone,
-      city,
-      postalCode,
-      address
-    },
 
-    shippingCost,
-    totalPrice: total
+      province,
+      city,
+      address,
+      plaque,
+      unit,
+      postalCode
+    }
+
   };
 
   try {
