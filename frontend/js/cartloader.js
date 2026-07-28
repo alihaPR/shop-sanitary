@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const productInfo = document.getElementById("product-info");
 
+    const imageUrl = `https://shop-sanitary-production.up.railway.app/${product.image.replace(/^\/?/, "")}`;
+
     productInfo.innerHTML = `
   
 <div class="wrap">
@@ -42,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         <div class="image-side">
 
             <div class="main-img"
-                 style="background-image:url('${product.image}')">
+                 style="background-image:url('${imageUrl}')">
             </div>
 
             <div class="icon-row">
