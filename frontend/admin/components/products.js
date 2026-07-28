@@ -318,7 +318,10 @@ async function submitProduct(e) {
     const stock = Number(document.getElementById("productStock").value);
     const category = document.getElementById("productCategory").value;
     const brand = document.getElementById("productBrand").value.trim();
-    let image = "";
+    let image = editingProductId
+        ? document.querySelector(".table-image")?.getAttribute("src")
+            ?.replace("https://shop-sanitary-production.up.railway.app/", "")
+        : "";
 
     const imageFile = document.getElementById("productImageFile");
 
@@ -346,7 +349,7 @@ async function submitProduct(e) {
 
         const uploadData = await uploadRes.json();
 
-        image = uploadData.image;
+        image = uploadData.image.replace("/", "");
 
     }
 
