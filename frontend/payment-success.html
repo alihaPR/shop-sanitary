@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>پرداخت موفق</title>
+
+    <style>
+
+        body{
+            font-family:tahoma;
+            background:#f5f5f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .box{
+            width:420px;
+            background:white;
+            border-radius:16px;
+            padding:40px;
+            text-align:center;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        h2{
+            color:#16a34a;
+            margin-bottom:20px;
+        }
+
+        p{
+            color:#555;
+            line-height:30px;
+        }
+
+        a{
+            display:block;
+            margin-top:25px;
+            background:#00966B;
+            color:white;
+            text-decoration:none;
+            padding:14px;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>
+✅ پرداخت با موفقیت انجام شد
+</h2>
+
+<p>
+
+سفارش شما ثبت شد.
+
+</p>
+
+<p id="refId"></p>
+
+<a href="index.html">
+
+بازگشت به صفحه اصلی
+
+</a>
+
+</div>
+
+<script>
+
+const params=new URLSearchParams(location.search);
+
+const ref=params.get("refId");
+
+if(ref){
+
+document.getElementById("refId").innerHTML=
+
+"کد پیگیری : <b>"+ref+"</b>";
+
+}
+
+</script>
+
+</body>
+
+</html>

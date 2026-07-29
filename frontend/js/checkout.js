@@ -91,6 +91,49 @@ function formatPrice(price) {
 
 const cart = getCart();
 
+// ---------------- Province & City ----------------
+
+const provinceSelect = document.getElementById("province");
+const citySelect = document.getElementById("city");
+
+function loadProvinces() {
+
+  provinceSelect.innerHTML =
+    '<option value="">انتخاب استان</option>';
+
+  Object.keys(IRAN_PROVINCES).forEach(province => {
+
+    provinceSelect.innerHTML +=
+      `<option value="${province}">${province}</option>`;
+
+  });
+
+}
+
+function loadCities(province) {
+
+  citySelect.innerHTML =
+    '<option value="">انتخاب شهر</option>';
+
+  if (!province) return;
+
+  IRAN_PROVINCES[province].forEach(city => {
+
+    citySelect.innerHTML +=
+      `<option value="${city}">${city}</option>`;
+
+  });
+
+}
+
+provinceSelect.addEventListener("change", () => {
+
+  loadCities(provinceSelect.value);
+
+});
+
+loadProvinces();
+
 const subtotal = cart.reduce((sum, item) => {
   const price = item.discountPercent > 0
     ? Math.round(item.price * (1 - item.discountPercent / 100))
