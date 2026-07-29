@@ -136,16 +136,12 @@ async function checkout(e) {
 
   }
 
-  const fullname = document.getElementById("fullname").value.trim();
-  const phone = document.getElementById("phone").value.trim();
+  const province = document.getElementById("province").value.trim();
   const city = document.getElementById("city").value.trim();
-  const postalCode = document.getElementById("postalCode").value.trim();
   const address = document.getElementById("address").value.trim();
-
-  if (!fullname || !phone || !city || !postalCode || !address) {
-    alert("تمام اطلاعات را وارد کنید.");
-    return;
-  }
+  const plaque = document.getElementById("plaque").value.trim();
+  const unit = document.getElementById("unit").value.trim();
+  const postalCode = document.getElementById("postalCode").value.trim();
 
   const order = {
 
@@ -188,12 +184,39 @@ async function checkout(e) {
       return;
     }
 
+    const paymentRes = await fetch(`${API_BASE_URL}/payment/create`, {
+
+      method: "POST",
+
+      headers: {
+
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${token}`
+
+      },
+
+      body: JSON.stringify({
+
+        orderId: data._id
+
+      })
+
+    });
+
+    const paymentData = await paymentRes.json();
+
+    if (!paymentRes.ok) {
+
+      alert(paymentData.message || "خطا در ایجاد پرداخت.");
+
+      return;
+
+    }
+
     localStorage.removeItem("cart");
 
-    alert("سفارش با موفقیت ثبت شد.");
-
-    location.href = "index.html";
-
+    window.location.href = paymentData.paymentUrl;
   } catch (err) {
 
     console.error(err);

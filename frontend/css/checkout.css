@@ -134,8 +134,8 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
 
-    border-color: #3AA6A0;
-    box-shadow: 0 0 0 4px rgba(58,166,160,.15);
+    /* border-color: #3AA6A0; */
+    /* box-shadow: 0 0 0 4px rgba(58,166,160,.15); */
 
 }
 
@@ -341,7 +341,7 @@ body {
 
     border-color: #ef4444;
 
-    box-shadow: 0 0 0 4px rgba(239,68,68,.12);
+    /* box-shadow: 0 0 0 4px rgba(239,68,68,.12); */
 
 }
 
@@ -350,7 +350,7 @@ body {
 .form-group.success textarea {
 
     border-color: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+    /* box-shadow: 0 0 0 4px rgba(34,197,94,.12); */
 }
 
 .error-message {
