@@ -3,95 +3,51 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>پرداخت ناموفق</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>پرداخت موفق</title>
 
-body{
-
-font-family:tahoma;
-
-background:#f5f5f5;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-height:100vh;
-
-}
-
-.box{
-
-width:420px;
-
-background:white;
-
-padding:40px;
-
-text-align:center;
-
-border-radius:16px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-}
-
-h2{
-
-color:#dc2626;
-
-}
-
-a{
-
-display:block;
-
-margin-top:25px;
-
-background:#00966B;
-
-padding:14px;
-
-border-radius:10px;
-
-text-decoration:none;
-
-color:white;
-
-}
-
-</style>
-
+    <link rel="stylesheet" href="./css/payment-success.css">
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 
 <body>
 
-<div class="box">
+    <main class="payment-page">
 
-<h2>
+        <section class="payment-card">
+            <div class="success-circle-parent">
 
-❌ پرداخت انجام نشد
+                <div class="success-circle">
 
-</h2>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 6L9 17L4 12" />
+                    </svg>
 
-<p>
+                </div>
+            </div>
 
-در صورت کسر وجه، مبلغ توسط بانک بازخواهد گشت.
 
-</p>
+            <h1>
+                پرداخت با موفقیت انجام شد
+            </h1>
+            <p>
+                تراکنش شما با موفقیت انجام شد.
+            </p>
 
-<a href="cart.html">
+            <div class="dash"></div>
 
-بازگشت به سبد خرید
+            <div class="btn-home">
+                <span>بازگشت به سایت</span>
+            </div>
 
-</a>
+        </section>
 
-</div>
+    </main>
+
+    <script src="js/payment-success.js"></script>
 
 </body>
 
