@@ -14,10 +14,12 @@ function renderSidebar() {
         </div>
          <span id="admin-name">در حال بارگذاری...</span>
         </div>
-            <h2>پنل مدیریت فروشگاه</h2>
+        <div  class="panel-name">
+        <h2>پنل مدیریت فروشگاه</h2>
+        </div>
             
         </div>
-    
+        <div class="sidbar-line"></div>
         <nav class="sidebar-menu">
 
             <button class="menu-item active" data-page="dashboard">
@@ -123,7 +125,7 @@ function renderSidebar() {
 
         <button class="logout-btn" id="logoutBtn">
 
-        
+        <div class="logout-btn__wrap">
         <span>خروج</span>
         <span class="menu-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -141,9 +143,8 @@ function renderSidebar() {
             <path fill-rule="evenodd" clip-rule="evenodd" d="M18.8594 15.666C18.6674 15.666 18.4744 15.593 18.3284 15.445C18.0364 15.151 18.0374 14.677 18.3304 14.385L20.7244 12L18.3304 9.61596C18.0374 9.32396 18.0354 8.84996 18.3284 8.55596C18.6204 8.26196 19.0944 8.26196 19.3884 8.55396L22.3164 11.469C22.4584 11.609 22.5374 11.801 22.5374 12C22.5374 12.199 22.4584 12.391 22.3164 12.531L19.3884 15.447C19.2424 15.593 19.0504 15.666 18.8594 15.666Z" fill="red"/>
             </g>
             </svg>
-
-
         </span>
+        </div>
 
         </button>
 

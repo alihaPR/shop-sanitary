@@ -78,18 +78,11 @@ body {
 #sidebar {
 
     width: 270px;
-
     background: #ffffffff;
-
     color: #fff;
-
-    padding: 24px 18px;
-
     display: flex;
-
     flex-direction: column;
-
-    box-shadow: 6px 0 25px rgba(0, 0, 0, .15);
+    border-left: 1px solid #E5E7EB;
 
 }
 
@@ -98,35 +91,46 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 0 10px 0;
+    padding: 20px;
     align-items: start;
     gap: 20px;
-    height: 100px;
-
-    border-bottom: 1px solid rgb(236, 234, 234);
-    margin-bottom: 30px;
+    height: 150px;
 
 
 }
 
 .sidebar-logo h2 {
 
-    font-size: 20px;
-    color: black;
+    font-size: 14px;
+    color: rgb(65, 64, 64);
     letter-spacing: 3px;
-    margin-bottom: 20px;
 
 
 }
 
-.sidebar-menu {
-
+.panel-name {
+    width: 230px;
+    height: 45px;
+    border-radius: 6px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f7;
+    border:1px solid #dddddf ;
+}
 
+.sidbar-line {
+    width: 100%;
+    height: 1px;
+    background-color: #f6f6f7;
+    margin-bottom: 30px;
+}
+
+.sidebar-menu {
+    display: flex;
+    padding: 0 18px;
     flex-direction: column;
-
     gap: 30px;
-
 }
 
 .menu-item {
@@ -155,7 +159,10 @@ body {
 }
 
 .menu-item.active {
-    border-right: 3px solid #92C7DA;
+    background-color: #f7f7f7;
+    width: 235px;
+    height: 40px;
+    border-radius: 6px;
     color: #fff;
 }
 
@@ -192,11 +199,11 @@ body {
 =========================== */
 
 .logout-btn {
-
+    background: none;
     margin-top: auto;
     height: 54px;
     border: none;
-    border-radius: 14px;
+
     color: #dc2626;
     display: flex;
     align-items: center;
@@ -208,6 +215,16 @@ body {
     font-size: 15px;
     font-weight: 500;
 
+}
+
+.logout-btn__wrap {
+    width: 100%;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    background-color: #f6f6f7;
 }
 
 
@@ -511,10 +528,10 @@ body {
 
 /* ===========================
         Product Modal
-=========================== */پ
+=========================== */
+پ .product-modal hr,
 .product-modal hr,
-.product-modal hr,
-#productForm hr{
+#productForm hr {
     border: 0;
     border-top: 1px solid #e5e7eb;
     margin: 20px 0;
@@ -660,7 +677,7 @@ body {
     padding: 10px;
     border-radius: 14px;
     border: 1px solid #ddd;
-    margin-bottom:30px ;
+    margin-bottom: 30px;
 }
 
 #productForm input {
@@ -680,7 +697,8 @@ body {
     transition: .25s;
 
 }
-#productForm hr{
+
+#productForm hr {
     color: rgb(243, 241, 241);
 }
 
@@ -719,24 +737,25 @@ body {
 
 .spec-row {
 
-    display:grid;
-    grid-template-columns:1fr 1fr 50px;
-    gap:12px;
-    align-items:center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 50px;
+    gap: 12px;
+    align-items: center;
 
 }
 
 
-.delete-spec{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:8px;
-    background:#ef4444;
-    color:#fff;
-    cursor:pointer;
-    flex-shrink:0;
+.delete-spec {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    background: #ef4444;
+    color: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
 }
+
 #addSpecification {
     width: 200px;
     align-self: flex-start;
@@ -750,10 +769,10 @@ body {
     height: 40px;
 }
 
-#specificationsContainer{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+#specificationsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 /* --------------------------------------order--------------------------------------------- */
@@ -1039,7 +1058,7 @@ body {
 .admin-avatar {
     width: 35px;
     height: 35px;
-    border-radius: 6px;
+    border-radius: 50px;
     background-color: #d0e4e7;
     display: flex;
     align-items: center;
