@@ -36,7 +36,7 @@ exports.createPayment = async (req, res) => {
 
         amount: order.totalPrice,
 
-        callback_url: `${process.env.SITE_URL}/payment/verify?orderId=${order._id}`,
+        callback_url: `${process.env.BACKEND_URL}/payment/verify?orderId=${order._id}`,
 
         description: `Order ${order._id}`
       },
@@ -79,7 +79,7 @@ exports.createPayment = async (req, res) => {
 };
 
 exports.verifyPayment = async (req, res) => {
-
+  console.log("VERIFY QUERY:", req.query);
   try {
 
     const { Authority, Status, orderId } = req.query;
@@ -87,7 +87,7 @@ exports.verifyPayment = async (req, res) => {
     if (Status !== "OK") {
 
       return res.redirect(
-        "/payment-failed.html"
+        `${process.env.SITE_URL}/payment-failed.html`
       );
 
     }
@@ -97,18 +97,22 @@ exports.verifyPayment = async (req, res) => {
     if (!order) {
 
       return res.redirect(
-        "/payment-failed.html"
+        `${process.env.SITE_URL}/payment-failed.html`
       );
 
     }
+
+    console.log("VERIFY REQUEST:", {
+      merchant_id: process.env.ZARINPAL_MERCHANT_ID,
+      amount: order.totalPrice,
+      authority: Authority
+    });
 
     const response = await axios.post(
       `${API}/verify.json`,
       {
         merchant_id: process.env.ZARINPAL_MERCHANT_ID,
-
         amount: order.totalPrice,
-
         authority: Authority
       },
       {
@@ -117,6 +121,7 @@ exports.verifyPayment = async (req, res) => {
         }
       }
     );
+
 
     const result = response.data.data;
 
@@ -134,13 +139,13 @@ exports.verifyPayment = async (req, res) => {
       await order.save();
 
       return res.redirect(
-        `/payment-success.html?refId=${result.ref_id}`
+        `${process.env.SITE_URL}/payment-success.html?refId=${result.ref_id}&orderId=${order._id}`
       );
 
     }
 
     return res.redirect(
-      "/payment-failed.html"
+      `${process.env.SITE_URL}/payment-failed.html`
     );
 
   } catch (err) {
@@ -148,7 +153,7 @@ exports.verifyPayment = async (req, res) => {
     console.error(err.response?.data || err);
 
     return res.redirect(
-      "/payment-failed.html"
+      `${process.env.SITE_URL}/payment-failed.html`
     );
 
   }
