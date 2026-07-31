@@ -12,7 +12,7 @@ async function loadProfile() {
     try {
 
         const res = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/users/profile",
+            "http://localhost:5000/api/users/profile",
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -102,9 +102,8 @@ document.getElementById("saveProfile").onclick = async () => {
     try {
 
         const res = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/users/profile",
+            "http://localhost:5000/api/users/profile",
             {
-
                 method: "PUT",
 
                 headers: {
@@ -231,27 +230,18 @@ document.getElementById("savePassword").onclick = async () => {
     try {
 
         const res = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/users/change-password",
+            "http://localhost:5000/api/users/change-password",
             {
-
                 method: "PUT",
-
                 headers: {
-
                     "Content-Type": "application/json",
-
                     Authorization: `Bearer ${token}`
-
                 },
 
                 body: JSON.stringify({
-
                     currentPassword,
-
                     newPassword
-
                 })
-
             }
         );
 

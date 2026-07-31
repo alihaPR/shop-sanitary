@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-  const API_BASE_URL = "https://shop-sanitary-production.up.railway.app/api";
+  const API_BASE_URL = "http://localhost:5000/api";
 
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
@@ -33,8 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const productInfo = document.getElementById("product-info");
 
-    const imageUrl = `https://shop-sanitary-production.up.railway.app/${product.image.replace(/^\/?/, "")}`;
-
+    const imageUrl = `http://localhost:5000/${product.image.replace(/^\/?/, "")}`;
     productInfo.innerHTML = `
   
 <div class="wrap">
@@ -196,9 +195,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function renderDetails(product) {
 
-  const productDetails = document.getElementById("product-details");
+    const productDetails = document.getElementById("product-details");
 
-  productDetails.innerHTML = `
+    productDetails.innerHTML = `
 
     <div class="card lower-card" id="products-info-id">
 
@@ -229,7 +228,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   `;
 
-}
+  }
 
   // ─────────────────────────────────────────────
   //  کنترل دکمه سبد — از container ثابت استفاده میکنیم
@@ -255,39 +254,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     renderCartUI();
   }
 
-function renderCartUI() {
+  function renderCartUI() {
 
-  const container = document.getElementById("cart-btn-container");
+    const container = document.getElementById("cart-btn-container");
 
-  if (!container) return;
+    if (!container) return;
 
-  const qty = getQty();
+    const qty = getQty();
 
-  if (qty <= 0) {
+    if (qty <= 0) {
 
-    container.innerHTML = `
+      container.innerHTML = `
       <button class="btn-cart" id="addToCartBtn">
         افزودن به سبد خرید
       </button>
     `;
 
-    document.getElementById("addToCartBtn").addEventListener("click", () => {
+      document.getElementById("addToCartBtn").addEventListener("click", () => {
 
-      const added = addToCart(product);
+        const added = addToCart(product);
 
-      if (!added) return;
+        if (!added) return;
 
-      updateCartBadge();
+        updateCartBadge();
 
-      renderCartUI();
+        renderCartUI();
 
-      showToast();
+        showToast();
 
-    });
+      });
 
-  } else {
+    } else {
 
-    container.innerHTML = `
+      container.innerHTML = `
       <div class="btn-cart-wrap">
         <div class="cart-status-text">
           <span>در سبد شما</span>
@@ -304,17 +303,17 @@ function renderCartUI() {
       </div>
     `;
 
-    document
-      .getElementById("qtyPlus")
-      .addEventListener("click", () => setQty(getQty() + 1));
+      document
+        .getElementById("qtyPlus")
+        .addEventListener("click", () => setQty(getQty() + 1));
 
-    document
-      .getElementById("qtyMinus")
-      .addEventListener("click", () => setQty(getQty() - 1));
+      document
+        .getElementById("qtyMinus")
+        .addEventListener("click", () => setQty(getQty() - 1));
+
+    }
 
   }
-
-}
 
   renderCartUI();
   updateCartBadge();

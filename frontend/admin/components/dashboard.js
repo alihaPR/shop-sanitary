@@ -1,14 +1,14 @@
 async function renderDashboard() {
 
-    const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-    const res = await fetch("https://shop-sanitary-production.up.railway.app/api/admin/stats", {
+const res = await fetch("http://localhost:5000/api/admin/stats", {
 
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
 
-    });
+});
 
     const data = await res.json();
     console.log(data);

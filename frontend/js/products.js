@@ -110,8 +110,7 @@ function createCard(product) {
     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.54351 21.0408C7.43051 21.0408 7.33851 21.1328 7.33851 21.2458C7.33851 21.4728 7.74951 21.4728 7.74951 21.2458C7.74951 21.1328 7.65651 21.0408 7.54351 21.0408ZM7.54351 22.5408C6.82951 22.5408 6.24951 21.9598 6.24951 21.2458C6.24951 20.5318 6.82951 19.9518 7.54351 19.9518C8.25751 19.9518 8.83851 20.5318 8.83851 21.2458C8.83851 21.9598 8.25751 22.5408 7.54351 22.5408Z" fill="black"/>
     <path fill-rule="evenodd" clip-rule="evenodd" d="M18.8238 21.0408C18.7118 21.0408 18.6198 21.1328 18.6198 21.2458C18.6208 21.4748 19.0308 21.4728 19.0298 21.2458C19.0298 21.1328 18.9368 21.0408 18.8238 21.0408ZM18.8238 22.5408C18.1098 22.5408 17.5298 21.9598 17.5298 21.2458C17.5298 20.5318 18.1098 19.9518 18.8238 19.9518C19.5388 19.9518 20.1198 20.5318 20.1198 21.2458C20.1198 21.9598 19.5388 22.5408 18.8238 22.5408Z" fill="black"/>
   </svg>`
-
-  const imageUrl = `https://shop-sanitary-production.up.railway.app/${product.image.replace(/^\/?/, "")}`;
+  const imageUrl = `http://localhost:5000/${product.image.replace(/^\/?/, "")}`;
   card.innerHTML = `
     ${hasDiscount ? `<span class="cart-Discount">${product.discountPercent} <br> %</span>` : ""}
     ${!product.available ? `<span class="cart-unavailable">ناموجود</span>` : ""}

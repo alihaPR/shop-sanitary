@@ -1,14 +1,14 @@
 const token = localStorage.getItem("token");
 async function loadUser() {
 
-    const res = await fetch(
-        "https://shop-sanitary-production.up.railway.app/api/users/profile",
-        {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+const res = await fetch(
+    "http://localhost:5000/api/users/profile",
+    {
+        headers: {
+            Authorization: `Bearer ${token}`
         }
-    );
+    }
+);
 
     const user = await res.json();
 
@@ -20,14 +20,14 @@ async function loadOrders() {
 
     try {
 
-        const res = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/orders/myorders",
-            {
-                headers:{
-                    Authorization:`Bearer ${token}`
-                }
-            }
-        );
+const res = await fetch(
+    "http://localhost:5000/api/orders/myorders",
+    {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    }
+);
 
         const orders = await res.json();
         

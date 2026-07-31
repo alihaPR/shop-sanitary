@@ -4,7 +4,7 @@ async function renderUsers() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-        "https://shop-sanitary-production.up.railway.app/api/users",
+        "http://localhost:5000/api/users",
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -291,10 +291,9 @@ function openUserModal(user) {
 async function updateUserRole(id, role) {
 
     const token = localStorage.getItem("token");
-
     const res = await fetch(
 
-        `https://shop-sanitary-production.up.railway.app/api/users/${id}/role`,
+        `http://localhost:5000/api/users/${id}/role`,
 
         {
 
@@ -359,23 +358,16 @@ async function deleteUser(id) {
 
     try {
 
-        const res = await fetch(
+const res = await fetch(
 
-            `https://shop-sanitary-production.up.railway.app/api/users/${id}`,
-
-            {
-
-                method: "DELETE",
-
-                headers: {
-
-                    Authorization: `Bearer ${token}`
-
-                }
-
-            }
-
-        );
+    `http://localhost:5000/api/users/${id}`,
+    {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+);
 
         const data = await res.json();
 

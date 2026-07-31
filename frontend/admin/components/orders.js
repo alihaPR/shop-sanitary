@@ -3,7 +3,7 @@ async function renderOrders() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-        "https://shop-sanitary-production.up.railway.app/api/orders",
+        "http://localhost:5000/api/orders",
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -150,7 +150,7 @@ async function openOrderModal(id) {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-        `https://shop-sanitary-production.up.railway.app/api/orders/${id}`,
+        `http://localhost:5000/api/orders/${id}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -419,33 +419,18 @@ async function openOrderModal(id) {
 async function updateOrderStatus(id, status) {
 
     const token = localStorage.getItem("token");
-
-
     const res = await fetch(
-
-        `https://shop-sanitary-production.up.railway.app/api/orders/${id}/status`,
-
+        `http://localhost:5000/api/orders/${id}/status`,
         {
-
             method: "PUT",
-
             headers: {
-
                 "Content-Type": "application/json",
-
                 Authorization: `Bearer ${token}`
-
             },
-
-
             body: JSON.stringify({
-
                 status
-
             })
-
         }
-
     );
 
 

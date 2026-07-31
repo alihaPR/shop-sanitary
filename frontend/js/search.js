@@ -84,11 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
 
         const res = await fetch(
-          `https://shop-sanitary-production.up.railway.app/api/products?search=${encodeURIComponent(query)}`
+          `http://localhost:5000/api/products?search=${encodeURIComponent(query)}`
         );
 
         const filtered = await res.json();
-   
+
 
         if (filtered.length === 0) {
 

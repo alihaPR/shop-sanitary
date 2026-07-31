@@ -4,9 +4,8 @@ async function renderProducts() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-        "https://shop-sanitary-production.up.railway.app/api/products"
+        "http://localhost:5000/api/products"
     );
-
     const products = await res.json();
 
     document.getElementById("main-content").innerHTML = `
@@ -61,8 +60,7 @@ async function renderProducts() {
 
                         <td>
 
-                            <img src="https://shop-sanitary-production.up.railway.app/${product.image}" class="table-image">
-
+<img src="http://localhost:5000/${product.image}" class="table-image">
                         </td>
 
                         <td>${product.name}</td>
@@ -320,7 +318,7 @@ async function submitProduct(e) {
     const brand = document.getElementById("productBrand").value.trim();
     let image = editingProductId
         ? document.querySelector(".table-image")?.getAttribute("src")
-            ?.replace("https://shop-sanitary-production.up.railway.app/", "")
+            ?.replace("http://localhost:5000/", "")
         : "";
 
     const imageFile = document.getElementById("productImageFile");
@@ -332,7 +330,7 @@ async function submitProduct(e) {
         formData.append("image", imageFile.files[0]);
 
         const uploadRes = await fetch(
-            "https://shop-sanitary-production.up.railway.app/api/upload",
+            "http://localhost:5000/api/upload",
             {
                 method: "POST",
                 headers: {
@@ -374,8 +372,8 @@ async function submitProduct(e) {
     try {
 
         const url = editingProductId
-            ? `https://shop-sanitary-production.up.railway.app/api/products/${editingProductId}`
-            : "https://shop-sanitary-production.up.railway.app/api/products";
+            ? `http://localhost:5000/api/products/${editingProductId}`
+            : "http://localhost:5000/api/products";
 
         const method = editingProductId ? "PUT" : "POST";
 
@@ -441,7 +439,7 @@ async function deleteProduct(id) {
     try {
 
         const res = await fetch(
-            `https://shop-sanitary-production.up.railway.app/api/products/${id}`,
+            `http://localhost:5000/api/products/${id}`,
             {
                 method: "DELETE",
 
