@@ -15,18 +15,21 @@ body{
 
 }
 
-.back-btn{
-    border:none;
-    background:#ffffff;
-    color:black;
-    padding:12px 22px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-bottom:25px;
-    font-size:15px;
-    transition:.3s;
+.back-home-btn {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    width: 138px;
+    height: 48px;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    border-left: 1px solid #E5E7EB;
 
 }
+
 
 .back-btn:hover{
 

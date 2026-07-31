@@ -61,6 +61,8 @@ body {
     height: 48px;
     background-color: #FFFFFF;
     font-size: 12px;
+    border-left: 1px solid #E5E7EB;
+
 }
 
 .user-box {
