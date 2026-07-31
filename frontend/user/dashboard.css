@@ -215,10 +215,12 @@ body {
     align-items: start;
     justify-content: center;
 }
-.cart-content p{
+
+.cart-content p {
     font-size: 12px;
     color: #777;
 }
+
 .card h3 {
     font-size: 14px;
 }
@@ -226,17 +228,27 @@ body {
 .card span {
     position: absolute;
     top: 18px;
-    left:20px;
+    left: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    width: 20px;
-    height: 20px;
+
     font-size: 11px;
     font-weight: bold;
-    background-color: black;
     color: white;
+}
+
+.dashboard-cards__number {
+    background-color: black;
+    width: 20px;
+    height: 20px;
+}
+
+.dashboard-cards__spend {
+    background-color: black;
+    width: 100px;
+    height: 20px;
 }
 
 .last-order {
