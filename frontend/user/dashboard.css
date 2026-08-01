@@ -580,16 +580,12 @@ body {
 .profile-card {
 
     background: #fff;
-
+    border: 1px solid #E5E7EB;
     border-radius: 12px;
-
     padding: 25px;
-
     max-width: 1044px;
-
     margin: auto;
-
-    box-shadow: 0 10px 35px rgba(0, 0, 0, .08);
+ 
 
 }
 
