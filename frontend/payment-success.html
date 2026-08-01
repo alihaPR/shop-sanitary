@@ -2,93 +2,59 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>پرداخت موفق</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/payment-success.css">
+
     <link rel="shortcut icon" href="./img/favico.ico.png" type="image/x-icon">
-
-    <style>
-
-        body{
-            font-family:tahoma;
-            background:#f5f5f5;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
-
-        .box{
-            width:420px;
-            background:white;
-            border-radius:16px;
-            padding:40px;
-            text-align:center;
-            box-shadow:0 10px 30px rgba(0,0,0,.08);
-        }
-
-        h2{
-            color:#16a34a;
-            margin-bottom:20px;
-        }
-
-        p{
-            color:#555;
-            line-height:30px;
-        }
-
-        a{
-            display:block;
-            margin-top:25px;
-            background:#00966B;
-            color:white;
-            text-decoration:none;
-            padding:14px;
-            border-radius:10px;
-        }
-
-    </style>
 
 </head>
 
 <body>
 
-<div class="box">
+<main class="payment-page">
 
-<h2>
-✅ پرداخت با موفقیت انجام شد
-</h2>
+    <section class="payment-card">
 
-<p>
+        <div class="success-circle-parent">
 
-سفارش شما ثبت شد.
+            <div class="success-circle">
 
-</p>
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 6L9 17L4 12"/>
+                </svg>
 
-<p id="refId"></p>
+            </div>
 
-<a href="index.html">
+        </div>
 
-بازگشت به صفحه اصلی
+        <h1>
+            پرداخت با موفقیت انجام شد
+        </h1>
 
-</a>
+        <p>
+            تراکنش شما با موفقیت انجام شد.
+        </p>
 
-</div>
+        <p class="ref-id" id="refId"></p>
 
-<script>
+        <div class="dash"></div>
 
-const params=new URLSearchParams(location.search);
+        <a href="index.html" class="btn-home">
+            بازگشت به سایت
+        </a>
 
-const ref=params.get("refId");
+    </section>
 
-if(ref){
+</main>
 
-document.getElementById("refId").innerHTML=
-
-"کد پیگیری : <b>"+ref+"</b>";
-
-}
-
-</script>
+<script src="./js/payment-success.js"></script>
 
 </body>
 
