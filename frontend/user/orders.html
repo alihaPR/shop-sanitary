@@ -163,9 +163,28 @@
                 </a>
             </div>
 
-            <h2>
-                سفارش های من
-            </h2>
+            <div class=" order-filter__wraper">
+            <h2>تاریخچه سفارش ها</h2>
+        <div class="orders-filter">
+        
+            <button class="filter-btn active" data-status="current">
+                جاری
+                <span>${currentOrders}</span>
+            </button>
+        
+            <button class="filter-btn" data-status="delivered">
+                تحویل شده
+                <span>${deliveredOrders}</span>
+            </button>
+        
+            <button class="filter-btn" data-status="cancelled">
+                لغو شده
+                <span>${cancelledOrders}</span>
+            </button>
+        
+        </div>
+        
+        </div>
             <div id="ordersContainer">
 
             </div>

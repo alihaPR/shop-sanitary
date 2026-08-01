@@ -50,6 +50,7 @@ body {
     justify-content: end;
 }
 
+
 .back-home-btn {
     color: black;
     text-decoration: none;
@@ -126,6 +127,9 @@ body {
     padding: 35px;
 }
 
+.content h2 {
+    font-size: 16px;
+}
 
 .topbar {
     display: flex;
@@ -324,55 +328,56 @@ body {
 #ordersContainer {
 
     margin-top: 30px;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 20px;
 
 }
 
 .order-card {
-
-    background: #fff;
-
-    border-radius: 15px;
-
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
     padding: 25px;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     transition: .3s;
 
 }
 
-.order-card:hover {
 
-    transform: translateY(-5px);
+
+.order-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
 
 }
 
-.order-info {
-
+.order-status__wraper {
     display: flex;
-
-    flex-direction: column;
-
+    align-items: center;
+    justify-content: center;
     gap: 10px;
+    margin-bottom: 5px;
+}
+
+.order-status__cercel {
+    width: 21px;
+    height: 21px;
+    border-radius: 50px;
 
 }
 
 .order-id {
 
     font-size: 18px;
-
     font-weight: bold;
 
 }
@@ -384,29 +389,31 @@ body {
 }
 
 .order-price {
-
-    color: #2563eb;
-
+    color: #848484;
     font-weight: bold;
-
-    font-size: 18px;
+    font-size: 15px;
 
 }
 
 .order-status {
 
     display: inline-block;
-
     width: fit-content;
+    color: #0c0c0c;
+    font-size: 15px;
 
-    padding: 6px 15px;
 
-    border-radius: 20px;
+}
 
-    color: #fff;
-
-    font-size: 13px;
-
+.order-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 220px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    padding: 10px;
 }
 
 .pending {
@@ -415,11 +422,7 @@ body {
 
 }
 
-.processing {
 
-    background: #3b82f6;
-
-}
 
 .shipped {
 
@@ -433,28 +436,144 @@ body {
 
 }
 
+.order-a {
+    height: 120px;
+    display: flex;
+    align-items: start;
+}
+
 .view-order {
-
-    background: #2563eb;
-
-    color: #fff;
-
-    border: none;
-
-    padding: 12px 20px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a0808;
+    gap: 5px;
     transition: .3s;
+    cursor: pointer;
+}
+
+.view-order p {
+    font-size: 12px;
+}
+
+/* در انتظار */
+.order-status__cercel.pending {
+    background: #f59e0b;
+}
+
+/* در حال پردازش */
+.order-status__cercel.processing {
+    background: #3b82f6;
+}
+
+/* ارسال شده */
+.order-status__cercel.shipped {
+    background: #8b5cf6;
+}
+
+/* تحویل شده */
+.order-status__cercel.delivered {
+    background: #22c55e;
+}
+
+.order-dtail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.order-products-images {
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
 
 }
 
-.view-order:hover {
+.order-product-image {
 
-    background: #1d4ed8;
+    width: 81px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    padding: 5px;
 
+}
+
+
+.order-filter__wraper {
+    position: relative;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 30px 0 30px;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 120px;
+    border-radius: 6px;
+}
+
+.order-filter__wraper h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.orders-filter {
+
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+    align-items: end;
+
+    position: absolute;
+    bottom: 0;
+}
+
+.filter-btn {
+    
+    color: #666;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px 20px 18px;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .25s;
+
+}
+
+.filter-btn span {
+
+    min-width: 21px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 10px;
+
+}
+
+.filter-btn.active {
+
+    border-bottom: 3px solid #00b5b8;
+    color: #00b5b8;
+
+}
+
+.filter-btn.active span {
+    background: #00b5b8;
 }
 
 /* ----------------------------------------profile------------------------------------------ */

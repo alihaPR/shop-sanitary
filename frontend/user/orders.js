@@ -1,42 +1,98 @@
 const token = localStorage.getItem("token");
 async function loadUser() {
 
-const res = await fetch(
-    "http://localhost:5000/api/users/profile",
-    {
-        headers: {
-            Authorization: `Bearer ${token}`
+    const res = await fetch(
+        "http://localhost:5000/api/users/profile",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         }
-    }
-);
+    );
 
     const user = await res.json();
 
     document.getElementById("userName").textContent = user.name;
 }
 
+function createOrderCard(order) {
 
+    return `
+    <div class="order-wrapper">
+        <div class="order-card">
+
+            <div class="order-info">
+
+                <div class="order-status__wraper">
+                    <div class="order-status__cercel ${order.status}"></div>
+
+                    <span class="order-status">
+                        ${translateStatus(order.status)}
+                    </span>
+                </div>
+
+                <div class="order-dtail">
+
+                    <div class="order-date">
+                        ${new Date(order.createdAt).toLocaleDateString("fa-IR")}
+                    </div>
+
+                    <div class="order-price">
+                        ${order.totalPrice.toLocaleString()} تومان
+                    </div>
+
+                </div>
+
+                <div class="order-products-images">
+
+                    ${order.items.map(item => `
+                        <img
+                            src="http://localhost:5000/${item.image}"
+                            alt="${item.name}"
+                            class="order-product-image"
+                        >
+                    `).join("")}
+
+                </div>
+
+            </div>
+
+            <div class="order-a">
+                <a class="view-order" onclick="openOrder('${order._id}')">
+                    <p>مشاهده</p>
+                    <svg width="10" height="10" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.3589 3.72481C13.5808 3.9467 13.601 4.29391 13.4194 4.53859L13.3589 4.60869L7.96782 10.0001L13.3589 15.3915C13.5808 15.6134 13.601 15.9606 13.4194 16.2053L13.3589 16.2754C13.137 16.4972 12.7898 16.5174 12.5451 16.3359L12.4751 16.2754L6.64172 10.442C6.41983 10.2201 6.39966 9.87291 6.5812 9.62824L6.64172 9.55814L12.4751 3.72481C12.7191 3.48073 13.1149 3.48073 13.3589 3.72481Z" fill="black"/>
+                    </svg>
+
+                </a>
+            </div>
+
+        </div>
+    </div>
+    `;
+
+}
 async function loadOrders() {
 
     try {
 
-const res = await fetch(
-    "http://localhost:5000/api/orders/myorders",
-    {
-        headers:{
-            Authorization:`Bearer ${token}`
-        }
-    }
-);
+        const res = await fetch(
+            "http://localhost:5000/api/orders/myorders",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
         const orders = await res.json();
-        
+;
 
         const container = document.getElementById("ordersContainer");
 
-        if(orders.length===0){
+        if (orders.length === 0) {
 
-            container.innerHTML=`
+            container.innerHTML = `
                 <h3 style="text-align:center">
                     هنوز سفارشی ثبت نکرده‌اید.
                 </h3>
@@ -45,63 +101,124 @@ const res = await fetch(
             return;
 
         }
+        const currentOrders = orders.filter(order =>
+            ["pending", "processing", "shipped"].includes(order.status)
+        ).length;
 
-        container.innerHTML = orders.map(order=>`
+        const deliveredOrders = orders.filter(order =>
+            order.status === "delivered"
+        ).length;
 
-            <div class="order-card">
+        const cancelledOrders = orders.filter(order =>
+            order.status === "cancelled"
+        ).length;
 
-                <div class="order-info">
 
-                    <div class="order-id">
 
-                        سفارش #${order._id.slice(-8)}
+container.innerHTML += orders.map(createOrderCard).join("");
 
-                    </div>
+document.querySelectorAll(".filter-btn").forEach(btn => {
 
-                    <div class="order-date">
+    btn.onclick = () => {
 
-                        ${new Date(order.createdAt).toLocaleDateString("fa-IR")}
+        document.querySelectorAll(".filter-btn")
+            .forEach(b => b.classList.remove("active"));
 
-                    </div>
+        btn.classList.add("active");
 
-                    <div class="order-price">
+        let filtered = orders;
 
-                        ${order.totalPrice.toLocaleString()} تومان
+        if (btn.dataset.status === "current") {
 
-                    </div>
+            filtered = orders.filter(o =>
+                ["pending", "processing", "shipped"].includes(o.status)
+            );
 
-                    <span class="order-status ${order.status}">
+        }
 
-                        ${translateStatus(order.status)}
+        if (btn.dataset.status === "delivered") {
 
-                    </span>
+            filtered = orders.filter(o =>
+                o.status === "delivered"
+            );
 
-                </div>
+        }
 
-                <button
-                    class="view-order"
-                    onclick="openOrder('${order._id}')"
-                >
+        if (btn.dataset.status === "cancelled") {
 
-                    مشاهده
+            filtered = orders.filter(o =>
+                o.status === "cancelled"
+            );
 
-                </button>
+        }
 
-            </div>
 
-        `).join("");
+        function bindFilters() {
 
-    } catch(err){
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+
+        btn.onclick = () => {
+
+            let filtered = orders;
+
+            document.querySelectorAll(".filter-btn")
+                .forEach(b => b.classList.remove("active"));
+
+            btn.classList.add("active");
+
+            if (btn.dataset.status === "current") {
+
+                filtered = orders.filter(o =>
+                    ["pending", "processing", "shipped"].includes(o.status)
+                );
+
+            }
+
+            if (btn.dataset.status === "delivered") {
+
+                filtered = orders.filter(o =>
+                    o.status === "delivered"
+                );
+
+            }
+
+            if (btn.dataset.status === "cancelled") {
+
+                filtered = orders.filter(o =>
+                    o.status === "cancelled"
+                );
+
+            }
+
+            renderOrders(filtered);
+
+            bindFilters();
+
+        };
+
+    });
+
+}
+
+        container.innerHTML += filtered.map(createOrderCard).join("");
+
+    };
+
+});
+
+
+    } catch (err) {
 
         console.log(err);
 
     }
 
 }
+// console.log(order.items);
 
-function translateStatus(status){
+function translateStatus(status) {
 
-    switch(status){
+    switch (status) {
 
         case "pending":
             return "در انتظار";
@@ -122,19 +239,19 @@ function translateStatus(status){
 
 }
 
-function openOrder(id){
+function openOrder(id) {
 
-    localStorage.setItem("selectedOrder",id);
+    localStorage.setItem("selectedOrder", id);
 
-    location.href="order-details.html";
+    location.href = "order-details.html";
 
 }
 
-document.getElementById("logout").onclick=()=>{
+document.getElementById("logout").onclick = () => {
 
     localStorage.removeItem("token");
 
-    location.href="../login.html";
+    location.href = "../login.html";
 
 }
 loadUser();
