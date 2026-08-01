@@ -43,7 +43,7 @@
             <div class="dashboard-line"></div>
             <ul class="dashboard-ul">
 
-                <li onclick="location.href='dashboard.html'"  class="dashboard-ul__item">
+                <li onclick="location.href='dashboard.html'" class="dashboard-ul__item">
                     <span>داشبورد</span>
                     <span>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +62,7 @@
                 </li>
 
                 <li class="active dashboard-ul__item">
-                    <span>سفارش های من</span>
+                    <span>سفارش ها</span>
                     <span>
                         <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -155,7 +155,6 @@
             </ul>
 
         </aside>
-
         <main class="content">
             <div class="btn-home">
                 <a class="back-home-btn" href="/frontend/index.html">
@@ -164,27 +163,30 @@
             </div>
 
             <div class=" order-filter__wraper">
-            <h2>تاریخچه سفارش ها</h2>
-        <div class="orders-filter">
-        
-            <button class="filter-btn active" data-status="current">
-                جاری
-                <span>${currentOrders}</span>
-            </button>
-        
-            <button class="filter-btn" data-status="delivered">
-                تحویل شده
-                <span>${deliveredOrders}</span>
-            </button>
-        
-            <button class="filter-btn" data-status="cancelled">
-                لغو شده
-                <span>${cancelledOrders}</span>
-            </button>
-        
-        </div>
-        
-        </div>
+                <h2>تاریخچه سفارش ها</h2>
+                <div class="orders-filter">
+                    <button class="filter-btn active" data-status="all">
+                        همه
+                        <span id="allOrdersCount">0</span>
+                    </button>
+                    <button class="filter-btn " data-status="current">
+                        جاری
+                        <span id="currentOrdersCount">0</span>
+                    </button>
+
+                    <button class="filter-btn" data-status="delivered">
+                        تحویل شده
+                        <span id="deliveredOrdersCount">0</span>
+                    </button>
+
+                    <button class="filter-btn" data-status="cancelled">
+                        لغو شده
+                        <span id="cancelledOrdersCount">0</span>
+                    </button>
+
+                </div>
+
+            </div>
             <div id="ordersContainer">
 
             </div>

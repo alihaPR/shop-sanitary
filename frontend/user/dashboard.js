@@ -14,6 +14,7 @@ async function loadDashboard() {
         );
 
         const data = await res.json();
+        console.log(data);
 
         console.log(data);
         console.log(data.lastOrder.items[0]);
@@ -36,8 +37,8 @@ async function loadDashboard() {
             data.delivered;
 
 
-        document.getElementById("spent").innerText =
-            data.totalSpent.toLocaleString() + " تومان";
+        document.getElementById("cancelledCount").innerText =
+            data.cancelled;
 
         if (data.lastOrder) {
             const statusMap = {

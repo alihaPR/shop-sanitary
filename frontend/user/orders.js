@@ -86,7 +86,7 @@ async function loadOrders() {
         );
 
         const orders = await res.json();
-;
+        ;
 
         const container = document.getElementById("ordersContainer");
 
@@ -113,98 +113,66 @@ async function loadOrders() {
             order.status === "cancelled"
         ).length;
 
+        const allOrders = orders.length;
+        document.getElementById("currentOrdersCount").textContent = currentOrders;
 
+        document.getElementById("deliveredOrdersCount").textContent = deliveredOrders;
 
-container.innerHTML += orders.map(createOrderCard).join("");
+        document.getElementById("cancelledOrdersCount").textContent = cancelledOrders;
 
-document.querySelectorAll(".filter-btn").forEach(btn => {
+        document.getElementById("allOrdersCount").textContent = allOrders;
 
-    btn.onclick = () => {
+        container.innerHTML = orders.map(createOrderCard).join("");
 
-        document.querySelectorAll(".filter-btn")
-            .forEach(b => b.classList.remove("active"));
-
-        btn.classList.add("active");
-
-        let filtered = orders;
-
-        if (btn.dataset.status === "current") {
-
-            filtered = orders.filter(o =>
-                ["pending", "processing", "shipped"].includes(o.status)
-            );
-
+        function renderOrders(list) {
+            container.innerHTML = list.map(createOrderCard).join("");
         }
 
-        if (btn.dataset.status === "delivered") {
+        renderOrders(orders);
 
-            filtered = orders.filter(o =>
-                o.status === "delivered"
-            );
+        document.querySelectorAll(".filter-btn").forEach(btn => {
 
-        }
+            btn.addEventListener("click", () => {
 
-        if (btn.dataset.status === "cancelled") {
+                document.querySelectorAll(".filter-btn")
+                    .forEach(b => b.classList.remove("active"));
 
-            filtered = orders.filter(o =>
-                o.status === "cancelled"
-            );
+                btn.classList.add("active");
 
-        }
+                switch (btn.dataset.status) {
+                    case "all":
+                        renderOrders(orders);
+                        break;
+                    case "current":
+                        renderOrders(
+                            orders.filter(o =>
+                                ["pending", "processing", "shipped"].includes(o.status)
+                            )
+                        );
+                        break;
+                        const allOrders = orders.length;
 
+                        document.getElementById("allOrdersCount").textContent = allOrders;
+                    case "delivered":
+                        renderOrders(
+                            orders.filter(o => o.status === "delivered")
+                        );
+                        break;
 
-        function bindFilters() {
+                    case "cancelled":
+                        renderOrders(
+                            orders.filter(o => o.status === "cancelled")
+                        );
+                        break;
 
-    document.querySelectorAll(".filter-btn").forEach(btn => {
+                    default:
+                        renderOrders(orders);
 
-        btn.onclick = () => {
+                }
 
-            let filtered = orders;
+            });
 
-            document.querySelectorAll(".filter-btn")
-                .forEach(b => b.classList.remove("active"));
-
-            btn.classList.add("active");
-
-            if (btn.dataset.status === "current") {
-
-                filtered = orders.filter(o =>
-                    ["pending", "processing", "shipped"].includes(o.status)
-                );
-
-            }
-
-            if (btn.dataset.status === "delivered") {
-
-                filtered = orders.filter(o =>
-                    o.status === "delivered"
-                );
-
-            }
-
-            if (btn.dataset.status === "cancelled") {
-
-                filtered = orders.filter(o =>
-                    o.status === "cancelled"
-                );
-
-            }
-
-            renderOrders(filtered);
-
-            bindFilters();
-
-        };
-
-    });
-
-}
-
-        container.innerHTML += filtered.map(createOrderCard).join("");
-
-    };
-
-});
+        });
 
 
     } catch (err) {
@@ -232,6 +200,8 @@ function translateStatus(status) {
         case "delivered":
             return "تحویل شده";
 
+        case "cancelled":
+            return "لغو شده";
         default:
             return status;
 

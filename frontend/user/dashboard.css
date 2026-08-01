@@ -209,7 +209,7 @@ body {
 }
 
 .svg-4 {
-    background-color: #e4f6fd;
+    background-color: #FFFBEB;
 }
 
 .cart-content {
@@ -275,21 +275,23 @@ body {
 }
 
 .last-order-card {
+    border: 1px solid #E5E7EB;
     width: 210px;
-    height: 260px;
+    height: 230px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 18px;
+  
+    padding: 10px 18px;
     border-radius: 6px;
     background: #f9f9f9;
 }
 
 .order-row {
+    height: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 10px;
+   padding: 25px  0;
     border-bottom: 1px solid #f2f2f2;
 }
 
@@ -475,6 +477,9 @@ body {
 .order-status__cercel.delivered {
     background: #22c55e;
 }
+.order-status__cercel.cancelled {
+    background: #ff0c0c;
+}
 
 .order-dtail {
     display: flex;
@@ -535,7 +540,6 @@ body {
 }
 
 .filter-btn {
-    
     color: #666;
     margin-top: 20px;
     display: flex;
@@ -547,12 +551,9 @@ body {
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    transition: .25s;
-
 }
 
 .filter-btn span {
-
     min-width: 21px;
     height: 21px;
     display: flex;
@@ -562,11 +563,9 @@ body {
     color: #fff;
     border-radius: 4px;
     font-size: 10px;
-
 }
 
 .filter-btn.active {
-
     border-bottom: 3px solid #00b5b8;
     color: #00b5b8;
 
@@ -574,6 +573,24 @@ body {
 
 .filter-btn.active span {
     background: #00b5b8;
+}
+
+.last-order__title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.last-order__title a {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #336DFF;
+    font-size: 14px;
+
 }
 
 /* ----------------------------------------profile------------------------------------------ */
@@ -585,7 +602,7 @@ body {
     padding: 25px;
     max-width: 1044px;
     margin: auto;
- 
+
 
 }
 

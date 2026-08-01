@@ -38,13 +38,13 @@ router.delete("/:id", protect, admin, async (req, res) => {
     }
 
     // جلوگیری از حذف هر ادمین
-if (req.user._id.toString() === req.params.id) {
+    if (req.user._id.toString() === req.params.id) {
 
-  return res.status(400).json({
-    message: "نمی‌توانید حساب خودتان را حذف کنید."
-  });
+      return res.status(400).json({
+        message: "نمی‌توانید حساب خودتان را حذف کنید."
+      });
 
-}
+    }
 
     await User.findByIdAndDelete(req.params.id);
 
@@ -84,149 +84,153 @@ router.put("/:id/role", protect, admin, async (req, res) => {
 });
 router.get("/dashboard", protect, async (req, res) => {
 
-    try {
+  try {
 
-        const user = await User.findById(req.user._id).select("name");
+    const user = await User.findById(req.user._id).select("name");
 
-        const orders = await Order.find({
-            user: req.user._id
-        }).sort({
-            createdAt: -1
-        });
+    const orders = await Order.find({
+      user: req.user._id
+    }).sort({
+      createdAt: -1
+    });
 
-        const orderCount = orders.length;
+    const orderCount = orders.length;
 
-        const pending = orders.filter(o => o.status === "pending").length;
+    const pending = orders.filter(o => o.status === "pending").length;
 
-        const processing = orders.filter(o => o.status === "processing").length;
+    const processing = orders.filter(o => o.status === "processing").length;
 
-        const shipped = orders.filter(o => o.status === "shipped").length;
+    const shipped = orders.filter(o => o.status === "shipped").length;
 
-        const delivered = orders.filter(o => o.status === "delivered").length;
+    const delivered = orders.filter(o => o.status === "delivered").length;
 
-        const totalSpent = orders.reduce((sum, order) => sum + order.totalPrice, 0);
+    const cancelled = orders.filter(o => o.status === "cancelled").length;
 
-        const lastOrder = orders[0] || null;
+    const totalSpent = orders.reduce((sum, order) => sum + order.totalPrice, 0);
 
-        res.json({
+    const lastOrder = orders[0] || null;
 
-            userName: user.name,
+    res.json({
 
-            orderCount,
+      userName: user.name,
 
-            pending,
+      orderCount,
 
-            processing,
+      pending,
 
-            shipped,
+      processing,
 
-            delivered,
+      shipped,
 
-            totalSpent,
+      delivered,
 
-            lastOrder
+      cancelled,
 
-        });
+      totalSpent,
 
-    } catch (err) {
+      lastOrder
 
-        res.status(500).json({
-            message: err.message
-        });
+    });
 
-    }
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
 
 });
 
 router.get("/profile", protect, async (req, res) => {
 
-    try {
+  try {
 
-        const user = await User.findById(req.user._id).select("-password");
+    const user = await User.findById(req.user._id).select("-password");
 
-        res.json(user);
+    res.json(user);
 
-    } catch (err) {
+  } catch (err) {
 
-        res.status(500).json({
+    res.status(500).json({
 
-            message: err.message
+      message: err.message
 
-        });
+    });
 
-    }
+  }
 
 });
 
 router.put("/profile", protect, async (req, res) => {
 
-    try {
+  try {
 
-        const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id);
 
-        if (!user) {
+    if (!user) {
 
-            return res.status(404).json({
-                message: "کاربر پیدا نشد"
-            });
-
-        }
-
-        user.name = req.body.name || user.name;
-        user.phone = req.body.phone || user.phone;
-        user.address = req.body.address || user.address;
-
-        await user.save();
-
-        res.json(user);
-
-    } catch (err) {
-
-        res.status(500).json({
-            message: err.message
-        });
+      return res.status(404).json({
+        message: "کاربر پیدا نشد"
+      });
 
     }
+
+    user.name = req.body.name || user.name;
+    user.phone = req.body.phone || user.phone;
+    user.address = req.body.address || user.address;
+
+    await user.save();
+
+    res.json(user);
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
 
 });
 const bcrypt = require("bcryptjs");
 
 router.put("/change-password", protect, async (req, res) => {
 
-    try {
+  try {
 
-        const { currentPassword, newPassword } = req.body;
+    const { currentPassword, newPassword } = req.body;
 
-        const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id);
 
-        const isMatch = await bcrypt.compare(
-            currentPassword,
-            user.password
-        );
+    const isMatch = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
 
-        if (!isMatch) {
+    if (!isMatch) {
 
-            return res.status(400).json({
-                message: "رمز فعلی اشتباه است."
-            });
-
-        }
-
-        user.password = await bcrypt.hash(newPassword, 10);
-
-        await user.save();
-
-        res.json({
-            message: "رمز عبور با موفقیت تغییر کرد."
-        });
-
-    } catch (err) {
-
-        res.status(500).json({
-            message: err.message
-        });
+      return res.status(400).json({
+        message: "رمز فعلی اشتباه است."
+      });
 
     }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+
+    await user.save();
+
+    res.json({
+      message: "رمز عبور با موفقیت تغییر کرد."
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
 
 });
 module.exports = router;
