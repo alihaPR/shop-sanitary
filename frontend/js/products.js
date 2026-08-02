@@ -99,6 +99,7 @@ function render() {
 function createCard(product) {
   const hasDiscount = product.discountPercent > 0
   const finalPrice = hasDiscount ? getDiscountedPrice(product.price, product.discountPercent) : product.price
+  const lowStock = typeof product.stock === "number" && product.stock > 0 && product.stock <= 3
 
   const card = document.createElement("a")
   card.className = "cart"
@@ -126,6 +127,7 @@ function createCard(product) {
       <span class="cart-link-btn">مشاهده</span>
     </div>
   `
+  // ${lowStock ? `<p class="cart-lowstock">تنها ${product.stock} عدد در انبار باقی مانده</p>` : ""}
 
   return card
 }

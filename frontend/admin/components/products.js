@@ -22,7 +22,7 @@ function getStockStatus(stock) {
 
     }
 
-    if (stock < 3) {
+    if (stock <= 3) {
 
         return { label: "موجودی کم", className: "status-low" };
 

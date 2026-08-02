@@ -464,6 +464,14 @@
     z-index: 1;
 }
 
+.cart-lowstock {
+    font-size: 11px;
+    color: #e83e3e;
+    background: #fce1e1;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
 /* ── dual range slider ── */
 .price-range-wrap {
     position: relative;
@@ -832,78 +840,84 @@
 
 }
 
-@media (max-width:640px){
+@media (max-width:640px) {
 
-    #products-grid{
-        display:flex;
-        flex-direction:column;
-        gap:12px;
+    #products-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .cart{
-        display:flex;
-        align-items:center;
-        gap:14px;
+    .cart {
+        display: flex;
+        align-items: center;
+        gap: 14px;
 
-        width:100%;
-        padding:12px;
+        width: 100%;
+        padding: 12px;
 
-        min-height:140px;
-        position:relative;
+        min-height: 140px;
+        position: relative;
     }
 
-    .cart-image{
-        width:110px;
-        height:110px;
-        flex-shrink:0;
-        object-fit:contain;
+    .cart-image {
+        width: 110px;
+        height: 110px;
+        flex-shrink: 0;
+        object-fit: contain;
     }
 
-    .cart-head{
-        text-align:right;
+    .cart-head {
+        text-align: right;
     }
 
-    .cart-head h5{
-        font-size:14px;
-        line-height:1.8;
-        margin-bottom:12px;
+    .cart-head h5 {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 12px;
     }
 
-    .cart-line{
-        display:none;
-    }
-
-    .cart-price{
-        position:absolute;
-        left:14px;
-        bottom:14px;
-        display:flex;
-        gap:10px;
-    }
-
-    .cart-price-before{
-        font-size:12px;
-    }
-
-    .cart-price-after{
-        font-size:16px;
-    }
-
-    .cart-link{
+    .cart-line {
         display: none;
     }
 
-    .cart-Discount{
-        top:10px;
-        width:28px;
-        font-size:11px;
+    .cart-price {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        display: flex;
+        gap: 10px;
     }
 
-    .cart-unavailable{
-        top:8px;
-        left:10px;
-        font-size:11px;
+    .cart-price-before {
+        font-size: 12px;
+    }
+
+    .cart-price-after {
+        font-size: 16px;
+    }
+
+    .cart-link {
+        display: none;
+    }
+
+    .cart-Discount {
+        top: 10px;
+        width: 28px;
+        font-size: 11px;
+    }
+
+    .cart-unavailable {
+        top: 8px;
+        left: 10px;
+        font-size: 11px;
         width: max-content;
+    }
+
+    .cart-lowstock {
+        font-size: 10px;
+        text-align: right;
+        margin-bottom: 6px;
     }
 
 }
@@ -912,39 +926,39 @@
    576px
 =========================== */
 
-@media (max-width:576px){
+@media (max-width:576px) {
 
-    .cart{
-        min-height:120px;
-        padding:10px;
-        gap:12px;
+    .cart {
+        min-height: 120px;
+        padding: 10px;
+        gap: 12px;
     }
 
-    .cart-image{
-        width:90px;
-        height:90px;
+    .cart-image {
+        width: 90px;
+        height: 90px;
     }
 
-    .cart-head h5{
-        font-size:13px;
-        line-height:1.7;
+    .cart-head h5 {
+        font-size: 13px;
+        line-height: 1.7;
     }
 
-    .cart-price-before{
-        font-size:11px;
+    .cart-price-before {
+        font-size: 11px;
     }
 
-    .cart-price-after{
-        font-size:14px;
+    .cart-price-after {
+        font-size: 14px;
     }
 
-    .cart-Discount{
-        font-size:10px;
+    .cart-Discount {
+        font-size: 10px;
     }
 
-    .cart-unavailable{
-        font-size:10px;
-        padding:3px 6px;
+    .cart-unavailable {
+        font-size: 10px;
+        padding: 3px 6px;
     }
 
 }
@@ -953,50 +967,50 @@
    430px
 =========================== */
 
-@media (max-width:430px){
+@media (max-width:430px) {
 
-    #products-grid{
-        gap:10px;
+    #products-grid {
+        gap: 10px;
     }
 
-    .cart{
-        min-height:110px;
-        padding:8px;
-        gap:10px;
-        border-radius:10px;
+    .cart {
+        min-height: 110px;
+        padding: 8px;
+        gap: 10px;
+        border-radius: 10px;
     }
 
-    .cart-image{
-        width:80px;
-        height:80px;
+    .cart-image {
+        width: 80px;
+        height: 80px;
     }
 
-    .cart-head h5{
-        font-size:12px;
-        line-height:1.6;
+    .cart-head h5 {
+        font-size: 12px;
+        line-height: 1.6;
     }
 
-    .cart-price-before{
-        font-size:11px;
+    .cart-price-before {
+        font-size: 11px;
     }
 
-    .cart-price-after{
-        font-size:13px;
+    .cart-price-after {
+        font-size: 13px;
     }
 
-    .cart-link svg{
-        width:20px;
-        height:20px;
+    .cart-link svg {
+        width: 20px;
+        height: 20px;
     }
 
-    .cart-Discount{
-        width:25px;
-        font-size:9.5px;
+    .cart-Discount {
+        width: 25px;
+        font-size: 9.5px;
     }
 
-    .cart-unavailable{
-        font-size:9px;
-        padding:2px 5px;
+    .cart-unavailable {
+        font-size: 9px;
+        padding: 2px 5px;
     }
 
 }
@@ -1005,50 +1019,50 @@
    360px
 =========================== */
 
-@media (max-width:360px){
+@media (max-width:360px) {
 
-    #products-grid{
-        gap:8px;
+    #products-grid {
+        gap: 8px;
     }
 
-    .cart{
-        min-height:100px;
-        padding:7px;
-        gap:8px;
-        border-radius:8px;
+    .cart {
+        min-height: 100px;
+        padding: 7px;
+        gap: 8px;
+        border-radius: 8px;
     }
 
-    .cart-image{
-        width:72px;
-        height:72px;
+    .cart-image {
+        width: 72px;
+        height: 72px;
     }
 
-    .cart-head h5{
-        font-size:11px;
-        line-height:1.5;
+    .cart-head h5 {
+        font-size: 11px;
+        line-height: 1.5;
     }
 
-    .cart-price-before{
-        font-size:10px;
+    .cart-price-before {
+        font-size: 10px;
     }
 
-    .cart-price-after{
-        font-size:12px;
+    .cart-price-after {
+        font-size: 12px;
     }
 
-    .cart-link svg{
-        width:18px;
-        height:18px;
+    .cart-link svg {
+        width: 18px;
+        height: 18px;
     }
 
-    .cart-Discount{
-        width:22px;
-        font-size:9px;
+    .cart-Discount {
+        width: 22px;
+        font-size: 9px;
     }
 
-    .cart-unavailable{
-        font-size:8px;
-        padding:2px 4px;
+    .cart-unavailable {
+        font-size: 8px;
+        padding: 2px 4px;
     }
 
 }

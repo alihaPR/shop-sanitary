@@ -2,7 +2,7 @@
 
     --primary: #00b5b8;
     --primary-hover: #00979a;
-    --sidebar: #111827;
+    --sidebar: #f9f9f9;
     --bg: #f5f7fb;
     --white: #ffffff;
     --text: #111827;
@@ -557,7 +557,7 @@ Admin Sidebar Like User Dashboard
 
 .products-table th {
     background: var(--sidebar, #111827);
-    color: #fff;
+    color: rgb(0 0 0);
     padding: 16px 18px;
     font-size: 13px;
     font-weight: 500;

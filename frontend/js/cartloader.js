@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const finalPrice = hasDiscount
     ? Math.round(product.price * (1 - product.discountPercent / 100))
     : product.price;
+  const lowStock = typeof product.stock === "number" && product.stock > 0 && product.stock <= 3;
 
   function formatPrice(p) { return p.toLocaleString("fa-IR"); }
 
@@ -203,6 +204,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </span>
 
             </div>
+
+            ${lowStock
+        ? `<div class="stock-warning">تنها ${product.stock} عدد در انبار باقی مانده</div>`
+        : ""
+      }
 
             <div id="cart-btn-container"></div>
 
