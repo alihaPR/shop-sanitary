@@ -142,7 +142,7 @@ function openProductModal(product = null) {
 
         <div class="modal-overlay">
 
-            <div class="product-modal">
+            <div class="product-modal product-modal--redesign">
 
                 <div class="modal-header">
 
@@ -152,73 +152,141 @@ function openProductModal(product = null) {
 
                 </div>
 
-                <form id="productForm">
+                <form id="productForm" class="product-form-grid">
 
-                    <input id="productName" type="text" placeholder="نام محصول">
+                    <div class="form-col form-col-main">
 
-                    <input id="productPrice" type="number" placeholder="قیمت">
+                        <div class="form-card">
 
-                    <input id="productStock" type="number" placeholder="موجودی">
+                            <h3 class="form-card-title">اطلاعات عمومی</h3>
 
-                   <select id="productCategory">
+                            <div class="form-group">
+                                <label>نام محصول</label>
+                                <input id="productName" type="text" placeholder="نام محصول را وارد کنید">
+                            </div>
 
-    <option value="">
-        انتخاب دسته‌بندی
-    </option>
+                            <div class="form-group">
+                                <label>توضیح کوتاه</label>
+                                <input id="productShortDescription" type="text" placeholder="یک توضیح کوتاه زیر نام محصول">
+                            </div>
 
-    <option value="پوشک-کودک">
-        پوشک کودک
-    </option>
+                            <div class="form-group">
+                                <label>برند</label>
+                                <input id="productBrand" type="text" placeholder="نام برند">
+                            </div>
 
-    <option value="پوشک-بزرگسال">
-        پوشک بزرگسال
-    </option>
+                            <div class="form-group">
+                                <label>توضیحات محصول</label>
+                                <textarea id="productDescription" placeholder="توضیحات محصول را وارد کنید"></textarea>
+                            </div>
 
-    <option value="نوار-بهداشتی">
-        نوار بهداشتی
-    </option>
+                        </div>
 
-    <option value="پنبه">
-        پنبه
-    </option>
+                        <div class="form-card">
 
-    <option value="دستمال-مرطوب">
-        دستمال مرطوب
-    </option>
+                            <h3 class="form-card-title">قیمت و موجودی</h3>
 
-</select> 
+                            <div class="form-row">
 
-                    <input id="productBrand" type="text" placeholder="برند">
+                                <div class="form-group">
+                                    <label>قیمت پایه (تومان)</label>
+                                    <input id="productPrice" type="number" placeholder="مثلا 150000">
+                                </div>
 
-                    <input id="productImageFile" type="file" accept="image/*">
+                                <div class="form-group">
+                                    <label>موجودی</label>
+                                    <input id="productStock" type="number" placeholder="تعداد موجودی">
+                                </div>
 
-                    <textarea id="productDescription" placeholder="توضیحات"></textarea>
-                    
-                    <hr>
+                            </div>
 
-                     <h3>مشخصات کالا</h3>
+                        </div>
 
-                     <div id="specificationsContainer">
+                        <div class="form-card">
 
-                     </div>
+                            <div class="form-card-header-row">
+                                <h3 class="form-card-title">مشخصات کالا</h3>
+                                <button type="button" id="addSpecification" class="add-specification-btn">
+                                    + افزودن مشخصه
+                                </button>
+                            </div>
 
-                     <button
-                         type="button"
-                         id="addSpecification"
-                         class="add-specification"
-                     >
+                            <div id="specificationsContainer"></div>
 
-                     + افزودن مشخصه
+                        </div>
 
-                     </button>
+                        <div class="form-card">
 
-                     <hr >
+                            <div class="form-card-header-row">
+                                <h3 class="form-card-title">ویژگی‌ها</h3>
+                                <button type="button" id="addFeature" class="add-specification-btn">
+                                    + افزودن ویژگی
+                                </button>
+                            </div>
 
-                    <button type="submit">
+                            <div id="featuresContainer"></div>
 
-                        ثبت محصول
+                        </div>
 
-                    </button>
+                    </div>
+
+                    <div class="form-col form-col-side">
+
+                        <div class="form-card">
+
+                            <h3 class="form-card-title">تصویر محصول</h3>
+
+                            <label class="image-upload-box" for="productImageFile">
+                                <img id="productImagePreview" alt="پیش نمایش تصویر">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <span class="upload-plus">+</span>
+                                    <span class="upload-text">افزودن تصویر</span>
+                                </div>
+                            </label>
+
+                            <input id="productImageFile" type="file" accept="image/*" hidden>
+
+                        </div>
+
+                        <div class="form-card">
+
+                            <h3 class="form-card-title">دسته‌بندی</h3>
+
+                            <select id="productCategory">
+
+                                <option value="">
+                                     انتخاب دسته‌بندی
+                                </option>
+
+                                 <option value="پوشک-کودک">
+                                     پوشک کودک
+                                </option>
+
+                                <option value="پوشک-بزرگسال">
+                                     پوشک بزرگسال
+                                </option>
+
+                                <option value="نوار-بهداشتی">
+                                     نوار بهداشتی
+                                </option>
+
+                                <option value="پنبه">
+                                 پنبه
+                                </option>
+
+                                <option value="دستمال-مرطوب">
+                                 دستمال مرطوب
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit">ثبت محصول</button>
+                    </div>
 
                 </form>
 
@@ -237,6 +305,18 @@ function openProductModal(product = null) {
         document.getElementById("productCategory").value = product.category || "";
         document.getElementById("productBrand").value = product.brand || "";
         document.getElementById("productDescription").value = product.description || "";
+        document.getElementById("productShortDescription").value = product.shortDescription || "";
+
+        if (product.image) {
+
+            const previewImg = document.getElementById("productImagePreview");
+            const placeholder = document.getElementById("uploadPlaceholder");
+
+            previewImg.src = `http://localhost:5000/${product.image}`;
+            previewImg.classList.add("has-image");
+            placeholder.style.display = "none";
+
+        }
 
     }
     else {
@@ -246,54 +326,128 @@ function openProductModal(product = null) {
     }
     document.getElementById("productForm").addEventListener("submit", submitProduct);
 
+    const imageInput = document.getElementById("productImageFile");
+    const imagePreview = document.getElementById("productImagePreview");
+    const uploadPlaceholder = document.getElementById("uploadPlaceholder");
+
+    imageInput.addEventListener("change", () => {
+
+        if (imageInput.files && imageInput.files[0]) {
+
+            imagePreview.src = URL.createObjectURL(imageInput.files[0]);
+            imagePreview.classList.add("has-image");
+            uploadPlaceholder.style.display = "none";
+
+        }
+
+    });
+
     document.querySelector(".close-modal").onclick = () => {
 
         document.querySelector(".modal-overlay").remove();
 
     }
+
+    function escapeAttr(str) {
+        return String(str).replace(/"/g, "&quot;");
+    }
+
     const specsContainer = document.getElementById("specificationsContainer");
 
-    document
-        .getElementById("addSpecification")
-        .addEventListener("click", () => {
+    function addSpecRow(label = "", value = "") {
 
-            specsContainer.insertAdjacentHTML(
+        specsContainer.insertAdjacentHTML(
 
-                "beforeend",
+            "beforeend",
 
-                `
+            `
         <div class="spec-row">
 
             <input
                 type="text"
                 class="spec-title"
                 placeholder="عنوان مشخصه"
+                value="${escapeAttr(label)}"
             >
 
             <input
                 type="text"
                 class="spec-value"
                 placeholder="مقدار"
+                value="${escapeAttr(value)}"
             >
 
             <button
                 type="button"
                 class="remove-spec"
             >
-                حذف
+                ×
             </button>
 
         </div>
         `
 
-            );
+        );
 
-        });
+    }
+
+    document
+        .getElementById("addSpecification")
+        .addEventListener("click", () => addSpecRow());
+
+    const featuresContainer = document.getElementById("featuresContainer");
+
+    function addFeatureRow(value = "") {
+
+        featuresContainer.insertAdjacentHTML(
+
+            "beforeend",
+
+            `
+        <div class="feature-row">
+
+            <input
+                type="text"
+                class="feature-value"
+                placeholder="مثلا: ضد حساسیت"
+                value="${escapeAttr(value)}"
+            >
+
+            <button
+                type="button"
+                class="remove-feature"
+            >
+                ×
+            </button>
+
+        </div>
+        `
+
+        );
+
+    }
+
+    document
+        .getElementById("addFeature")
+        .addEventListener("click", () => addFeatureRow());
+
+    if (product) {
+
+        (product.specs || []).forEach(spec => addSpecRow(spec.label, spec.value));
+        (product.features || []).forEach(feature => addFeatureRow(feature));
+
+    }
 
 }
 document.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("remove-spec")) {
+
+        e.target.parentElement.remove();
+
+    }
+
+    if (e.target.classList.contains("remove-feature")) {
 
         e.target.parentElement.remove();
 
@@ -312,6 +466,7 @@ async function submitProduct(e) {
 
     const name = document.getElementById("productName").value.trim();
     const description = document.getElementById("productDescription").value.trim();
+    const shortDescription = document.getElementById("productShortDescription").value.trim();
     const price = Number(document.getElementById("productPrice").value);
     const stock = Number(document.getElementById("productStock").value);
     const category = document.getElementById("productCategory").value;
@@ -367,6 +522,18 @@ async function submitProduct(e) {
 
     });
 
+    const features = [];
+
+    document.querySelectorAll(".feature-row").forEach(row => {
+
+        const value = row.querySelector(".feature-value").value.trim();
+
+        if (value) {
+            features.push(value);
+        }
+
+    });
+
 
 
     try {
@@ -391,12 +558,13 @@ async function submitProduct(e) {
                 name,
                 stock,
                 description,
+                shortDescription,
                 price,
                 image,
                 brand,
                 category,
                 specs: specifications,
-                features: []
+                features
 
             })
 

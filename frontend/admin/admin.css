@@ -1228,3 +1228,301 @@ Admin Sidebar Like User Dashboard
     gap: 15px;
 
 }
+/* ===========================
+   Product Modal Redesign
+   (visual only — scoped to
+   .product-modal--redesign,
+   no existing selectors touched)
+=========================== */
+
+.product-modal--redesign {
+    --pm-accent: #22c55e;
+    --pm-accent-soft: #e8faf0;
+    --pm-border: #e5e7eb;
+    --pm-label: #6b7280;
+
+    width: 950px;
+}
+
+.product-modal--redesign .modal-header {
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid var(--pm-border);
+    margin-bottom: 0;
+}
+
+#productForm.product-form-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+    padding: 25px 18px 6px 18px;
+}
+
+#productForm.product-form-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+#productForm.product-form-grid::-webkit-scrollbar-thumb {
+    background: #e2e4e8;
+    border-radius: 10px;
+}
+
+#productForm.product-form-grid::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0;
+}
+
+.form-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid var(--pm-border);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.form-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.form-card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.form-card-header-row .form-card-title {
+    margin-bottom: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: var(--pm-label);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.product-modal--redesign #productForm input,
+.product-modal--redesign #productForm textarea {
+    margin-bottom: 0;
+}
+
+.product-modal--redesign #productForm textarea {
+    min-height: 100px;
+    height: auto;
+}
+
+.product-modal--redesign #productForm input:focus,
+.product-modal--redesign #productForm textarea:focus,
+.product-modal--redesign #productForm select:focus {
+    border-color: var(--pm-accent);
+}
+
+#productCategory {
+    width: 100%;
+}
+
+.add-specification-btn {
+    height: 36px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--pm-accent-soft);
+    color: #16a34a;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#specificationsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#specificationsContainer:not(:empty) {
+    margin-top: 4px;
+}
+
+/* image upload box */
+.image-upload-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px dashed #ddd;
+    border-radius: 14px;
+    background: #fafafa;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: .2s;
+}
+
+.image-upload-box:hover {
+    border-color: var(--pm-accent);
+    background: var(--pm-accent-soft);
+}
+
+.image-upload-box img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-upload-box img.has-image {
+    display: block;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.upload-plus {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--pm-accent-soft);
+    color: var(--pm-accent);
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.image-upload-box:hover .upload-plus {
+    background: #fff;
+}
+
+.upload-text {
+    font-size: 13px;
+    color: #9ca3af;
+    text-align: center;
+}
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.product-modal--redesign #productForm button[type="submit"] {
+    background: var(--pm-accent);
+    height: 46px;
+    padding: 0 40px;
+    border-radius: 10px;
+    margin-top: 0;
+}
+
+.product-modal--redesign #productForm button[type="submit"]:hover {
+    background: #16a34a;
+}
+
+@media (max-width: 800px) {
+
+    .product-modal--redesign {
+        width: 95%;
+    }
+
+    #productForm.product-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* specifications row — refined look */
+#specificationsContainer .spec-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 10px;
+    align-items: center;
+    background: #f9fafb;
+    border: 1px solid var(--pm-border);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#specificationsContainer .spec-row input {
+    margin-bottom: 0;
+    background: #fff;
+    padding: 10px 12px;
+}
+
+/* features row — same treatment, single field */
+#featuresContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#featuresContainer .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    gap: 10px;
+    align-items: center;
+    background: #f9fafb;
+    border: 1px solid var(--pm-border);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#featuresContainer .feature-row input {
+    margin-bottom: 0;
+    background: #fff;
+    padding: 10px 12px;
+}
+
+/* remove buttons — plain, normal × (no filled box) */
+.remove-spec,
+.remove-feature {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+.remove-spec:hover,
+.remove-feature:hover {
+    background: #fee2e2;
+    color: #dc2626;
+}

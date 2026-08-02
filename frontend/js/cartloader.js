@@ -84,6 +84,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             <h1>${product.name}</h1>
 
+            ${product.shortDescription
+        ? `<div class="short-desc-line" style="font-size:14px;color:#6b7280;margin:6px 0 10px">${product.shortDescription}</div>`
+        : ""
+      }
+
             <div class="brand-line">
                 ${product.brand || ""}
             </div>
