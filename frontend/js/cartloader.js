@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   document.title = product.name;
 
   renderProduct(product);
+  loadFavoriteState();
   renderDetails(product);
 
   function renderProduct(product) {
@@ -46,20 +47,36 @@ document.addEventListener("DOMContentLoaded", async function () {
                  style="background-image:url('${imageUrl}')">
             </div>
 
-            <div class="icon-row">
+<div class="icon-row">
 
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
-                </svg>
+    <svg
+        id="favoriteBtn"
+        class="favorite-btn"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
 
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="18" cy="5" r="3"/>
-                    <circle cx="6" cy="12" r="3"/>
-                    <circle cx="18" cy="19" r="3"/>
-                    <path d="M8.6 10.5 15.4 6.5M8.6 13.5 15.4 17.5"/>
-                </svg>
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
 
-            </div>
+    </svg>
+
+    <svg viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+
+        <circle cx="18" cy="5" r="3"/>
+
+        <circle cx="6" cy="12" r="3"/>
+
+        <circle cx="18" cy="19" r="3"/>
+
+        <path d="M8.6 10.5 15.4 6.5M8.6 13.5 15.4 17.5"/>
+
+    </svg>
+
+</div>
 
         </div>
 
@@ -348,4 +365,43 @@ document.addEventListener("DOMContentLoaded", async function () {
     }, 4000);
   }
 
+  async function loadFavoriteState() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    try {
+
+        const res = await fetch(`${API_BASE_URL}/users/favorites`, {
+
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+
+        });
+
+        if (!res.ok) return;
+
+        const favorites = await res.json();
+
+        const liked = favorites.some(item => item._id === product._id);
+
+        const heart = document.getElementById("favoriteBtn");
+
+        if (!heart) return;
+
+        if (liked) {
+
+            heart.classList.add("active");
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+}
 });

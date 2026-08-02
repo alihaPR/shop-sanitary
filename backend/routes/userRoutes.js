@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const Product = require("../models/Product");
 const User = require("../models/User");
 const Order = require("../models/Order");
 const { protect, admin } = require("../middleware/auth");
@@ -223,6 +223,88 @@ router.put("/change-password", protect, async (req, res) => {
     res.json({
       message: "رمز عبور با موفقیت تغییر کرد."
     });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
+
+});
+router.post("/favorites/:id", protect, async (req, res) => {
+
+  try {
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+
+      return res.status(404).json({
+        message: "محصول پیدا نشد."
+      });
+
+    }
+
+    const user = await User.findById(req.user._id);
+
+    if (!user.favorites.includes(product._id)) {
+
+      user.favorites.push(product._id);
+
+      await user.save();
+
+    }
+
+    res.json({
+      favorites: user.favorites
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
+
+});
+router.delete("/favorites/:id", protect, async (req, res) => {
+
+  try {
+
+    const user = await User.findById(req.user._id);
+
+    user.favorites = user.favorites.filter(
+
+      id => id.toString() !== req.params.id
+
+    );
+
+    await user.save();
+
+    res.json({
+      favorites: user.favorites
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
+
+});
+router.get("/favorites", protect, async (req, res) => {
+
+  try {
+
+    const user = await User.findById(req.user._id)
+      .populate("favorites");
+
+    res.json(user.favorites);
 
   } catch (err) {
 
