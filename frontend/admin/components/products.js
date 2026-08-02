@@ -1,4 +1,37 @@
 let editingProductId = null;
+
+/* ===========================
+    Pagination State
+=========================== */
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+const PRODUCTS_PER_PAGE = 5;
+
+/*
+  آستانه وضعیت موجودی:
+  stock === 0            -> ناموجود
+  0 < stock < 3           -> موجودی کم
+  stock >= 3              -> موجود
+*/
+function getStockStatus(stock) {
+
+    if (stock === 0) {
+
+        return { label: "ناموجود", className: "status-out" };
+
+    }
+
+    if (stock < 3) {
+
+        return { label: "موجودی کم", className: "status-low" };
+
+    }
+
+    return { label: "موجود", className: "status-in" };
+
+}
+
 async function renderProducts() {
 
     const token = localStorage.getItem("token");
@@ -8,27 +41,51 @@ async function renderProducts() {
     );
     const products = await res.json();
 
+    allProducts = products;
+    filteredProducts = products;
+    currentPage = 1;
+
     document.getElementById("main-content").innerHTML = `
 
 <div class="products-header">
 
-    <h2>مدیریت محصولات</h2>
+    <div class="products-heading">
+        <h2>لیست محصولات</h2>
+        <p>مدیریت تمامی محصولات فروشگاه</p>
+    </div>
 
-    <div class="products-actions">
+    <button class="add-product-btn">
+        + افزودن محصول
+    </button>
 
-        <input
-            type="text"
-            id="productSearch"
-            placeholder="جستجوی محصول..."
-        >
+</div>
 
-        <button class="add-product-btn">
-            + افزودن محصول
-        </button>
+<div class="products-card">
+
+    <div class="products-toolbar">
+
+        <div class="filter-dropdown" id="productFilterDropdown">
+            <span>اخیر</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="search-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input
+                type="text"
+                id="productSearch"
+                placeholder="جستجوی محصول..."
+            >
+        </div>
 
     </div>
 
-</div>
+    <div class="products-table-wrap">
 
         <table class="products-table">
 
@@ -36,15 +93,15 @@ async function renderProducts() {
 
                 <tr>
 
-                    <th>تصویر</th>
+                    <th>محصول</th>
 
-                    <th>نام</th>
+                    <th>دسته بندی</th>
 
                     <th>قیمت</th>
 
                     <th>موجودی</th>
 
-                    <th>دسته بندی</th>
+                    <th>وضعیت</th>
 
                     <th>عملیات</th>
 
@@ -52,64 +109,164 @@ async function renderProducts() {
 
             </thead>
 
-            <tbody>
-
-                ${products.map(product => `
-
-                    <tr>
-
-                        <td>
-
-<img src="http://localhost:5000/${product.image}" class="table-image">
-                        </td>
-
-                        <td>${product.name}</td>
-
-                        <td>${product.price.toLocaleString()} تومان</td>
-
-                        <td>${product.stock}</td>
-
-                        <td>${product.category}</td>
-
-                        <td>
-
-                        <button class="edit-btn"  data-id="${product._id}">
-                         ویرایش
-                        </button>
-
-                            <button class="delete-btn" data-id="${product._id}">
-                                حذف
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                `).join("")}
-
+            <tbody id="productsTableBody">
             </tbody>
 
         </table>
 
+    </div>
+
+    <div class="products-pagination">
+
+        <span id="paginationInfo"></span>
+
+        <div class="pagination-controls">
+            <button type="button" id="prevPageBtn" class="page-btn" title="قبلی">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button type="button" id="nextPageBtn" class="page-btn" title="بعدی">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
     `;
+
+    renderProductsTableBody();
+
     const searchInput = document.getElementById("productSearch");
 
     searchInput.addEventListener("input", () => {
 
         const keyword = searchInput.value.toLowerCase();
 
-        document.querySelectorAll(".products-table tbody tr").forEach(row => {
+        filteredProducts = allProducts.filter(product => {
 
-            const text = row.innerText.toLowerCase();
+            const text = `${product.name} ${product.category} ${product.brand || ""}`.toLowerCase();
 
-            row.style.display = text.includes(keyword)
-                ? ""
-                : "none";
+            return text.includes(keyword);
 
         });
 
+        currentPage = 1;
+
+        renderProductsTableBody();
+
     });
+
     document.querySelector(".add-product-btn").addEventListener("click", openProductModal);
+
+    document.getElementById("prevPageBtn").addEventListener("click", () => {
+
+        if (currentPage > 1) {
+
+            currentPage--;
+
+            renderProductsTableBody();
+
+        }
+
+    });
+
+    document.getElementById("nextPageBtn").addEventListener("click", () => {
+
+        const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+
+        if (currentPage < totalPages) {
+
+            currentPage++;
+
+            renderProductsTableBody();
+
+        }
+
+    });
+
+}
+
+function renderProductsTableBody() {
+
+    const tbody = document.getElementById("productsTableBody");
+
+    const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+
+    const pageItems = filteredProducts.slice(start, start + PRODUCTS_PER_PAGE);
+
+    if (pageItems.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-row">محصولی یافت نشد</td>
+            </tr>
+        `;
+
+    } else {
+
+        tbody.innerHTML = pageItems.map(product => {
+
+            const status = getStockStatus(product.stock);
+
+            return `
+
+                    <tr>
+
+                        <td>
+                            <div class="product-cell">
+                                <img src="http://localhost:5000/${product.image}" class="table-image">
+                                <span class="product-name">${product.name}</span>
+                            </div>
+                        </td>
+
+                        <td>${product.category}</td>
+
+                        <td>${product.price.toLocaleString()} تومان</td>
+
+                        <td>${product.stock}</td>
+
+                        <td>
+                            <span class="status-pill ${status.className}">${status.label}</span>
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <button class="edit-btn" data-id="${product._id}" title="ویرایش">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+
+                                <button class="delete-btn" data-id="${product._id}" title="حذف">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+        }).join("");
+
+    }
 
     document.querySelectorAll(".edit-btn").forEach(btn => {
 
@@ -117,7 +274,7 @@ async function renderProducts() {
 
             const id = btn.dataset.id;
 
-            const product = products.find(p => p._id === id);
+            const product = allProducts.find(p => p._id === id);
 
             openProductModal(product);
 
@@ -134,6 +291,25 @@ async function renderProducts() {
         });
 
     });
+
+    updatePaginationInfo(totalPages);
+
+}
+
+function updatePaginationInfo(totalPages) {
+
+    const total = filteredProducts.length;
+
+    const start = total === 0 ? 0 : (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
+
+    const end = Math.min(currentPage * PRODUCTS_PER_PAGE, total);
+
+    document.getElementById("paginationInfo").textContent =
+        `نمایش ${start} تا ${end} از ${total} ردیف`;
+
+    document.getElementById("prevPageBtn").disabled = currentPage <= 1;
+
+    document.getElementById("nextPageBtn").disabled = currentPage >= totalPages;
 
 }
 function openProductModal(product = null) {

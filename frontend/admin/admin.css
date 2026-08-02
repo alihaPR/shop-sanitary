@@ -462,52 +462,174 @@ Admin Sidebar Like User Dashboard
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0;
+    margin: 0 0 22px 0;
+}
+
+.products-heading h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.products-heading p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-light);
 }
 
 .add-product-btn {
 
-    background: rgb(208, 228, 231);
-    color: #575656;
+    background: var(--primary, #2563eb);
+    color: #fff;
     border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
+    padding: 12px 22px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
+    transition: .25s;
 
+}
+
+.add-product-btn:hover {
+    background: var(--primary-hover, #1d4ed8);
+}
+
+/* card wrapping the whole products list */
+.products-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius, 16px);
+    box-shadow: var(--shadow, 0 10px 30px rgba(0, 0, 0, .05));
+    padding: 22px 0;
+}
+
+.products-toolbar {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding: 0 22px;
+    gap: 15px;
+}
+
+.filter-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-light);
+    cursor: pointer;
+    user-select: none;
+}
+
+.search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-wrap svg {
+    position: absolute;
+    right: 14px;
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+.products-table-wrap {
+    /* overflow-x: auto; */
+    /* border-radius: 12px; */
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .products-table {
 
     width: 100%;
     background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
     border-collapse: collapse;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
-
+    min-width: 720px;
 
 }
 
 .products-table th {
-    background: #f3f4f6;
-    padding: 18px;
+    background: var(--sidebar, #111827);
+    color: #fff;
+    padding: 16px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
 
 }
 
 .products-table td {
-    padding: 18px;
+    padding: 16px 18px;
     text-align: center;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.products-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+.product-name {
+    font-size: 14px;
+    color: var(--text);
+    white-space: nowrap;
 }
 
 .table-image {
 
-    width: 65px;
-    height: 65px;
+    width: 48px;
+    height: 48px;
     object-fit: cover;
     border-radius: 10px;
+    flex-shrink: 0;
 
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pill.status-in {
+    background: #e8faf0;
+    color: #15803d;
+}
+
+.status-pill.status-low {
+    background: #fff7d6;
+    color: #b45309;
+}
+
+.status-pill.status-out {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .edit-btn {
@@ -515,11 +637,19 @@ Admin Sidebar Like User Dashboard
     background: #CCE8F4;
     color: #18A6D9;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
 
+}
+
+.edit-btn:hover {
+    background: #b7dcee;
 }
 
 .delete-btn {
@@ -527,10 +657,65 @@ Admin Sidebar Like User Dashboard
     background: #FEE7EF;
     color: #F76699;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
 
+}
+
+.delete-btn:hover {
+    background: #fbd0e0;
+}
+
+.empty-row {
+    padding: 40px 18px !important;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.products-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding: 0 22px;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text-light);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: #f3f4f6;
+    color: var(--text);
+}
+
+.page-btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
 }
 
 #productCategory {
@@ -1164,26 +1349,6 @@ Admin Sidebar Like User Dashboard
     gap: 15px;
 }
 
-#productSearch {
-    width: 260px;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    outline: none;
-    font-family: inherit;
-}
-
-#productSearch:focus {
-    border-color: #0d6efd;
-}
-
-.products-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#productSearch,
 #userSearch,
 #orderSearch {
 
@@ -1203,7 +1368,6 @@ Admin Sidebar Like User Dashboard
 
 }
 
-#productSearch:focus,
 #userSearch:focus,
 #orderSearch:focus {
 
@@ -1212,20 +1376,27 @@ Admin Sidebar Like User Dashboard
 
 }
 
-.products-header {
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-
+/* product search input inside .search-wrap (new products layout) */
+.search-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
 }
 
-.products-actions {
+#productSearch {
 
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    width: 240px;
+    height: 42px;
+    padding: 0 40px 0 15px;
+
+    border: none;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 13px;
+    background: transparent;
 
 }
 /* ===========================
