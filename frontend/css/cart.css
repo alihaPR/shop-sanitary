@@ -128,7 +128,8 @@
   .stock-warning {
       font-size: 12px;
       font-weight: 600;
-      color: var(--sun);
+      /* color: var(--sun); */
+      color: #D9534F;
       background: #FCF3E1;
       border-radius: 7px;
       padding: 7px 10px;
