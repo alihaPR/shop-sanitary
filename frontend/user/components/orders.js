@@ -47,7 +47,7 @@ window.Views.orders = {
 
     template: `
         <div class="order-filter__wraper">
-            <h2>تاریخچه سفارش ها</h2>
+            <h2>تاریخچه سفارشات</h2>
             <div class="orders-filter">
                 <button class="filter-btn" data-status="all">
                     همه
