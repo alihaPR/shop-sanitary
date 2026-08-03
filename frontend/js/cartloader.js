@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadFavoriteState();
   renderDetails(product);
 
+  document
+    .getElementById("favoriteBtn")
+    .addEventListener("click", () => toggleFavorite(product));
+
   function renderProduct(product) {
 
     const productInfo = document.getElementById("product-info");
@@ -137,7 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="row-title">فروشنده</div>
 
             <b class="name">
-                فروشگاه نرمین سانا گستر
+                فروشگاه نرم سنتر
             </b>
 
             <div class="check-item">
@@ -415,4 +419,53 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 }
+
+  /* =========================================================
+     افزودن/حذف علاقه‌مندی با کلیک روی آیکون قلب
+     ⚠️ آدرس این روت‌ها هنوز با بک‌اند تأیید نشده، طبق همون
+     الگویی نوشته شده که تو داشبورد یوزر (favorites.js) استفاده کردیم:
+     POST   /users/favorites/:id  -> افزودن
+     DELETE /users/favorites/:id  -> حذف
+  ========================================================= */
+
+  async function toggleFavorite(product) {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("ابتدا وارد حساب کاربری شوید.");
+      location.href = "/frontend/login.html";
+      return;
+    }
+
+    const heart = document.getElementById("favoriteBtn");
+
+    if (!heart) return;
+
+    const isActive = heart.classList.contains("active");
+
+    try {
+
+      const res = await fetch(`${API_BASE_URL}/users/favorites/${product._id}`, {
+        method: isActive ? "DELETE" : "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.message || "خطا در به‌روزرسانی علاقه‌مندی");
+      }
+
+      heart.classList.toggle("active", !isActive);
+
+    } catch (err) {
+
+      console.error(err);
+      alert(err.message);
+
+    }
+
+  }
 });
