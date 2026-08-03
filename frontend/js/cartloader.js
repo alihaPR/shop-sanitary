@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const API_BASE_URL = "http://localhost:5000/api";
 
+  const FAVORITES_VIEW_URL = "/frontend/user/index.html?view=favorites";
+
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
 
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderProduct(product);
   loadFavoriteState();
   renderDetails(product);
+  initShareButtons();
 
   document
     .getElementById("favoriteBtn")
@@ -66,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     </svg>
 
-    <svg viewBox="0 0 24 24"
+    <svg class="share-btn" viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         stroke-width="2">
@@ -312,7 +315,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         renderCartUI();
 
-        showToast();
+        showCartToast(product);
 
       });
 
@@ -354,30 +357,72 @@ document.addEventListener("DOMContentLoaded", async function () {
   // ─────────────────────────────────────────────
   //  Toast
   // ─────────────────────────────────────────────
-  function showToast() {
-    const existing = document.getElementById("cart-toast");
+  function renderToast({ id, position, type, title, subtitle = "", actionHref = null, actionLabel = "", icon, duration = 3800 }) {
+
+    const existing = document.getElementById(id);
     if (existing) existing.remove();
 
     const toast = document.createElement("div");
-    toast.id = "cart-toast";
+    toast.id = id;
+    toast.className = `pill-toast pos-${position} type-${type}`;
     toast.innerHTML = `
-      <div class="toast-content">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3C6E55" stroke-width="2.5">
-          <path d="M20 6L9 17l-5-5"/>
-        </svg>
-        <span>کالا اضافه شد!</span>
+      <div class="pill-toast-icon">${icon}</div>
+      <div class="pill-toast-body">
+        <p class="pill-toast-title">${title}</p>
+        ${actionHref ? `<a href="${actionHref}" class="pill-toast-action">${actionLabel}</a>` : ""}
       </div>
-      <div class="toast-actions">
-        <a href="/frontend/basket.html" class="toast-btn-go">برو به سبد خرید</a>
-        <button class="toast-btn-close" onclick="document.getElementById('cart-toast').remove()">✕</button>
-      </div>
+      <button class="pill-toast-close" onclick="document.getElementById('${id}').remove()">✕</button>
     `;
+
+    // ${subtitle ? `<p class="pill-toast-sub">${subtitle}</p>` : ""}
+
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.classList.add("show"));
     setTimeout(() => {
       toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 400);
-    }, 4000);
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+  }
+
+  const toastIcons = {
+    success: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>`,
+    like: `<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>`,
+    neutral: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>`
+  };
+
+  function showCartToast(product) {
+    renderToast({
+      id: "cart-toast-box",
+      position: "bottom-left",
+      type: "success",
+      icon: toastIcons.success,
+      title: "کالا به سبد خرید اضافه شد",
+      subtitle: product.name,
+      actionHref: "/frontend/basket.html",
+      actionLabel: "مشاهده سبد خرید"
+    });
+  }
+
+  function showToast({ title, subtitle = "", actionHref = null, actionLabel = "", type = "like" }) {
+
+    const typeMap = {
+      like: { cssType: "like", icon: toastIcons.like },
+      unlike: { cssType: "neutral", icon: toastIcons.neutral }
+    };
+
+    const cfg = typeMap[type] || typeMap.like;
+
+    renderToast({
+      id: "app-toast",
+      position: "top-center",
+      type: cfg.cssType,
+      icon: cfg.icon,
+      title,
+      subtitle,
+      actionHref,
+      actionLabel,
+      duration: 4000
+    });
   }
 
   async function loadFavoriteState() {
@@ -443,6 +488,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!heart) return;
 
     const isActive = heart.classList.contains("active");
+    const willBeActive = !isActive;
+
+    // آپدیت فوری ظاهر دکمه (Optimistic UI) — بدون صبر برای جواب سرور
+    heart.classList.toggle("active", willBeActive);
+
+    if (willBeActive) {
+      showToast({
+        title: "به لیست علاقه‌مندی‌ها اضافه شد",
+        subtitle: product.name,
+        actionHref: FAVORITES_VIEW_URL,
+        actionLabel: "مشاهده",
+        type: "like"
+      });
+    } else {
+      showToast({
+        title: "از لیست علاقه‌مندی‌ها حذف شد",
+        type: "unlike"
+      });
+    }
 
     try {
 
@@ -458,9 +522,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         throw new Error(data.message || "خطا در به‌روزرسانی علاقه‌مندی");
       }
 
-      heart.classList.toggle("active", !isActive);
-
     } catch (err) {
+
+      // خطا خورد؟ برگردون به حالت قبلی
+      heart.classList.toggle("active", isActive);
 
       console.error(err);
       alert(err.message);
@@ -469,3 +534,65 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   }
 });
+
+// ===========================
+//   Share Button (Web Share API + Clipboard Fallback)
+// ===========================
+
+function initShareButtons() {
+
+    document.querySelectorAll(".share-btn").forEach(btn => {
+
+        btn.addEventListener("click", async () => {
+
+            const shareUrl = btn.dataset.url || window.location.href;
+            const shareTitle = btn.dataset.title || document.title;
+
+            if (navigator.share) {
+
+                try {
+                    await navigator.share({
+                        title: shareTitle,
+                        url: shareUrl
+                    });
+                } catch (err) {
+                    // کاربر خودش لغو کرده، نیازی به کار خاصی نیست
+                    if (err.name !== "AbortError") console.error(err);
+                }
+
+            } else {
+
+                try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    showShareToast("لینک کپی شد ✅");
+                } catch (err) {
+                    console.error(err);
+                    showShareToast("خطا در کپی لینک");
+                }
+
+            }
+
+        });
+
+    });
+
+}
+
+function showShareToast(message) {
+
+    let toast = document.querySelector(".share-toast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.className = "share-toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+
+}

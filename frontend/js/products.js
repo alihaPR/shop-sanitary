@@ -432,39 +432,46 @@ const sheet = document.querySelector(".mobile-sheet");
 const overlay = document.querySelector(".mobile-sheet-overlay");
 const title = document.querySelector(".sheet-title");
 const content = document.querySelector(".sheet-content");
+const mobileFilterBtn = document.querySelector(".mobile-filter-btn");
+const mobileSortBtn = document.querySelector(".mobile-sort-btn");
+const sheetCloseBtn = document.querySelector(".sheet-close");
 
-document.querySelector(".mobile-filter-btn").addEventListener("click", () => {
+if (mobileFilterBtn) {
+  mobileFilterBtn.addEventListener("click", () => {
 
-  title.textContent = "فیلترها";
+    title.textContent = "فیلترها";
 
-  content.innerHTML = filterHTML;
+    content.innerHTML = filterHTML;
 
-  sheet.classList.add("active");
-  overlay.classList.add("active");
+    sheet.classList.add("active");
+    overlay.classList.add("active");
 
-});
+  });
+}
 
-document.querySelector(".mobile-sort-btn").addEventListener("click", () => {
+if (mobileSortBtn) {
+  mobileSortBtn.addEventListener("click", () => {
 
-  title.textContent = "مرتب سازی";
+    title.textContent = "مرتب سازی";
 
-  content.innerHTML = sortHTML;
+    content.innerHTML = sortHTML;
 
-  sheet.classList.add("active");
-  overlay.classList.add("active");
+    sheet.classList.add("active");
+    overlay.classList.add("active");
 
-});
+  });
+}
 
 function closeSheet() {
 
-  sheet.classList.remove("active");
-  overlay.classList.remove("active");
+  if (sheet) sheet.classList.remove("active");
+  if (overlay) overlay.classList.remove("active");
 
 }
 
-overlay.addEventListener("click", closeSheet);
+if (overlay) overlay.addEventListener("click", closeSheet);
 
-document.querySelector(".sheet-close").addEventListener("click", closeSheet);
+if (sheetCloseBtn) sheetCloseBtn.addEventListener("click", closeSheet);
 
 document.addEventListener("click", (e) => {
 

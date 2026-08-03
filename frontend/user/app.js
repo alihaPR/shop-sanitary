@@ -111,5 +111,9 @@ async function loadSidebarUser() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadSidebarUser();
-    navigateTo("dashboard");
+
+    const params = new URLSearchParams(window.location.search);
+    const initialView = params.get("view") || "dashboard";
+
+    navigateTo(initialView);
 });
