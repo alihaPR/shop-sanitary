@@ -767,10 +767,8 @@ Admin Sidebar Like User Dashboard
 }
 
 .edit-btn {
-
-    background: #CCE8F4;
-    color: #18A6D9;
-    border: none;
+    border: 1px solid rgb(211, 209, 209);
+    color: black;
     width: 34px;
     height: 34px;
     border-radius: 8px;
@@ -779,18 +777,17 @@ Admin Sidebar Like User Dashboard
     align-items: center;
     justify-content: center;
     transition: .2s;
+    background: none;
+
 
 }
 
-.edit-btn:hover {
-    background: #b7dcee;
-}
+
 
 .delete-btn {
-
-    background: #FEE7EF;
-    color: #F76699;
-    border: none;
+    border: 1px solid rgb(211, 209, 209);
+    background: none;
+    color: black;
     width: 34px;
     height: 34px;
     border-radius: 8px;
@@ -802,9 +799,7 @@ Admin Sidebar Like User Dashboard
 
 }
 
-.delete-btn:hover {
-    background: #fbd0e0;
-}
+
 
 .empty-row {
     padding: 40px 18px !important;
