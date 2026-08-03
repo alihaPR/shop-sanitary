@@ -9,7 +9,7 @@ window.Views.dashboard = {
     template: `
         <div class="cards">
 
-            <div class="card">
+            <a class="card" href="#" data-view-link="orders" data-filter="current">
                 <div class="cart-svg svg-1">
                     <svg width="24" height="24" viewBox="0 0 27 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -29,9 +29,9 @@ window.Views.dashboard = {
                     <p>سفارش های جاری</p>
                 </div>
                 <span id="currentOrders" class="dashboard-cards__number">0</span>
-            </div>
+            </a>
 
-            <div class="card">
+            <a class="card" href="#" data-view-link="orders" data-filter="delivered">
                 <div class="cart-svg svg-2">
                     <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.5 12.8333L14 16.3333L25.6667 4.66667M24.5 14V22.1667C24.5 22.7855 24.2542 23.379 23.8166 23.8166C23.379 24.2542 22.7855 24.5 22.1667 24.5H5.83333C5.21449 24.5 4.621 24.2542 4.18342 23.8166C3.74583 23.379 3.5 22.7855 3.5 22.1667V5.83333C3.5 5.21449 3.74583 4.621 4.18342 4.18342C4.621 3.74583 5.21449 3.5 5.83333 3.5H18.6667" stroke="#17C964" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -42,9 +42,9 @@ window.Views.dashboard = {
                     <p>تعداد تحویل شده ها</p>
                 </div>
                 <span id="delivered" class="dashboard-cards__number">0</span>
-            </div>
+            </a>
 
-            <div class="card">
+            <a class="card" href="#" data-view-link="orders" data-filter="cancelled">
                 <div class="cart-svg svg-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -60,7 +60,7 @@ window.Views.dashboard = {
                     <p>تعداد لغو شده ها</p>
                 </div>
                 <span id="cancelledCount" class="dashboard-cards__number">0</span>
-            </div>
+            </a>
 
         </div>
 

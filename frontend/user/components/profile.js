@@ -122,6 +122,23 @@ async function loadProfile() {
     }
 }
 
+/* هر فیلد پروفایل تایپ اینپوت و پلیس‌هولدر مخصوص خودش رو داره.
+   آدرس چون متن بلندی می‌تونه باشه با تکس‌اریا ویرایش میشه */
+const fieldConfig = {
+    name: { label: "ویرایش نام", type: "text", placeholder: "مثلاً: علی رضایی" },
+    email: { label: "ویرایش ایمیل", type: "email", placeholder: "example@email.com" },
+    phone: { label: "ویرایش شماره موبایل", type: "tel", placeholder: "مثلاً: 09123456789" },
+    address: { label: "ویرایش آدرس", placeholder: "آدرس کامل پستی خود را بنویسید" }
+};
+
+/* آیکون کنار اینپوت‌ها: وقتی خالیه "+" نشون میده، وقتی مقدار داره تیک سبز میشه */
+function updateInputIcon(hasValue) {
+    const icon = document.getElementById("editInputIcon");
+    if (!icon) return;
+    icon.querySelector(".icon-plus").style.display = hasValue ? "none" : "block";
+    icon.querySelector(".icon-check").style.display = hasValue ? "block" : "none";
+}
+
 /* دکمه‌های ویرایش و "تغییر رمز عبور" هر بار که تمپلیت پروفایل دوباره
    ساخته میشه از نو ساخته میشن، پس باید هر بار دوباره بایند بشن */
 function bindEditButtons() {
@@ -132,24 +149,25 @@ function bindEditButtons() {
             editingField = btn.dataset.field;
             document.getElementById("editModal").style.display = "flex";
 
-            const input = document.getElementById("editInput");
-            const title = document.getElementById("modalTitle");
+            const config = fieldConfig[editingField];
+            document.getElementById("modalTitle").textContent = config.label;
 
-            if (editingField === "name") {
-                title.textContent = "ویرایش نام";
-                input.value = currentUser.name || "";
-            }
-            if (editingField === "email") {
-                title.textContent = "ویرایش ایمیل";
-                input.value = currentUser.email || "";
-            }
-            if (editingField === "phone") {
-                title.textContent = "ویرایش شماره موبایل";
-                input.value = currentUser.phone || "";
-            }
+            const inputWrap = document.getElementById("editInputWrap");
+            const input = document.getElementById("editInput");
+            const textarea = document.getElementById("editTextarea");
+
             if (editingField === "address") {
-                title.textContent = "ویرایش آدرس";
-                input.value = currentUser.address || "";
+                inputWrap.style.display = "none";
+                textarea.style.display = "block";
+                textarea.placeholder = config.placeholder;
+                textarea.value = currentUser.address || "";
+            } else {
+                textarea.style.display = "none";
+                inputWrap.style.display = "block";
+                input.type = config.type;
+                input.placeholder = config.placeholder;
+                input.value = currentUser[editingField] || "";
+                updateInputIcon(!!input.value);
             }
         };
     });
@@ -168,10 +186,16 @@ document.getElementById("closeModal").onclick = () => {
     document.getElementById("editModal").style.display = "none";
 };
 
+document.getElementById("editInput").addEventListener("input", (e) => {
+    updateInputIcon(!!e.target.value);
+});
+
 document.getElementById("saveProfile").onclick = async () => {
 
     const body = {};
-    body[editingField] = document.getElementById("editInput").value;
+    body[editingField] = editingField === "address"
+        ? document.getElementById("editTextarea").value
+        : document.getElementById("editInput").value;
 
     try {
 
@@ -201,19 +225,23 @@ document.getElementById("saveProfile").onclick = async () => {
 
 document.getElementById("closePassword").onclick = () => {
     document.getElementById("passwordModal").style.display = "none";
+    resetPasswordForm();
 };
 
 const newPasswordInput = document.getElementById("newPassword");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const confirmPasswordHint = document.getElementById("confirmPasswordHint");
+
+const ruleIconPaths = {
+    invalid: "M6 18 18 6M6 6l12 12",
+    valid: "M5 13l4 4L19 7"
+};
 
 function toggleRule(id, valid) {
     const item = document.getElementById(id);
-    if (valid) {
-        item.classList.add("valid");
-        item.innerHTML = "✅ " + item.textContent.slice(2);
-    } else {
-        item.classList.remove("valid");
-        item.innerHTML = "❌ " + item.textContent.slice(2);
-    }
+    item.classList.toggle("valid", valid);
+    const path = item.querySelector(".rule-icon path");
+    if (path) path.setAttribute("d", valid ? ruleIconPaths.valid : ruleIconPaths.invalid);
 }
 
 newPasswordInput.addEventListener("input", () => {
@@ -223,6 +251,42 @@ newPasswordInput.addEventListener("input", () => {
     toggleRule("ruleLower", /[a-z]/.test(password));
     toggleRule("ruleNumber", /[0-9]/.test(password));
 });
+
+/* اخطار زنده اگه تکرار رمز عبور با رمز جدید یکی نباشه */
+function checkConfirmPassword() {
+
+    const newPass = newPasswordInput.value;
+    const confirmPass = confirmPasswordInput.value;
+
+    if (confirmPass.length === 0) {
+        confirmPasswordHint.textContent = "رمز عبور جدید را دوباره وارد کنید";
+        confirmPasswordHint.classList.remove("error", "success");
+        return;
+    }
+
+    if (confirmPass === newPass) {
+        confirmPasswordHint.textContent = "رمز عبور با تکرار آن مطابقت دارد";
+        confirmPasswordHint.classList.remove("error");
+        confirmPasswordHint.classList.add("success");
+    } else {
+        confirmPasswordHint.textContent = "رمز عبور با تکرار آن مطابقت ندارد";
+        confirmPasswordHint.classList.remove("success");
+        confirmPasswordHint.classList.add("error");
+    }
+}
+
+newPasswordInput.addEventListener("input", checkConfirmPassword);
+confirmPasswordInput.addEventListener("input", checkConfirmPassword);
+
+/* برگردوندن مودال رمز عبور به حالت اولیه بعد از بستن یا ذخیره موفق */
+function resetPasswordForm() {
+    document.getElementById("currentPassword").value = "";
+    newPasswordInput.value = "";
+    confirmPasswordInput.value = "";
+    ["ruleLength", "ruleUpper", "ruleLower", "ruleNumber"].forEach(id => toggleRule(id, false));
+    confirmPasswordHint.textContent = "رمز عبور جدید را دوباره وارد کنید";
+    confirmPasswordHint.classList.remove("error", "success");
+}
 
 document.getElementById("savePassword").onclick = async () => {
 
@@ -260,26 +324,28 @@ document.getElementById("savePassword").onclick = async () => {
 
         alert("رمز عبور با موفقیت تغییر کرد.");
         document.getElementById("passwordModal").style.display = "none";
-        document.getElementById("currentPassword").value = "";
-        document.getElementById("newPassword").value = "";
-        document.getElementById("confirmPassword").value = "";
+        resetPasswordForm();
 
     } catch (err) {
         alert(err.message);
     }
 };
 
-const toggleCurrentPassword = document.getElementById("toggleCurrentPassword");
+/* دکمه چشم برای نمایش/مخفی کردن هر کدوم از سه فیلد رمز عبور */
+function bindPasswordToggle(toggleId, inputId) {
 
-toggleCurrentPassword.addEventListener("click", () => {
-    const input = document.getElementById("currentPassword");
-    if (input.type === "password") {
-        input.type = "text";
-        toggleCurrentPassword.classList.remove("fa-eye");
-        toggleCurrentPassword.classList.add("fa-eye-slash");
-    } else {
-        input.type = "password";
-        toggleCurrentPassword.classList.remove("fa-eye-slash");
-        toggleCurrentPassword.classList.add("fa-eye");
-    }
-});
+    const toggle = document.getElementById(toggleId);
+    const input = document.getElementById(inputId);
+    if (!toggle || !input) return;
+
+    toggle.addEventListener("click", () => {
+        const willShow = input.type === "password";
+        input.type = willShow ? "text" : "password";
+        toggle.querySelector(".eye-open").style.display = willShow ? "none" : "block";
+        toggle.querySelector(".eye-closed").style.display = willShow ? "block" : "none";
+    });
+}
+
+bindPasswordToggle("toggleCurrentPassword", "currentPassword");
+bindPasswordToggle("toggleNewPassword", "newPassword");
+bindPasswordToggle("toggleConfirmPassword", "confirmPassword");

@@ -53,7 +53,8 @@ viewContainer.addEventListener("click", (e) => {
     const link = e.target.closest("[data-view-link]");
     if (link) {
         e.preventDefault();
-        navigateTo(link.dataset.viewLink);
+        const params = link.dataset.filter ? { filter: link.dataset.filter } : {};
+        navigateTo(link.dataset.viewLink, params);
     }
 });
 
@@ -67,6 +68,12 @@ document.getElementById("logout").onclick = () => {
 function openOrder(id) {
     localStorage.setItem("selectedOrder", id);
     navigateTo("order-details", { orderId: id });
+}
+
+/* باز کردن فاکتور یک سفارش خاص - از کامپوننت سفارش‌ها صدا زده میشه */
+function openInvoice(id) {
+    localStorage.setItem("selectedOrder", id);
+    navigateTo("invoice", { orderId: id });
 }
 
 /* ترجمه وضعیت سفارش - مشترک بین سفارش‌ها و جزئیات سفارش */

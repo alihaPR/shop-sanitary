@@ -24,22 +24,23 @@ window.Views["order-details"] = {
 
             document.getElementById("orderDetails").innerHTML = `
                 <div class="order-details-card">
-                    <h2>سفارش #${order._id.slice(-8)}</h2>
-                    <br>
-                    <p>
-                        <b>وضعیت:</b>
+
+                    <div class="order-details-top">
+                        <h2>سفارش #${order._id.slice(-8)}</h2>
                         <span class="status ${order.status}">${translateStatus(order.status)}</span>
-                    </p>
-                    <br>
-                    <p>
-                        <b>تاریخ:</b>
-                        ${new Date(order.createdAt).toLocaleDateString("fa-IR")}
-                    </p>
-                    <br>
-                    <p>
-                        <b>مبلغ کل:</b>
-                        ${order.totalPrice.toLocaleString()} تومان
-                    </p>
+                    </div>
+
+                    <div class="order-details-info">
+                        <div class="info-box">
+                            <span>تاریخ ثبت</span>
+                            <strong>${new Date(order.createdAt).toLocaleDateString("fa-IR")}</strong>
+                        </div>
+                        <div class="info-box">
+                            <span>مبلغ کل</span>
+                            <strong>${order.totalPrice.toLocaleString()} تومان</strong>
+                        </div>
+                    </div>
+
                     <div class="order-products">
                         ${order.items.map(item => `
                             <div class="product-row">
