@@ -158,14 +158,14 @@ async function renderOrders() {
 
         <div class="pagination-controls">
             <button type="button" id="ordersPrevPage" class="page-btn" title="قبلی">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             </button>
             <button type="button" id="ordersNextPage" class="page-btn" title="بعدی">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             </button>
         </div>
 
