@@ -1,5 +1,12 @@
-const axios = require("axios");
+const mongoose = require("mongoose");
+const Product = require("../models/Product");
 const Order = require("../models/Order");
+const axios = require("axios");
+
+// const Product = require("../models/Product");
+// const mongoose = require("mongoose");
+// const axios = require("axios");
+// const Order = require("../models/Order");
 
 const API = process.env.ZARINPAL_SANDBOX === "true"
   ? "https://sandbox.zarinpal.com/pg/v4/payment"
@@ -10,33 +17,89 @@ const START_PAY = process.env.ZARINPAL_SANDBOX === "true"
   : "https://www.zarinpal.com/pg/StartPay/";
 
 exports.createPayment = async (req, res) => {
+  let session;
 
   try {
 
-    const { orderId } = req.body;
+    session = await mongoose.startSession();
+    session.startTransaction();
 
-    const order = await Order.findById(orderId);
+    const { items, shippingAddress } = req.body;
 
-    if (!order) {
-      return res.status(404).json({
-        message: "سفارش پیدا نشد."
-      });
-    }
+    if (!items || items.length === 0) {
+      await session.abortTransaction();
+      session.endSession();
 
-    if (order.isPaid) {
       return res.status(400).json({
-        message: "این سفارش قبلاً پرداخت شده است."
+        message: "سبد خرید خالی است."
       });
     }
+
+    let orderItems = [];
+    let totalPrice = 0;
+
+    for (const item of items) {
+
+      const product = await Product.findById(item.product).session(session);
+
+      if (!product) {
+        throw new Error("محصول پیدا نشد.");
+      }
+
+      if (!product.available) {
+        throw new Error(`${product.name} موجود نیست.`);
+      }
+
+      if (product.stock < item.quantity) {
+        throw new Error(`موجودی ${product.name} کافی نیست.`);
+      }
+
+      const finalPrice =
+        product.discountPercent > 0
+          ? Math.round(product.price * (1 - product.discountPercent / 100))
+          : product.price;
+
+      totalPrice += finalPrice * item.quantity;
+
+      orderItems.push({
+        product: product._id,
+        name: product.name,
+        image: product.image,
+        price: finalPrice,
+        qty: item.quantity
+      });
+
+      product.stock -= item.quantity;
+      product.buyers += item.quantity;
+
+      await product.save({ session });
+
+    }
+
+    const shippingCost =
+      totalPrice >= 500000 ? 0 : 35000;
+
+    const [order] = await Order.create(
+      [{
+        user: req.user._id,
+        items: orderItems,
+        shippingAddress,
+        totalPrice,
+        shippingCost,
+        status: "pending"
+      }],
+      { session }
+    );
 
     const response = await axios.post(
       `${API}/request.json`,
       {
         merchant_id: process.env.ZARINPAL_MERCHANT_ID,
 
-        amount: order.totalPrice,
+        amount: totalPrice,
 
-        callback_url: `${process.env.BACKEND_URL}/payment/verify?orderId=${order._id}`,
+        callback_url:
+          `${process.env.BACKEND_URL}/payment/verify?orderId=${order._id}`,
 
         description: `Order ${order._id}`
       },
@@ -49,34 +112,61 @@ exports.createPayment = async (req, res) => {
 
     if (response.data.data.code !== 100) {
 
-      return res.status(400).json({
-        message: response.data.data.message
-      });
+      throw new Error(response.data.data.message);
 
     }
 
+    await session.commitTransaction();
+
+    session.endSession();
+
     res.json({
-
       authority: response.data.data.authority,
-
       paymentUrl:
         START_PAY + response.data.data.authority
-
     });
 
-  } catch (err) {
+  }
 
-    console.error(err.response?.data || err);
+  catch (err) {
+
+    if (session) {
+
+      await session.abortTransaction();
+
+      session.endSession();
+
+    }
+
+    console.error(err);
 
     res.status(500).json({
-
-      message: "خطا در ایجاد پرداخت."
-
+      message: err.message || "خطا در ایجاد پرداخت."
     });
 
   }
 
 };
+
+async function rollbackOrder(order) {
+
+  for (const item of order.items) {
+
+    const product = await Product.findById(item.product);
+
+    if (!product) continue;
+
+    product.stock += item.qty;
+
+    product.buyers = Math.max(0, product.buyers - item.qty);
+
+    await product.save();
+
+  }
+
+  await Order.findByIdAndDelete(order._id);
+
+}
 
 exports.verifyPayment = async (req, res) => {
   console.log("VERIFY QUERY:", req.query);
@@ -85,6 +175,14 @@ exports.verifyPayment = async (req, res) => {
     const { Authority, Status, orderId } = req.query;
 
     if (Status !== "OK") {
+
+      const order = await Order.findById(orderId);
+
+      if (order && !order.isPaid) {
+
+        await rollbackOrder(order);
+
+      }
 
       return res.redirect(
         `${process.env.SITE_URL}/payment-failed.html`
@@ -151,6 +249,19 @@ exports.verifyPayment = async (req, res) => {
   } catch (err) {
 
     console.error(err.response?.data || err);
+
+    // اگر سفارش ساخته شده ولی پرداخت کامل نشده بود
+    if (req.query.orderId) {
+
+      const order = await Order.findById(req.query.orderId);
+
+      if (order && !order.isPaid) {
+
+        await rollbackOrder(order);
+
+      }
+
+    }
 
     return res.redirect(
       `${process.env.SITE_URL}/payment-failed.html`

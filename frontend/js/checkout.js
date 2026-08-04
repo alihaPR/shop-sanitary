@@ -207,41 +207,30 @@ async function checkout(e) {
 
   try {
 
-    const res = await fetch(`${API_BASE_URL}/orders`, {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-
-      body: JSON.stringify(order)
-
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      alert(data.message || "ثبت سفارش انجام نشد.");
-      return;
-    }
-
     const paymentRes = await fetch(`${API_BASE_URL}/payment/create`, {
 
       method: "POST",
 
       headers: {
-
         "Content-Type": "application/json",
-
         Authorization: `Bearer ${token}`
-
       },
 
       body: JSON.stringify({
 
-        orderId: data._id
+        items: cart.map(item => ({
+          product: item._id,
+          quantity: item.qty
+        })),
+
+        shippingAddress: {
+          province,
+          city,
+          address,
+          plaque,
+          unit,
+          postalCode
+        }
 
       })
 
@@ -257,9 +246,8 @@ async function checkout(e) {
 
     }
 
-    localStorage.removeItem("cart");
-
     window.location.href = paymentData.paymentUrl;
+
   } catch (err) {
 
     console.error(err);

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>پرداخت ناموفق</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/payment-failed.css">
+
+    <link rel="shortcut icon" href="./img/favico.ico.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <main class="payment-page">
+
+        <section class="payment-card">
+
+            <div class="failed-circle-parent">
+
+                <div class="failed-circle">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18"></path>
+                        <path d="M6 6L18 18"></path>
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <h1>
+                پرداخت ناموفق بود
+            </h1>
+
+            <p>
+                متأسفانه پرداخت شما انجام نشد.
+                <br>
+                در صورت کسر وجه، مبلغ طی مدت کوتاهی توسط بانک به حساب شما بازخواهد گشت.
+            </p>
+
+            <p class="ref-id" id="refId"></p>
+
+            <div class="dash"></div>
+
+            <a href="checkout.html" class="btn-home">
+                بازگشت به پرداخت
+            </a>
+
+        </section>
+
+    </main>
+
+    <script src="./js/payment-failed.js"></script>
+
+</body>
+
+</html>

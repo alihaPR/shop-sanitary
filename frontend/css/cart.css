@@ -854,7 +854,7 @@
 .pill-toast {
     position: fixed;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     background: var(--surface);
     border-radius: 16px;
