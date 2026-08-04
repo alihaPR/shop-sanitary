@@ -412,7 +412,7 @@ Admin Sidebar Like User Dashboard
 =========================== */
 
 #main-content {
-    width: 1070px;
+
     flex: 1;
     overflow: auto;
     padding: 30px;

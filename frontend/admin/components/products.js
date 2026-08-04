@@ -161,7 +161,7 @@ async function renderProducts() {
 
     });
 
-    document.querySelector(".add-product-btn").addEventListener("click", openProductModal);
+    document.querySelector(".add-product-btn").addEventListener("click", () => openProductModal());
 
     document.getElementById("prevPageBtn").addEventListener("click", () => {
 
@@ -312,7 +312,192 @@ function updatePaginationInfo(totalPages) {
     document.getElementById("nextPageBtn").disabled = currentPage >= totalPages;
 
 }
+/* ===========================
+    Toast Notifications
+    (کاملاً مستقل - به هیچ کد دیگری وابسته نیست)
+=========================== */
+function ensureToastStyles() {
+
+    if (document.getElementById("toastStyles")) return;
+
+    const style = document.createElement("style");
+    style.id = "toastStyles";
+    style.textContent = `
+        @keyframes toastSlideIn {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes toastSlideOut {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(-12px); }
+        }
+    `;
+    document.head.appendChild(style);
+
+}
+
+function ensureToastContainer() {
+
+    let container = document.getElementById("toastContainer");
+
+    if (!container) {
+
+        container = document.createElement("div");
+        container.id = "toastContainer";
+        container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 320px;
+            max-width: 90vw;
+        `;
+        document.body.appendChild(container);
+
+    }
+
+    return container;
+
+}
+
+function showToast(type, title, message = "") {
+
+    ensureToastStyles();
+
+    const config = {
+        success: { icon: "✓", bg: "#22c55e" },
+        error: { icon: "✕", bg: "#ef4444" },
+        warning: { icon: "!", bg: "#f59e0b" },
+        info: { icon: "i", bg: "#3b82f6" },
+        neutral: { icon: "●", bg: "#9ca3af" }
+    };
+
+    const cfg = config[type] || config.neutral;
+    const container = ensureToastContainer();
+
+    const toast = document.createElement("div");
+    toast.style.cssText = `
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        padding: 14px 16px;
+        direction: rtl;
+        font-family: inherit;
+        animation: toastSlideIn .25s ease;
+    `;
+
+    toast.innerHTML = `
+        <div style="
+            width: 32px; height: 32px; border-radius: 50%;
+            background: ${cfg.bg}; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        ">${cfg.icon}</div>
+        <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 600; font-size: 14px; color: #111;">${title}</div>
+            ${message ? `<div style="font-size: 12px; color: #6b7280; margin-top: 2px;">${message}</div>` : ""}
+        </div>
+        <button type="button" style="
+            background: none; border: none; color: #9ca3af;
+            font-size: 16px; cursor: pointer; line-height: 1; padding: 0; flex-shrink: 0;
+        ">×</button>
+    `;
+
+    const removeToast = () => {
+        toast.style.animation = "toastSlideOut .2s ease forwards";
+        setTimeout(() => toast.remove(), 200);
+    };
+
+    toast.querySelector("button").addEventListener("click", removeToast);
+
+    container.appendChild(toast);
+
+    setTimeout(removeToast, 4000);
+
+}
+
+/* ===========================
+    Confirm Dialog
+    (جایگزین سفارشی و هم‌استایل به‌جای confirm() پیش‌فرض مرورگر)
+=========================== */
+function showConfirmDialog(message) {
+
+    return new Promise((resolve) => {
+
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+
+        overlay.innerHTML = `
+            <div style="
+                background: #fff;
+                border-radius: 16px;
+                padding: 24px;
+                width: 320px;
+                max-width: 90vw;
+                direction: rtl;
+                text-align: center;
+                box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+                font-family: inherit;
+            ">
+                <div style="
+                    width: 44px; height: 44px; border-radius: 50%;
+                    background: #fef2f2; color: #ef4444;
+                    display: flex; align-items: center; justify-content: center;
+                    font-size: 20px; margin: 0 auto 14px;
+                ">!</div>
+                <div style="font-size: 14px; color: #111; margin-bottom: 20px; line-height: 1.8;">
+                    ${message}
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" data-action="cancel" style="
+                        flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #e5e7eb;
+                        background: #fff; color: #374151; font-size: 13px; cursor: pointer;
+                    ">انصراف</button>
+                    <button type="button" data-action="confirm" style="
+                        flex: 1; padding: 10px; border-radius: 10px; border: none;
+                        background: #ef4444; color: #fff; font-size: 13px; cursor: pointer;
+                    ">بله، حذف کن</button>
+                </div>
+            </div>
+        `;
+
+        const close = (result) => {
+            overlay.remove();
+            resolve(result);
+        };
+
+        overlay.querySelector('[data-action="cancel"]').addEventListener("click", () => close(false));
+        overlay.querySelector('[data-action="confirm"]').addEventListener("click", () => close(true));
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) close(false);
+        });
+
+        document.body.appendChild(overlay);
+
+    });
+
+}
+
 function openProductModal(product = null) {
+
+    // جلوگیری از تجمع چند مودال هم‌زمان روی هم (که باعث می‌شد
+    // چند فرم با id="productForm" تکراری تو صفحه باشه و
+    // addEventListener فقط روی اولی بشینه، نه فرمی که کاربر می‌بینه)
+    document.querySelectorAll(".modal-overlay").forEach(el => el.remove());
 
     document.body.insertAdjacentHTML("beforeend", `
 
@@ -322,7 +507,7 @@ function openProductModal(product = null) {
 
                 <div class="modal-header">
 
-                    <h2>افزودن محصول</h2>
+                    <h2>${product ? "ویرایش محصول" : "افزودن محصول"}</h2>
 
                     <button class="close-modal">✕</button>
 
@@ -461,7 +646,7 @@ function openProductModal(product = null) {
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit">ثبت محصول</button>
+                        <button type="submit">${product ? "ویرایش محصول" : "ثبت محصول"}</button>
                     </div>
 
                 </form>
@@ -636,7 +821,7 @@ async function submitProduct(e) {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        alert("ابتدا وارد حساب ادمین شوید.");
+        showToast("error", "خطا", "ابتدا وارد حساب ادمین شوید.");
         return;
     }
 
@@ -648,7 +833,7 @@ async function submitProduct(e) {
     const category = document.getElementById("productCategory").value;
     const brand = document.getElementById("productBrand").value.trim();
     let image = editingProductId
-        ? document.querySelector(".table-image")?.getAttribute("src")
+        ? document.getElementById("productImagePreview")?.getAttribute("src")
             ?.replace("http://localhost:5000/", "")
         : "";
 
@@ -751,10 +936,12 @@ async function submitProduct(e) {
             throw new Error(data.message || "خطا در ثبت محصول");
         }
 
-        alert(
+        showToast(
+            "success",
+            editingProductId ? "ویرایش موفق" : "افزودن موفق",
             editingProductId
-                ? "✅ محصول با موفقیت ویرایش شد."
-                : "✅ محصول با موفقیت اضافه شد."
+                ? "محصول با موفقیت ویرایش شد."
+                : "محصول با موفقیت اضافه شد."
         );
 
         document.querySelector(".modal-overlay").remove();
@@ -765,14 +952,14 @@ async function submitProduct(e) {
 
         console.error(err);
 
-        alert(err.message);
+        showToast("error", "خطا", err.message);
 
     }
 
 }
 async function deleteProduct(id) {
 
-    const confirmDelete = confirm(
+    const confirmDelete = await showConfirmDialog(
         "آیا از حذف این محصول مطمئن هستید؟"
     );
 
@@ -802,7 +989,7 @@ async function deleteProduct(id) {
 
         }
 
-        alert("✅ محصول با موفقیت حذف شد.");
+        showToast("success", "حذف موفق", "محصول با موفقیت حذف شد.");
 
         renderProducts();
 
@@ -810,7 +997,7 @@ async function deleteProduct(id) {
 
         console.error(err);
 
-        alert(err.message);
+        showToast("error", "خطا", err.message);
 
     }
 

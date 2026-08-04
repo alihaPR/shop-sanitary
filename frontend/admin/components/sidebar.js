@@ -166,6 +166,10 @@ menuItems.forEach(item => {
 
         const page = item.dataset.page;
 
+        // یادآوری آخرین صفحه‌ای که ادمین توش بوده، تا اگه صفحه
+        // به هر دلیلی رفرش شد، به همینجا برگرده نه همیشه داشبورد
+        sessionStorage.setItem("adminActivePage", JSON.stringify({ page, ts: Date.now() }));
+
         switch (page) {
 
             case "dashboard":
