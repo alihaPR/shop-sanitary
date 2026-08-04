@@ -348,9 +348,11 @@ function ensureToastContainer() {
             position: fixed;
             top: 20px;
             right: 20px;
+        
             z-index: 99999;
             display: flex;
             flex-direction: column;
+
             gap: 10px;
             width: 320px;
             max-width: 90vw;
@@ -381,11 +383,11 @@ function showToast(type, title, message = "") {
     const toast = document.createElement("div");
     toast.style.cssText = `
         display: flex;
-        align-items: flex-start;
+        align-items: center;
+         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         gap: 12px;
         background: #ffffff;
         border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         padding: 14px 16px;
         direction: rtl;
         font-family: inherit;

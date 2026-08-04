@@ -32,8 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const adminMenuItem = document.getElementById("adminMenuItem");
 
     if (user && user.role === "admin") {
-        adminMenuItem.style.display = "block";
+        adminMenuItem.style.display = "flex";
     }
+
+    const userDropdownName = document.getElementById("userDropdownName");
+
+    if (userDropdownName && user) {
+        const displayName =
+            user.name ||
+            user.fullName ||
+            [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+            user.username ||
+            "کاربر";
+
+        userDropdownName.textContent = displayName;
+    }
+
     const userDropdown = document.getElementById("userDropdown");
 
     loginLink.addEventListener("click", (e) => {
