@@ -302,6 +302,7 @@ Admin Sidebar Like User Dashboard
 
 .logout-btn {
 
+    width: 100%;
     margin-top: auto;
 
     height: 54px;
@@ -310,7 +311,6 @@ Admin Sidebar Like User Dashboard
 
     border: none;
 
-    padding: 0 30px;
 
 }
 
@@ -320,8 +320,7 @@ Admin Sidebar Like User Dashboard
     height: 40px;
 
     width: 100%;
-
-    background-color: #f9f9f9;
+    cursor: pointer;
 
     border-radius: 6px;
 
@@ -413,11 +412,9 @@ Admin Sidebar Like User Dashboard
 =========================== */
 
 #main-content {
-
+    width: 1070px;
     flex: 1;
-
     overflow: auto;
-
     padding: 30px;
 
 }
@@ -455,35 +452,37 @@ Admin Sidebar Like User Dashboard
 .dashboard-cards {
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 12px;
 
+}
+
+@media (max-width: 1100px) {
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .dashboard-card {
     position: relative;
-    width: 314px;
-    height: 100px;
+    width: 239px;
+    height: 110px;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     border: 1px solid rgb(229, 231, 235);
-    gap: 25px;
+    gap: 20px;
     background: rgb(255, 255, 255);
     border-radius: 12px;
-    padding: 10px 20px;
+    padding: 10px;
 
 }
 
-.dashboard-card:hover {
-
-    transform: translateY(-6px);
-
-}
 
 .card-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 }
 
@@ -491,22 +490,27 @@ Admin Sidebar Like User Dashboard
 
     color: #777;
 
-    font-size: 14px;
+    font-size: 13px;
 
 }
 
 .card-info h2 {
-
+    width: 120px;
+    height: 25px;
+    background-color: #F2F2F6;
     margin-top: 10px;
-
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border-radius: 4px;
 
 }
 
 .card-icon {
 
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 6px;
     display: flex;
     justify-content: center;
@@ -526,6 +530,75 @@ Admin Sidebar Like User Dashboard
     background-color: #FEE7EF;
 }
 
+.card-trend {
+    margin-top: 8px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #6b7280;
+}
+
+.card-trend span {
+    font-size: 10px;
+}
+
+.card-trend.up {
+    color: #16a34a;
+}
+
+.card-trend.down {
+    color: #dc2626;
+}
+
+.trend-value {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.trend-value.up {
+    color: #16a34a;
+}
+
+.trend-value.down {
+    color: #dc2626;
+}
+
+.trend-label {
+    color: #6b7280;
+}
+
+.card-icon-blue {
+    background-color: #EAF3FF;
+}
+
+.card-icon-blue svg path {
+    fill: #3B82F6;
+}
+
+.card-icon-amber {
+    background-color: #FFFBEB;
+}
+
+.card-icon-amber svg path {
+    stroke: #F7AC2D;
+}
+
+.card-icon-pink {
+    background-color: #E5F1EF;
+}
+
+.card-icon-pink svg path {
+    fill: #6F7B79;
+}
+
+.card-icon-green {
+    background-color: #E8FAF0;
+}
+
+.card-icon-green svg path {
+    fill: #05BA58;
+}
 
 
 
@@ -582,8 +655,8 @@ Admin Sidebar Like User Dashboard
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius, 16px);
-    box-shadow: var(--shadow, 0 10px 30px rgba(0, 0, 0, .05));
     padding: 22px 0;
+
 }
 
 .products-toolbar {
@@ -858,7 +931,7 @@ Admin Sidebar Like User Dashboard
 /* ===========================
         Product Modal
 =========================== */
-پ .product-modal hr,
+.product-modal hr,
 .product-modal hr,
 #productForm hr {
     border: 0;
@@ -1480,7 +1553,8 @@ Admin Sidebar Like User Dashboard
 .delete-user-btn {
     /* background: #FEE7EF; */
     color: #000000;
-    border: 1px solid rgb(211, 209, 209);
+    border: 1px solid #E5E7EB;
+
     /* border: none; */
     border-radius: 6px;
     cursor: pointer;
@@ -1508,18 +1582,21 @@ Admin Sidebar Like User Dashboard
 }
 
 .chart-card {
+    height: 460px;
     background: #fff;
     border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
-    border: 1px solid #ececec;
+    padding: 25px;
+    border: 1px solid #E5E7EB;
     transition: .3s;
 }
 
-.chart-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
+.cahrt-card-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+
 
 .chart-card h3 {
     font-size: 18px;
@@ -1531,7 +1608,7 @@ Admin Sidebar Like User Dashboard
 
 .chart-card canvas {
     width: 100% !important;
-    height: 320px !important;
+    height: 300px !important;
 }
 
 @media(max-width:900px) {
@@ -1542,6 +1619,365 @@ Admin Sidebar Like User Dashboard
 
     }
 
+}
+
+/* ===========================
+    Dashboard — Revenue & Weekly row
+=========================== */
+
+.dashboard-top-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+@media (max-width: 1000px) {
+    .dashboard-top-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chart-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.chart-card-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+
+.period-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #f3f4f6;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.period-toggle button {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--text-light);
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.period-toggle button.active {
+    background: #fff;
+    color: var(--text);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+    font-weight: 600;
+}
+
+.revenue-amount-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.revenue-amount {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.revenue-change {
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.revenue-change.up {
+    color: #16a34a;
+}
+
+.revenue-change.down {
+    color: #dc2626;
+}
+
+.dashboard-chart-canvas-wrap {
+    position: relative;
+    height: 320px;
+}
+
+/* ===========================
+    Dashboard — bottom row (category / recent orders / low stock)
+=========================== */
+
+.dashboard-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+@media (max-width: 1100px) {
+    .dashboard-bottom-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dashboard-panel {
+    height: 400px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+}
+
+.dashboard-panel-header-a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #0d6efd;
+}
+
+.dashboard-panel-header-a p {
+    font-size: 10px;
+}
+
+
+.sefaresh-akhir {
+    font-size: 12px;
+    width: 100%;
+
+
+}
+
+.dashboard-panel-header {
+    display: flex;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 30px 20px 30px 10px;
+
+}
+
+.dashboard-panel-header h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+}
+
+.ashboard-panel-header-text {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ashboard-panel-header-text p {
+    font-size: 9.5px;
+
+}
+
+.dashboard-panel-header .see-all {
+    font-size: 10px;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* category donut */
+
+.category-donut-wrap {
+    position: relative;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.category-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 30px;
+}
+
+.category-legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.category-legend-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.category-legend-percent {
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+
+
+/* recent orders */
+
+.recent-orders-table {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    border-collapse: collapse;
+    padding: 0px 5px;
+    font-size: 10px;
+}
+
+.recent-orders-table th {
+    text-align: right;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 12px;
+    padding: 10px 23px;
+}
+
+.recent-orders-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.recent-orders-table tr:last-child td {
+    border-bottom: none;
+}
+
+.recent-order-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.recent-order-status.pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.recent-order-status.processing {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.recent-order-status.shipped {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.recent-order-status.delivered {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.recent-order-status.cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* low stock */
+
+.low-stock-list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    gap: 14px;
+}
+
+.low-stock-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.low-stock-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.low-stock-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.low-stock-badge.low {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.low-stock-badge.out {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.low-stock-text b {
+    display: block;
+    font-size: 10px;
+    color: var(--text);
+    font-weight: 400;
+}
+
+.low-stock-text span {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.low-stock-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f3f4f6;
+    flex-shrink: 0;
+}
+
+.dashboard-empty-note {
+    font-size: 12px;
+    color: var(--text-light);
+    text-align: center;
+    padding: 20px 0;
 }
 
 /* search----------------------------------- */
