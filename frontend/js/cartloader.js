@@ -276,6 +276,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function setQty(qty) {
+
+    const maxQty = typeof product.stock === "number" ? product.stock : Infinity;
+
+    if (qty > maxQty) qty = maxQty;
+
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     if (qty <= 0) {
       const newCart = cart.filter(i => i._id !== product._id);
@@ -299,6 +304,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (qty <= 0) {
 
+      const outOfStock = typeof product.stock === "number" && product.stock <= 0;
+
+      if (outOfStock) {
+
+        container.innerHTML = `
+        <button class="btn-cart" id="addToCartBtn" disabled>
+          ناموجود
+        </button>
+      `;
+
+        return;
+
+      }
+
       container.innerHTML = `
       <button class="btn-cart" id="addToCartBtn">
         افزودن به سبد خرید
@@ -321,26 +340,39 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     } else {
 
+      const maxQty = typeof product.stock === "number" ? product.stock : Infinity;
+      const atMax = qty >= maxQty;
+
       container.innerHTML = `
-      <div class="btn-cart-wrap">
-        <div class="cart-status-text">
-          <span>در سبد شما</span>
-          <a href="/frontend/basket.html">مشاهده سبد خرید</a>
-        </div>
+<div class="btn-cart-wrap">
 
+    <div class="btn-cart-wrap_top">
+
+         <div class="cart-status-text">
+            <span>در سبد شما</span>
+            <a href="/frontend/basket.html">مشاهده سبد خرید</a>
+        </div>
+        
         <div class="qty-control">
-          <button class="qty-ctrl-btn" id="qtyPlus">+</button>
-
-          <span class="qty-ctrl-num">${qty}</span>
-
-          <button class="qty-ctrl-btn" id="qtyMinus">−</button>
+            <button class="qty-ctrl-btn" id="qtyPlus" ${atMax ? "disabled" : ""}>+</button>
+            
+            <span class="qty-ctrl-num">${qty}</span>
+            
+            <button class="qty-ctrl-btn" id="qtyMinus">−</button>
         </div>
-      </div>
+       
+    </div>
+
+    ${atMax ? `<div class="qty-max-warning">به سقف موجودی این محصول رسیدید</div>` : ""}
+</div>
     `;
 
       document
         .getElementById("qtyPlus")
-        .addEventListener("click", () => setQty(getQty() + 1));
+        .addEventListener("click", () => {
+          if (getQty() >= maxQty) return;
+          setQty(getQty() + 1);
+        });
 
       document
         .getElementById("qtyMinus")
@@ -433,37 +465,37 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
 
-        const res = await fetch(`${API_BASE_URL}/users/favorites`, {
+      const res = await fetch(`${API_BASE_URL}/users/favorites`, {
 
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-
-        });
-
-        if (!res.ok) return;
-
-        const favorites = await res.json();
-
-        const liked = favorites.some(item => item._id === product._id);
-
-        const heart = document.getElementById("favoriteBtn");
-
-        if (!heart) return;
-
-        if (liked) {
-
-            heart.classList.add("active");
-
+        headers: {
+          Authorization: `Bearer ${token}`
         }
+
+      });
+
+      if (!res.ok) return;
+
+      const favorites = await res.json();
+
+      const liked = favorites.some(item => item._id === product._id);
+
+      const heart = document.getElementById("favoriteBtn");
+
+      if (!heart) return;
+
+      if (liked) {
+
+        heart.classList.add("active");
+
+      }
 
     } catch (err) {
 
-        console.error(err);
+      console.error(err);
 
     }
 
-}
+  }
 
   /* =========================================================
      افزودن/حذف علاقه‌مندی با کلیک روی آیکون قلب
@@ -541,58 +573,58 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 function initShareButtons() {
 
-    document.querySelectorAll(".share-btn").forEach(btn => {
+  document.querySelectorAll(".share-btn").forEach(btn => {
 
-        btn.addEventListener("click", async () => {
+    btn.addEventListener("click", async () => {
 
-            const shareUrl = btn.dataset.url || window.location.href;
-            const shareTitle = btn.dataset.title || document.title;
+      const shareUrl = btn.dataset.url || window.location.href;
+      const shareTitle = btn.dataset.title || document.title;
 
-            if (navigator.share) {
+      if (navigator.share) {
 
-                try {
-                    await navigator.share({
-                        title: shareTitle,
-                        url: shareUrl
-                    });
-                } catch (err) {
-                    // کاربر خودش لغو کرده، نیازی به کار خاصی نیست
-                    if (err.name !== "AbortError") console.error(err);
-                }
+        try {
+          await navigator.share({
+            title: shareTitle,
+            url: shareUrl
+          });
+        } catch (err) {
+          // کاربر خودش لغو کرده، نیازی به کار خاصی نیست
+          if (err.name !== "AbortError") console.error(err);
+        }
 
-            } else {
+      } else {
 
-                try {
-                    await navigator.clipboard.writeText(shareUrl);
-                    showShareToast("لینک کپی شد ✅");
-                } catch (err) {
-                    console.error(err);
-                    showShareToast("خطا در کپی لینک");
-                }
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          showShareToast("لینک کپی شد ✅");
+        } catch (err) {
+          console.error(err);
+          showShareToast("خطا در کپی لینک");
+        }
 
-            }
-
-        });
+      }
 
     });
+
+  });
 
 }
 
 function showShareToast(message) {
 
-    let toast = document.querySelector(".share-toast");
+  let toast = document.querySelector(".share-toast");
 
-    if (!toast) {
-        toast = document.createElement("div");
-        toast.className = "share-toast";
-        document.body.appendChild(toast);
-    }
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.className = "share-toast";
+    document.body.appendChild(toast);
+  }
 
-    toast.textContent = message;
-    toast.classList.add("show");
+  toast.textContent = message;
+  toast.classList.add("show");
 
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2000);
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
 
 }

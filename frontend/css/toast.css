@@ -73,6 +73,9 @@
    کنترل تعداد + متن سبد (جایگزین دکمه افزودن)
    ───────────────────────────────────────────── */
 .btn-cart-wrap {
+
+}
+.btn-cart-wrap_top{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,7 +83,7 @@
   width: 100%;
   background: none;
   border: none;
-  padding: 0;
+  padding: 4px 0;
   cursor: default;
 }
 
