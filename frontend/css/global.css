@@ -376,7 +376,7 @@ body::selection {
 }
 
 .daste-bandt-items:hover {
-    background-color: var(--bg-color-6);
+    background-color: #f9f9f9;
     transition: 0.5s ease;
 }
 
