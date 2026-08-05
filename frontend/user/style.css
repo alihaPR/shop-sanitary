@@ -21,6 +21,8 @@ body {
 
 .sidebar {
     width: 300px;
+    min-width: 300px;
+    flex-shrink: 0;
     background: #fff;
     border-left: 1px solid #E5E7EB;
     /* padding: 30px 20px; */
@@ -169,9 +171,10 @@ body {
 }
 
 .valet-wraper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    display: none;
 }
 
 .my-valet {
@@ -218,7 +221,7 @@ body {
 }
 
 .svg-4 {
-    background-color: #FFFBEB;
+    background-color: #ffebeb;
 }
 
 .cart-content {
@@ -257,6 +260,7 @@ body {
     width: 20px;
     height: 20px;
 }
+
 
 .dashboard-cards__spend {
     background-color: black;

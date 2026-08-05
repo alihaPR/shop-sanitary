@@ -1,0 +1,528 @@
+/* =====================================================================
+   ریسپانسیو داشبورد کاربر
+   بریک‌پوینت‌ها هماهنگ با بقیه سایت: 1200 / 1024 / 768 / 576 / 430 / 360
+   این فایل بعد از style.css لود میشه تا بتونه override کنه.
+   استراتژی ساید‌بار: تو دسکتاپ/تبلت بزرگ ثابت و عمودیه، از 768 به پایین
+   تبدیل میشه به یه نوار بالای صفحه (بدون نیاز به جاوااسکریپت اضافه).
+===================================================================== */
+
+
+/* =========================================================
+   1200px
+========================================================= */
+@media (max-width:1200px) {
+
+    .content {
+        padding: 28px;
+    }
+
+    .cards {}
+
+    .card {
+        width: calc(33.333% - 14px);
+        min-width: 230px;
+    }
+
+    .profile-card,
+    .invoice-card {
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================================
+   1024px
+========================================================= */
+@media (max-width:1024px) {
+
+    
+    .dashboard {
+        flex-direction: column;
+        min-height: unset;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-left: none;
+        border-bottom: 1px solid #E5E7EB;
+        overflow: visible;
+    }
+
+    .user-box {
+        margin: 15px 0;
+        padding: 0 20px;
+    }
+
+    .valet-wraper {
+        justify-content: flex-start;
+        padding: 0 20px 15px 20px;
+    }
+
+    .my-valet {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .dashboard-line {
+        margin: 0 0 10px 0;
+    }
+
+    .dashboard-ul {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 0 15px 15px 15px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .dashboard-ul__item {
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        white-space: nowrap;
+        margin-bottom: 0;
+        padding: 10px 16px;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+
+    .dashboard-ul__item span {
+        font-size: 11px;
+    }
+
+    .active {
+        height: auto;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .btn-home{
+        display: none;
+    }
+
+
+    /* کارت‌های داشبورد */
+    .cards {
+        /* flex-direction: column; */
+        gap: 14px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    /* آخرین سفارش */
+    #lastOrderBox {
+        width: 100%;
+        height: auto;
+    }
+
+    .last-order-card {
+        width: 100%;
+        height: auto;
+    }
+
+    /* لیست سفارش‌ها */
+    .order-filter__wraper {
+        height: auto;
+        padding: 20px 20px 15px 20px;
+    }
+
+    .orders-filter {
+        position: static;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .filter-btn {
+        margin-top: 0;
+        padding: 8px 12px 12px 12px;
+        font-size: 13px;
+    }
+
+    .order-wrapper {
+        height: auto;
+        padding: 15px;
+    }
+
+    .order-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .order-a {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        height: auto;
+    }
+
+    .order-products-images {
+        flex-wrap: wrap;
+    }
+
+    /* گرید‌های دو ستونه به تک‌ستونه */
+    .profile-info,
+    .order-details-info,
+    .order-info,
+    .invoice-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .invoice-card,
+    .order-details-card {
+        padding: 20px;
+    }
+
+    .invoice-header,
+    .order-details-top {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* جدول فاکتور: اسکرول افقی بدون نیاز به تغییر HTML */
+    .invoice-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .edit-modal {
+        width: 90%;
+        max-width: 420px;
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   768px — ساید‌بار به نوار بالای صفحه تبدیل میشه
+========================================================= */
+@media (max-width:768px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+    }
+
+    .card {
+        min-width: 10px;
+        height:120px;
+    }
+
+
+    .card span {
+        position: static;
+        background-color: #f2f2f2;
+        color: #000000;
+        font-size: 10px;
+    }
+
+    .cart-content {}
+
+    .cart-content p {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   576px
+========================================================= */
+@media (max-width:576px) {
+
+    .content {
+        padding: 16px;
+    }
+
+    .user-box {
+        padding: 0 16px;
+        gap: 8px;
+    }
+
+    #userName {
+        font-size: 14px;
+    }
+
+    .dashboard-ul {
+        padding: 0 12px 12px 12px;
+    }
+
+    .dashboard-ul__item {
+        padding: 8px 12px;
+    }
+
+    .back-home-btn {
+        width: auto;
+        height: 40px;
+        padding: 0 14px;
+    }
+
+    /* کارت‌های داشبورد */
+    .card {
+        height: auto;
+        min-height: 90px;
+        padding: 14px 16px;
+        gap: 16px;
+    }
+
+    .cart-svg {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .card span {
+
+    }
+
+    /* سفارش‌ها */
+    .order-filter__wraper h2 {
+        font-size: 15px;
+    }
+
+    .order-dtail {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .order-product-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .order-a {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* فاکتور و جزئیات سفارش */
+    .invoice-card,
+    .order-details-card,
+    .profile-card,
+    .favorites-list-card,
+    .favorites-header-card {
+        padding: 16px;
+    }
+
+    .order-details-top h2,
+    .invoice-header h2 {
+        font-size: 18px;
+    }
+
+    .product-row {
+        padding: 14px;
+    }
+
+    .product-row img {
+        width: 70px;
+        height: 70px;
+    }
+
+    /* پروفایل */
+    .avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .info-item {
+        padding: 14px;
+    }
+
+    /* علاقه‌مندی‌ها */
+    .favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+    }
+
+    .favorite-card-image {
+        height: 130px;
+    }
+
+    .favorites-pagination {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .edit-modal {
+        width: 92%;
+        padding: 18px;
+    }
+}
+
+
+/* =========================================================
+   430px
+========================================================= */
+@media (max-width:430px) {
+
+    .valet-wraper {
+        padding: 0 16px 12px 16px;
+    }
+
+    .my-valet {
+        height: 50px;
+    }
+
+    .my-valet span {
+        font-size: 11px;
+    }
+
+    .my-valet p {
+        font-size: 10px;
+    }
+
+    .cards {
+        gap: 10px;
+    }
+
+    .card h3 {
+        font-size: 13px;
+    }
+
+    .cart-content p {
+        font-size: 11px;
+    }
+
+    .last-order h2 {
+        font-size: 15px;
+    }
+
+    .order-row {
+        padding: 15px 0;
+    }
+
+    .order-id {
+        font-size: 16px;
+    }
+
+    .order-price {
+        font-size: 14px;
+    }
+
+    .filter-btn {
+        font-size: 12px;
+        padding: 6px 10px 10px 10px;
+    }
+
+    .invoice-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .invoice-total {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .favorites-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .favorites-sort {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .info-item {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .info-wraper span {
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   360px
+========================================================= */
+@media (max-width:360px) {
+
+    .content {
+        padding: 12px;
+    }
+
+    .user-box {
+        padding: 0 12px;
+    }
+
+    .user-box-svg {
+        padding: 6px;
+    }
+
+    .dashboard-ul__item {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .dashboard-ul__item svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .card {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .cart-svg {
+        width: 38px;
+        height: 38px;
+    }
+
+    .cart-svg svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .order-product-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .invoice-card,
+    .order-details-card,
+    .profile-card,
+    .favorites-list-card,
+    .favorites-header-card {
+        padding: 12px;
+    }
+
+    .avatar {
+        width: 75px;
+        height: 75px;
+        border-width: 3px;
+    }
+
+    .favorites-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .fav-add-cart-btn,
+    .fav-remove-btn {
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .edit-modal {
+        padding: 14px;
+    }
+
+    .modal-buttons button {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
