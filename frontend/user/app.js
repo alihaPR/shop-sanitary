@@ -47,6 +47,45 @@ document.querySelectorAll(".dashboard-ul__item[data-view]").forEach(li => {
     li.addEventListener("click", () => navigateTo(li.dataset.view));
 });
 
+/* =========================================================
+   منوی همبرگری (فقط تو حالت موبایل/تبلت نمایش داده میشه،
+   استایلش تو user-responsive.css هست)
+========================================================= */
+
+const menuToggle = document.getElementById("menuToggle");
+const dashboardMenu = document.getElementById("dashboardMenu");
+
+function closeMobileMenu() {
+    if (!dashboardMenu || !menuToggle) return;
+    dashboardMenu.classList.remove("open");
+    menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
+}
+
+if (menuToggle && dashboardMenu) {
+
+    menuToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = dashboardMenu.classList.toggle("open");
+        menuToggle.classList.toggle("active", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    /* با کلیک روی هر آیتم منو، تو موبایل خودش بسته بشه */
+    dashboardMenu.addEventListener("click", (e) => {
+        if (e.target.closest(".dashboard-ul__item")) {
+            closeMobileMenu();
+        }
+    });
+
+    /* کلیک بیرون از ساید‌بار -> منو بسته بشه */
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".sidebar")) {
+            closeMobileMenu();
+        }
+    });
+}
+
 /* کلیک روی لینک‌هایی که داخل یک ویو، ویو دیگه رو باز می‌کنن
    (مثلا "مشاهده همه" تو داشبورد -> میره به سفارش‌ها) */
 viewContainer.addEventListener("click", (e) => {

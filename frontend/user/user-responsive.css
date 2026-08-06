@@ -2,10 +2,23 @@
    ریسپانسیو داشبورد کاربر
    بریک‌پوینت‌ها هماهنگ با بقیه سایت: 1200 / 1024 / 768 / 576 / 430 / 360
    این فایل بعد از style.css لود میشه تا بتونه override کنه.
-   استراتژی ساید‌بار: تو دسکتاپ/تبلت بزرگ ثابت و عمودیه، از 768 به پایین
-   تبدیل میشه به یه نوار بالای صفحه (بدون نیاز به جاوااسکریپت اضافه).
+
+   استراتژی ساید‌بار: تو دسکتاپ ثابت و عمودیه. از 1024 به پایین به یه
+   بخش بالای صفحه تبدیل میشه: بالا اطلاعات کاربر، پایینش منوی داشبورد
+   به‌صورت یه لیست تمام‌عرض (ردیف به ردیف با آیکون + عنوان + فلش) —
+   شبیه لیست منوی حساب کاربری دیجی‌کالا تو موبایل.
 ===================================================================== */
 
+/* دکمه همبرگری فقط تو حالت موبایل/تبلت (زیر 1024) دیده میشه */
+.menu-toggle {
+    display: none;
+}
+
+.user-box-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 /* =========================================================
    1200px
@@ -15,8 +28,6 @@
     .content {
         padding: 28px;
     }
-
-    .cards {}
 
     .card {
         width: calc(33.333% - 14px);
@@ -31,11 +42,10 @@
 
 
 /* =========================================================
-   1024px
+   1024px — ساید‌بار به بخش بالای صفحه تبدیل میشه
 ========================================================= */
 @media (max-width:1024px) {
 
-    
     .dashboard {
         flex-direction: column;
         min-height: unset;
@@ -43,72 +53,156 @@
 
     .sidebar {
         width: 100%;
+        min-width: 0;
         height: auto;
-        position: static;
+        position: relative;
         border-left: none;
         border-bottom: 1px solid #E5E7EB;
         overflow: visible;
     }
 
+    /* هدر موبایل: همبرگری راست، اطلاعات کاربر چپ */
     .user-box {
-        margin: 15px 0;
-        padding: 0 20px;
+        margin: 0;
+        padding: 14px 16px;
+        justify-content: space-between;
+        gap: 0;
     }
 
-    .valet-wraper {
-        justify-content: flex-start;
-        padding: 0 20px 15px 20px;
-    }
-
-    .my-valet {
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .dashboard-line {
-        margin: 0 0 10px 0;
-    }
-
-    .dashboard-ul {
+    .user-box-info {
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 8px;
-        padding: 0 15px 15px 15px;
-        -webkit-overflow-scrolling: touch;
+        align-items: center;
+        gap: 10px;
     }
 
-    .dashboard-ul__item {
-        flex-direction: column;
+    .menu-toggle {
+        display: flex;
+        align-items: center;
         justify-content: center;
-        gap: 6px;
-        white-space: nowrap;
-        margin-bottom: 0;
-        padding: 10px 16px;
-        font-size: 12px;
+        width: 38px;
+        height: 38px;
+        border: none;
+        background: #f5f7fb;
+        border-radius: 8px;
+        color: #333;
+        cursor: pointer;
+        padding: 0;
         flex-shrink: 0;
     }
 
-    .dashboard-ul__item span {
-        font-size: 11px;
+    .user-box-svg {
+        padding: 6px;
     }
 
-    .active {
-        height: auto;
+    .user-box-svg__svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    #userName {
+        font-size: 15px;
+        width: auto;
+    }
+
+    /* دیگه لازم نیست، لیست دراپ‌داون خودش جداکننده داره */
+    .dashboard-line {
+        display: none;
     }
 
     .content {
         padding: 20px;
     }
 
-    .btn-home{
+    .btn-home {
         display: none;
     }
 
+    /* -------- منوی داشبورد: دراپ‌داون زیر هدر، پیش‌فرض بسته -------- */
+    .dashboard-ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: #fff;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, .1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .28s ease;
+        z-index: 40;
+    }
 
-    /* کارت‌های داشبورد */
+    .dashboard-ul.open {
+        max-height: 70vh;
+        overflow-y: auto;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .dashboard-ul__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 0;
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background: #fff;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .dashboard-ul__item:last-child {
+        border-bottom: none;
+    }
+
+    .dashboard-ul__item svg {
+        width: 19px;
+        height: 19px;
+        color: #6b7280;
+        flex-shrink: 0;
+    }
+
+    /* فلش سمت چپ هر ردیف، بدون نیاز به تغییر HTML */
+    .dashboard-ul__item::after {
+        content: "›";
+        margin-right: auto;
+        font-size: 20px;
+        line-height: 1;
+        color: #cbd5e1;
+    }
+
+    .sidebar .active {
+        background-color: #fafafa;
+        border-radius: 0;
+    }
+
+    .active {
+        height: auto;
+    }
+
+    #logout svg {
+        color: #ef4444;
+    }
+
+    .menu-toggle.active {
+        background: #eef0f3;
+    }
+
+    .menu-toggle.active .icon-menu {
+        display: none !important;
+    }
+
+    .menu-toggle.active .icon-close {
+        display: block !important;
+    }
+
+    /* -------- کارت‌های آمار سفارش (خلاصه داشبورد) -------- */
     .cards {
-        /* flex-direction: column; */
         gap: 14px;
     }
 
@@ -202,35 +296,87 @@
 
 
 /* =========================================================
-   768px — ساید‌بار به نوار بالای صفحه تبدیل میشه
+   768px — چیدمان کارت‌های آمار سفارش شبیه صفحه حساب کاربری
+   دیجی‌کالا: آیکون بالا، شمارنده کنار آیکون، عنوان پایین
 ========================================================= */
 @media (max-width:768px) {
+
+    .cards {
+        display: flex;
+        gap: 8px;
+    }
+
     .card {
+        flex: 1;
+        min-width: 0;
+        height: 104px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 6px;
+        text-align: center;
     }
 
-    .card {
-        min-width: 10px;
-        height:120px;
+    .cart-svg {
+        width: 42px;
+        height: 42px;
     }
 
-
-    .card span {
-        position: static;
-        background-color: #f2f2f2;
-        color: #000000;
-        font-size: 10px;
+    .cart-content {
+        align-items: center;
+        gap: 2px;
     }
 
-    .cart-content {}
+    .cart-content h3 {
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
 
     .cart-content p {
         display: none;
     }
 
+    .card span.dashboard-cards__number {
+        position: absolute;
+        top: 10px;
+        right: calc(50% - 34px);
+        left: auto;
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+
+    /* هدر «سفارش‌های من» با آندرلاین کوتاه، شبیه رفرنس */
+    .last-order {
+        border: none;
+        border-top: 1px solid #E5E7EB;
+        border-radius: 0;
+        padding: 20px 0;
+        margin-top: 10px;
+
+        border-radius: 8px;
+        padding: 25px;
+    }
+
+    .last-order__title h2 {
+        position: relative;
+        padding-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .last-order__title h2::after {
+        /* content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 34px;
+        height: 3px;
+        background: #ff4757;
+        border-radius: 2px; */
+    }
 }
 
 
@@ -244,7 +390,7 @@
     }
 
     .user-box {
-        padding: 0 16px;
+        padding: 16px;
         gap: 8px;
     }
 
@@ -252,36 +398,38 @@
         font-size: 14px;
     }
 
-    .dashboard-ul {
-        padding: 0 12px 12px 12px;
-    }
-
     .dashboard-ul__item {
-        padding: 8px 12px;
-    }
-
-    .back-home-btn {
-        width: auto;
-        height: 40px;
-        padding: 0 14px;
-    }
-
-    /* کارت‌های داشبورد */
-    .card {
-        height: auto;
-        min-height: 90px;
         padding: 14px 16px;
-        gap: 16px;
+        font-size: 13px;
+    }
+
+    .dashboard-ul__item svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .dashboard-ul__item::after {
+        font-size: 18px;
+    }
+
+    /* کارت‌های آمار سفارش */
+    .card {
+        height: 92px;
+        padding: 10px 4px;
+        gap: 6px;
     }
 
     .cart-svg {
-        width: 44px;
-        height: 44px;
-        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
     }
 
-    .card span {
+    .cart-content h3 {
+        font-size: 11px;
+    }
 
+    .card span.dashboard-cards__number {
+        right: calc(50% - 28px);
     }
 
     /* سفارش‌ها */
@@ -340,7 +488,9 @@
 
     /* علاقه‌مندی‌ها */
     .favorites-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        /* grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
         gap: 12px;
     }
 
@@ -366,28 +516,8 @@
 ========================================================= */
 @media (max-width:430px) {
 
-    .valet-wraper {
-        padding: 0 16px 12px 16px;
-    }
-
-    .my-valet {
-        height: 50px;
-    }
-
-    .my-valet span {
-        font-size: 11px;
-    }
-
-    .my-valet p {
-        font-size: 10px;
-    }
-
     .cards {
-        gap: 10px;
-    }
-
-    .card h3 {
-        font-size: 13px;
+        gap: 8px;
     }
 
     .cart-content p {
@@ -415,6 +545,10 @@
         padding: 6px 10px 10px 10px;
     }
 
+    .dashboard-ul__item {
+        padding: 13px 14px;
+    }
+
     .invoice-meta {
         grid-template-columns: 1fr;
     }
@@ -426,7 +560,9 @@
     }
 
     .favorites-grid {
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
     }
 
     .favorites-sort {
@@ -455,7 +591,7 @@
     }
 
     .user-box {
-        padding: 0 12px;
+        padding: 12px;
     }
 
     .user-box-svg {
@@ -463,28 +599,27 @@
     }
 
     .dashboard-ul__item {
-        padding: 8px 10px;
-        font-size: 11px;
+        padding: 12px 12px;
+        font-size: 12px;
+        gap: 10px;
     }
 
-    .dashboard-ul__item svg {
-        width: 18px;
-        height: 18px;
+    .dashboard-ul__item::after {
+        font-size: 16px;
     }
 
     .card {
-        padding: 12px;
-        gap: 12px;
+        padding: 8px 4px;
     }
 
     .cart-svg {
-        width: 38px;
-        height: 38px;
+        width: 32px;
+        height: 32px;
     }
 
     .cart-svg svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 
     .order-product-image {
@@ -507,7 +642,9 @@
     }
 
     .favorites-grid {
-        grid-template-columns: 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr; */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
         gap: 8px;
     }
 

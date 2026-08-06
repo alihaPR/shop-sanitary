@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>پنل کاربری</title>
-    <link rel="stylesheet" href="user-responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="user-responsive.css">
     <link rel="shortcut icon" href="./img/favico.ico.png" type="image/x-icon">
 
 </head>
@@ -21,17 +21,30 @@
 
         <aside class="sidebar">
             <div class="user-box">
-                <span class="user-box-svg">
-                    <svg class="user-box-svg__svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M11.889 12.6188H11.921C14.849 12.6188 17.23 10.2378 17.23 7.30976C17.23 4.38176 14.849 1.99976 11.921 1.99976C8.99202 1.99976 6.61002 4.38176 6.61002 7.30676C6.60002 10.2268 8.96702 12.6098 11.889 12.6188ZM8.03802 7.30976C8.03802 5.16876 9.78002 3.42776 11.921 3.42776C14.061 3.42776 15.802 5.16876 15.802 7.30976C15.802 9.44976 14.061 11.1918 11.921 11.1918H11.892C9.76002 11.1838 8.03102 9.44376 8.03802 7.30976Z"
-                            fill="black" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M4 18.1731C4 21.8701 9.962 21.8701 11.921 21.8701C15.32 21.8701 19.84 21.4891 19.84 18.1931C19.84 14.4961 13.88 14.4961 11.921 14.4961C8.521 14.4961 4 14.8771 4 18.1731ZM5.5 18.1731C5.5 16.7281 7.66 15.9961 11.921 15.9961C16.181 15.9961 18.34 16.7351 18.34 18.1931C18.34 19.6381 16.181 20.3701 11.921 20.3701C7.66 20.3701 5.5 19.6311 5.5 18.1731Z"
-                            fill="black" />
+
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" aria-expanded="false" aria-controls="dashboardMenu">
+                    <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
                     </svg>
-                </span>
-                <span id="userName"></span>
+                    <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+                        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+
+                <div class="user-box-info">
+                    <span class="user-box-svg">
+                        <svg class="user-box-svg__svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.889 12.6188H11.921C14.849 12.6188 17.23 10.2378 17.23 7.30976C17.23 4.38176 14.849 1.99976 11.921 1.99976C8.99202 1.99976 6.61002 4.38176 6.61002 7.30676C6.60002 10.2268 8.96702 12.6098 11.889 12.6188ZM8.03802 7.30976C8.03802 5.16876 9.78002 3.42776 11.921 3.42776C14.061 3.42776 15.802 5.16876 15.802 7.30976C15.802 9.44976 14.061 11.1918 11.921 11.1918H11.892C9.76002 11.1838 8.03102 9.44376 8.03802 7.30976Z"
+                                fill="black" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M4 18.1731C4 21.8701 9.962 21.8701 11.921 21.8701C15.32 21.8701 19.84 21.4891 19.84 18.1931C19.84 14.4961 13.88 14.4961 11.921 14.4961C8.521 14.4961 4 14.8771 4 18.1731ZM5.5 18.1731C5.5 16.7281 7.66 15.9961 11.921 15.9961C16.181 15.9961 18.34 16.7351 18.34 18.1931C18.34 19.6381 16.181 20.3701 11.921 20.3701C7.66 20.3701 5.5 19.6311 5.5 18.1731Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                    <span id="userName"></span>
+                </div>
+
             </div>
 
             <div class="valet-wraper">
@@ -42,7 +55,7 @@
             </div>
 
             <div class="dashboard-line"></div>
-            <ul class="dashboard-ul">
+            <ul class="dashboard-ul" id="dashboardMenu">
 
                 <li data-view="dashboard" class="active dashboard-ul__item">
                     <span>داشبورد</span>
