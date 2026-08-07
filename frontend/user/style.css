@@ -442,12 +442,6 @@ body {
 
 .shipped {
 
-    background: #8b5cf6;
-
-}
-
-.delivered {
-
     background: #22c55e;
 
 }
@@ -507,11 +501,6 @@ body {
 
 /* ارسال شده */
 .order-status__cercel.shipped {
-    background: #8b5cf6;
-}
-
-/* تحویل شده */
-.order-status__cercel.delivered {
     background: #22c55e;
 }
 
@@ -1257,12 +1246,6 @@ body {
 
 .shipped {
 
-    background: #8b5cf6;
-
-}
-
-.delivered {
-
     background: #22c55e;
 
 }
@@ -1298,12 +1281,6 @@ body {
 }
 
 .shipped {
-
-    background: #8b5cf6;
-
-}
-
-.delivered {
 
     background: #22c55e;
 

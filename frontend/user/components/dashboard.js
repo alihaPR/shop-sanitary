@@ -31,15 +31,15 @@ window.Views.dashboard = {
                 <span id="currentOrders" class="dashboard-cards__number">0</span>
             </a>
 
-            <a class="card" href="#" data-view-link="orders" data-filter="delivered">
+            <a class="card" href="#" data-view-link="orders" data-filter="shipped">
                 <div class="cart-svg svg-2">
                     <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.5 12.8333L14 16.3333L25.6667 4.66667M24.5 14V22.1667C24.5 22.7855 24.2542 23.379 23.8166 23.8166C23.379 24.2542 22.7855 24.5 22.1667 24.5H5.83333C5.21449 24.5 4.621 24.2542 4.18342 23.8166C3.74583 23.379 3.5 22.7855 3.5 22.1667V5.83333C3.5 5.21449 3.74583 4.621 4.18342 4.18342C4.621 3.74583 5.21449 3.5 5.83333 3.5H18.6667" stroke="#17C964" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
                 <div class="cart-content">
-                    <h3>تحویل شده</h3>
-                    <p>تعداد تحویل شده ها</p>
+                    <h3>ارسال شده</h3>
+                    <p>تعداد ارسال شده ها</p>
                 </div>
                 <span id="delivered" class="dashboard-cards__number">0</span>
             </a>
@@ -91,10 +91,10 @@ window.Views.dashboard = {
 
             const data = await res.json();
 
-            const currentOrders = data.pending + data.processing + data.shipped;
+            const currentOrders = data.pending + data.processing;
 
             document.getElementById("currentOrders").innerText = currentOrders;
-            document.getElementById("delivered").innerText = data.delivered;
+            document.getElementById("delivered").innerText = (data.shipped || 0) + (data.delivered || 0);
             document.getElementById("cancelledCount").innerText = data.cancelled;
 
             if (data.lastOrder) {
@@ -102,8 +102,8 @@ window.Views.dashboard = {
                 const statusMap = {
                     pending: { text: "در انتظار بررسی", color: "#f59e0b" },
                     processing: { text: "در حال پردازش", color: "#3b82f6" },
-                    shipped: { text: "ارسال شده", color: "#8b5cf6" },
-                    delivered: { text: "تحویل شده", color: "#22c55e" },
+                    shipped: { text: "ارسال شده", color: "#22c55e" },
+                    delivered: { text: "ارسال شده", color: "#22c55e" },
                     cancelled: { text: "لغو شده", color: "#ef4444" }
                 };
 

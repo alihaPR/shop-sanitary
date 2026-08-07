@@ -1472,14 +1472,6 @@ Admin Sidebar Like User Dashboard
 
 .status-badge.shipped {
 
-    background: #ede9fe;
-
-    color: #6d28d9;
-
-}
-
-.status-badge.delivered {
-
     background: #dcfce7;
 
     color: #15803d;
@@ -1895,11 +1887,6 @@ Admin Sidebar Like User Dashboard
 }
 
 .recent-order-status.shipped {
-    background: #e0e7ff;
-    color: #4338ca;
-}
-
-.recent-order-status.delivered {
     background: #dcfce7;
     color: #15803d;
 }

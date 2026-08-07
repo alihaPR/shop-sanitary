@@ -121,7 +121,7 @@ function translateStatus(status) {
         case "pending": return "در انتظار";
         case "processing": return "درحال پردازش";
         case "shipped": return "ارسال شده";
-        case "delivered": return "تحویل شده";
+        case "delivered": return "ارسال شده";
         case "cancelled": return "لغو شده";
         default: return status;
     }

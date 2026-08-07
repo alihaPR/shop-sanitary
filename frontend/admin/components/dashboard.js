@@ -11,7 +11,7 @@ const ORDER_STATUS_LABELS = {
     pending: "در انتظار",
     processing: "در حال پردازش",
     shipped: "ارسال شده",
-    delivered: "تحویل شده",
+    delivered: "ارسال شده",
     cancelled: "لغو شده"
 };
 
@@ -19,7 +19,7 @@ const ORDER_STATUS_CLASS = {
     pending: "pending",
     processing: "processing",
     shipped: "shipped",
-    delivered: "delivered",
+    delivered: "shipped",
     cancelled: "cancelled"
 };
 

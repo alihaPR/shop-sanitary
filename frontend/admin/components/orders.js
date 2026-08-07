@@ -12,7 +12,7 @@ const ORDER_STATUS_LABELS = {
     pending: "در انتظار",
     processing: "در حال پردازش",
     shipped: "ارسال شده",
-    delivered: "تحویل شده",
+    delivered: "ارسال شده",
     cancelled: "لغو شده"
 };
 
@@ -107,7 +107,6 @@ async function renderOrders() {
                 <button type="button" data-filter="pending">در انتظار</button>
                 <button type="button" data-filter="processing">در حال پردازش</button>
                 <button type="button" data-filter="shipped">ارسال شده</button>
-                <button type="button" data-filter="delivered">تحویل شده</button>
                 <button type="button" data-filter="cancelled">لغو شده</button>
             </div>
 
@@ -677,8 +676,7 @@ function openStatusModal(order) {
 
                         <option value="pending" ${order.status === "pending" ? "selected" : ""}>در انتظار</option>
                         <option value="processing" ${order.status === "processing" ? "selected" : ""}>در حال پردازش</option>
-                        <option value="shipped" ${order.status === "shipped" ? "selected" : ""}>ارسال شده</option>
-                        <option value="delivered" ${order.status === "delivered" ? "selected" : ""}>تحویل شده</option>
+                        <option value="shipped" ${order.status === "shipped" || order.status === "delivered" ? "selected" : ""}>ارسال شده</option>
                         <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>لغو شده</option>
 
                     </select>

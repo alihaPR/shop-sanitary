@@ -57,8 +57,8 @@ window.Views.orders = {
                     جاری
                     <span id="currentOrdersCount">0</span>
                 </button>
-                <button class="filter-btn" data-status="delivered">
-                    تحویل شده
+                <button class="filter-btn" data-status="shipped">
+                    ارسال شده
                     <span id="deliveredOrdersCount">0</span>
                 </button>
                 <button class="filter-btn" data-status="cancelled">
@@ -88,8 +88,8 @@ window.Views.orders = {
                 return;
             }
 
-            const currentOrders = orders.filter(o => ["pending", "processing", "shipped"].includes(o.status)).length;
-            const deliveredOrders = orders.filter(o => o.status === "delivered").length;
+            const currentOrders = orders.filter(o => ["pending", "processing"].includes(o.status)).length;
+            const deliveredOrders = orders.filter(o => ["shipped", "delivered"].includes(o.status)).length;
             const cancelledOrders = orders.filter(o => o.status === "cancelled").length;
             const allOrders = orders.length;
 
@@ -110,10 +110,10 @@ window.Views.orders = {
 
                 switch (status) {
                     case "current":
-                        renderOrders(orders.filter(o => ["pending", "processing", "shipped"].includes(o.status)));
+                        renderOrders(orders.filter(o => ["pending", "processing"].includes(o.status)));
                         break;
-                    case "delivered":
-                        renderOrders(orders.filter(o => o.status === "delivered"));
+                    case "shipped":
+                        renderOrders(orders.filter(o => ["shipped", "delivered"].includes(o.status)));
                         break;
                     case "cancelled":
                         renderOrders(orders.filter(o => o.status === "cancelled"));
