@@ -146,12 +146,17 @@ function renderBasket() {
       : item.price;
     const totalPrice = finalPrice * item.qty;
     const imageUrl = item.image
-      ?` http://localhost:5000/${item.image.replace(/^\/?/, "")}`
+      ? `http://localhost:5000/${item.image.replace(/^\/?/, "")}`
       : "";
 
     const div = document.createElement("div");
     div.className = "cart-item";
     div.dataset.id = item._id;
+    div.style.cursor = "pointer";
+
+    div.addEventListener("click", () => {
+      window.location.href = `cart.html?id=${item._id}`;
+    });
 
     div.innerHTML = `
       <div class="item-img" style="background-image: url('${imageUrl}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
@@ -161,15 +166,15 @@ function renderBasket() {
         <div class="item-unit">هر بسته ${formatPrice(finalPrice)} تومان</div>
       </div>
       <div class="item-qty">
-        <button class="qty-btn" onclick="changeQty('${item._id}', -1)" >−</button>
+        <button class="qty-btn" onclick="event.stopPropagation(); changeQty('${item._id}', -1)" >−</button>
         <span class="qty-num">${item.qty}</span>
-        <button class="qty-btn" onclick="changeQty('${item._id}', 1)">+</button>
+        <button class="qty-btn" onclick="event.stopPropagation(); changeQty('${item._id}', 1)">+</button>
       </div>
       <div class="item-price">
         <span class="price">${formatPrice(totalPrice)}</span>
         <span class="unit-price">تومان</span>
       </div>
-      <button class="item-remove" onclick="removeFromCart('${item._id}')" title="حذف">✕</button>
+      <button class="item-remove" onclick="event.stopPropagation(); removeFromCart('${item._id}')" title="حذف">✕</button>
     `;
 
     if (couponBox) {
