@@ -121,8 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <div onclick="window.location.href='cart.html?id=${p._id}'"
             style="display:flex;align-items:center;gap:12px;padding:9px 14px;cursor:pointer">
 
-            <img src="${p.image}"
-                 style="width:40px;height:40px;object-fit:contain">
+    <img src="${p.image ? `http://localhost:5000/${p.image.replace(/^\/?/, "")}` : ""}"
+         style="width:40px;height:40px;object-fit:contain">
 
             <div>
 
@@ -199,4 +199,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   })
 
+
+  // ── پاپ‌آپ سرچ موبایل ──
+  const searchBtn = document.querySelector(".search-btn")
+  const mSearchOverlay = document.querySelector(".mobile-search-overlay")
+  const mSearchPopup = document.querySelector(".mobile-search-popup")
+  const mSearchClose = document.querySelector(".mobile-search-close")
+
+  if (searchBtn && mSearchOverlay && mSearchPopup) {
+
+    searchBtn.addEventListener("click", function (e) {
+      e.preventDefault()
+      mSearchOverlay.classList.add("active")
+      mSearchPopup.classList.add("active")
+      const popupInput = mSearchPopup.querySelector("#search-input")
+      if (popupInput) popupInput.focus()
+    })
+
+    function closeMobileSearch() {
+      mSearchOverlay.classList.remove("active")
+      mSearchPopup.classList.remove("active")
+    }
+
+    if (mSearchClose) mSearchClose.addEventListener("click", closeMobileSearch)
+    mSearchOverlay.addEventListener("click", closeMobileSearch)
+
+  }
+
 })
+  
+

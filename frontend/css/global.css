@@ -644,6 +644,54 @@ body::selection {
     color: var(--bg-color-4);
 
 }
+.mobile-search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.4);
+    z-index: 1000;
+}
+
+.mobile-search-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    padding: 14px;
+    z-index: 1001;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+
+.mobile-search-popup-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-search-popup .search-wraper {
+    flex: 1;
+}
+
+.mobile-search-close {
+    border: none;
+    background: #f5f5f5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.mobile-search-overlay.active {
+    display: block;
+}
+
+.mobile-search-popup.active {
+    display: block;
+}
 
 
 /* -----------------------------------------footer👇------------------------------------------------ */

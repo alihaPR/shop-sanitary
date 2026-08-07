@@ -399,7 +399,7 @@ h1 {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 68px;
     }
 
     .wrap {
@@ -447,7 +447,7 @@ h1 {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 68px;
     }
 
     .info {
@@ -526,7 +526,7 @@ h1 {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 58px;
     }
 
     .info {
@@ -632,7 +632,7 @@ h1 {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 58px;
     }
 
     .main-card {
@@ -722,7 +722,7 @@ h1 {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 58px;
     }
 
     .info {

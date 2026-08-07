@@ -145,13 +145,16 @@ function renderBasket() {
       ? Math.round(item.price * (1 - item.discountPercent / 100))
       : item.price;
     const totalPrice = finalPrice * item.qty;
+    const imageUrl = item.image
+      ?` http://localhost:5000/${item.image.replace(/^\/?/, "")}`
+      : "";
 
     const div = document.createElement("div");
     div.className = "cart-item";
     div.dataset.id = item._id;
 
     div.innerHTML = `
-      <div class="item-img" style="background-image: url('${item.image}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+      <div class="item-img" style="background-image: url('${imageUrl}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
       <div class="item-info">
         <h4>${item.name}</h4>
         <div class="item-cat">بهداشتی</div>
