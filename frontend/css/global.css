@@ -308,6 +308,72 @@ body::selection {
 
 
 
+/* ------------------------------ شیت پایین صفحه (دسته‌بندی محصولات در موبایل/تبلت) ------------------------------ */
+/* این استایل عیناً از products.css گرفته شده تا کارکرد شیت موبایل در صفحه اصلی هم فعال بشه */
+
+.mobile-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -100%;
+    width: 100%;
+    max-height: 85vh;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    z-index: 999;
+    transition: .35s;
+    overflow: auto;
+    padding: 18px;
+}
+
+.mobile-sheet.active {
+    bottom: 0;
+}
+
+.mobile-sheet-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    z-index: 998;
+}
+
+.mobile-sheet-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sheet-handle {
+    width: 55px;
+    height: 5px;
+    background: #ddd;
+    border-radius: 20px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sheet-title {
+    font-size: 18px;
+}
+
+.sheet-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
 /* -----------------------------------------header-nav 👇------------------------------------------------ */
 
 .header-nav {
@@ -1222,6 +1288,30 @@ body::selection {
 
     .bottom-nav {
         display: flex;
+    }
+
+    /* پنل حساب کاربری وقتی از نوار پایین موبایل باز میشه */
+    .user-dropdown.user-dropdown--mobile {
+        position: fixed;
+        top: auto;
+        bottom: 58px;
+        width: 100%;
+        z-index: 900;
+        border-radius: 30px 30px 0 0 ;
+        animation: userDropdownSlideUp .28s ease-out;
+    }
+
+    /* انیمیشن: پنل از پایین صفحه به بالا سر بخوره، نه اینکه وسط صفحه ظاهر بشه */
+    @keyframes userDropdownSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .search-wraper {

@@ -415,8 +415,7 @@ if (typeof module !== "undefined") {
 
 // ------------------------------------------------------------------------------------------------
 const filterBox = document.querySelector(".filter-box");
-
-const filterHTML = filterBox ? filterBox.outerHTML : "";
+const categoryWrapper = document.querySelector(".daste-bandy-wraper");
 
 const sortHTML = `
 <ul class="mobile-sort-list">
@@ -435,16 +434,49 @@ const content = document.querySelector(".sheet-content");
 const mobileFilterBtn = document.querySelector(".mobile-filter-btn");
 const mobileSortBtn = document.querySelector(".mobile-sort-btn");
 const sheetCloseBtn = document.querySelector(".sheet-close");
+const mobileHeaderIcon = document.querySelector(".mobile-header-icon");
+
+// جایی که filterBox اصلا در صفحه قرار داره، برای اینکه بعد از استفاده در
+// شیت موبایل، بدون از دست دادن رویدادهاش (event listener) برگرده سرجاش
+let filterBoxHome = null;
+
+function releaseFilterBox() {
+
+  if (filterBox && filterBoxHome && filterBox.parentNode === content) {
+    filterBoxHome.parent.insertBefore(filterBox, filterBoxHome.next);
+  }
+
+}
+
+function openSheet(titleText) {
+
+  if (title) title.textContent = titleText;
+
+  if (sheet) sheet.classList.add("active");
+  if (overlay) overlay.classList.add("active");
+
+}
 
 if (mobileFilterBtn) {
   mobileFilterBtn.addEventListener("click", () => {
 
-    title.textContent = "فیلترها";
+    if (filterBox && content) {
 
-    content.innerHTML = filterHTML;
+      if (!filterBoxHome) {
+        filterBoxHome = {
+          parent: filterBox.parentNode,
+          next: filterBox.nextSibling
+        };
+      }
 
-    sheet.classList.add("active");
-    overlay.classList.add("active");
+      // به جای کپی کردن innerHTML (که رویدادهای فیلتر رو از دست می‌داد)
+      // خود المنت اصلی فیلتر رو منتقل می‌کنیم تا سالم کار کنه
+      content.innerHTML = "";
+      content.appendChild(filterBox);
+
+    }
+
+    openSheet("فیلترها");
 
   });
 }
@@ -452,14 +484,30 @@ if (mobileFilterBtn) {
 if (mobileSortBtn) {
   mobileSortBtn.addEventListener("click", () => {
 
-    title.textContent = "مرتب سازی";
+    releaseFilterBox();
 
-    content.innerHTML = sortHTML;
+    if (content) content.innerHTML = sortHTML;
 
-    sheet.classList.add("active");
-    overlay.classList.add("active");
+    openSheet("مرتب سازی");
 
   });
+}
+
+// دسته‌بندی محصولات در موبایل، از طریق آیکون بالای هدر موبایل
+if (mobileHeaderIcon && categoryWrapper && sheet && overlay && content) {
+
+  mobileHeaderIcon.style.cursor = "pointer";
+
+  mobileHeaderIcon.addEventListener("click", () => {
+
+    releaseFilterBox();
+
+    content.innerHTML = `<div class="mobile-category-list">${categoryWrapper.innerHTML}</div>`;
+
+    openSheet("دسته‌بندی محصولات");
+
+  });
+
 }
 
 function closeSheet() {
@@ -467,11 +515,28 @@ function closeSheet() {
   if (sheet) sheet.classList.remove("active");
   if (overlay) overlay.classList.remove("active");
 
+  // بعد از اتمام انیمیشن بسته شدن شیت، فیلتر رو برگردون سرجای اصلیش
+  setTimeout(releaseFilterBox, 350);
+
 }
 
 if (overlay) overlay.addEventListener("click", closeSheet);
 
 if (sheetCloseBtn) sheetCloseBtn.addEventListener("click", closeSheet);
+
+function sortProducts(type) {
+  const map = {
+    newest: "newest",
+    cheap: "cheapest",
+    expensive: "expensive",
+    stock: "available",
+    bestseller: "bestseller"
+  };
+
+  activeSort = map[type] || "default";
+  currentPage = 1;
+  render();
+}
 
 document.addEventListener("click", (e) => {
 
