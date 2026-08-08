@@ -827,6 +827,19 @@ async function submitProduct(e) {
         return;
     }
 
+    const submitBtn = document.querySelector('#productForm button[type="submit"]');
+    setBtnLoading(submitBtn, true);
+
+    try {
+        await submitProductInner(token, submitBtn);
+    } finally {
+        setBtnLoading(submitBtn, false);
+    }
+
+}
+
+async function submitProductInner(token, submitBtn) {
+
     const name = document.getElementById("productName").value.trim();
     const description = document.getElementById("productDescription").value.trim();
     const shortDescription = document.getElementById("productShortDescription").value.trim();

@@ -197,6 +197,9 @@ document.getElementById("saveProfile").onclick = async () => {
         ? document.getElementById("editTextarea").value
         : document.getElementById("editInput").value;
 
+    const saveBtn = document.getElementById("saveProfile");
+    setBtnLoading(saveBtn, true);
+
     try {
 
         const res = await fetch(`${API_BASE}/users/profile`, {
@@ -212,10 +215,12 @@ document.getElementById("saveProfile").onclick = async () => {
 
         document.getElementById("editModal").style.display = "none";
         await loadProfile();
-        alert("اطلاعات با موفقیت ذخیره شد.");
+        showAppToast("اطلاعات با موفقیت ذخیره شد.", "success");
 
     } catch (err) {
-        alert(err.message);
+        showAppToast(err.message, "error");
+    } finally {
+        setBtnLoading(saveBtn, false);
     }
 };
 
@@ -295,7 +300,7 @@ document.getElementById("savePassword").onclick = async () => {
     const confirmPassword = document.getElementById("confirmPassword").value;
 
     if (newPassword !== confirmPassword) {
-        return alert("تکرار رمز عبور صحیح نیست.");
+        return showAppToast("تکرار رمز عبور صحیح نیست.", "error");
     }
 
     const strongPassword =
@@ -305,8 +310,11 @@ document.getElementById("savePassword").onclick = async () => {
         /[0-9]/.test(newPassword);
 
     if (!strongPassword) {
-        return alert("رمز عبور باید حداقل ۸ کاراکتر، شامل حرف بزرگ، حرف کوچک و عدد باشد.");
+        return showAppToast("رمز عبور باید حداقل ۸ کاراکتر، شامل حرف بزرگ، حرف کوچک و عدد باشد.", "error");
     }
+
+    const passwordBtn = document.getElementById("savePassword");
+    setBtnLoading(passwordBtn, true);
 
     try {
 
@@ -322,12 +330,14 @@ document.getElementById("savePassword").onclick = async () => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
 
-        alert("رمز عبور با موفقیت تغییر کرد.");
+        showAppToast("رمز عبور با موفقیت تغییر کرد.", "success");
         document.getElementById("passwordModal").style.display = "none";
         resetPasswordForm();
 
     } catch (err) {
-        alert(err.message);
+        showAppToast(err.message, "error");
+    } finally {
+        setBtnLoading(passwordBtn, false);
     }
 };
 

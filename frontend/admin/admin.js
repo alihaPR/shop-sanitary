@@ -33,7 +33,9 @@ async function checkAdminAccess() {
 
         if (user.role !== "admin") {
 
-            alert("شما دسترسی به پنل مدیریت ندارید.");
+            if (typeof showToast === "function") {
+                showToast("error", "دسترسی غیرمجاز", "شما دسترسی به پنل مدیریت ندارید.");
+            }
 
             window.location.href = "../index.html";
 

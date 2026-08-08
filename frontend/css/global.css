@@ -2344,6 +2344,10 @@ body::selection {
 
     .footer-container {
         padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     /* ================= Main Layout ================= */
@@ -2351,6 +2355,8 @@ body::selection {
     .footer-content {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 25px;
 
     }

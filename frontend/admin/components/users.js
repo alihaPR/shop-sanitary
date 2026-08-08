@@ -25,7 +25,7 @@ async function renderUsers() {
     const users = await res.json();
 
     if (!res.ok) {
-        alert(users.message);
+        showToast("error", "خطا", users.message);
         return;
     }
 
@@ -417,11 +417,11 @@ async function updateUserRole(id, role) {
     const data = await res.json();
 
     if (!res.ok) {
-        alert(data.message);
+        showToast("error", "خطا", data.message);
         return;
     }
 
-    alert("✅ نقش کاربر بروزرسانی شد.");
+    showToast("success", "موفق", "نقش کاربر بروزرسانی شد.");
 
     document
         .querySelector(".user-modal-overlay")
@@ -459,13 +459,13 @@ async function deleteUser(id) {
             throw new Error(data.message);
         }
 
-        alert("✅ کاربر با موفقیت حذف شد.");
+        showToast("success", "موفق", "کاربر با موفقیت حذف شد.");
 
         renderUsers();
 
     } catch (err) {
         console.error(err);
-        alert(err.message);
+        showToast("error", "خطا", err.message);
     }
 
 }

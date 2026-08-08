@@ -306,7 +306,7 @@ async function removeFavorite(id) {
     } catch (err) {
 
         console.error(err);
-        alert(err.message);
+        showAppToast(err.message, "error");
 
     }
 
@@ -323,7 +323,7 @@ function addFavoriteToCart(id) {
     const cartToken = localStorage.getItem("token");
 
     if (!cartToken) {
-        alert("ابتدا وارد حساب کاربری شوید.");
+        showAppToast("ابتدا وارد حساب کاربری شوید.", "error");
         location.href = "/frontend/login.html";
         return;
     }
@@ -346,6 +346,6 @@ function addFavoriteToCart(id) {
 
     if (typeof updateCartBadge === "function") updateCartBadge();
 
-    alert("✅ محصول به سبد خرید اضافه شد.");
+    showAppToast("محصول به سبد خرید اضافه شد.", "success");
 
 }

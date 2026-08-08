@@ -163,13 +163,13 @@ async function checkout(e) {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    alert("ابتدا وارد حساب کاربری شوید.");
+    showAppToast("ابتدا وارد حساب کاربری شوید.", "error");
     location.href = "login.html";
     return;
   }
 
   if (cart.length === 0) {
-    alert("سبد خرید خالی است.");
+    showAppToast("سبد خرید خالی است.", "error");
     return;
   }
 
@@ -178,6 +178,9 @@ async function checkout(e) {
     return;
 
   }
+
+  const submitBtn = checkoutForm.querySelector('button[type="submit"]');
+  setBtnLoading(submitBtn, true);
 
   const province = document.getElementById("province").value.trim();
   const city = document.getElementById("city").value.trim();
@@ -240,7 +243,7 @@ async function checkout(e) {
 
     if (!paymentRes.ok) {
 
-      alert(paymentData.message || "خطا در ایجاد پرداخت.");
+      showAppToast(paymentData.message || "خطا در ایجاد پرداخت.", "error");
 
       return;
 
@@ -252,7 +255,11 @@ async function checkout(e) {
 
     console.error(err);
 
-    alert("خطا در ارتباط با سرور.");
+    showAppToast("خطا در ارتباط با سرور.", "error");
+
+  } finally {
+
+    setBtnLoading(submitBtn, false);
 
   }
 

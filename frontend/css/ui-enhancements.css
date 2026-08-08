@@ -1,0 +1,148 @@
+/* =====================================================================
+   UI Enhancements: Toast عمومی سایت + لودینگ دکمه‌ها
+   این فایل مستقل است و باعث تغییر ظاهر/منطق فعلی سایت نمی‌شود.
+===================================================================== */
+
+/* ---------- Toast عمومی (هم‌استایل با pill-toast سبد خرید) ---------- */
+.app-toast {
+    position: fixed;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(31, 36, 33, 0.14);
+    padding: 13px 15px;
+    min-width: 290px;
+    max-width: 350px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s cubic-bezier(.22, 1, .36, 1);
+    z-index: 99999;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-16px);
+    direction: rtl;
+    font-family: inherit;
+}
+
+.app-toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.app-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.app-toast.type-success .app-toast-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.app-toast.type-error .app-toast-icon {
+    background: #fde0e0;
+    color: #D9534F;
+}
+
+.app-toast.type-warning .app-toast-icon {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.app-toast.type-info .app-toast-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.app-toast-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.app-toast-title {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1F2421;
+    line-height: 1.6;
+}
+
+.app-toast-close {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: none;
+    background: none;
+    color: #83887F;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: .2s;
+    margin-top: 2px;
+    line-height: 1;
+}
+
+.app-toast-close:hover {
+    background: #F6F5F1;
+    color: #1F2421;
+}
+
+@media (max-width: 480px) {
+    .app-toast {
+        left: 12px;
+        right: 12px;
+        max-width: none;
+        transform: translateY(-16px);
+    }
+
+    .app-toast.show {
+        transform: translateY(0);
+    }
+}
+
+/* ---------- حالت لودینگ دکمه‌ها (Submit) ---------- */
+.btn-loading {
+    position: relative !important;
+    pointer-events: none !important;
+    color: transparent !important;
+}
+
+.btn-loading * {
+    visibility: hidden !important;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #ffffff;
+    animation: btn-loading-spin 0.7s linear infinite;
+}
+
+/* روی دکمه‌های با پس‌زمینه‌ی روشن (متن تیره) اسپینر تیره نشون داده بشه */
+.btn-loading.btn-loading-dark::after {
+    border: 2.5px solid rgba(0, 0, 0, 0.15);
+    border-top-color: #3C6E55;
+}
+
+@keyframes btn-loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+}

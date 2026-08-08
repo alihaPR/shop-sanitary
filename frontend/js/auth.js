@@ -36,6 +36,9 @@ loginForm.addEventListener("submit", async function (e) {
     const phone = loginForm.querySelector('input[name="phone"]').value.trim();
     const password = loginForm.querySelector('input[name="password"]').value;
 
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    setBtnLoading(submitBtn, true);
+
     try {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
@@ -54,16 +57,18 @@ loginForm.addEventListener("submit", async function (e) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data));
 
-            alert("ورود با موفقیت انجام شد");
+            showAppToast("ورود با موفقیت انجام شد", "success");
 
             window.location.href = "index.html";
         } else {
-            alert(data.message);
+            showAppToast(data.message, "error");
         }
 
     } catch (err) {
         console.error(err);
-        alert("خطا در اتصال به سرور");
+        showAppToast("خطا در اتصال به سرور", "error");
+    } finally {
+        setBtnLoading(submitBtn, false);
     }
 });
 
@@ -76,15 +81,18 @@ registerForm.addEventListener("submit", async function (e) {
     const confirmPassword = registerForm.querySelector('input[name="confirmPassword"]').value;
     if (!/^09\d{9}$/.test(phone)) {
 
-        return alert("شماره موبایل معتبر نیست.");
+        return showAppToast("شماره موبایل معتبر نیست.", "error");
 
     }
 
     if (password !== confirmPassword) {
 
-        return alert("تکرار رمز عبور صحیح نیست.");
+        return showAppToast("تکرار رمز عبور صحیح نیست.", "error");
 
     }
+
+    const submitBtn = registerForm.querySelector('button[type="submit"]');
+    setBtnLoading(submitBtn, true);
 
     try {
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -108,20 +116,22 @@ registerForm.addEventListener("submit", async function (e) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data));
 
-            alert("ثبت نام با موفقیت انجام شد");
+            showAppToast("ثبت نام با موفقیت انجام شد", "success");
 
             window.location.href = "index.html";
 
         } else {
 
-            alert(data.message);
+            showAppToast(data.message, "error");
 
         }
         console.log(data);
 
     } catch (err) {
-        alert("خطا در اتصال به سرور");
+        showAppToast("خطا در اتصال به سرور", "error");
         console.error(err);
+    } finally {
+        setBtnLoading(submitBtn, false);
     }
 });
 

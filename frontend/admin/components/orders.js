@@ -476,7 +476,7 @@ function updateOrdersPaginationInfo(totalPages) {
 async function printOrdersByIds(ids) {
 
     if (!ids.length) {
-        alert("سفارشی برای چاپ انتخاب یا یافت نشد.");
+        showToast("warning", "توجه", "سفارشی برای چاپ انتخاب یا یافت نشد.");
         return;
     }
 
@@ -503,7 +503,7 @@ async function printOrdersByIds(ids) {
     } catch (err) {
 
         console.error(err);
-        alert("خطا در آماده‌سازی چاپ سفارش‌ها.");
+        showToast("error", "خطا", "خطا در آماده‌سازی چاپ سفارش‌ها.");
 
     }
 
@@ -712,6 +712,8 @@ function openStatusModal(order) {
 async function submitOrderStatus(id, status) {
 
     const token = localStorage.getItem("token");
+    const statusBtn = document.querySelector('#statusForm button[type="submit"]');
+    setBtnLoading(statusBtn, true);
 
     try {
 
@@ -733,7 +735,7 @@ async function submitOrderStatus(id, status) {
             throw new Error(data.message || "خطا در تغییر وضعیت");
         }
 
-        alert("✅ وضعیت سفارش تغییر کرد");
+        showToast("success", "موفق", "وضعیت سفارش تغییر کرد");
 
         document.querySelector(".modal-overlay").remove();
 
@@ -742,7 +744,11 @@ async function submitOrderStatus(id, status) {
     } catch (err) {
 
         console.error(err);
-        alert(err.message);
+        showToast("error", "خطا", err.message);
+
+    } finally {
+
+        setBtnLoading(statusBtn, false);
 
     }
 

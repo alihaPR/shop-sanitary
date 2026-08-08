@@ -510,7 +510,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("ابتدا وارد حساب کاربری شوید.");
+      showToast({
+        title: "ابتدا وارد حساب کاربری شوید.",
+        type: "unlike"
+      });
       location.href = "/frontend/login.html";
       return;
     }
@@ -560,7 +563,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       heart.classList.toggle("active", isActive);
 
       console.error(err);
-      alert(err.message);
+      showToast({
+        title: err.message,
+        type: "unlike"
+      });
 
     }
 
