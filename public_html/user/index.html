@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>پنل کاربری</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="user-responsive.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="shortcut icon" href="../img/favico.ico.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" href="../css/ui-enhancements.css">
+</head>
+
+<body>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/ui-core.js"></script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+
+        <a href="../index.html" class="bottom-nav-item active">
+
+            <!-- svg -->
+            <!-- <span>خانه</span> -->
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+                <path
+                    d="M 23.951172 4 A 1.50015 1.50015 0 0 0 23.072266 4.3222656 L 8.859375 15.519531 C 7.0554772 16.941163 6 19.113506 6 21.410156 L 6 40.5 C 6 41.863594 7.1364058 43 8.5 43 L 18.5 43 C 19.863594 43 21 41.863594 21 40.5 L 21 30.5 C 21 30.204955 21.204955 30 21.5 30 L 26.5 30 C 26.795045 30 27 30.204955 27 30.5 L 27 40.5 C 27 41.863594 28.136406 43 29.5 43 L 39.5 43 C 40.863594 43 42 41.863594 42 40.5 L 42 21.410156 C 42 19.113506 40.944523 16.941163 39.140625 15.519531 L 24.927734 4.3222656 A 1.50015 1.50015 0 0 0 23.951172 4 z M 24 7.4101562 L 37.285156 17.876953 C 38.369258 18.731322 39 20.030807 39 21.410156 L 39 40 L 30 40 L 30 30.5 C 30 28.585045 28.414955 27 26.5 27 L 21.5 27 C 19.585045 27 18 28.585045 18 30.5 L 18 40 L 9 40 L 9 21.410156 C 9 20.030807 9.6307412 18.731322 10.714844 17.876953 L 24 7.4101562 z">
+                </path>
+            </svg>
+
+        </a>
+
+        <a href="../products.html" class="bottom-nav-item">
+
+            <!-- svg -->
+            <!-- <span>دسته‌بندی</span> -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.25 3.5C3.5 3.5 3.5 3.708 3.5 6.25V6.275C3.5 7.382 3.5 8.182 3.771 8.52C4.036 8.848 4.823 9 6.25 9C7.677 9 8.464 8.847 8.729 8.519C9 8.182 9 7.382 9 6.274C9 3.708 9 3.5 6.25 3.5ZM6.25 10.5C4.564 10.5 3.299 10.323 2.604 9.46C2 8.711 2 7.689 2 6.275L2.75 6.25H2C2 3.38 2.181 2 6.25 2C10.319 2 10.5 3.38 10.5 6.25C10.5 7.688 10.5 8.711 9.896 9.46C9.201 10.323 7.936 10.5 6.25 10.5Z"
+                    fill="black"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17.25 3.5C14.5 3.5 14.5 3.708 14.5 6.25V6.275C14.5 7.382 14.5 8.182 14.771 8.52C15.036 8.848 15.823 9 17.25 9C18.677 9 19.464 8.847 19.729 8.519C20 8.182 20 7.382 20 6.274C20 3.708 20 3.5 17.25 3.5ZM17.25 10.5C15.564 10.5 14.299 10.323 13.604 9.46C13 8.711 13 7.689 13 6.275L13.75 6.25H13C13 3.38 13.181 2 17.25 2C21.319 2 21.5 3.38 21.5 6.25C21.5 7.688 21.5 8.711 20.896 9.46C20.201 10.323 18.936 10.5 17.25 10.5Z"
+                    fill="black"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.25 14.5C3.5 14.5 3.5 14.708 3.5 17.25V17.275C3.5 18.382 3.5 19.182 3.771 19.52C4.036 19.848 4.823 20 6.25 20C7.677 20 8.464 19.847 8.729 19.519C9 19.182 9 18.382 9 17.274C9 14.708 9 14.5 6.25 14.5ZM6.25 21.5C4.564 21.5 3.299 21.323 2.604 20.46C2 19.711 2 18.689 2 17.275L2.75 17.25H2C2 14.38 2.181 13 6.25 13C10.319 13 10.5 14.38 10.5 17.25C10.5 18.688 10.5 19.711 9.896 20.46C9.201 21.323 7.936 21.5 6.25 21.5Z"
+                    fill="black"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17.25 14.5C14.5 14.5 14.5 14.708 14.5 17.25V17.275C14.5 18.382 14.5 19.182 14.771 19.52C15.036 19.848 15.823 20 17.25 20C18.677 20 19.464 19.847 19.729 19.519C20 19.182 20 18.382 20 17.274C20 14.708 20 14.5 17.25 14.5ZM17.25 21.5C15.564 21.5 14.299 21.323 13.604 20.46C13 19.711 13 18.689 13 17.275L13.75 17.25H13C13 14.38 13.181 13 17.25 13C21.319 13 21.5 14.38 21.5 17.25C21.5 18.688 21.5 19.711 20.896 20.46C20.201 21.323 18.936 21.5 17.25 21.5Z"
+                    fill="black"></path>
+            </svg>
+        </a>
+
+        <a class="bottom-nav-item search-btn">
+
+            <!-- svg -->
+            <!-- <span>جستجو</span> -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_1455_1831" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="2" width="20"
+                    height="20">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2H21.4768V21.477H2V2Z" fill="white"></path>
+                </mask>
+                <g mask="url(#mask0_1455_1831)">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M11.7388 3.5C7.19576 3.5 3.49976 7.195 3.49976 11.738C3.49976 16.281 7.19576 19.977 11.7388 19.977C16.2808 19.977 19.9768 16.281 19.9768 11.738C19.9768 7.195 16.2808 3.5 11.7388 3.5ZM11.7388 21.477C6.36876 21.477 1.99976 17.108 1.99976 11.738C1.99976 6.368 6.36876 2 11.7388 2C17.1088 2 21.4768 6.368 21.4768 11.738C21.4768 17.108 17.1088 21.477 11.7388 21.477Z"
+                        fill="black"></path>
+                </g>
+                <mask id="mask1_1455_1831" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="17" y="17"
+                    width="6" height="6">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.24 17.7069H22.264V22.7217H17.24V17.7069Z"
+                        fill="white"></path>
+                </mask>
+                <g mask="url(#mask1_1455_1831)">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M21.5142 22.7217C21.3232 22.7217 21.1312 22.6487 20.9842 22.5027L17.4602 18.9887C17.1672 18.6957 17.1662 18.2207 17.4592 17.9277C17.7512 17.6327 18.2262 17.6347 18.5202 17.9257L22.0442 21.4407C22.3372 21.7337 22.3382 22.2077 22.0452 22.5007C21.8992 22.6487 21.7062 22.7217 21.5142 22.7217Z"
+                        fill="black"></path>
+                </g>
+            </svg>
+
+        </a>
+
+        <a href="../basket.html" class="bottom-nav-item">
+
+            <!-- svg -->
+            <!-- <span>سبد خرید</span> -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_1455_1901" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7" y="2" width="10"
+                    height="9">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.21094 2H16.2729V10.3057H7.21094V2Z"
+                        fill="white"></path>
+                </mask>
+                <g mask="url(#mask0_1455_1901)">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M15.5229 10.3057C15.1089 10.3057 14.7729 9.9697 14.7729 9.5557V6.52369C14.7729 4.85669 13.4179 3.49969 11.7509 3.49969C10.9399 3.52769 10.1799 3.80769 9.60594 4.37569C9.03194 4.94469 8.71394 5.70169 8.71094 6.50869V9.5557C8.71094 9.9697 8.37494 10.3057 7.96094 10.3057C7.54694 10.3057 7.21094 9.9697 7.21094 9.5557V6.52369C7.21594 5.29469 7.69094 4.16069 8.54994 3.31069C9.40794 2.45969 10.5599 2.03469 11.7539 1.99969C14.2449 1.99969 16.2729 4.0297 16.2729 6.52369V9.5557C16.2729 9.9697 15.9369 10.3057 15.5229 10.3057Z"
+                        fill="black"></path>
+                </g>
+                <mask id="mask1_1455_1901" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="6" width="20"
+                    height="16">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6.47459H21.4998V21.9996H2V6.47459Z"
+                        fill="white"></path>
+                </mask>
+                <g mask="url(#mask1_1455_1901)">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M7.00776 7.97459C5.07376 7.97459 3.49976 9.54659 3.49976 11.4796V16.9956C3.49976 18.9276 5.07376 20.4996 7.00776 20.4996H16.4918C18.4258 20.4996 19.9998 18.9276 19.9998 16.9956V11.4796C19.9998 9.54659 18.4258 7.97459 16.4918 7.97459H7.00776ZM16.4918 21.9996H7.00776C4.24676 21.9996 1.99976 19.7546 1.99976 16.9956V11.4796C1.99976 8.71959 4.24676 6.47459 7.00776 6.47459H16.4918C19.2538 6.47459 21.4998 8.71959 21.4998 11.4796V16.9956C21.4998 19.7546 19.2538 21.9996 16.4918 21.9996Z"
+                        fill="black"></path>
+                </g>
+            </svg>
+
+        </a>
+
+        <a href="../login.html" class="bottom-nav-item" id="bottomNavAuth">
+
+            <!-- svg -->
+            <!-- <span>حساب</span> -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M15.791 12.75H3.75C3.336 12.75 3 12.414 3 12C3 11.586 3.336 11.25 3.75 11.25H15.791C16.205 11.25 16.541 11.586 16.541 12C16.541 12.414 16.205 12.75 15.791 12.75Z"
+                    fill="black" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12.8633 15.665C12.6713 15.665 12.4783 15.592 12.3323 15.444C12.0393 15.15 12.0413 14.676 12.3343 14.384L14.7283 12L12.3343 9.61499C12.0413 9.32299 12.0393 8.84899 12.3323 8.55499C12.6253 8.26099 13.0993 8.26099 13.3923 8.55299L16.3213 11.469C16.4633 11.609 16.5423 11.801 16.5423 12C16.5423 12.199 16.4633 12.391 16.3213 12.531L13.3923 15.446C13.2463 15.592 13.0543 15.665 12.8633 15.665Z"
+                    fill="black" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17.0419 22H12.1569C9.71791 22 7.73291 20.015 7.73291 17.575V16.633C7.73291 16.219 8.06891 15.883 8.48291 15.883C8.89691 15.883 9.23291 16.219 9.23291 16.633V17.575C9.23291 19.187 10.5449 20.5 12.1569 20.5H17.0419C18.6609 20.5 19.9779 19.184 19.9779 17.564V6.425C19.9779 4.813 18.6649 3.5 17.0529 3.5H12.1679C10.5499 3.5 9.23291 4.816 9.23291 6.434V7.367C9.23291 7.781 8.89691 8.117 8.48291 8.117C8.06891 8.117 7.73291 7.781 7.73291 7.367V6.434C7.73291 3.989 9.72291 2 12.1679 2H17.0529C19.4919 2 21.4779 3.985 21.4779 6.425V17.564C21.4779 20.01 19.4869 22 17.0419 22Z"
+                    fill="black" />
+            </svg>
+
+        </a>
+
+    </nav>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+            <div class="user-box">
+
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="باز کردن منو"
+                    aria-expanded="false" aria-controls="dashboardMenu">
+                    <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                    <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" style="display:none">
+                        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+
+                <div class="user-box-info">
+                    <span class="user-box-svg">
+                        <svg class="user-box-svg__svg" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.889 12.6188H11.921C14.849 12.6188 17.23 10.2378 17.23 7.30976C17.23 4.38176 14.849 1.99976 11.921 1.99976C8.99202 1.99976 6.61002 4.38176 6.61002 7.30676C6.60002 10.2268 8.96702 12.6098 11.889 12.6188ZM8.03802 7.30976C8.03802 5.16876 9.78002 3.42776 11.921 3.42776C14.061 3.42776 15.802 5.16876 15.802 7.30976C15.802 9.44976 14.061 11.1918 11.921 11.1918H11.892C9.76002 11.1838 8.03102 9.44376 8.03802 7.30976Z"
+                                fill="black" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M4 18.1731C4 21.8701 9.962 21.8701 11.921 21.8701C15.32 21.8701 19.84 21.4891 19.84 18.1931C19.84 14.4961 13.88 14.4961 11.921 14.4961C8.521 14.4961 4 14.8771 4 18.1731ZM5.5 18.1731C5.5 16.7281 7.66 15.9961 11.921 15.9961C16.181 15.9961 18.34 16.7351 18.34 18.1931C18.34 19.6381 16.181 20.3701 11.921 20.3701C7.66 20.3701 5.5 19.6311 5.5 18.1731Z"
+                                fill="black" />
+                        </svg>
+                    </span>
+                    <span id="userName"></span>
+                </div>
+
+            </div>
+
+            <div class="valet-wraper">
+                <div class="my-valet">
+                    <span>کیف پول من</span>
+                    <p>موجودی 1,200,000 تومان</p>
+                </div>
+            </div>
+
+            <div class="dashboard-line"></div>
+            <ul class="dashboard-ul" id="dashboardMenu">
+
+                <li data-view="dashboard" class="active dashboard-ul__item">
+                    <span>داشبورد</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <title xmlns="">home-03</title>
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5">
+                            <path
+                                d="M3 11.99v2.51c0 3.3 0 4.95 1.025 5.975S6.7 21.5 10 21.5h4c3.3 0 4.95 0 5.975-1.025S21 17.8 21 14.5v-2.51c0-1.682 0-2.522-.356-3.25s-1.02-1.244-2.346-2.276l-2-1.555C14.233 3.303 13.2 2.5 12 2.5s-2.233.803-4.298 2.409l-2 1.555C4.375 7.496 3.712 8.012 3.356 8.74S3 10.308 3 11.99" />
+                            <path
+                                d="M15 21.5v-5c0-1.414 0-2.121-.44-2.56c-.439-.44-1.146-.44-2.56-.44s-2.121 0-2.56.44C9 14.378 9 15.085 9 16.5v5" />
+                        </g>
+                    </svg>
+                </li>
+
+                <li data-view="orders" class="dashboard-ul__item">
+                    <span>سفارش ها</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <title xmlns="">shopping-basket-01</title>
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5">
+                            <path
+                                d="M8 7h8c1.886 0 2.828 0 3.414.586S20 9.114 20 11v4c0 3.3 0 4.95-1.025 5.975S16.3 22 13 22h-2c-3.3 0-4.95 0-5.975-1.025S4 18.3 4 15v-4c0-1.886 0-2.828.586-3.414S6.114 7 8 7" />
+                            <path d="M16 9.5C16 5.634 14.21 2 12 2S8 5.634 8 9.5" />
+                        </g>
+                    </svg>
+                </li>
+
+                <li data-view="favorites" class="dashboard-ul__item">
+                    <span>علاقه‌مندی</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <title xmlns="">favourite</title>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+                    </svg>
+                </li>
+
+                <li data-view="profile" class="dashboard-ul__item">
+                    <span>اطلاعات حساب</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <title xmlns="">user</title>
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5">
+                            <path d="M17 8.5a5 5 0 1 0-10 0a5 5 0 0 0 10 0" />
+                            <path d="M19 20.5a7 7 0 1 0-14 0" />
+                        </g>
+                    </svg>
+                </li>
+
+                <li id="logout" class="dashboard-ul__item">
+                    <span>خروج</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                        <title xmlns="">logout-square-01</title>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M14.5 6c-.047-1.093-.185-1.79-.598-2.326a3 3 0 0 0-.554-.554c-.81-.62-1.985-.62-4.335-.62h-.501c-2.834 0-4.251 0-5.132.879c-.88.878-.88 2.293-.88 5.121v7c0 2.828 0 4.243.88 5.121s2.298.879 5.132.879h.5c2.351 0 3.526 0 4.336-.62q.314-.241.554-.554c.413-.536.551-1.233.598-2.326m6-6h-12m9.5 3.5s3.5-2.578 3.5-3.5S18 8.5 18 8.5" />
+                    </svg>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <main class="content">
+
+            <div class="btn-home">
+                <a class="back-home-btn" href="../index.html">
+                    بازگشت به خانه
+                </a>
+            </div>
+
+            <!-- محتوای هر بخش ساید‌بار اینجا با جی‌اس تزریق میشه (کامپوننت‌ها تو پوشه components) -->
+            <div id="viewContainer"></div>
+
+        </main>
+
+    </div>
+
+    <!-- مودال‌های پروفایل: همیشه تو صفحه هستن، فقط وقتی ویو پروفایل بازه استفاده میشن -->
+    <div class="modal-overlay" id="editModal">
+        <div class="edit-modal">
+            <h2 id="modalTitle"></h2>
+
+            <div class="input-status-field" id="editInputWrap">
+                <input id="editInput" type="text">
+                <span class="input-status-icon" id="editInputIcon">
+                    <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" style="display:none">
+                        <path d="M5 13l4 4L19 7" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </span>
+            </div>
+
+            <textarea id="editTextarea" style="display:none"></textarea>
+
+            <div class="modal-buttons">
+                <button id="saveProfile">ذخیره</button>
+                <button id="closeModal">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="passwordModal">
+        <div class="edit-modal">
+            <h2>تغییر رمز عبور</h2>
+
+            <div class="form-group">
+                <div class="password-field">
+                    <input id="currentPassword" type="password" placeholder="رمز عبور فعلی خود را وارد کنید">
+                    <span class="toggle-password" id="toggleCurrentPassword">
+                        <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="currentColor"
+                                stroke-width="1.5" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" style="display:none">
+                            <path
+                                d="M3 3l18 18M10.6 10.7a3 3 0 0 0 4.2 4.2M6.5 6.7C4 8.3 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.4 4.7-1M9.5 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a15.6 15.6 0 0 1-2.4 3.4"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </div>
+                <p class="field-hint">رمز عبور فعلی حساب کاربری خود را وارد کنید</p>
+            </div>
+
+            <div class="form-group">
+                <div class="password-field">
+                    <input id="newPassword" type="password" placeholder="رمز عبور جدید را وارد کنید">
+                    <span class="toggle-password" id="toggleNewPassword">
+                        <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="currentColor"
+                                stroke-width="1.5" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" style="display:none">
+                            <path
+                                d="M3 3l18 18M10.6 10.7a3 3 0 0 0 4.2 4.2M6.5 6.7C4 8.3 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.4 4.7-1M9.5 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a15.6 15.6 0 0 1-2.4 3.4"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="password-rules" id="passwordRules">
+                    <div id="ruleLength" class="rule-item">
+                        <svg class="rule-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 18 18 6M6 6l12 12" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>حداقل ۸ کاراکتر</span>
+                    </div>
+                    <div id="ruleUpper" class="rule-item">
+                        <svg class="rule-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 18 18 6M6 6l12 12" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>حداقل یک حرف بزرگ (A-Z)</span>
+                    </div>
+                    <div id="ruleLower" class="rule-item">
+                        <svg class="rule-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 18 18 6M6 6l12 12" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>حداقل یک حرف کوچک (a-z)</span>
+                    </div>
+                    <div id="ruleNumber" class="rule-item">
+                        <svg class="rule-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 18 18 6M6 6l12 12" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>حداقل یک عدد (0-9)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="password-field">
+                    <input id="confirmPassword" type="password" placeholder="تکرار رمز عبور جدید">
+                    <span class="toggle-password" id="toggleConfirmPassword">
+                        <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="currentColor"
+                                stroke-width="1.5" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" style="display:none">
+                            <path
+                                d="M3 3l18 18M10.6 10.7a3 3 0 0 0 4.2 4.2M6.5 6.7C4 8.3 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.4 4.7-1M9.5 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a15.6 15.6 0 0 1-2.4 3.4"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </div>
+                <p class="field-hint" id="confirmPasswordHint">رمز عبور جدید را دوباره وارد کنید</p>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="savePassword">ذخیره</button>
+                <button id="closePassword">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <!-- هسته اصلی: روتر، ساید‌بار، توابع مشترک -->
+    <script src="app.js"></script>
+
+    <!-- کامپوننت هر بخش، هر کدوم تو فایل خودش - هر وقت خواستی بخش جدید اضافه کنی
+         فقط یه فایل جدید تو components بساز و همینجا اضافه‌ش کن -->
+    <script src="components/dashboard.js"></script>
+    <script src="components/orders.js"></script>
+    <script src="components/favorites.js"></script>
+    <script src="components/profile.js"></script>
+    <script src="components/order-details.js"></script>
+    <script src="components/invoice.js"></script>
+
+</body>
+
+</html>

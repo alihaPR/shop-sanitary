@@ -1,2 +1,2 @@
-backend/.env
-backend/node_modules
+backend-upload/.env
+backend-upload/node_modules
