@@ -1,0 +1,1084 @@
+   /* --------------------------------------------------------------empty basket--------------------------------------------------------------------------- */
+
+
+   .empty-basket-wraper {
+       padding: 0 0 30px 0;
+   }
+
+   .empty-state {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+       text-align: center;
+       padding: 80px 24px;
+       background: #fff;
+       border-radius: 20px;
+       border: 1px solid #d6d4d4;
+       grid-column: 1 / -1;
+   }
+
+   .empty-state.show {
+       display: flex;
+   }
+
+   .empty-state h3 {
+       font-size: 1.3rem;
+       font-weight: 800;
+       color: #111;
+       margin-bottom: 10px;
+   }
+
+   .empty-state p {
+       font-size: 14px;
+       color: #aaa;
+       margin-bottom: 28px;
+       line-height: 1.7;
+   }
+
+   .btn-primary {
+       display: flex;
+       width: 180px;
+       align-items: center;
+       justify-content: center;
+       gap: 8px;
+       padding: 10px 20px;
+       /* background: #0891b2; */
+       background: #3AA6A0;
+       color: #fff;
+       border-radius: 12px;
+       font-size: 14px;
+       font-weight: 700;
+       text-decoration: none;
+       transition: background 0.2s, transform 0.2s;
+       border: none;
+       cursor: pointer;
+   }
+
+   /* --------------------------------------------------------------empty basket--------------------------------------------------------------------------- */
+
+   .full-basket {
+       padding: 0 0 40px;
+       display: none;
+
+   }
+
+   #filledCart {
+       flex: 1 1 auto;
+   }
+
+   .cart-layout {
+       display: flex;
+       align-items: start;
+       justify-content: space-around;
+       margin-top: 20px;
+       gap: 14px;
+   }
+
+   .cart-item {
+       width: 100%;
+   }
+
+   .cart-items-wrap {
+       display: flex;
+       flex-direction: column;
+       gap: 14px;
+
+   }
+
+   .cart-head {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       margin-bottom: 4px;
+   }
+
+   .cart-head h2 {
+       font-size: 16px;
+       font-weight: 800;
+       color: #111;
+   }
+
+   .clear-btn {
+       font-size: 12.5px;
+       color: #ef4444;
+       font-weight: 600;
+       background: none;
+       border: none;
+       cursor: pointer;
+       font-family: 'Vazirmatn', sans-serif;
+       transition: 0.15s;
+   }
+
+   .clear-btn:hover {
+       color: #dc2626;
+   }
+
+   .cart-item {
+       background: #fff;
+       border-radius: 16px;
+       border: 1px solid #eee;
+       padding: 18px 20px;
+       display: flex;
+       align-items: center;
+       gap: 16px;
+       transition: box-shadow 0.2s;
+   }
+
+   .cart-item:hover {
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+   }
+
+   .item-img {
+       width: 72px;
+       height: 72px;
+       border-radius: 12px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-size: 2rem;
+       flex-shrink: 0;
+       border: 1px solid #e0f2fe;
+       background-repeat: no-repeat;
+       background-size: cover;
+   }
+
+   .image-1 {
+       background-image: url(./img/poshak-bozorg-sal-larg.png);
+
+   }
+
+   .image-2 {
+       background-image: url(./img/navar2.png);
+
+   }
+
+   .image-3 {
+       background-image: url(./img/poshakkodak.png);
+
+   }
+
+   .item-info {
+       flex: 1;
+   }
+
+   .item-info h4 {
+       font-size: 14px;
+       font-weight: 700;
+       color: #111;
+       margin-bottom: 4px;
+   }
+
+   .item-info .item-cat {
+       font-size: 11.5px;
+       color: #0891b2;
+       font-weight: 600;
+       margin-bottom: 6px;
+   }
+
+   .item-info .item-unit {
+       font-size: 12px;
+       color: #aaa;
+   }
+
+   .item-qty {
+       display: flex;
+       align-items: center;
+       gap: 0;
+       border: 1.5px solid #e5e7eb;
+       border-radius: 10px;
+       overflow: hidden;
+   }
+
+   .qty-btn {
+       width: 34px;
+       height: 34px;
+       background: none;
+       border: none;
+       font-size: 1rem;
+       font-weight: 700;
+       color: #555;
+       cursor: pointer;
+       font-family: 'shabnam';
+       transition: background 0.15s, color 0.15s;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }
+
+   .qty-btn:hover {
+       background: #f0f9ff;
+       color: #0891b2;
+   }
+
+   .qty-num {
+       width: 36px;
+       text-align: center;
+       font-size: 14px;
+       font-weight: 700;
+       color: #111;
+       border-right: 1.5px solid #e5e7eb;
+       border-left: 1.5px solid #e5e7eb;
+       padding: 7px 0;
+   }
+
+   .item-price {
+       text-align: left;
+       min-width: 110px;
+   }
+
+   .item-price .price {
+       font-size: 1.05rem;
+       font-weight: 800;
+       color: #111;
+       display: block;
+   }
+
+   .item-price .unit-price {
+       font-size: 11.5px;
+       color: #bbb;
+       margin-top: 2px;
+       display: block;
+   }
+
+   .item-remove {
+       width: 32px;
+       height: 32px;
+       border-radius: 8px;
+       background: #fff5f5;
+       border: 1px solid #fee2e2;
+       color: #ef4444;
+       font-size: 14px;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       transition: 0.15s;
+       flex-shrink: 0;
+   }
+
+   .item-remove:hover {
+       background: #ef4444;
+       color: #fff;
+   }
+
+   /* ── COUPON ── */
+   .coupon-box {
+       background: #fff;
+       border-radius: 16px;
+       border: 1px solid #eee;
+       padding: 18px 20px;
+       display: flex;
+       gap: 10px;
+   }
+
+   .coupon-input {
+       flex: 1;
+       padding: 11px 16px;
+       border: 1.5px solid #e5e7eb;
+       border-radius: 10px;
+       font-size: 13.5px;
+       outline: none;
+       direction: rtl;
+       color: #111;
+       transition: border-color 0.2s;
+   }
+
+   .coupon-input:focus {
+       border-color: #0891b2;
+   }
+
+   .coupon-input::placeholder {
+       color: #bbb;
+   }
+
+   .coupon-btn {
+       padding: 11px 20px;
+       background: #f0f9ff;
+       color: #0891b2;
+       border: 1.5px solid #bae6fd;
+       border-radius: 10px;
+       font-size: 13px;
+       font-weight: 700;
+       cursor: pointer;
+       transition: 0.2s;
+       white-space: nowrap;
+   }
+
+   .coupon-btn:hover {
+       background: #0891b2;
+       color: #fff;
+       border-color: #0891b2;
+   }
+
+   /* ── SUMMARY CARD ── */
+   .summary-card {
+       background: #fff;
+       border-radius: 20px;
+       border: 1px solid #eee;
+       padding: 24px;
+       position: sticky;
+       top: 24px;
+       height: fit-content;
+       flex: 0 0 340px;
+   }
+
+   .summary-card h3 {
+       font-size: 16px;
+       font-weight: 800;
+       color: #111;
+       margin-bottom: 20px;
+   }
+
+   .summary-row {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 10px 0;
+       border-bottom: 1px solid #f5f5f5;
+       font-size: 14px;
+       margin-bottom: 4px;
+   }
+
+   .summary-row:last-of-type {
+       border-bottom: none;
+   }
+
+   .summary-row .label {
+       color: #777;
+   }
+
+   .summary-row .value {
+       font-weight: 600;
+       color: #111;
+   }
+
+   .summary-row .discount {
+       color: #22c55e;
+   }
+
+   .summary-total {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin: 16px 0 20px;
+   }
+
+   .summary-total .label {
+       font-size: 14px;
+       font-weight: 700;
+       color: #111;
+   }
+
+   .summary-total .value {
+       font-size: 1.2rem;
+       font-weight: 800;
+       /* color: #0891b2; */
+       color: #3AA6A0;
+   }
+
+   .summary-total .value small {
+       font-size: 12px;
+       font-weight: 500;
+       color: #aaa;
+       margin-right: 4px;
+   }
+
+   .checkout-btn {
+       display: block;
+       width: 100%;
+       padding: 15px;
+       /* background: linear-gradient(135deg, #0891b2, #06b6d4); */
+       background: linear-gradient(135deg, #2F8C87, #57C3BD);
+       color: #fff;
+       border: none;
+       border-radius: 14px;
+       font-size: 14px;
+       font-weight: 700;
+       cursor: pointer;
+       text-align: center;
+       box-shadow: 0 6px 20px rgba(8, 145, 178, 0.3);
+       transition: transform 0.2s, box-shadow 0.2s;
+       text-decoration: none;
+   }
+
+   .checkout-btn:hover {
+       transform: translateY(-2px);
+       box-shadow: 0 10px 28px rgba(8, 145, 178, 0.4);
+   }
+
+   .secure-note {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 6px;
+       margin-top: 12px;
+       font-size: 11.5px;
+       color: #bbb;
+   }
+
+   .summary-features {
+       margin-top: 20px;
+       padding-top: 18px;
+       border-top: 1px solid #f5f5f5;
+       display: flex;
+       flex-direction: column;
+       gap: 10px;
+   }
+
+   .feat-row {
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       font-size: 12px;
+       color: #666;
+   }
+
+   .feat-icon {
+       width: 28px;
+       height: 28px;
+       background: #f0f9ff;
+       border-radius: 8px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-size: 13px;
+       flex-shrink: 0;
+   }
+
+   /* toast */
+   .toast {
+       position: fixed;
+       bottom: 24px;
+       left: 50%;
+       transform: translateX(-50%) translateY(16px);
+       background: #111;
+       color: #fff;
+       padding: 12px 24px;
+       border-radius: 10px;
+       font-size: 13.5px;
+       font-weight: 500;
+       opacity: 0;
+       transition: all 0.25s;
+       z-index: 999;
+       pointer-events: none;
+   }
+
+   .toast.show {
+       opacity: 1;
+       transform: translateX(-50%) translateY(0);
+   }
+
+   /* toggle btns */
+   .demo-toggle {
+       display: flex;
+       gap: 10px;
+       justify-content: center;
+       padding: 20px 0 0;
+   }
+
+   .toggle-btn {
+       padding: 8px 20px;
+       border-radius: 8px;
+       border: 1.5px solid #0891b2;
+       background: none;
+       color: #0891b2;
+       font-family: 'shabnam';
+       font-size: 13px;
+       font-weight: 600;
+       cursor: pointer;
+       transition: 0.15s;
+   }
+
+   .toggle-btn:hover,
+   .toggle-btn.active {
+       background: #0891b2;
+       color: #fff;
+   }
+
+
+   /* -------------------------------- Responsive -------------------------------- */
+
+   @media (max-width:1024px) {
+
+       .header {
+           display: none;
+       }
+
+       .main-header {
+           margin-bottom: 20px;
+       }
+
+
+       /* ---------- Layout ---------- */
+
+       .cart-layout {
+
+           display: flex;
+           flex-direction: column;
+
+           gap: 24px;
+
+       }
+
+       #filledCart {
+
+           width: 100%;
+           order: 1;
+
+       }
+
+       .summary-card {
+
+           width: 100%;
+           max-width: none;
+
+           position: static;
+
+           order: 2;
+
+       }
+
+       /* ---------- Cart Header ---------- */
+
+       .cart-head {
+
+           padding-bottom: 18px;
+
+       }
+
+       /* ---------- Coupon ---------- */
+
+       .coupon-box {
+
+           width: 100%;
+
+       }
+
+       .coupon-input {
+
+           flex: 1;
+
+       }
+
+       /* ---------- Checkout ---------- */
+
+       .checkout-btn {
+
+           width: 100%;
+
+       }
+
+       /* ---------- Summary ---------- */
+
+       .summary-features {
+
+           margin-top: 18px;
+
+       }
+
+
+   }
+
+   @media (max-width:768px) {
+
+       /* ---------- Breadcrumb ---------- */
+
+       .breadcrumb {
+           font-size: 12px;
+           gap: 8px;
+           flex-wrap: wrap;
+       }
+
+       /* ---------- Cart Header ---------- */
+
+       .cart-head h2 {}
+
+       .clear-btn {
+           font-size: 12px;
+       }
+
+       /* ---------- Coupon ---------- */
+
+       .coupon-box {
+           gap: 10px;
+       }
+
+       .coupon-input {
+           height: 42px;
+           font-size: 13px;
+       }
+
+       .coupon-btn {
+           height: 42px;
+           padding: 0 18px;
+           font-size: 12px;
+       }
+
+       /* ---------- Summary ---------- */
+
+       .summary-card {
+           padding: 22px;
+           border-radius: 14px;
+       }
+
+       .summary-card h3 {}
+
+       .summary-row {
+           font-size: 13px;
+       }
+
+       .summary-total .label {
+           font-size: 15px;
+       }
+
+       .summary-total .value {
+           font-size: 22px;
+       }
+
+       .summary-total small {
+           font-size: 12px;
+       }
+
+       .checkout-btn {
+           height: 48px;
+           font-size: 14px;
+       }
+
+       /* ---------- Features ---------- */
+
+       .summary-features {
+           gap: 12px;
+       }
+
+       .feat-row {
+           font-size: 12px;
+       }
+
+       .feat-icon {
+           width: 34px;
+           height: 34px;
+       }
+
+       .feat-icon svg {
+           width: 18px;
+           height: 18px;
+       }
+
+       /* ---------- Empty Cart ---------- */
+
+       .empty-state {
+           padding: 45px 20px;
+       }
+
+       .empty-state svg {
+           width: 110px;
+           height: 110px;
+       }
+
+       .empty-state h3 {
+           font-size: 20px;
+       }
+
+       .empty-state p {
+           font-size: 13px;
+           line-height: 2;
+       }
+
+       .empty-state .btn-primary {
+           height: 46px;
+           font-size: 14px;
+           padding: 0 24px;
+       }
+
+   }
+
+   @media (max-width:576px) {
+
+       /* فاصله کلی */
+       .cart-layout {
+           gap: 20px;
+       }
+
+       /* کارت محصول */
+       .cart-item {
+           display: grid;
+           grid-template-columns: 80px 1fr;
+           grid-template-areas:
+               "image info"
+               "image qty"
+               "price remove";
+           gap: 14px;
+           padding: 16px;
+       }
+
+       .item-img {
+           grid-area: image;
+           width: 80px;
+           height: 80px;
+           margin: auto;
+       }
+
+       .item-info {
+           grid-area: info;
+       }
+
+       .item-info h4 {
+           font-size: 15px;
+           line-height: 1.7;
+       }
+
+       .item-cat,
+       .item-unit {
+           font-size: 12px;
+       }
+
+       .item-qty {
+           grid-area: qty;
+           width: 100px;
+           justify-content: flex-start;
+           margin-top: 6px;
+       }
+
+       .item-price {
+           grid-area: price;
+           display: flex;
+           align-items: center;
+           gap: 5px;
+           font-size: 15px;
+           font-weight: 700;
+       }
+
+       .item-remove {
+           grid-area: remove;
+           justify-self: end;
+           align-self: center;
+       }
+
+       /* کد تخفیف */
+
+       .coupon-box {
+           flex-direction: column;
+           gap: 10px;
+       }
+
+       .coupon-input,
+       .coupon-btn {
+           width: 100%;
+       }
+
+       /* خلاصه سفارش */
+
+       .summary-card {
+           padding: 18px;
+       }
+
+       .summary-row,
+       .summary-total {
+           font-size: 13px;
+       }
+
+       .checkout-btn {
+           height: 46px;
+           font-size: 14px;
+       }
+
+       .feat-row {
+           font-size: 12px;
+           line-height: 1.8;
+       }
+
+   }
+
+   @media (max-width:430px) {
+
+       .container {
+           padding-inline: 12px;
+       }
+
+       /* Breadcrumb */
+
+       .breadcrumb {
+           font-size: 11px;
+           gap: 5px;
+       }
+
+       /* عنوان */
+
+       .cart-head h2 {}
+
+       .clear-btn {
+           font-size: 12px;
+       }
+
+       /* کارت محصول */
+
+       .cart-item {
+           padding: 14px;
+           gap: 12px;
+       }
+
+       .item-img {
+           width: 72px;
+           height: 72px;
+       }
+
+       .item-info h4 {
+           font-size: 14px;
+       }
+
+       .item-cat,
+       .item-unit {
+           font-size: 11px;
+       }
+
+       .item-qty {
+           width: 90px;
+       }
+
+       .qty-btn {
+           width: 26px;
+           height: 26px;
+           font-size: 16px;
+       }
+
+       .qty-num {
+           font-size: 13px;
+       }
+
+       .item-price {
+           font-size: 14px;
+       }
+
+       .unit-price {
+           font-size: 11px;
+       }
+
+       .item-remove {
+           width: 28px;
+           height: 28px;
+           font-size: 15px;
+       }
+
+       /* کد تخفیف */
+
+       .coupon-input {
+           height: 42px;
+           font-size: 12px;
+       }
+
+       .coupon-btn {
+           height: 42px;
+           font-size: 13px;
+       }
+
+       /* خلاصه سفارش */
+
+       .summary-card {
+           padding: 16px;
+       }
+
+       .summary-card h3 {}
+
+       .summary-row,
+       .summary-total {
+           font-size: 12px;
+       }
+
+       .checkout-btn {
+           height: 44px;
+           font-size: 13px;
+       }
+
+       .secure-note {
+           font-size: 11px;
+       }
+
+       .feat-row {
+           font-size: 11px;
+       }
+
+   }
+
+   @media (max-width:360px) {
+
+       .container {
+           padding-inline: 10px;
+       }
+
+       /* Breadcrumb */
+
+       .breadcrumb {
+           font-size: 10px;
+           gap: 4px;
+       }
+
+       /* Steps */
+
+       .steps {
+           gap: 8px;
+           margin-bottom: 18px;
+       }
+
+       .step {
+           gap: 6px;
+       }
+
+       .step-num {
+           width: 28px;
+           height: 28px;
+           font-size: 11px;
+       }
+
+       .step-label {
+           font-size: 10px;
+       }
+
+       /* Cart */
+
+       .cart-items-wrap {
+           padding: 14px;
+       }
+
+       .cart-head h2 {
+           font-size: 14px;
+       }
+
+       .clear-btn {
+           font-size: 11px;
+       }
+
+       /* Cart Item */
+
+       .cart-item {
+           grid-template-columns: 65px 1fr;
+           gap: 10px;
+           padding: 12px;
+       }
+
+       .item-img {
+           width: 65px;
+           height: 65px;
+       }
+
+       .item-info h4 {
+           font-size: 13px;
+           line-height: 1.6;
+       }
+
+       .item-cat,
+       .item-unit {
+           font-size: 10px;
+       }
+
+       .item-qty {
+           width: 82px;
+       }
+
+       .qty-btn {
+           width: 24px;
+           height: 24px;
+           font-size: 15px;
+       }
+
+       .qty-num {
+           font-size: 12px;
+       }
+
+       .item-price {
+           font-size: 13px;
+       }
+
+       .unit-price {
+           font-size: 10px;
+       }
+
+       .item-remove {
+           width: 26px;
+           height: 26px;
+           font-size: 14px;
+       }
+
+       /* Coupon */
+
+       .coupon-input,
+       .coupon-btn {
+           height: 40px;
+           font-size: 11px;
+       }
+
+       /* Summary */
+
+       .summary-card {
+           padding: 14px;
+       }
+
+       .summary-card h3 {
+           font-size: 14px;
+       }
+
+       .summary-row {
+           font-size: 11px;
+       }
+
+       .summary-total .label {
+           font-size: 13px;
+       }
+
+       .summary-total .value {
+           font-size: 18px;
+       }
+
+       .summary-total small {
+           font-size: 10px;
+       }
+
+       .checkout-btn {
+           height: 42px;
+           font-size: 12px;
+       }
+
+       .secure-note {
+           font-size: 10px;
+       }
+
+       .feat-row {
+           font-size: 10px;
+           line-height: 1.7;
+       }
+
+       .feat-icon {
+           width: 28px;
+           height: 28px;
+       }
+
+       .feat-icon svg {
+           width: 15px;
+           height: 15px;
+       }
+
+       /* Empty Cart */
+
+       .empty-state {
+           padding: 26px 14px;
+       }
+
+       .empty-state svg {
+           width: 72px;
+           height: 72px;
+       }
+
+       .empty-state h3 {
+           font-size: 16px;
+       }
+
+       .empty-state p {
+           font-size: 11px;
+       }
+
+       .empty-state .btn-primary {
+           height: 40px;
+           font-size: 12px;
+       }
+
+   }
