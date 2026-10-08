@@ -19,7 +19,6 @@ body::selection {
     color: #fff;
 }
 
-
 :root {
     --bg-color-1: #777676;
     --bg-color-2: #000000;
@@ -30,7 +29,6 @@ body::selection {
     --bg-color-7: #b6b4b4;
     --bg-color-8: #e2dbdb;
 }
-
 
 @font-face {
     font-family: "regular";
@@ -52,15 +50,7 @@ body::selection {
     src: url(../font/iranyekanwebextrabold.9346e9a2.9346e9a2.woff) format("woff");
 }
 
-
 /* ----------------------------------------------- header -----------------------------------------------  */
-
-.container {
-    width: 100%;
-    max-width: 1245px;
-    margin: 0 auto;
-    padding: 0 16px;
-}
 
 .header {
     padding-top: 10px;
@@ -92,32 +82,6 @@ body::selection {
     text-decoration: none;
     color: black;
     cursor: pointer;
-}
-
-.site-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1.4;
-    flex-shrink: 0;
-}
-
-.site-logo-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #111;
-    letter-spacing: -0.3px;
-}
-
-.site-logo-title strong {
-    color: #3AA6A0;
-    font-weight: 800;
-}
-
-.site-logo-sub {
-    font-size: 10.5px;
-    font-weight: 400;
-    color: #999;
 }
 
 .search-wraper {
@@ -182,34 +146,6 @@ body::selection {
     border: 1.5px solid #eee;
 }
 
-.header-basket {
-    position: relative;
-}
-
-.cart-badge {
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    /* background: #ef4444; */
-    background-color: #000000;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.header-basket svg {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-}
-
-
 .header-main-left a.user-btn {
     width: 60px;
     height: 35px;
@@ -224,115 +160,9 @@ body::selection {
     align-items: center;
 }
 
-
-
-.user-dropdown {
-    position: absolute;
-    top: 55px;
-    left: 0;
-    width: 230px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
-    display: none;
-    overflow: hidden;
-    z-index: 999;
-    padding: 6px 0;
-}
-
-.user-dropdown-header {
-    cursor: pointer;
-    display: flex;
-    direction: rtl;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 12px 16px;
-}
-
-.name {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
 .name-svg {
     transform: rotate(90deg);
 }
-
-.user-dropdown-avatar {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #3AA6A0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.user-dropdown-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #222;
-}
-
-
-.user-dropdown-divider {
-    width: 100%;
-    height: 1px;
-    background: #f0ecec;
-    margin: 4px 0;
-}
-
-.user-dropdown a,
-.user-dropdown button {
-
-    width: 100%;
-    padding: 12px 16px;
-    display: block;
-    background: none;
-    border: none;
-    text-align: right;
-    text-decoration: none;
-    color: #333;
-    cursor: pointer;
-    font-size: 14px;
-
-}
-
-.user-dropdown .user-dropdown-item {
-    display: flex !important;
-    direction: rtl;
-    align-items: center;
-    justify-content: flex-start !important;
-    gap: 10px;
-    height: auto;
-    padding: 12px 16px ;
-}
-
-.user-dropdown-item svg {
-    flex-shrink: 0;
-    color: #777;
-}
-
-.user-dropdown-logout {
-    color: #333 !important;
-}
-
-.user-dropdown-logout svg {
-    color: #000000;
-}
-
-.user-dropdown a:hover,
-.user-dropdown button:hover {
-
-    background: #f6f6f6;
-
-}
-
-
 
 /* ------------------------------ شیت پایین صفحه (دسته‌بندی محصولات در موبایل/تبلت) ------------------------------ */
 /* این استایل عیناً از products.css گرفته شده تا کارکرد شیت موبایل در صفحه اصلی هم فعال بشه */
@@ -398,8 +228,6 @@ body::selection {
     cursor: pointer;
 }
 
-
-
 /* -----------------------------------------header-nav 👇------------------------------------------------ */
 
 .header-nav {
@@ -415,14 +243,11 @@ body::selection {
 
 .header-nav-wraper {}
 
-
 .li-category {
     position: relative;
     transition: 0.3s ease;
     padding: 19.5px 0;
 }
-
-
 
 .daste-bandy-wraper {
     width: 300px;
@@ -448,8 +273,6 @@ body::selection {
     visibility: visible;
     opacity: 1;
 }
-
-
 
 .daste-bandt-items {
     cursor: pointer;
@@ -719,7 +542,6 @@ body::selection {
     display: block;
 }
 
-
 /* -----------------------------------------footer👇------------------------------------------------ */
 .footer {
     width: 100%;
@@ -742,11 +564,10 @@ body::selection {
 .footer-content {
     display: flex;
     align-items: start;
-    justify-content: space-between;
-    gap: 40px;
+    justify-content: space-around;
+    gap: 48px;
     padding: 48px 0 40px;
     border-bottom: 1px solid #f0f0f0;
-    flex-wrap: wrap;
 }
 
 .footer-brand .logo {
@@ -825,13 +646,6 @@ body::selection {
     transform: translateY(-2px);
 }
 
-.footer-links {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    gap: 85px;
-}
-
 .footer-collapse {
     font-weight: bold;
     font-size: 16px;
@@ -874,7 +688,6 @@ body::selection {
     color: #3AA6A0;
 }
 
-
 .contact-list {
     display: flex;
     flex-direction: column;
@@ -915,7 +728,6 @@ body::selection {
     font-size: 13.5px;
     text-decoration: none;
 }
-
 
 .footer-govahi {
     display: flex;
@@ -961,11 +773,10 @@ body::selection {
     font-size: 13px;
 }
 
-
 .footer-bottom {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 16px 0;
     gap: 16px;
     flex-wrap: wrap;
@@ -975,8 +786,6 @@ body::selection {
     font-size: 12.5px;
     color: #bbb;
 }
-
-
 
 .toast {
     position: fixed;
@@ -1084,7 +893,6 @@ body::selection {
     border-bottom: 1px solid #f0f0f0;
 }
 
-
 [data-anim] {
     opacity: 0;
     transition-property: opacity, transform;
@@ -1123,12 +931,7 @@ body::selection {
 
 /* ------- Responsive ------- */
 
-
 @media (max-width: 1200px) {
-
-    .container {
-        max-width: 1120px;
-    }
 
     .header-main-right {
         gap: 12px;
@@ -1158,7 +961,6 @@ body::selection {
     .phone p {
         font-size: 14px;
     }
-
 
     .bannerSwiper {
         height: 260px;
@@ -1208,7 +1010,6 @@ body::selection {
     .category-cart_text {
         font-size: 13px;
     }
-
 
     .main-pruducts {
         margin: 50px 0 110px;
@@ -1268,7 +1069,6 @@ body::selection {
         margin-right: 0;
     }
 
-
     .footer-container {
         max-width: 1120px;
     }
@@ -1276,10 +1076,6 @@ body::selection {
     .footer-content {
         gap: 32px;
         padding: 42px 0 36px;
-    }
-
-    .footer-brand {
-        max-width: 240px;
     }
 
     .footer-desc {
@@ -1340,7 +1136,6 @@ body::selection {
 
     /* Container */
 
-    .container,
     .footer-container {
         max-width: 960px;
         padding: 0 20px;
@@ -1604,7 +1399,6 @@ body::selection {
         left: -6px;
     }
 
-
     /* Main Products */
 
     .main-pruducts {
@@ -1683,17 +1477,8 @@ body::selection {
         padding: 35px 0;
     }
 
-    .footer-brand {
-        width: 100%;
-    }
-
     .footer-desc {
         max-width: 100%;
-    }
-
-    .footer-col {
-        width: 100%;
-        border-top: 1px solid #efefef;
     }
 
     .footer-col-2 {
@@ -1745,18 +1530,10 @@ body::selection {
         gap: 11px;
     }
 
-
     .footer-content {
         display: flex;
         flex-direction: column;
         gap: 30px;
-    }
-
-    .footer-links {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
     }
 
     .footer-khabarname {
@@ -1787,15 +1564,6 @@ body::selection {
         gap: 18px;
     }
 
-    .footer-trust {
-        flex-direction: row;
-        width: 100%;
-    }
-
-    .footer-trust .trust-badge {
-        flex: 1;
-    }
-
     .footer-govahi {
         width: 100%;
         justify-content: flex-start;
@@ -1809,15 +1577,12 @@ body::selection {
         padding: 18px 0 18px;
     }
 
-
-
 }
 
 @media (max-width:900px) {
 
     /* Container */
 
-    .container,
     .footer-container {
         padding: 0 18px;
     }
@@ -1994,10 +1759,8 @@ body::selection {
 
 @media (max-width:820px) {
 
-
     /* Container */
 
-    .container,
     .footer-container {
         padding: 0 16px;
     }
@@ -2228,7 +1991,6 @@ body::selection {
         height: 20px;
     }
 
-
     /* ================= Main Head ================= */
 
     .bannerSwiper {
@@ -2287,7 +2049,6 @@ body::selection {
         position: relative;
         overflow: hidden;
     }
-
 
     .categorySwiper .swiper-wrapper {
         justify-content: flex-start;
@@ -2399,13 +2160,6 @@ body::selection {
 
     /* ================= Brand ================= */
 
-    .footer-brand {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     .footer-brand-wrapper {
         display: flex;
         flex-direction: column;
@@ -2464,16 +2218,6 @@ body::selection {
 
     /* ================= Links ================= */
 
-    .footer-links {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .footer-col {
-        flex: 1;
-    }
-
     .footer-collapse {
         cursor: default;
     }
@@ -2526,12 +2270,7 @@ body::selection {
 
 @media (max-width:576px) {
 
-
     /* Container */
-
-    .container {
-        width: 100%;
-    }
 
     /* ---------- Header ---------- */
 
@@ -2744,10 +2483,6 @@ body::selection {
 
 @media (max-width:430px) {
 
-    .container {
-        padding-inline: 14px;
-    }
-
     /* ---------- Header ---------- */
 
     .mobile-header {
@@ -2892,10 +2627,6 @@ body::selection {
 }
 
 @media (max-width:360px) {
-
-    .container {
-        padding-inline: 12px;
-    }
 
     /* ---------- Header ---------- */
 
@@ -3052,4 +2783,857 @@ body::selection {
         font-size: 9px;
     }
 
+}
+
+
+/* =====================================================================
+   هدر + فوتر + جستجوی جدید (مشترک بین همه‌ی صفحه‌ها)
+   از index.css به اینجا منتقل شده؛ هر صفحه فقط کافی است global.css را لینک کند.
+   اندازه‌ها ۱۰٪ کوچک‌تر از طرح فیگما هستند.
+   نکته: قانون‌های قدیمی هدر/فوتر که با اسم‌های مشترک (.container، .user-dropdown*،
+   .cart-badge، .header-basket، .footer-links، .footer-col، .footer-brand) تداخل داشتند
+   از بالای همین فایل حذف شدند و نسخه‌ی کامل‌شان در global.legacy-removed.css هست.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------- توکن‌های مشترک */
+:root {
+    --mint: #97ded6;
+    --ink: #1a5f63;
+    --teal: #349fa1;
+    --glass-bg: rgba(255, 255, 255, .2);
+    --glass-bd: rgba(255, 255, 255, .35);
+
+    --f-sh: "Shabnam", "Vazirmatn", "Yekan", Tahoma, sans-serif;
+    /* تیترها و قیمت */
+    --f-vz: "Vazirmatn", "Yekan", Tahoma, sans-serif;
+    /* متن‌ها */
+
+    --container: 1158.3px;
+    --gutter: 14.4px;
+    --section-gap: 81px;
+    /* سکشن تا سکشن، و تا فوتر */
+    --shadow-card: 0 9px 14.4px rgba(0, 0, 0, .07);
+    --shadow-soft: 0 9px 28.8px rgba(0, 0, 0, .07);
+}
+
+/* ---------------------------------------------------------------- فونت‌ها */
+@font-face {
+    font-family: "Shabnam";
+    font-weight: 300;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/Shabnam-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Shabnam";
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/Shabnam.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Shabnam";
+    font-weight: 500;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/Shabnam-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Shabnam";
+    font-weight: 700;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/Shabnam-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Yekan";
+    font-weight: 400;
+    font-display: swap;
+    src: url(../font/iranyekanwebregular.b95439c1.b95439c1.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Yekan";
+    font-weight: 500;
+    font-display: swap;
+    src: url(../font/iranyekanwebmedium.2d4f96e5.2d4f96e5.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Yekan";
+    font-weight: 700;
+    font-display: swap;
+    src: url(../font/iranyekanwebbold.e298fdc6.e298fdc6.woff) format("woff");
+}
+
+/* ---------------------------------------------------------------- پایه‌ی مخصوص هدر/فوتر/جستجو
+   (با :where اولویت صفر دارند تا به استایل صفحه‌ها دست نزنند) */
+:where(.site-header, .site-footer, .spot) a {
+    color: inherit;
+    text-decoration: none;
+}
+
+:where(.site-header, .site-footer, .spot) img {
+    display: block;
+    max-width: none;
+}
+
+:where(.site-header, .site-footer, .spot) button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    border: 0;
+    background: none;
+}
+
+.container {
+    width: min(var(--container), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+}
+
+.glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-bd);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+/* ================================================================ هدر */
+.site-header {
+    position: relative;
+    z-index: 10;
+    padding-top: 31.5px;
+}
+
+.site-header__row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 49.5px;
+}
+
+.brand {
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    gap: 12.6px;
+}
+
+.brand img {
+    width: 27px;
+    height: 27px;
+    border-radius: 9px;
+}
+
+.brand span {
+    font: 700 20.7px/27.9px var(--f-sh);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+/* منو: ۵۰۸×۵۵ ، قرص فعال ۱۲۲×۴۳ */
+.main-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 109.8px);
+    justify-content: space-between;
+    align-items: center;
+    width: 457.2px;
+    height: 49.5px;
+    padding: 4.5px;
+    border-radius: 22.5px;
+}
+
+.main-nav a {
+    display: grid;
+    place-items: center;
+    height: 38.7px;
+    border-radius: 18px;
+    border: 1px solid transparent;
+    font: 500 12.6px/15.3px var(--f-vz);
+    color: #fafafa;
+    white-space: nowrap;
+    transition: background .2s, box-shadow .2s;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, .28);
+}
+
+.main-nav a.is-current {
+    background: #fff;
+    border-color: rgba(235, 235, 235, .65);
+    color: #000;
+    box-shadow: var(--shadow-soft);
+}
+
+/* سبد و حساب: ۱۲۲×۵۵ */
+.site-header__row>.search-trigger,
+.site-header__row>.header-actions {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.header-actions {
+    position: relative;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10.4px;
+    width: 143px;
+    height: 49.5px;
+    padding-left: 15px;
+    border-radius: 22.5px;
+}
+
+.header-basket {
+    position: relative;
+    display: block;
+    width: 16.2px;
+    height: 16.2px;
+}
+
+.header-basket svg {
+    width: 16.2px;
+    height: 16.2px;
+}
+
+.header-basket path,
+.profile-btn path {
+    fill: #000;
+}
+
+.cart-badge {
+    position: absolute;
+    left: 24.3px;
+    top: -6.3px;
+    width: 12.6px;
+    height: 12.6px;
+    /* موقعیت نشان نسبت به آیکن سبد */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5.4px;
+    background: var(--ink);
+    color: #fff;
+    font: 900 7.2px/1 var(--f-vz);
+}
+
+.profile-btn {
+    display: grid;
+    place-items: center;
+    width: 28.8px;
+    height: 28.8px;
+    border-radius: 14.4px;
+    background: rgba(255, 255, 255, .31);
+    border: 1px solid var(--glass-bd);
+    transition: background .2s;
+}
+
+.profile-btn:hover {
+    background: rgba(255, 255, 255, .55);
+}
+
+.profile-btn svg {
+    width: 16.2px;
+    height: 16.2px;
+}
+
+/* بعد از ورود، authUI.js محتوای دکمه را عوض می‌کند: همان شیشه‌ای می‌ماند، آیکن تیره، فلش کوچک پنهان */
+.profile-btn.user-btn svg:nth-of-type(n+2) {
+    display: none;
+}
+
+.profile-btn.user-btn svg path {
+    fill: #000;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 0;
+    width: 207px;
+    padding: 5.4px 0;
+    background: #fff;
+    border-radius: 16.2px;
+    box-shadow: 0 12.6px 36px rgba(26, 95, 99, .18);
+    display: none;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.user-dropdown-header {
+    cursor: pointer;
+    padding: 10.8px 14.4px;
+}
+
+.user-dropdown .name {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.user-dropdown-avatar {
+    width: 30.6px;
+    height: 30.6px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: grid;
+    place-items: center;
+}
+
+.user-dropdown-name {
+    font: 700 12.6px var(--f-vz);
+    color: var(--ink);
+}
+
+.user-dropdown-divider {
+    height: 1px;
+    background: #eef1f1;
+    margin: 3.6px 0;
+}
+
+.user-dropdown a,
+.user-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10.8px 14.4px;
+    text-align: right;
+    font: 400 12.6px var(--f-vz);
+    color: #333;
+}
+
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+    background: #f4f8f7;
+}
+
+/* ================================================================ فوتر */
+.site-footer {
+    margin-top: var(--section-gap);
+    padding-bottom: 56.7px;
+}
+
+.footer-card {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    min-height: 279px;
+    padding: 43.2px;
+    background: #fff;
+    border: 1px solid var(--glass-bd);
+    border-radius: 28.8px;
+    box-shadow: 0 9px 14.4px rgba(0, 0, 0, .05);
+}
+
+.footer-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer-brand {
+    flex: none;
+    width: 270px;
+}
+
+.footer-brand__logo {
+    display: flex;
+    align-items: center;
+    gap: 10.8px;
+}
+
+.footer-brand__logo img {
+    width: 27px;
+    height: 27px;
+    border-radius: 9px;
+}
+
+.footer-brand__logo span {
+    font: 700 16.2px/19.8px var(--f-sh);
+    color: var(--ink);
+}
+
+.footer-brand p {
+    margin-top: 14.4px;
+    font: 400 12.6px/19.8px var(--f-vz);
+    color: var(--ink);
+    opacity: .8;
+}
+
+.footer-links {
+    display: flex;
+    gap: 72px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10.8px;
+}
+
+.footer-col h4 {
+    font: 700 12.6px/17.1px var(--f-vz);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.footer-col a,
+.footer-col span {
+    font: 400 10.8px/17.1px var(--f-vz);
+    color: var(--ink);
+    opacity: .7;
+    white-space: nowrap;
+}
+
+.footer-col a:hover {
+    opacity: 1;
+}
+
+.trust-badges {
+    flex: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 8.1px;
+    min-width: 151.2px;
+    margin-left: 63.9px;
+}
+
+.trust-badges img {
+    width: auto;
+    max-height: 107.1px;
+}
+
+.footer-card__bottom {
+    height: 17.1px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+}
+
+/* ارتفاع ثابت؛ آیتم‌های پایین با margin از آن بیرون می‌زنند، مثل طرح */
+.socials {
+    justify-self: start;
+    display: flex;
+    margin-top: 21.6px;
+}
+
+.socials a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    transition: background .2s;
+}
+
+.socials a:hover {
+    background: #e5f4f2;
+}
+
+.copy {
+    margin-top: 52.2px;
+    text-align: center;
+    font: 400 10.8px/17.1px var(--f-vz);
+    color: var(--ink);
+    opacity: .6;
+}
+
+.to-top {
+    justify-self: end;
+    margin: 17.1px 0 0 -11.7px;
+    display: grid;
+    place-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 22.5px;
+    background: var(--teal);
+    border: 1px solid var(--glass-bd);
+    box-shadow: 0 9px 14.4px rgba(0, 0, 0, .05);
+    transition: transform .2s;
+}
+
+.to-top:hover {
+    transform: translateY(-2.7px);
+}
+
+/* ================================================================ جستجو */
+.search-trigger {
+    justify-self: start;
+    /* margin-inline-start: 10.8px; */
+    display: grid;
+    place-items: center;
+    /* width: 49.5px; */
+    /* height: 49.5px; */
+    padding: 0;
+    border-radius: 50%;
+    
+    /* transition: background .25s, transform .25s; */
+}
+
+.search-trigger:hover {
+    /* background: rgba(255, 255, 255, .45); */
+    transform: scale(1.05);
+}
+
+.search-trigger svg {
+    transition: transform .25s;
+}
+
+.search-trigger:hover svg {
+    /* transform: rotate(-8deg) scale(1.08); */
+}
+
+/* اسپات‌لایت: تمام صفحه، اطراف تار، پنل وسط */
+.spot {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    padding: 14vh 14.4px 21.6px;
+}
+
+.spot[hidden] {
+    display: none;
+}
+
+.spot__backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(151, 222, 214, .35), rgba(19, 78, 74, .45));
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    opacity: 0;
+    transition: opacity .3s ease, backdrop-filter .3s ease, -webkit-backdrop-filter .3s ease;
+}
+
+.spot.is-open .spot__backdrop {
+    opacity: 1;
+    backdrop-filter: blur(16px) saturate(1.15);
+    -webkit-backdrop-filter: blur(16px) saturate(1.15);
+}
+
+.spot__panel {
+    position: relative;
+    width: min(594px, 100%);
+    max-height: calc(100vh - 14vh - 21.6px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .84);
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 25.2px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 27px 72px rgba(19, 78, 74, .3), 0 2px 0 rgba(255, 255, 255, .6) inset;
+    opacity: 0;
+    transform: translateY(-12.6px) scale(.96);
+    transform-origin: 50% 0;
+    transition: opacity .28s ease, transform .35s cubic-bezier(.2, .9, .3, 1.15);
+}
+
+.spot.is-open .spot__panel {
+    opacity: 1;
+    transform: none;
+}
+
+.spot__bar {
+    display: flex;
+    align-items: center;
+    gap: 12.6px;
+    height: 61.2px;
+    padding-inline: 19.8px 14.4px;
+    border-bottom: 1px solid rgba(26, 95, 99, .1);
+}
+
+.spot__ico {
+    flex: none;
+    color: var(--teal);
+}
+
+.spot__bar input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: 500 15.3px var(--f-vz);
+    color: var(--ink);
+}
+
+.spot__bar input::placeholder {
+    color: #8fb1ae;
+    font-weight: 400;
+}
+
+.spot__bar input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.spot__esc {
+    flex: none;
+    padding: 4.5px 9px;
+    border-radius: 8.1px;
+    background: rgba(26, 95, 99, .08);
+    color: var(--ink);
+    font: 500 9.9px var(--f-vz);
+    letter-spacing: .04em;
+    transition: background .2s;
+}
+
+.spot__esc:hover {
+    background: rgba(26, 95, 99, .16);
+}
+
+.spot__body {
+    overflow-y: auto;
+    padding: 9px 9px 10.8px;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+
+.spot__label {
+    padding: 7.2px 12.6px 5.4px;
+    font: 500 10.8px var(--f-vz);
+    color: #7aa09d;
+}
+
+.spot__item {
+    display: flex;
+    align-items: center;
+    gap: 12.6px;
+    width: 100%;
+    padding: 7.2px 10.8px;
+    border-radius: 14.4px;
+    text-align: right;
+    transition: background .15s;
+}
+
+.spot__item:hover,
+.spot__item.is-active {
+    background: rgba(151, 222, 214, .3);
+}
+
+.spot__item.is-active {
+    box-shadow: 0 0 0 1.5px rgba(52, 159, 161, .45) inset;
+}
+
+.spot__thumb {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 48.6px;
+    height: 48.6px;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .8);
+    border-radius: 11.7px;
+    overflow: hidden;
+}
+
+.spot__thumb img {
+    width: 39.6px;
+    height: 39.6px;
+    object-fit: contain;
+}
+
+.spot__txt {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.spot__name {
+    font: 700 12.6px/19.8px var(--f-sh);
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spot__name mark {
+    background: rgba(52, 159, 161, .22);
+    color: inherit;
+    border-radius: 3.6px;
+    padding-inline: 1px;
+}
+
+.spot__cat {
+    font: 400 10.8px var(--f-vz);
+    color: #7aa09d;
+}
+
+.spot__price {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 5.4px;
+    font: 700 12.6px var(--f-sh);
+    color: var(--ink);
+}
+
+.spot__price img {
+    width: 16.2px;
+    height: 16.2px;
+}
+
+.spot__go {
+    flex: none;
+    color: var(--teal);
+    opacity: 0;
+    transform: translateX(5.4px);
+    transition: opacity .2s, transform .2s;
+}
+
+.spot__item:hover .spot__go,
+.spot__item.is-active .spot__go {
+    opacity: 1;
+    transform: none;
+}
+
+.spot__hist {
+    display: flex;
+    align-items: center;
+    gap: 10.8px;
+    padding: 3.6px 10.8px 3.6px 5.4px;
+    border-radius: 12.6px;
+    transition: background .15s;
+}
+
+.spot__hist:hover,
+.spot__hist.is-active {
+    background: rgba(151, 222, 214, .3);
+}
+
+.spot__hist .spot__item {
+    padding: 7.2px 5.4px;
+    border-radius: 10.8px;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.spot__hist svg {
+    flex: none;
+    color: #9bbab7;
+}
+
+.spot__x {
+    flex: none;
+    width: 25.2px;
+    height: 25.2px;
+    border-radius: 50%;
+    color: #8fb1ae;
+    font-size: 16.2px;
+    line-height: 1;
+    transition: background .15s, color .15s;
+}
+
+.spot__x:hover {
+    background: rgba(26, 95, 99, .12);
+    color: var(--ink);
+}
+
+.spot__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7.2px;
+    padding: 3.6px 10.8px 7.2px;
+}
+
+.spot__chip {
+    padding: 7.2px 14.4px;
+    border-radius: 89.1px;
+    background: rgba(255, 255, 255, .9);
+    border: 1px solid rgba(26, 95, 99, .12);
+    font: 500 11.7px var(--f-vz);
+    color: var(--ink);
+    transition: background .2s, transform .2s;
+}
+
+.spot__chip:hover {
+    background: var(--mint);
+    transform: translateY(-2px);
+}
+
+.spot__all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 7.2px 5.4px 0;
+    padding: 11.7px;
+    border-radius: 14.4px;
+    background: var(--teal);
+    color: #fff;
+    font: 700 12.6px var(--f-vz);
+    transition: filter .2s, transform .2s;
+}
+
+.spot__all:hover,
+.spot__all.is-active {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+}
+
+.spot__msg {
+    padding: 30.6px 18px;
+    text-align: center;
+    font: 500 12.6px/1.9 var(--f-vz);
+    color: #6f9693;
+}
+
+.spot__msg b {
+    color: var(--ink);
+}
+
+.spot__sk {
+    display: flex;
+    align-items: center;
+    gap: 12.6px;
+    padding: 7.2px 10.8px;
+}
+
+.spot__sk i {
+    display: block;
+    border-radius: 11.7px;
+    background: linear-gradient(90deg, #e9f2f1 25%, #f5faf9 50%, #e9f2f1 75%);
+    background-size: 200% 100%;
+    animation: spotShimmer 1.2s linear infinite;
+}
+
+.spot__sk i:first-child {
+    width: 48.6px;
+    height: 48.6px;
+}
+
+.spot__sk i:last-child {
+    flex: 1;
+    height: 12.6px;
+    border-radius: 6.3px;
+}
+
+@keyframes spotShimmer {
+    to {
+        background-position: -200% 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .spot {
+        padding-top: 9vh;
+    }
+
+    .spot__price {
+        display: none;
+    }
+
+    .spot__esc {
+        display: none;
+    }
 }
