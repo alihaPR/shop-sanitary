@@ -23,7 +23,7 @@
 }
 
 body.ab {
-    font-family: var(--f-vz);
+    font-family: var(--f-sh);
     background: #f9f9f9;
     color: var(--ab-text);
     overflow-x: clip;
@@ -92,12 +92,13 @@ body.ab {
 
 .ab-hero h1 {
     font-size: 36px;
-    line-height: 1.55;
+    line-height: 1.1;
     font-weight: 800;
     color: #111;
 }
 
 .ab-hero__lead {
+    color: #1A5F63;
     display: block;
     font-size: 34px;
 }
@@ -162,7 +163,7 @@ body.ab {
 .ab-photo {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100px;
     width: var(--ph);
     padding: 9px;
     border-radius: 30px;
@@ -190,13 +191,13 @@ body.ab {
 .ab-chip {
     position: absolute;
     top: 76px;
-    right: calc(var(--ph) - 72px);
+    right: calc(var(--ph) - 170px);
     z-index: 2;
-    padding: 11px 18px;
+    padding: 10px 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
-    font-size: 12px;
+    font-size: 13px;
     color: #333;
     white-space: nowrap;
 }
@@ -207,7 +208,7 @@ body.ab {
     bottom: 22px;
     display: flex;
     gap: 30px;
-    padding: 22px 32px;
+    padding: 19px 38px;
     background: #fff;
     border-radius: 10px;
     box-shadow: var(--ab-card-shadow);
@@ -252,7 +253,7 @@ body.ab {
     max-width: 620px;
     margin: 14px auto 0;
     font-size: 13.5px;
-    line-height: 2.1;
+    line-height: 2;
     color: #333;
 }
 
@@ -266,10 +267,11 @@ body.ab {
 }
 
 .ab-why__card {
+    width: 550px;
     position: relative;
     isolation: isolate;
-    padding: 36px 30px 28px;
-    background: #fff;
+    padding: 27px 30px 19px;
+    background: #ffffff42;
     border: 1px solid #f4f4f4;
     border-radius: 22px;
     box-shadow: var(--ab-card-shadow);
@@ -304,50 +306,36 @@ body.ab {
     border-radius: 50%;
     background: var(--ab-deep);
     color: #fff;
-    transition: transform .35s cubic-bezier(.22, 1, .36, 1);
 }
 
 .ab-why__dot svg {
     width: 17px;
     height: 17px;
-    transition: opacity .2s ease;
+    /* transition: opacity .2s ease; */
 }
 
-/* حالت هاور: دایره بزرگ‌تر می‌شود و روی کارت شیشه‌ای می‌افتد */
-.ab-why__card::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity .3s ease;
-    background: linear-gradient(225deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, .7) 60%);
-    -webkit-backdrop-filter: blur(7px);
-    backdrop-filter: blur(7px);
-    -webkit-mask-image: radial-gradient(circle at 100% 0, #000 0 56px, transparent 96px);
-    mask-image: radial-gradient(circle at 100% 0, #000 0 56px, transparent 96px);
-}
+
 
 @media (hover: hover) {
     .ab-why__card:hover::after {
-        opacity: 1;
+        /* opacity: 1; */
     }
 
     .ab-why__card:hover .ab-why__dot {
-        transform: translate(-4px, 4px) scale(1.8);
+        /* transform: translate(-4px, 4px) scale(1.8); */
     }
 
     .ab-why__card:hover .ab-why__dot svg {
-        opacity: 0;
+        /* opacity: 0; */
     }
 }
 
 /* ---------------------------------------------------------------- نقل‌قول */
 .ab-quote {
+    font-family: 'shabnam';
     margin-top: 100px;
-    padding: 54px 40px 64px;
+    font-weight: 300;
+    padding: 40px 40px 50px;
     border-radius: 22px;
     background: var(--ab-teal);
     color: #fff;
@@ -374,8 +362,8 @@ body.ab {
 
 .ab-faq__side {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 310px;
+    height: 310px;
 }
 
 .ab-faq__block {
@@ -454,8 +442,8 @@ body.ab {
     width: 100%;
     padding: 18px 24px;
     text-align: start;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 400;
     color: #111;
 }
 
@@ -538,7 +526,7 @@ body.ab {
 .ab-closing__card {
     position: relative;
     z-index: 1;
-    padding: 46px 48px 44px;
+    padding: 30px 48px 26px;
     border: 1px solid rgba(255, 255, 255, .7);
     border-radius: 24px;
     background: linear-gradient(145deg, rgba(255, 255, 255, .3) 0%, rgba(255, 255, 255, .55) 10%, #fff 24%);
@@ -558,7 +546,7 @@ body.ab {
 .ab-closing__card p {
     margin-top: 16px;
     font-size: 13px;
-    line-height: 2.1;
+    line-height: 2;
     color: #444;
 }
 
