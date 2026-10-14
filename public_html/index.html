@@ -14,6 +14,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/user-menu.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/ui-enhancements.css">
 </head>
@@ -26,6 +27,7 @@
     <section class="hero">
 
         <header class="site-header">
+            
             <div class="container site-header__row">
 
                 <a href="./index.html" class="brand" aria-label="نرم سنتر، صفحه اصلی">
@@ -76,16 +78,21 @@
                                             stroke-width="1.2" stroke-linecap="round" />
                                     </svg>
                                 </div>
-                                <span id="userDropdownName" class="user-dropdown-name">کاربر مهمان</span>
+                                <div class="ud-text">
+                                    <span id="userDropdownName" class="user-dropdown-name">کاربر مهمان</span>
+                                    <span id="userDropdownPhone" class="ud-phone" hidden></span>
+                                </div>
+                                <svg class="ud-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
                             </div>
                         </div>
                         <div class="user-dropdown-divider"></div>
-                        <a href="./user/index.html?view=orders" class="user-dropdown-item"><span>سفارش‌ها</span></a>
-                        <a href="./user/index.html?view=favorites" class="user-dropdown-item"><span>لیست‌ها</span></a>
+                        <a href="./user/index.html?view=orders" class="user-dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 11a2 2 0 0 1-2 1.8H8A2 2 0 0 1 6 19L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span>سفارش‌ها</span></a>
+                        <a href="./user/index.html?view=profile" class="user-dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11.2A7 7 0 0 0 5 9.8C5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>آدرس‌ها</span></a>
+                        <a href="./user/index.html?view=favorites" class="user-dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg><span>لیست‌ها</span></a>
                         <a href="./admin/admin.html" id="adminMenuItem" class="user-dropdown-item"
-                            style="display:none"><span>پنل مدیریت</span></a>
+                            style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><span>پنل مدیریت</span><em class="ud-badge">Panel</em></a>
                         <button id="logoutBtn" class="user-dropdown-item user-dropdown-logout" type="button">
-                            <span>خروج از حساب کاربری</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>خروج از حساب کاربری</span>
                         </button>
                     </div>
 
@@ -409,6 +416,7 @@
 
     <script src="js/config.js"></script>
     <script src="js/authUI.js"></script>
+    <script src="./js/user-menu.js"></script>
     <script src="js/basket.js"></script>
     <script src="js/ui-core.js"></script>
     <script src="js/main.js"></script>

@@ -1,1068 +1,1172 @@
-/* -----------------------------------------header-main 👇------------------------------------------------ */
-.container {
-    margin: 0 auto;
-    width: 1250px;
+/* =====================================================================
+   نرم سنتر — صفحه محصولات (ری‌دیزاین از روی طرح فیگما)
+   - فقط ظاهر؛ منطق در js/products.js دست‌نخورده است.
+   - هدر/فوتر/جستجو از global.css می‌آیند (همان صفحه اصلی).
+   - همه‌ی قانون‌ها زیر body.pp هستند تا روی صفحه‌های دیگر اثر نگذارند.
+   - اندازه‌ها هم‌مقیاس با کارت‌های صفحه اصلی (.pc در index.css) هستند.
+   ===================================================================== */
+
+:root {
+    --pp-line: #efefef;
+    --pp-muted: #848484;
+    --pp-old: #747474;
 }
 
-
-
-/*  */
-
-.main-header {}
-
-.breadcrumb {
-    font-size: 14px;
+/* ---------------------------------------------------------------- پایه
+   global.css یک قانون قدیمی  * { font-family: 'regular' }  دارد؛ با :where اولویت صفر
+   (و چون این فایل بعد از global لینک شده) فونت صفحه سالم می‌ماند. */
+:where(.pp) *,
+:where(.pp) *::before,
+:where(.pp) *::after {
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
-.breadcrumb a {
-    text-decoration: none;
-    color: #838383;
+body.pp {
+    font-family: var(--f-vz);
+    background: #f9f9f9;
+    color: var(--ink);
+    overflow-x: clip;
 }
 
-.breadcrumb-line {
-    color: #838383;
-    margin: 0 6px;
-}
-
-
-/*  */
-
-.main-filter {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row-reverse;
-    color: #FFFF;
-}
-
-.filter-btn {
-    /* background-color: #E4573D; */
-    background-color: var(--bg-color-4);
-    ;
-    padding: 12px 22px;
-    border-radius: 30px;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-btn svg {
-    stroke: white;
-}
-
-/*  */
-
-.main-filter_content {
-    width: 100%;
-    border-radius: 4px;
-    background-color: #f5f5f5;
-    height: 250px;
-}
-
-/* filter */
-.main-row {
-    display: flex;
-    gap: 17px;
-    margin-top: 28px;
-    margin-bottom: 28px;
-}
-
-.filter {
-    background-color: #ffffff;
-    width: 300px;
-    height: max-content;
-    border-radius: 8px;
-    border: 1px solid #eeeeee;
-    /* box-shadow: 0 0px 2px 0px rgba(0, 0, 0, 0.1); */
-}
-
-.filter-title {
-    padding: 13px 20px;
-    background-color: #ffffff;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    border-bottom: 1px solid #eeeeee;
-    box-shadow: 0px 4px 50px -9px #f5f5f5;
-}
-
-.filter-box {
-    padding: 30px 20px 20px 20px;
-}
-
-.item {
-    font-size: 14px;
-    color: #000000;
-    padding: 11px 10px;
-    border-bottom: 1px solid #e0e0e0;
+:where(.pp) button {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    background: none;
     cursor: pointer;
 }
 
-.stock {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row-reverse;
+.pp-main {
+    padding-top: 54px;
 }
 
-.switch {
-    position: relative;
-    width: 32px;
-    height: 18px;
-}
-
-.switch input {
+/* breadcrumb در طرح نیست؛ در DOM می‌ماند ولی دیده نمی‌شود */
+.pp .main-header {
     display: none;
 }
 
-.slider {
-    position: absolute;
-    inset: 0;
-    background: #f3f4f6;
-    border: 1px solid #bdbdbd;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: 2px;
-    left: 3px;
-    background: #fff;
-    border: 1px solid #bdbdbd;
-    border-radius: 50%;
-    transition: .3s;
-}
-
-.switch input:checked+.slider {
-    background: #19bfd3;
-    border-color: #19bfd3;
-}
-
-.switch input:checked+.slider::before {
-    transform: translateX(14px);
-    border-color: #19bfd3;
-}
-
-.price {}
-
-.price svg,
-.brand svg {
-    stroke: #000000;
-    width: 16px;
-    height: 18px;
-}
-
-.price-head,
-.brand-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.price-body {
-    display: none;
-    direction: rtl;
-}
-
-.price-range {
-    width: 100%;
-    margin-top: 18px;
-}
-
-.price-label {
-    padding: 9px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-}
-
-.price-label span:last-child {
-    color: #19bfd3;
-}
-
-.price-input {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    margin-bottom: 6px;
-}
-
-.brand {}
-
-.brand-head {}
-
-.brand-body {
-    display: none;
-}
-
-.body-search {
-    width: 100%;
-    padding: 6px 16px;
-    height: 34px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    margin-top: 20px;
-    margin-bottom: 6px;
-    font-size: 10px;
-}
-
-.brand-label {
-    /* background-color: red; */
+.pp .main-row {
     display: block;
-    padding: 6px 0;
-    height: 125px;
-    overflow-y: scroll;
-
+    margin: 0;
 }
 
-.brand-label-item {
-    display: flex;
-    gap: 8px;
-    padding: 8px 12px;
-    color: #333333;
+/* aside فقط جای اولیه‌ی .filter-box است؛ خود جعبه با اسکریپت به پاپ‌آپ/شیت می‌رود */
+.pp .filter {
+    display: none;
 }
 
-.filter-reset {
-    margin-top: 6px;
-    color: red;
-    background-color: inherit;
-    font-size: 12px;
-    width: 100%;
-    height: 34px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+/* ---------------------------------------------------------------- هدر (سازگار با پس‌زمینه‌ی روشن) */
+.pp .main-nav a {
+    color: var(--pp-muted);
 }
 
-/* ------------------------------------------ products -------------------------------------------  */
-
-.products {
-    /* width: calc(100% - 300px); */
-    flex: 1;
-    min-width: 0;
+.pp .main-nav a:hover {
+    background: rgba(26, 95, 99, .06);
 }
 
-.control-bar {
-    margin-bottom: 18px;
-    padding: 13px 20px;
-    background-color: #f0f0f0;
-    width: 100%;
+.pp .main-nav a.is-current {
+    color: #000;
+    background: #fff;
+}
+
+.pp .glass {
+    background: rgba(255, 255, 255, .72);
+    border-color: #f1f1f1;
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+.pp .search-trigger {
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid #f1f1f1;
+}
+
+/* ---------------------------------------------------------------- نوار مرتب‌سازی + دکمه‌ی فیلتر */
+.pp .control-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 6px;
-    font-size: 12px;
+    gap: 16px;
+    width: 100%;
+    margin: 0 0 27px;
+    padding: 0;
+    background: none;
+    border-radius: 0;
 }
 
-.control-bar-wrapper {
+/* تعداد نتیجه در طرح نیست؛ فقط برای اسکریپت (و صفحه‌خوان) می‌ماند */
+.pp .control-bar-count {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.pp .fp-open {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 20px;
-
+    gap: 9px;
+    height: 44px;
+    padding: 0 16px;
+    background: #fff;
+    border: 1px solid var(--pp-line);
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .04);
+    font: 500 12px var(--f-vz);
+    color: var(--pp-muted);
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s, color .2s;
 }
 
-.control-bar-wrapper span {
-    color: #333333;
-    font-size: 13px;
+.pp .fp-open svg {
+    color: #111;
 }
 
-.bar-wrapper-item {
+.pp .fp-open:hover {
+    border-color: var(--teal);
+    color: var(--ink);
+    box-shadow: 0 8px 22px rgba(26, 95, 99, .10);
+}
+
+.pp .fp-count {
+    display: grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 10px/1 var(--f-vz);
+    font-style: normal;
+}
+
+.pp .fp-count[hidden] {
+    display: none;
+}
+
+.pp .control-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--pp-line);
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .04);
+}
+
+.pp .control-bar-wrapper>span {
+    display: none;
+}
+
+.pp .bar-wrapper-item {
     list-style: none;
 }
 
-.bar-wrapper-item a {
-    text-decoration: none;
-    color: #333333;
-}
-
-.control-bar-count {
-    color: #333333;
-    font-size: 13px;
-}
-
-.cart {
-    position: relative;
-    width: 213px;
-    padding: 12px 14px;
-    border: 1px solid #eeeeee;
-    background-color: #FFFF;
-    border-radius: 8px;
-}
-
-.cart-Discount {
-    position: absolute;
-    background-color: rgb(236, 5, 5);
-    font-size: 12px;
-    color: white;
-    font-weight: bold;
-    padding: 4.5px 0;
-    width: 24px;
-    border-radius: 5px;
-    left: 10px;
-    text-align: center;
-}
-
-.cart-image {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.cart-head {
-    margin-bottom: 8px;
-}
-
-.cart-head h5 {
-    height: 40px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.cart-line {
-    width: 100%;
-    height: 1px;
-    background: #dbdbdb;
-    margin-bottom: 8px;
-}
-
-.cart-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    margin-bottom: 6px;
-}
-
-.cart-price-before {
-    color: #808080;
-    text-decoration: line-through;
-}
-
-.cart-price-after {}
-
-.cart-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cart-link-btn {
-    text-decoration: none;
-    /* color: #2377f5; */
-    color: #3AA6A0;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* --------------------------------------------------- */
-
-/* =============================================
-   استایل گرید محصولات + پیجینگ
-   این رو به products.css اضافه کن
-   ============================================= */
-
-/* گرید */
-#products-grid {
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* gap: 16px; */
+.pp .bar-wrapper-item a {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    place-items: center;
+    height: 34px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    font: 500 12px var(--f-vz);
+    color: var(--pp-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .2s, background .2s, box-shadow .2s;
+}
+
+.pp .bar-wrapper-item a:hover {
+    color: var(--ink);
+}
+
+.pp .bar-wrapper-item a.active-sort {
+    color: #000;
+    font-weight: 700;
+    background: #fff;
+    border-color: #f0f0f0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+}
+
+/* ---------------------------------------------------------------- شبکه‌ی محصولات */
+.pp #products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 20px;
 }
 
-/* پیجینگ */
-#pagination {
+.pp #products-grid>p {
+    grid-column: 1 / -1;
+    padding: 70px 0 !important;
+    text-align: center;
+    font: 500 14px var(--f-vz);
+    color: var(--pp-muted) !important;
+}
+
+/* ---------------------------------------------------------------- کارت محصول (مثل .pc صفحه‌ی اصلی)
+   ساختار JS:  a.cart > [.cart-Discount] [.cart-unavailable] img.cart-image .cart-head .cart-line
+                        .cart-price(p.cart-price-before + strong.cart-price-after) .cart-link
+   .cart-price با display:contents باز می‌شود تا قیمت‌ها در گرید کارت بنشینند. */
+.pp .cart {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto auto 1fr 18px auto;
+    width: 100%;
+    min-height: 316.8px;
+    padding: 9.9px 8.1px 12.6px 9px;
+    background: #fff;
+    border: 1px solid var(--glass-bd);
+    border-radius: 22.5px;
+    box-shadow: var(--shadow-card);
+    color: inherit;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.pp a.cart:hover {
+    transform: translateY(-3.6px);
+    box-shadow: 0 14px 26px rgba(26, 95, 99, .10);
+}
+
+.pp .cart-image {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+    padding: 14px;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .65);
+    border-radius: 12.6px;
+    box-shadow: var(--shadow-soft);
+}
+
+.pp .cart-head {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 19.8px 4.5px 0 0;
+}
+
+.pp .cart-head h5 {
+    height: 37.8px;
+    text-align: right;
+    font: 500 13.5px/18.9px var(--f-sh);
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pp .cart-line,
+.pp .cart-link {
+    display: none;
+}
+
+.pp .cart-price {
+    display: contents;
+}
+
+.pp .cart-Discount {
+    position: static;
+    grid-column: 2;
+    grid-row: 4;
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: auto;
+    min-width: 29.7px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: 5.4px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 11.7px/1 var(--f-vz);
+    white-space: nowrap;
+}
+
+.pp .cart-Discount br {
+    display: none;
+}
+
+.pp .cart-price-before {
+    grid-column: 3;
+    grid-row: 4;
+    align-self: center;
+    margin: 0 27px 0 2.7px;
+    font: 400 14.4px/20.7px var(--f-sh);
+    color: var(--pp-old);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    white-space: nowrap;
+}
+
+.pp .cart-price-after {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 11.7px;
+    margin-left: 7.2px;
+    font: 700 18px/20.7px var(--f-sh);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.pp .cart-price-after::after {
+    content: "";
+    width: 19.8px;
+    height: 19.8px;
+    background: url("../img/toman.svg") center / contain no-repeat;
+}
+
+.pp .cart-unavailable {
+    position: absolute;
+    top: 19px;
+    left: 18px;
+    right: auto;
+    z-index: 2;
+    padding: 2px 9px;
+    border-radius: 89px;
+    background: #eef1f1;
+    color: #777;
+    font: 400 9.9px var(--f-vz);
+}
+
+.pp .cart-unavailable~.cart-image {
+    opacity: .5;
+    filter: grayscale(.6);
+}
+
+/* ---------------------------------------------------------------- صفحه‌بندی */
+.pp #pagination {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin: 32px 0;
-    direction: ltr;
-}
-
-.page-btn {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    width: max-content;
+    max-width: 100%;
+    margin: 48px auto 0;
+    padding: 8px;
+    direction: rtl;
     background: #fff;
-    color: #333;
-    font-size: 14px;
+    border: 1px solid var(--pp-line);
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .04);
+}
+
+.pp #pagination:empty {
+    display: none;
+}
+
+.pp .page-btn {
+    display: grid;
+    place-items: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: none;
+    color: var(--ink);
+    font: 500 12.5px var(--f-vz);
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
+    transition: background .2s, color .2s, border-color .2s;
 }
 
-.page-btn:hover:not(:disabled) {
-    border-color: #2c706d;
+.pp .page-btn:hover:not(:disabled):not(.active) {
+    background: #f1f8f7;
 }
 
-.page-btn.active {
-    background: #3AA6A0;
-    border-color: #3AA6A0;
-    color: #fff;
-    font-weight: bold;
+.pp .page-btn.active {
+    background: var(--mint);
+    color: var(--ink);
+    font-weight: 700;
 }
 
-.page-btn:disabled {
-    opacity: 0.35;
+.pp .page-btn:disabled {
+    opacity: .35;
     cursor: not-allowed;
 }
 
-.page-dots {
-    color: #999;
-    font-size: 14px;
+.pp .page-dots {
+    color: #aaa;
+    font-size: 13px;
     padding: 0 2px;
 }
 
-.cart-image {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    height: 160px;
-    object-fit: contain;
+/* دکمه‌های قبلی/بعدی: متن فلش جاوااسکریپت پنهان و به‌جایش «شورون + برچسب» با CSS */
+.pp .page-arrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    border-color: #ececec;
+    background: #fff;
+    font-size: 0;
+    line-height: 0;
 }
 
-.cart {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-
+.pp .page-arrow::before,
+.pp .page-arrow::after {
+    font: 500 12px var(--f-vz);
+    line-height: 1;
 }
 
-/*  */
-.bar-wrapper-item a.active-sort {
-    color: #2377f5;
-    font-weight: bold;
-    border-bottom: 2px solid #2377f5;
+.pp .page-arrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: solid var(--ink);
+    border-width: 0 0 1.6px 1.6px;
 }
 
-.cart-unavailable {
+/* اولین دکمه = قبلی (سمت راست)، آخرین = بعدی (سمت چپ) */
+.pp .page-arrow:first-child::before {
+    transform: rotate(-135deg);
+}
+
+.pp .page-arrow:first-child::after {
+    content: "قبلی";
+}
+
+.pp .page-arrow:last-child::before {
+    order: 2;
+    transform: rotate(45deg);
+}
+
+.pp .page-arrow:last-child::after {
+    content: "بعدی";
+}
+
+/* ---------------------------------------------------------------- محتوای فیلتر (داخل پاپ‌آپ یا شیت موبایل) */
+.pp .filter-box {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.pp .filter-box .item {
+    padding: 15px 2px;
+    border-bottom: 1px solid #f0f3f3;
+    font: 500 13px var(--f-vz);
+    color: #222;
+    cursor: pointer;
+}
+
+.pp .filter-box .item:last-of-type {
+    border-bottom: 0;
+}
+
+.pp .stock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.pp .switch {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 22px;
+}
+
+.pp .switch input {
+    display: none;
+}
+
+.pp .slider {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #888;
-    color: #fff;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 5px;
-    z-index: 1;
+    inset: 0;
+    background: #e6eceb;
+    border: 0;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: background .25s;
 }
 
-.cart-lowstock {
-    font-size: 11px;
-    color: #e83e3e;
-    background: #fce1e1;
-    margin-bottom: 6px;
-    text-align: center;
+.pp .slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .18);
+    transition: transform .25s;
 }
 
-/* ── dual range slider ── */
-.price-range-wrap {
+.pp .switch input:checked+.slider {
+    background: var(--teal);
+}
+
+.pp .switch input:checked+.slider::before {
+    transform: translateX(18px);
+}
+
+.pp .price svg,
+.pp .brand svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--ink);
+    transition: transform .25s;
+}
+
+.pp .price-head,
+.pp .brand-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pp .price-head:has(+ .price-body[style*="block"]) svg,
+.pp .brand-head:has(+ .brand-body[style*="block"]) svg {
+    transform: rotate(180deg);
+}
+
+.pp .price-body {
+    display: none;
+    direction: rtl;
+    padding-top: 6px;
+}
+
+.pp .price-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 8px;
+    font: 400 12px var(--f-vz);
+    color: var(--pp-muted);
+}
+
+.pp .price-label span:last-child {
+    color: var(--teal);
+}
+
+.pp .price-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    margin-bottom: 4px;
+    border: 1px solid #e7eeee;
+    border-radius: 14px;
+    background: #fafcfc;
+    font: 500 13px var(--f-vz);
+    color: #222;
+    transition: border-color .2s, background .2s;
+}
+
+.pp .price-input:focus {
+    border-color: var(--teal);
+    background: #fff;
+}
+
+/* اسلایدر دوتایی */
+.pp .price-range-wrap {
     position: relative;
     direction: rtl;
     height: 36px;
-    margin: 12px 0;
+    margin: 10px 0 4px;
 }
 
-.price-range-wrap input[type="range"] {
+.pp .price-range-wrap input[type="range"] {
     position: absolute;
-    width: 100%;
     left: 0;
+    top: 50%;
+    width: 100%;
     height: 4px;
+    margin: 0;
+    padding: 0;
     background: none;
     pointer-events: none;
     -webkit-appearance: none;
     appearance: none;
     outline: none;
-    top: 50%;
     transform: translateY(-50%);
-    margin: 0;
-    padding: 0;
 }
 
-.price-range-wrap input[type="range"]::-webkit-slider-thumb {
+.pp .price-range-wrap input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #2377f5;
-    border: 3px solid #fff;
-    cursor: pointer;
-    pointer-events: all;
     position: relative;
     z-index: 3;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-}
-
-.price-range-wrap input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #2377f5;
+    background: var(--ink);
     border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(26, 95, 99, .35);
     cursor: pointer;
     pointer-events: all;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
-.price-range-wrap::before {
-    content: '';
+.pp .price-range-wrap input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(26, 95, 99, .35);
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.pp .price-range-wrap::before {
+    content: "";
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     left: 0;
-    width: 100%;
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 4px;
+    top: 50%;
     z-index: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: #e6eceb;
+    transform: translateY(-50%);
 }
 
-.price-range-track {
+.pp .price-range-track {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    height: 4px;
-    background: #2377f5;
-    border-radius: 4px;
-    z-index: 1;
-    pointer-events: none;
+    left: 0;
     right: auto;
-    left: 0;
+    z-index: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--teal);
+    pointer-events: none;
+    transform: translateY(-50%);
 }
 
-/* sort active */
-.bar-wrapper-item a.active-sort {
-    color: #2377f5;
-    font-weight: bold;
-    border-bottom: 2px solid #2377f5;
-    padding-bottom: 2px;
+/* برند */
+.pp .brand-body {
+    display: none;
 }
 
-
-/* ------------------------------------------ --------------------------------------------- */
-.mobile-sheet {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: -100%;
+.pp .body-search {
     width: 100%;
-    max-height: 85vh;
+    height: 42px;
+    margin: 14px 0 8px;
+    padding: 0 14px;
+    border: 1px solid #e7eeee;
+    border-radius: 14px;
+    background: #fafcfc;
+    font: 400 12.5px var(--f-vz);
+}
+
+.pp .body-search:focus {
+    border-color: var(--teal);
     background: #fff;
-    border-radius: 24px 24px 0 0;
-    z-index: 999;
-    transition: .35s;
-    overflow: auto;
-    padding: 18px;
 }
 
-.mobile-sheet.active {
+.pp .brand-label {
+    display: block;
+    max-height: 150px;
+    padding: 2px 0;
+    overflow-y: auto;
+}
+
+.pp .brand-label-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 8px;
+    border-radius: 12px;
+    font: 400 13px var(--f-vz);
+    color: #333;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.pp .brand-label-item:hover {
+    background: #f4f9f8;
+}
+
+.pp .brand-label-item img[src=""] {
+    display: none;
+}
+
+.pp .brand-label-item input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--ink);
+    cursor: pointer;
+}
+
+/* در global.css کلاس .brand برای لوگوی هدر است (flex + span بزرگ)؛ برای آیتم «برند» فیلتر خنثی می‌شود */
+.pp .filter-box .brand {
+    display: block;
+    justify-self: auto;
+    gap: 0;
+}
+
+.pp .filter-box .brand span {
+    font: 400 13px/1.6 var(--f-vz);
+    color: #333;
+    white-space: normal;
+}
+
+.pp .filter-box .brand .brand-head span {
+    font: 500 13px var(--f-vz);
+    color: #222;
+}
+
+.pp .filter-box .brand img {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+}
+
+/* دکمه‌های پایین فیلتر */
+.pp .filter-actions {
+    position: sticky;
     bottom: 0;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 14px 0 2px;
+    background: #fff;
 }
 
-.mobile-sheet-overlay {
+.pp .filter-reset {
+    flex: none;
+    height: 46px;
+    padding: 0 18px;
+    border: 1px solid #e7eeee;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--pp-muted);
+    font: 500 12.5px var(--f-vz);
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+}
+
+.pp .filter-reset:hover {
+    color: #c0392b;
+    border-color: #f0c9c4;
+}
+
+.pp .filter-apply {
+    flex: 1;
+    height: 46px;
+    border-radius: 16px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 13px var(--f-vz);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.pp .filter-apply:hover {
+    background: var(--teal);
+}
+
+.pp .filter-apply:active {
+    transform: scale(.98);
+}
+
+/* ---------------------------------------------------------------- پنل فیلتر (دسکتاپ): زیر دکمه‌ی «فیلتر» باز می‌شود */
+.pp .fp-anchor {
+    position: relative;
+}
+
+/* لایه‌ی کاملاً شفاف و بدون تاری؛ فقط برای بستن پنل با کلیک بیرون از آن */
+.pp .fp-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, .45);
+    z-index: 1190;
+    background: transparent;
     opacity: 0;
     visibility: hidden;
-    transition: .3s;
-    z-index: 998;
 }
 
-.mobile-sheet-overlay.active {
+.pp .fp-overlay.is-open {
     opacity: 1;
     visibility: visible;
 }
 
-.sheet-handle {
-    width: 55px;
-    height: 5px;
-    background: #ddd;
-    border-radius: 20px;
-    margin: auto;
-    margin-bottom: 20px;
-}
-
-.sheet-header {
+.pp .fp-modal {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 1200;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 372px;
+    max-height: min(620px, calc(100vh - 150px));
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .8);
+    border-radius: 24px;
+    box-shadow: 0 0 0 8px #fcfcfc, 0 22px 54px 8px rgba(26, 95, 99, .16);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(.98);
+    transform-origin: 90% 0;
+    transition: opacity .2s ease, transform .28s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .28s;
+}
+
+.pp .fp-modal:focus {
+    outline: none;
+}
+
+.pp .fp-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .2s ease, transform .28s cubic-bezier(.22, 1, .36, 1);
+}
+
+.pp .fp-head {
+    display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    padding: 18px 22px 8px;
 }
 
-.sheet-title {
-    font-size: 18px;
+.pp .fp-head h3 {
+    font: 700 16px/1.4 var(--f-sh);
+    color: var(--ink);
 }
 
-.sheet-close {
-    background: none;
-    border: none;
-    font-size: 24px;
+.pp .fp-close {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f3f7f7;
+    color: #555;
     cursor: pointer;
+    transition: background .2s, color .2s;
 }
 
-.mobile-sort-list {
-    list-style: none;
+.pp .fp-close:hover {
+    background: #e5f4f2;
+    color: var(--ink);
 }
 
-.mobile-sort-list li {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
+.pp .fp-body {
+    flex: 1;
+    min-height: 0;
+    padding: 0 22px 18px;
+    overflow-y: auto;
 }
 
-/* ------------------------------------------ Responsive ------------------------------------------ */
-
-.mobile-toolbar {
+/* ---------------------------------------------------------------- شیت موبایل (فیلتر/مرتب‌سازی) */
+.pp .mobile-toolbar {
     display: none;
 }
 
-@media (max-width:1200px) {
-
-    .container {
-        width: 95%;
-    }
-
-    .main-row {
-        display: flex;
-        gap: 14px;
-    }
-
-    /* ---------- Filter ---------- */
-
-    .filter {
-        width: 260px;
-        flex-shrink: 0;
-    }
-
-    .products {
-        /* width: calc(100% - 260px); */
-        flex: 1;
-        min-width: 0;
-    }
-
-    /* ---------- Sort Bar ---------- */
-
-    .control-bar {
-        padding: 12px 16px;
-    }
-
-    .control-bar-wrapper {
-        gap: 16px;
-    }
-
-    .control-bar-wrapper span,
-    .control-bar-count,
-    .bar-wrapper-item a {
-        font-size: 12px;
-    }
-
-    /* ---------- Products ---------- */
-
-    #products-grid {
-        gap: 14px;
-    }
-
-    .cart {
-        /* width: 200px; */
-        width: 100%;
-        padding: 10px 12px;
-    }
-
-    .cart-image {
-        height: 150px;
-    }
-
-    .cart-head h5 {
-        font-size: 13px;
-    }
-
-    .cart-price {
-        font-size: 12px;
-    }
-
-    .cart-link-btn {
-        font-size: 13px;
-    }
-
+.pp .mobile-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -100%;
+    z-index: 1200;
+    width: 100%;
+    max-height: 88vh;
+    padding: 12px 20px 22px;
+    overflow: auto;
+    background: #fff;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -20px 60px rgba(26, 95, 99, .18);
+    transition: bottom .35s cubic-bezier(.22, 1, .36, 1);
 }
 
-@media (max-width:1024px) {
+.pp .mobile-sheet.active {
+    bottom: 0;
+}
 
-    .main-row {
-        display: block;
+.pp .mobile-sheet-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1190;
+    background: rgba(18, 48, 50, .34);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s, visibility .3s;
+}
+
+.pp .mobile-sheet-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.pp .sheet-handle {
+    width: 48px;
+    height: 5px;
+    margin: 0 auto 14px;
+    border-radius: 20px;
+    background: #dfe7e7;
+}
+
+.pp .sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.pp .sheet-title {
+    font: 700 16px var(--f-sh);
+    color: var(--ink);
+}
+
+.pp .sheet-close {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f3f7f7;
+    color: #555;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.pp .mobile-sort-list {
+    list-style: none;
+}
+
+.pp .mobile-sort-list li {
+    padding: 15px 4px;
+    border-bottom: 1px solid #f0f3f3;
+    font: 500 14px var(--f-vz);
+    color: #222;
+    cursor: pointer;
+    transition: color .15s;
+}
+
+.pp .mobile-sort-list li:last-child {
+    border-bottom: 0;
+}
+
+.pp .mobile-sort-list li:hover {
+    color: var(--teal);
+}
+
+/* ---------------------------------------------------------------- ریسپانسیو */
+@media (max-width: 1100px) {
+    .pp #products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+}
 
-    .filter {
+@media (max-width: 1024px) {
+
+    /* موبایل/تبلت: به‌جای پاپ‌آپ دسکتاپ، همان شیت پایین استفاده می‌شود */
+    .pp .control-bar {
         display: none;
     }
 
-    .products {
-        width: 100%;
-    }
-
-    .mobile-toolbar {
+    .pp .mobile-toolbar {
         display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 20px;
+        gap: 10px;
+        margin-bottom: 22px;
     }
 
-    .mobile-toolbar button {
+    .pp .mobile-toolbar button {
         flex: 1;
-        height: 46px;
-        border: 1px solid #ececec;
-        background: #fff;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 14px;
-        font-family: inherit;
-    }
-
-    .control-bar {
-        display: none;
-    }
-
-    #products-grid {
-
-        grid-template-columns:
-            repeat(auto-fill, minmax(180px, 1fr));
-
-        gap: 16px;
-
-    }
-
-    .mobile-toolbar {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 18px;
-    }
-
-    .mobile-toolbar button {
-
-        flex: 1;
-
-        height: 46px;
-
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
-
-        border: 1px solid #e8e8e8;
-        border-radius: 12px;
-
+        height: 46px;
         background: #fff;
-
-        font-size: 13px;
-        font-family: inherit;
-
+        border: 1px solid var(--pp-line);
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, .04);
+        font: 500 12.5px var(--f-vz);
+        color: var(--ink);
         cursor: pointer;
-
-        transition: .25s;
+        transition: border-color .2s;
     }
 
-    .mobile-toolbar button:hover {
-        border-color: #3AA6A0;
-        color: #3AA6A0;
+    .pp .mobile-toolbar button:hover {
+        border-color: var(--teal);
     }
 
-    .mobile-toolbar svg {
-        width: 18px;
-        height: 18px;
-        stroke: currentColor;
+    .pp .fp-overlay,
+    .pp .fp-modal {
+        display: none;
     }
-
 }
 
-@media (max-width:768px) {
-
-    .main-row {
-        display: block;
+@media (max-width: 900px) {
+    .pp #products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .filter {
-        display: none;
+    /* هدر: ردیف اول لوگو + حساب، ردیف دوم منو */
+    .pp .site-header {
+        padding-top: 18px;
     }
 
-    .products {
+    .pp .site-header__row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "brand actions" "nav nav";
+        height: auto;
+        row-gap: 14px;
+    }
+
+    .pp .brand {
+        grid-area: brand;
+    }
+
+    .pp .site-header__row>.search-trigger,
+    .pp .site-header__row>.header-actions {
+        grid-area: actions;
+    }
+
+    .pp .main-nav {
+        grid-area: nav;
         width: 100%;
+        grid-template-columns: repeat(4, 1fr);
     }
 
-    .control-bar {
-        display: none;
+    .pp-main {
+        padding-top: 28px;
     }
 
-    .mobile-toolbar {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 20px;
+    /* فوتر */
+    .pp .footer-card {
+        padding: 28px 22px;
     }
 
-    #products-grid {
+    .pp .footer-card__top {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .pp .footer-brand {
+        width: auto;
+    }
+
+    .pp .footer-links {
+        gap: 44px;
+    }
+
+    .pp .trust-badges {
+        margin-left: 0;
+    }
+
+    .pp .footer-card__bottom {
+        height: auto;
+        grid-template-columns: 1fr auto;
+        row-gap: 14px;
+    }
+
+    .pp .socials {
+        margin-top: 0;
+    }
+
+    .pp .to-top {
+        margin: 0;
+    }
+
+    .pp .copy {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .pp #products-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+        gap: 12px;
     }
 
-    .cart {
+    .pp .cart {
+        min-height: 0;
+        padding: 8px 7px 11px 8px;
+        border-radius: 18px;
+    }
+
+    .pp .cart-image {
         padding: 10px;
+        border-radius: 11px;
     }
 
-    .cart-title {
-        font-size: 14px;
+    .pp .cart-head {
+        margin-top: 12px;
     }
 
-    .cart-price {
+    .pp .cart-head h5 {
+        height: 34px;
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .pp .cart-Discount {
+        min-width: 26px;
+        height: 16px;
+        font-size: 10.5px;
+    }
+
+    .pp .cart-price-before {
+        margin-left: 6px;
+        font-size: 12px;
+    }
+
+    .pp .cart-price-after {
+        gap: 6px;
         font-size: 15px;
     }
 
-    .pagination {
+    .pp .cart-price-after::after {
+        width: 16px;
+        height: 16px;
+    }
+
+    .pp #pagination {
+        gap: 3px;
+        padding: 6px;
         margin-top: 32px;
     }
 
+    .pp .page-btn {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 6px;
+    }
+
+    .pp .page-arrow {
+        padding: 0 10px;
+    }
+
+    .pp .footer-links {
+        flex-wrap: wrap;
+        gap: 28px 40px;
+    }
+
+    .pp .trust-badges img {
+        max-height: 84px;
+    }
 }
 
-@media (max-width:640px) {
+@media (prefers-reduced-motion: reduce) {
 
-    #products-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    .pp .fp-modal,
+    .pp .fp-overlay,
+    .pp .mobile-sheet,
+    .pp a.cart {
+        transition: none;
     }
-
-    .cart {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-
-        width: 100%;
-        padding: 12px;
-
-        min-height: 140px;
-        position: relative;
-    }
-
-    .cart-image {
-        width: 110px;
-        height: 110px;
-        flex-shrink: 0;
-        object-fit: contain;
-    }
-
-    .cart-head {
-        text-align: right;
-    }
-
-    .cart-head h5 {
-        font-size: 14px;
-        line-height: 1.8;
-        margin-bottom: 12px;
-    }
-
-    .cart-line {
-        display: none;
-    }
-
-    .cart-price {
-        position: absolute;
-        left: 14px;
-        bottom: 14px;
-        display: flex;
-        gap: 10px;
-    }
-
-    .cart-price-before {
-        font-size: 12px;
-    }
-
-    .cart-price-after {
-        font-size: 16px;
-    }
-
-    .cart-link {
-        display: none;
-    }
-
-    .cart-Discount {
-        top: 10px;
-        width: 28px;
-        font-size: 11px;
-    }
-
-    .cart-unavailable {
-        top: 8px;
-        left: 10px;
-        font-size: 11px;
-        width: max-content;
-    }
-
-    .cart-lowstock {
-        font-size: 10px;
-        text-align: right;
-        margin-bottom: 6px;
-    }
-
-}
-
-/* ===========================
-   576px
-=========================== */
-
-@media (max-width:576px) {
-
-    .cart {
-        min-height: 120px;
-        padding: 10px;
-        gap: 12px;
-    }
-
-    .cart-image {
-        width: 90px;
-        height: 90px;
-    }
-
-    .cart-head h5 {
-        font-size: 13px;
-        line-height: 1.7;
-    }
-
-    .cart-price-before {
-        font-size: 11px;
-    }
-
-    .cart-price-after {
-        font-size: 14px;
-    }
-
-    .cart-Discount {
-        font-size: 10px;
-    }
-
-    .cart-unavailable {
-        font-size: 10px;
-        padding: 3px 6px;
-    }
-
-}
-
-/* ===========================
-   430px
-=========================== */
-
-@media (max-width:430px) {
-
-    #products-grid {
-        gap: 10px;
-    }
-
-    .cart {
-        min-height: 110px;
-        padding: 8px;
-        gap: 10px;
-        border-radius: 10px;
-    }
-
-    .cart-image {
-        width: 80px;
-        height: 80px;
-    }
-
-    .cart-head h5 {
-        font-size: 12px;
-        line-height: 1.6;
-    }
-
-    .cart-price-before {
-        font-size: 11px;
-    }
-
-    .cart-price-after {
-        font-size: 13px;
-    }
-
-    .cart-link svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .cart-Discount {
-        width: 25px;
-        font-size: 9.5px;
-    }
-
-    .cart-unavailable {
-        font-size: 9px;
-        padding: 2px 5px;
-    }
-
-}
-
-/* ===========================
-   360px
-=========================== */
-
-@media (max-width:360px) {
-
-    #products-grid {
-        gap: 8px;
-    }
-
-    .cart {
-        min-height: 100px;
-        padding: 7px;
-        gap: 8px;
-        border-radius: 8px;
-    }
-
-    .cart-image {
-        width: 72px;
-        height: 72px;
-    }
-
-    .cart-head h5 {
-        font-size: 11px;
-        line-height: 1.5;
-    }
-
-    .cart-price-before {
-        font-size: 10px;
-    }
-
-    .cart-price-after {
-        font-size: 12px;
-    }
-
-    .cart-link svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .cart-Discount {
-        width: 22px;
-        font-size: 9px;
-    }
-
-    .cart-unavailable {
-        font-size: 8px;
-        padding: 2px 4px;
-    }
-
 }

@@ -267,3 +267,106 @@ body {
     }
 
 }
+
+/* =====================================================================
+   صفحه‌ی ورود: پس‌زمینه‌ی سفید ساده + شخصیت تعاملی (از دموی login-boy)
+   فقط ظاهر؛ منطق ورود/ثبت‌نام/کد تایید در auth.js دست‌نخورده است.
+   ===================================================================== */
+body {
+    min-height: 100vh;
+    background: #fff;
+}
+
+.login-stage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    padding: 28px 24px;
+}
+
+.auth-container {
+    position: relative;
+    z-index: 2;
+}
+
+.back-home {
+    z-index: 3;
+}
+
+/* ---- کارت ورود (شیشه‌ای/بلور؛ روی سفید با حاشیه و سایه‌ی نرم خوانا می‌ماند) */
+.auth-form {
+    margin: 0 auto;
+    background: rgba(255, 255, 255, .72);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    backdrop-filter: blur(22px) saturate(1.5);
+    border: 1px solid #e3eeec;
+    border-radius: 24px;
+    box-shadow: 0 18px 50px rgba(26, 95, 99, .10);
+}
+
+.back-home {
+    background: rgba(255, 255, 255, .72);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid #e3eeec;
+    border-radius: 14px;
+    color: #1a5f63;
+}
+
+.log-title,
+.log-title-otp {
+    color: #14484b;
+}
+
+.switch-register {
+    color: #1a5f63;
+    font-weight: bold;
+}
+
+.log-input,
+.register-input,
+.otp-boxes input {
+    background: #fbfdfc;
+    border: 1px solid #dce6e3;
+    border-radius: 12px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.log-input-input {
+    background: transparent;
+}
+
+.log-input:focus-within,
+.register-input:focus-within,
+.otp-boxes input:focus {
+    border-color: #3aa6a0;
+    box-shadow: 0 0 0 3px rgba(58, 166, 160, .12);
+}
+
+.log-btn {
+    height: 44px;
+    border-radius: 12px;
+    background: #1a5f63;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.log-btn:hover {
+    background: #349fa1;
+}
+
+.back-btn {
+    color: #1a5f63;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+
+    .auth-form,
+    .back-home {
+        background: #fff;
+    }
+}
+

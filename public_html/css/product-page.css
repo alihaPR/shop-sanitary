@@ -1,0 +1,1130 @@
+/* =====================================================================
+   نرم سنتر — صفحه تک‌محصول (cart.html) — ری‌دیزاین از روی طرح فیگما
+   - فقط ظاهر؛ منطق در js/cartloader.js دست‌نخورده است.
+   - هدر/فوتر/جستجو از global.css می‌آیند (همان صفحه اصلی).
+   - cart.css قدیمی دیگر در این صفحه لینک نیست؛ استایل toast ها (pill-toast، share-toast)
+     و کنترل تعداد/دکمه‌ی سبد در همین فایل بازنویسی شده‌اند.
+   - همه‌ی قانون‌ها زیر body.pd هستند.
+   - JS محتوای صفحه را با این کلاس‌ها می‌سازد:
+     .wrap > .main-card(.image-side(.main-img .icon-row) .info-side(h1 .short-desc-line .brand-line
+              .feat-title .feat-list .more-link)) + .left-col(.seller-card .buy-card)
+     #product-details > .lower-card(.section-title .feature-table .section-title .desc-text)
+   ===================================================================== */
+
+:root {
+    --pd-line: #efefef;
+    --pd-muted: #848484;
+    --pd-red: #e5484d;
+    --pd-green: #1a9e5c;
+}
+
+/* ---------------------------------------------------------------- پایه */
+:where(.pd) *,
+:where(.pd) *::before,
+:where(.pd) *::after {
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+:where(.pd) button {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.pd {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--f-vz);
+    background: #f9f9f9;
+    color: var(--ink);
+    overflow-x: clip;
+}
+
+.pd .site-footer {
+    margin-top: auto;
+}
+
+.pd-main {
+    flex: 1 0 auto;
+    padding-top: 40px;
+    padding-bottom: var(--section-gap);
+}
+
+/* ---------------------------------------------------------------- هدر روی پس‌زمینه‌ی روشن */
+.pd .main-nav a {
+    color: var(--pd-muted);
+}
+
+.pd .main-nav a:hover {
+    background: rgba(26, 95, 99, .06);
+}
+
+.pd .main-nav a.is-current {
+    color: #000;
+    background: #fff;
+}
+
+.pd .glass {
+    background: rgba(255, 255, 255, .72);
+    border-color: #f1f1f1;
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+.pd .search-trigger {
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid #f1f1f1;
+}
+
+/* ---------------------------------------------------------------- breadcrumb */
+.pd .info {
+    margin: 0;
+}
+
+.pd .main-header {
+    margin: 0 0 22px;
+}
+
+.pd .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 400 11.5px var(--f-vz);
+    color: #9a9a9a;
+}
+
+.pd .breadcrumb a {
+    color: #9a9a9a;
+    text-decoration: none;
+}
+
+.pd .breadcrumb a:hover {
+    color: var(--ink);
+}
+
+.pd .breadcrumb-line {
+    color: #cfcfcf;
+}
+
+.pd .breadcrumb>span:last-child {
+    color: #111;
+}
+
+/* ---------------------------------------------------------------- کارت‌های دولایه‌ی طرح (حلقه‌ی بیرونی با box-shadow) */
+.pd .main-card,
+.pd .left-col,
+.pd .lower-card {
+    margin: 12px;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .7);
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #fcfcfc, 0 14px 30px 10px rgba(0, 0, 0, .045);
+}
+
+.pd .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 294px;
+    gap: 0;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* ---------------------------------------------------------------- کارت اصلی محصول */
+.pd .main-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 34px;
+    width: auto;
+    padding: 30px 34px 28px;
+}
+
+.pd .image-side {
+    position: relative;
+    flex: none;
+    display: block;
+    width: 214px;
+}
+
+.pd .main-img {
+    width: 178px;
+    height: 225px;
+    margin: 4px 0 0 0;
+    margin-right: 36px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border-radius: 0;
+}
+
+.pd .icon-row {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: #111;
+}
+
+.pd .icon-row svg {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: color .2s, fill .2s, transform .2s;
+}
+
+.pd .icon-row svg:hover {
+    transform: scale(1.12);
+}
+
+.pd .favorite-btn:hover {
+    color: var(--pd-red);
+}
+
+.pd .favorite-btn.active {
+    color: var(--pd-red);
+    fill: var(--pd-red);
+    stroke: var(--pd-red);
+}
+
+.pd .info-side {
+    flex: 1;
+    min-width: 0;
+    margin-top: 8px;
+}
+
+.pd h1 {
+    margin: 0 0 12px;
+    font: 700 17px/1.8 var(--f-sh);
+    color: #111;
+}
+
+/* این خط با style درون‌خطی ساخته می‌شود؛ !important فقط برای غلبه بر همان استایل است */
+.pd .short-desc-line {
+    margin: 0 0 30px !important;
+    font-size: 12.5px !important;
+    line-height: 2 !important;
+    color: #5f5f5f !important;
+}
+
+/* برند در طرح نیست؛ در DOM می‌ماند */
+.pd .brand-line {
+    display: none;
+}
+
+.pd .feat-title {
+    margin: 0 0 14px;
+    font: 700 14.5px var(--f-sh);
+    color: #111;
+}
+
+.pd .feat-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 10px;
+    list-style: none;
+}
+
+.pd .feat-item {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: auto;
+    min-height: 46px;
+    padding: 10px 14px;
+    background: #f3f3f3;
+    border-radius: 11px;
+    font: 500 11.5px/1.7 var(--f-vz);
+    color: #222;
+}
+
+/* «مشاهده همه ویژگی ها»: دکمه‌ی دوتکه (متن + فلش) بین دو خط ظریف */
+.pd .more-link {
+    display: grid;
+    grid-template-columns: 1fr auto auto 1fr;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin: 26px 0 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-decoration: none;
+}
+
+.pd .more-link::before,
+.pd .more-link::after {
+    content: "";
+    height: 1px;
+    background: var(--pd-line);
+}
+
+.pd .more-link p {
+    display: grid;
+    place-items: center;
+    height: 30px;
+    padding: 0 14px 0 6px;
+    border: 1px solid #e6e6e6;
+    border-left: 0;
+    border-radius: 0 10px 10px 0;
+    background: #fff;
+    font: 500 11px var(--f-vz);
+    color: #222;
+    white-space: nowrap;
+}
+
+.pd .more-link svg {
+    box-sizing: content-box;
+    width: 12px;
+    height: 12px;
+    padding: 8px 14px 8px 8px;
+    border: 1px solid #e6e6e6;
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+    background: #fff;
+    transition: transform .2s;
+}
+
+.pd .more-link:hover svg {
+    transform: translateX(-3px);
+}
+
+/* ---------------------------------------------------------------- ستون چپ: فروشنده + خرید در یک کارت */
+.pd .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: auto;
+    padding: 24px 22px 22px;
+}
+
+.pd .seller-card {
+    width: auto;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+}
+
+.pd .seller-card .row-title {
+    margin: 0 0 16px;
+    font: 700 14px var(--f-sh);
+    color: #111;
+}
+
+.pd .seller-card b.name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    font: 500 13px var(--f-vz);
+    color: #111;
+}
+
+.pd .seller-card b.name::before {
+    content: "";
+    flex: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    background: url("../img/logo-mark.png") center / cover no-repeat;
+}
+
+.pd .check-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 10px;
+    font: 400 11.5px/1.8 var(--f-vz);
+    color: #222;
+}
+
+.pd .check-item svg {
+    display: none;
+}
+
+.pd .check-item b {
+    font-weight: 700;
+    color: var(--pd-green);
+}
+
+/* اولین سطر (عملکرد) زیرش خط می‌خورد؛ دو سطر بعدی با نقطه‌ی رنگی */
+.pd .check-item:nth-of-type(2) {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--pd-line);
+}
+
+.pd .check-item:nth-of-type(n+3)::before {
+    content: "";
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink);
+}
+
+.pd .check-item:nth-of-type(n+3) b {
+    color: #222;
+}
+
+.pd .check-item:nth-of-type(4)::before {
+    background: var(--pd-green);
+}
+
+/* ---------------------------------------------------------------- کارت خرید (قیمت + دکمه)
+   تا ۱۲۰۰px داخل .left-col است؛ کمتر از آن cartloader.js آن را به <body> می‌برد (نوار ثابت پایین). */
+.pd .buy-card {
+    position: relative;
+    order: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px 10px;
+    margin-top: 26px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+}
+
+/* شکستن خط بعد از ردیف «تخفیف + قیمت قبلی» */
+.pd .buy-card::before {
+    content: "";
+    order: 3;
+    flex-basis: 100%;
+    height: 0;
+}
+
+.pd .price-row {
+    display: contents;
+}
+
+.pd .best-price-tag {
+    order: 1;
+    position: static;
+    margin: 0;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 10.5px/1.6 var(--f-vz);
+}
+
+/* قیمت قبلی با style درون‌خطی ساخته می‌شود؛ !important برای غلبه بر همان */
+.pd .price-row>span:not(.price-num):not(.price-unit) {
+    order: 2;
+    font: 400 11.5px var(--f-sh) !important;
+    color: #747474 !important;
+}
+
+.pd .price-num {
+    order: 4;
+    font: 700 20px/1.4 var(--f-sh);
+    color: var(--ink);
+}
+
+/* متن «تومان» برای صفحه‌خوان می‌ماند؛ برای چشم آیکن می‌آید */
+.pd .price-unit {
+    order: 5;
+    flex: none;
+    width: 19.8px;
+    height: 19.8px;
+    font-size: 0;
+    color: transparent;
+    background: url("../img/toman.svg") center / contain no-repeat;
+}
+
+.pd .stock-warning {
+    order: 6;
+    flex-basis: 100%;
+    margin: 4px 0 0;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 10px;
+    background: #fdecec;
+    color: #c0392b;
+    font: 500 11.5px var(--f-vz);
+    text-align: center;
+}
+
+.pd #cart-btn-container {
+    order: 7;
+    flex-basis: 100%;
+    margin-top: 12px;
+}
+
+.pd .btn-cart {
+    width: 100%;
+    height: 46px;
+    padding: 0;
+    border-radius: 14px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 14px var(--f-vz);
+    transition: background .2s, transform .2s;
+}
+
+.pd .btn-cart:hover {
+    background: var(--teal);
+}
+
+.pd .btn-cart:active {
+    transform: scale(.985);
+}
+
+.pd .btn-cart:disabled,
+.pd .btn-cart:disabled:hover {
+    background: #e3e6e6;
+    color: #8a9494;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* بعد از افزودن: متن «در سبد شما» + کنترل تعداد */
+.pd .btn-cart-wrap_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 0;
+}
+
+.pd .cart-status-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.pd .cart-status-text span {
+    font: 700 13px var(--f-vz);
+    color: #222;
+}
+
+.pd .cart-status-text a {
+    font: 500 11.5px var(--f-vz);
+    color: var(--teal);
+    text-decoration: none;
+}
+
+.pd .cart-status-text a:hover {
+    text-decoration: underline;
+}
+
+.pd .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    border: 0;
+    border-radius: 14px;
+    background: #f2f2f2;
+}
+
+.pd .qty-ctrl-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font: 400 18px/1 var(--f-vz);
+    color: #111;
+    transition: background .2s;
+}
+
+.pd .qty-ctrl-btn:hover {
+    background: #fff;
+}
+
+.pd .qty-ctrl-btn:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+.pd .qty-ctrl-num {
+    min-width: 30px;
+    text-align: center;
+    font: 700 14px var(--f-vz);
+    color: #111;
+}
+
+.pd .qty-max-warning {
+    margin-top: 8px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background: #e5f4f2;
+    color: var(--ink);
+    font: 500 11px var(--f-vz);
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------- کارت پایین: تب‌ها + توضیحات + مشخصات */
+.pd .products-info {
+    margin: 0;
+}
+
+.pd .lower-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 34px 34px;
+}
+
+.pd .pd-tabs {
+    order: 0;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 44px;
+    padding: 8px 6px 0;
+    border-bottom: 1px solid var(--pd-line);
+}
+
+.pd .pd-tabs button {
+    position: relative;
+    padding: 12px 0 18px;
+    font: 500 14px var(--f-vz);
+    color: #111;
+    transition: color .2s;
+}
+
+.pd .pd-tabs button:hover {
+    color: var(--teal);
+}
+
+.pd .pd-tabs button.is-active::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+}
+
+.pd .section-title {
+    margin: 0 0 24px;
+    padding: 2px 14px 2px 0;
+    border-right: 2px solid var(--ink);
+    font: 500 15px/1.6 var(--f-sh);
+    color: var(--ink);
+    scroll-margin-top: 24px;
+}
+
+/* ترتیب طرح: اول توضیحات، بعد مشخصات (فقط وقتی product-ui.js آماده‌اش کرده) */
+.pd .lower-card[data-pd-ready] #pd-desc {
+    order: 1;
+}
+
+.pd .lower-card[data-pd-ready] .desc-text {
+    order: 2;
+}
+
+.pd .lower-card[data-pd-ready] .pd-more--desc {
+    order: 3;
+}
+
+.pd .lower-card[data-pd-ready] #pd-specs {
+    order: 4;
+}
+
+.pd .lower-card[data-pd-ready] .feature-table {
+    order: 5;
+}
+
+.pd .lower-card[data-pd-ready] .pd-more--specs {
+    order: 6;
+}
+
+.pd .desc-text {
+    margin: 0;
+    font: 400 12.5px/2.2 var(--f-vz);
+    color: #222;
+}
+
+.pd .desc-text.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pd .pd-more {
+    padding-top: 22px;
+}
+
+.pd .pd-more--desc {
+    margin-bottom: 36px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--pd-line);
+}
+
+.pd .pd-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 11.5px var(--f-vz);
+    color: #2377f5;
+}
+
+.pd .pd-more-btn[hidden] {
+    display: none;
+}
+
+.pd .pd-more-btn:hover {
+    text-decoration: underline;
+}
+
+.pd .pd-more-btn i {
+    width: 6px;
+    height: 6px;
+    border: solid currentColor;
+    border-width: 0 0 1.5px 1.5px;
+    transform: rotate(45deg);
+    transition: transform .2s;
+}
+
+.pd .pd-more-btn.is-open i {
+    transform: rotate(135deg);
+}
+
+.pd .feature-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font: inherit;
+}
+
+.pd .feature-table tr {
+    border: 0;
+}
+
+.pd .feature-table td {
+    padding: 14px 0;
+    font: 400 12.5px var(--f-vz);
+    vertical-align: middle;
+}
+
+.pd .feature-table td:first-child {
+    width: 17%;
+    color: var(--pd-muted);
+}
+
+/* خط جداکننده فقط زیر ستون مقدار است (مثل طرح) */
+.pd .feature-table td:last-child {
+    padding-right: 14px;
+    border-bottom: 1px solid var(--pd-line);
+    font-weight: 700;
+    color: #111;
+}
+
+.pd .feature-table.is-collapsed tr:nth-child(n+4) {
+    display: none;
+}
+
+/* ---------------------------------------------------------------- Toast ها (بازنویسی از cart.css) */
+.pd .share-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    z-index: 9999;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #fff;
+    font: 500 13px var(--f-vz);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(20px);
+    transition: .3s;
+}
+
+.pd .share-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.pd .pill-toast {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 290px;
+    max-width: 350px;
+    padding: 13px 15px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(26, 95, 99, .16);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s cubic-bezier(.22, 1, .36, 1);
+}
+
+.pd .pill-toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pd .pill-toast.pos-bottom-left {
+    bottom: 24px;
+    left: 24px;
+    transform: translateY(16px);
+}
+
+.pd .pill-toast.pos-bottom-left.show {
+    transform: translateY(0);
+}
+
+.pd .pill-toast.pos-top-center {
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-16px);
+}
+
+.pd .pill-toast.pos-top-center.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.pd .pill-toast-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.pd .pill-toast.type-success .pill-toast-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.pd .pill-toast.type-like .pill-toast-icon {
+    background: #fde0e0;
+    color: var(--pd-red);
+}
+
+.pd .pill-toast.type-neutral .pill-toast-icon {
+    background: #eef1f1;
+    color: var(--pd-muted);
+}
+
+.pd .pill-toast-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pd .pill-toast-title {
+    margin: 0;
+    font: 700 13px/1.6 var(--f-vz);
+    color: #111;
+}
+
+.pd .pill-toast-sub {
+    margin: 2px 0 0;
+    overflow: hidden;
+    font: 400 12px/1.6 var(--f-vz);
+    color: var(--pd-muted);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pd .pill-toast-action {
+    display: inline-block;
+    margin-top: 6px;
+    font: 700 12px var(--f-vz);
+    color: #2377f5;
+    text-decoration: none;
+}
+
+.pd .pill-toast-action:hover {
+    text-decoration: underline;
+}
+
+.pd .pill-toast.type-success .pill-toast-action {
+    color: var(--ink);
+}
+
+.pd .pill-toast-close {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 50%;
+    color: var(--pd-muted);
+    font-size: 12px;
+    transition: .2s;
+}
+
+.pd .pill-toast-close:hover {
+    background: #f1f4f4;
+    color: #111;
+}
+
+/* ---------------------------------------------------------------- ریسپانسیو */
+@media (max-width: 1200px) {
+
+    /* از اینجا cartloader.js کارت خرید را به <body> می‌برد؛ تبدیل به نوار ثابت پایین صفحه */
+    body.pd {
+        padding-bottom: 96px;
+    }
+
+    .pd .wrap {
+        grid-template-columns: minmax(0, 1fr) 262px;
+    }
+
+    .pd .buy-card {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        order: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 230px);
+        grid-template-areas: "warn warn" "price btn";
+        align-items: center;
+        gap: 0 16px;
+        margin: 0;
+        padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px));
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -12px 34px rgba(26, 95, 99, .12);
+    }
+
+    .pd .buy-card::before {
+        display: none;
+    }
+
+    .pd .buy-card .price-row {
+        grid-area: price;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2px 8px;
+    }
+
+    /* قیمت قبلی خط جدا می‌گیرد تا عدد و آیکن تومان کنار هم بمانند */
+    .pd .buy-card .price-row>span:not(.price-num):not(.price-unit) {
+        flex-basis: 100%;
+    }
+
+    .pd .buy-card .best-price-tag {
+        position: absolute;
+        top: -13px;
+        left: 20px;
+    }
+
+    .pd .buy-card .stock-warning {
+        grid-area: warn;
+        margin: 0 0 10px;
+    }
+
+    .pd .buy-card #cart-btn-container {
+        grid-area: btn;
+        margin: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .pd .wrap {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pd .left-col {
+        order: 2;
+    }
+}
+
+@media (max-width: 900px) {
+
+    /* هدر: ردیف اول لوگو + حساب، ردیف دوم منو */
+    .pd .site-header {
+        padding-top: 18px;
+    }
+
+    .pd .site-header__row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "brand actions" "nav nav";
+        height: auto;
+        row-gap: 14px;
+    }
+
+    .pd .brand {
+        grid-area: brand;
+    }
+
+    .pd .site-header__row>.search-trigger,
+    .pd .site-header__row>.header-actions {
+        grid-area: actions;
+    }
+
+    .pd .main-nav {
+        grid-area: nav;
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .pd-main {
+        padding-top: 24px;
+    }
+
+    /* فوتر */
+    .pd .footer-card {
+        padding: 28px 22px;
+    }
+
+    .pd .footer-card__top {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .pd .footer-brand {
+        width: auto;
+    }
+
+    .pd .footer-links {
+        gap: 44px;
+    }
+
+    .pd .trust-badges {
+        margin-left: 0;
+    }
+
+    .pd .footer-card__bottom {
+        height: auto;
+        grid-template-columns: 1fr auto;
+        row-gap: 14px;
+    }
+
+    .pd .socials {
+        margin-top: 0;
+    }
+
+    .pd .to-top {
+        margin: 0;
+    }
+
+    .pd .copy {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .pd .main-card {
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        padding: 22px 20px;
+    }
+
+    .pd .info-side {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .pd .lower-card {
+        padding: 14px 20px 26px;
+    }
+
+    .pd .pd-tabs {
+        gap: 26px;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pd .main-card {
+        padding: 18px 16px;
+    }
+
+    .pd .image-side {
+        width: 100%;
+    }
+
+    .pd .main-img {
+        width: 100%;
+        max-width: 200px;
+        height: 220px;
+        margin: 4px auto 0;
+    }
+
+    .pd .icon-row {
+        right: 0;
+    }
+
+    .pd h1 {
+        font-size: 15px;
+    }
+
+    .pd .feat-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pd .left-col {
+        padding: 20px 18px;
+    }
+
+    .pd .buy-card {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 190px);
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .pd .price-num {
+        font-size: 17px;
+    }
+
+    .pd .btn-cart {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .pd .btn-cart-wrap_top {
+        gap: 6px;
+    }
+
+    .pd .cart-status-text span {
+        font-size: 11.5px;
+    }
+
+    .pd .pill-toast {
+        min-width: 0;
+    }
+
+    .pd .pill-toast.pos-bottom-left,
+    .pd .pill-toast.pos-top-center {
+        right: 12px;
+        left: 12px;
+        max-width: none;
+        transform: translateY(-16px);
+    }
+
+    .pd .pill-toast.pos-bottom-left.show,
+    .pd .pill-toast.pos-top-center.show {
+        transform: translateY(0);
+    }
+
+    .pd .footer-links {
+        flex-wrap: wrap;
+        gap: 28px 40px;
+    }
+
+    .pd .trust-badges img {
+        max-height: 84px;
+    }
+}

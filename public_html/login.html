@@ -26,135 +26,140 @@
         </svg>
     </a>
 
-    <div class="auth-container" data-aos="fade-up">
+        <!-- شخصیت تعاملی (دموی login-boy): چشم‌ها نشانگر ماوس را دنبال می‌کنند؛ هنگام تایپ رمز عبور با دست چشم‌ها را می‌پوشاند -->
+    <div class="login-stage">
 
-        <form class="login-phone auth-form active ">
-
-            <h1 class="log-title">
-                ورود به حساب کاربری
-            </h1>
-
-            <p class="log-sub-title">
-                هنوز ثبت نام نکرده‌اید؟
-                <a href="#" class="switch-register switch-signup">
-                    ثبت نام
-                </a>
-            </p>
-
-            <div class="log-input">
-                <input class="log-input-input" type="tel" name="phone" maxlength="11" required
-                    placeholder="شماره موبایل"    autocomplete="off">
-            </div>
-
-            <div class="log-input">
-                <input class="log-input-input" type="password" name="password" required placeholder="رمز عبور"    autocomplete="off">
-            </div>
-
-            <button class="log-btn" id="login-btn-submit" type="submit">
-                ادامه و ورود به حساب
-            </button>
-
-        </form>
-
-        <form class="login-otp auth-form ">
-
-            <a href="#" class="back-btn">←</a>
-
-            <p class="log-title-otp">کد تایید را وارد کنید</p>
-
-            <p class="otp-subtitle">
-                کد به شماره <span>09182222365</span> ارسال شد
-            </p>
-
-            <div class="otp-timer">
-                دریافت نکردید؟
-                <span>01:54</span>
-            </div>
-
-            <div class="otp-boxes">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-            </div>
-
-            <button class="log-btn" type="submit">
-                تایید و ورود
-            </button>
-
-        </form>
-
-        <form class="register-form auth-form" autocomplete="off">
-
-            <p class="log-title">
-                ساخت حساب کاربری جدید
-            </p>
-
-            <p class="log-sub-title">
-                قبلا ثبت نام کرده اید؟
-                <a href="#" class="switch-register switch-login">
-                    وارد شوید
-                </a>
-            </p>
-
-            <div class="register-inputs">
-                <div class="register-input">
-                    <input class="log-input-input" type="text" name="fullname" required
-                        placeholder="نام و نام خانوادگی">
+        <div class="auth-container" data-aos="fade-up">
+    
+            <form class="login-phone auth-form active ">
+    
+                <h1 class="log-title">
+                    ورود به حساب کاربری
+                </h1>
+    
+                <p class="log-sub-title">
+                    هنوز ثبت نام نکرده‌اید؟
+                    <a href="#" class="switch-register switch-signup">
+                        ثبت نام
+                    </a>
+                </p>
+    
+                <div class="log-input">
+                    <input class="log-input-input" type="tel" name="phone" maxlength="11" required
+                        placeholder="شماره موبایل"    autocomplete="off">
                 </div>
-                <div class="register-input">
-                    <input class="log-input-input" type="tel" name="phone" required placeholder="شماره موبایل"    autocomplete="off">
+    
+                <div class="log-input">
+                    <input class="log-input-input" type="password" name="password" required placeholder="رمز عبور"    autocomplete="off">
                 </div>
-                <div class="register-input">
-
-                    <input class="log-input-input" type="password" name="password" required minlength="8"
-                        placeholder="رمز عبور"    autocomplete="off">
+    
+                <button class="log-btn" id="login-btn-submit" type="submit">
+                    ادامه و ورود به حساب
+                </button>
+    
+            </form>
+    
+            <form class="login-otp auth-form ">
+    
+                <a href="#" class="back-btn">←</a>
+    
+                <p class="log-title-otp">کد تایید را وارد کنید</p>
+    
+                <p class="otp-subtitle">
+                    کد به شماره <span>09182222365</span> ارسال شد
+                </p>
+    
+                <div class="otp-timer">
+                    دریافت نکردید؟
+                    <span>01:54</span>
                 </div>
-                <div class="register-input">
-                    <input class="log-input-input" type="password" name="confirmPassword" required
-                        placeholder="تکرار رمز عبور">
-
+    
+                <div class="otp-boxes">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
                 </div>
-            </div>
-
-            <button class="log-btn register-btn" id="register-btn-submit" type="submit">
-                تایید و عضویت
-            </button>
-
-        </form>
-
-        <form class="login-otp auth-form">
-
-            <a href="#" class="back-btn">←</a>
-
-            <p class="log-title-otp">کد تایید را وارد کنید</p>
-
-            <p class="otp-subtitle">
-                کد به شماره <span>09182222365</span> ارسال شد
-            </p>
-
-            <div class="otp-timer">
-                دریافت نکردید؟
-                <span>01:54</span>
-            </div>
-
-            <div class="otp-boxes">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-                <input type="text" maxlength="1" placeholder="_">
-            </div>
-
-            <button class="log-btn" type="submit">
-                تایید و ورود
-            </button>
-
-        </form>
+    
+                <button class="log-btn" type="submit">
+                    تایید و ورود
+                </button>
+    
+            </form>
+    
+            <form class="register-form auth-form" autocomplete="off">
+    
+                <p class="log-title">
+                    ساخت حساب کاربری جدید
+                </p>
+    
+                <p class="log-sub-title">
+                    قبلا ثبت نام کرده اید؟
+                    <a href="#" class="switch-register switch-login">
+                        وارد شوید
+                    </a>
+                </p>
+    
+                <div class="register-inputs">
+                    <div class="register-input">
+                        <input class="log-input-input" type="text" name="fullname" required
+                            placeholder="نام و نام خانوادگی">
+                    </div>
+                    <div class="register-input">
+                        <input class="log-input-input" type="tel" name="phone" required placeholder="شماره موبایل"    autocomplete="off">
+                    </div>
+                    <div class="register-input">
+    
+                        <input class="log-input-input" type="password" name="password" required minlength="8"
+                            placeholder="رمز عبور"    autocomplete="off">
+                    </div>
+                    <div class="register-input">
+                        <input class="log-input-input" type="password" name="confirmPassword" required
+                            placeholder="تکرار رمز عبور">
+    
+                    </div>
+                </div>
+    
+                <button class="log-btn register-btn" id="register-btn-submit" type="submit">
+                    تایید و عضویت
+                </button>
+    
+            </form>
+    
+            <form class="login-otp auth-form">
+    
+                <a href="#" class="back-btn">←</a>
+    
+                <p class="log-title-otp">کد تایید را وارد کنید</p>
+    
+                <p class="otp-subtitle">
+                    کد به شماره <span>09182222365</span> ارسال شد
+                </p>
+    
+                <div class="otp-timer">
+                    دریافت نکردید؟
+                    <span>01:54</span>
+                </div>
+    
+                <div class="otp-boxes">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                    <input type="text" maxlength="1" placeholder="_">
+                </div>
+    
+                <button class="log-btn" type="submit">
+                    تایید و ورود
+                </button>
+    
+            </form>
+        </div>
     </div>
     <script src="./js/config.js"></script>
     <script src="./js/auth.js"></script>
+    <script src="./js/login-boy.js"></script>
 </body>
 
 </html>

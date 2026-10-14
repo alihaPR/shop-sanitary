@@ -1,0 +1,593 @@
+/* =====================================================================
+   نرم سنتر — صفحه سبد خرید (ری‌دیزاین از روی طرح فیگما)
+   - فقط ظاهر؛ منطق در js/basket.js دست‌نخورده است.
+   - هدر/فوتر/جستجو از global.css می‌آیند (همان صفحه اصلی).
+   - basket.css قدیمی هنوز برای checkout.html لازم است؛ این فایل مستقل است
+     و همه‌ی قانون‌هایش زیر body.bk هستند.
+   - آیتم‌های سبد را basket.js می‌سازد:
+     .cart-item > .item-img  .item-info(h4 .item-cat .item-unit)  .item-qty(.qty-btn .qty-num)
+                  .item-price(.price .unit-price)  .item-remove
+   ===================================================================== */
+
+:root {
+    --bk-line: #efefef;
+    --bk-muted: #848484;
+    --bk-soft: #5f8f92;
+}
+
+/* ---------------------------------------------------------------- پایه */
+:where(.bk) *,
+:where(.bk) *::before,
+:where(.bk) *::after {
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+:where(.bk) button {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+body.bk {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--f-vz);
+    background: #f9f9f9;
+    color: var(--ink);
+    overflow-x: clip;
+}
+
+.bk .site-footer {
+    margin-top: auto;
+}
+
+.bk-main {
+    flex: 1 0 auto;
+    padding-top: 48px;
+    padding-bottom: var(--section-gap);
+}
+
+.bk-title {
+    margin: 0 0 24px;
+    font: 700 20px/1.5 var(--f-sh);
+    color: #111;
+}
+
+/* breadcrumb در طرح نیست */
+.bk .main-header {
+    display: none;
+}
+
+/* ---------------------------------------------------------------- هدر روی پس‌زمینه‌ی روشن */
+.bk .main-nav a {
+    color: var(--bk-muted);
+}
+
+.bk .main-nav a:hover {
+    background: rgba(26, 95, 99, .06);
+}
+
+.bk .main-nav a.is-current {
+    color: #000;
+    background: #fff;
+}
+
+.bk .glass {
+    background: rgba(255, 255, 255, .72);
+    border-color: #f1f1f1;
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+.bk .search-trigger {
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid #f1f1f1;
+}
+
+/* ---------------------------------------------------------------- چیدمان */
+.bk .cart-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 372px;
+    gap: 26px;
+    align-items: start;
+}
+
+/* ---------------------------------------------------------------- نوار بالای لیست (تعداد + حذف همه)
+   کارت دوتایی طرح: حلقه‌ی بیرونی با box-shadow، پنل سفید داخلی */
+.bk .cart-head,
+.bk .cart-items-wrap,
+.bk .summary-panel,
+.bk .empty-basket-wraper {
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .7);
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #fcfcfc, 0 14px 30px 10px rgba(0, 0, 0, .045);
+}
+
+.bk .cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 10px 10px 36px;
+    padding: 14px 20px;
+}
+
+.bk .cart-head h2 {
+    font: 700 15px/1.6 var(--f-sh);
+    color: var(--ink);
+}
+
+.bk .clear-btn {
+    height: 36px;
+    padding: 0 20px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 12px var(--f-vz);
+    transition: background .2s, transform .2s;
+}
+
+.bk .clear-btn:hover {
+    background: var(--teal);
+}
+
+.bk .clear-btn:active {
+    transform: scale(.97);
+}
+
+/* ---------------------------------------------------------------- لیست محصولات */
+.bk .cart-items-wrap {
+    margin: 10px;
+    padding: 6px 24px;
+}
+
+/* کد تخفیف در طرح نیست و در basket.js هم منطقی ندارد؛ در DOM می‌ماند ولی دیده نمی‌شود */
+.bk .coupon-box {
+    display: none;
+}
+
+.bk .cart-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr) auto;
+    grid-template-rows: 1fr auto;
+    column-gap: 22px;
+    padding: 22px 0;
+    cursor: pointer;
+}
+
+.bk .cart-item+.cart-item {
+    border-top: 1px solid var(--bk-line);
+}
+
+.bk .item-img {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 116px;
+    height: 116px;
+    padding: 14px;
+    background-color: #fff;
+    background-origin: content-box;
+    border: 1px solid rgba(235, 235, 235, .75);
+    border-radius: 14px;
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+.bk .item-info {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 12px;
+}
+
+.bk .item-info h4 {
+    font: 500 16px/1.6 var(--f-sh);
+    color: var(--ink);
+}
+
+.bk .item-cat {
+    margin-top: 4px;
+    font: 400 12.5px/1.6 var(--f-vz);
+    color: var(--bk-soft);
+}
+
+.bk .item-unit {
+    display: none;
+}
+
+.bk .item-price {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-bottom: 6px;
+}
+
+.bk .item-price .price {
+    font: 700 18px/1.4 var(--f-sh);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+/* متن «تومان» برای صفحه‌خوان می‌ماند؛ برای چشم آیکن می‌آید */
+.bk .item-price .unit-price {
+    display: inline-block;
+    flex: none;
+    width: 19.8px;
+    height: 19.8px;
+    font-size: 0;
+    color: transparent;
+    background: url("../img/toman.svg") center / contain no-repeat;
+}
+
+.bk .item-qty {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    background: #f2f2f2;
+    border-radius: 14px;
+}
+
+.bk .qty-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font: 400 18px/1 var(--f-vz);
+    color: #111;
+    transition: background .2s;
+}
+
+.bk .qty-btn:hover {
+    background: #fff;
+}
+
+.bk .qty-num {
+    min-width: 30px;
+    text-align: center;
+    font: 700 14px var(--f-vz);
+    color: #111;
+}
+
+.bk .item-remove {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-top: 10px;
+    border-radius: 12px;
+    font-size: 0;
+    transition: background .2s;
+}
+
+.bk .item-remove::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background: #e5484d;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.bk .item-remove:hover {
+    background: #fff1f1;
+}
+
+/* ---------------------------------------------------------------- خلاصه سفارش */
+.bk .summary-card {
+    position: sticky;
+    top: 24px;
+    margin: 10px;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+}
+
+.bk .summary-panel {
+    padding: 22px 22px 8px;
+}
+
+.bk .summary-panel h3 {
+    margin-bottom: 16px;
+    font: 700 15px/1.6 var(--f-sh);
+    color: var(--ink);
+}
+
+.bk .summary-row,
+.bk .summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--bk-line);
+}
+
+.bk .summary-row:first-of-type {
+    border-top: 0;
+}
+
+.bk .summary-row .label,
+.bk .summary-total .label {
+    font: 400 13px var(--f-vz);
+    color: var(--ink);
+}
+
+.bk .summary-row .value {
+    font: 700 13px var(--f-vz);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.bk .summary-row .value.discount {
+    color: #d6464a;
+}
+
+.bk .summary-total .label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.bk .summary-total .value {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font: 700 17px var(--f-sh);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.bk .summary-total .value small {
+    font: 400 11px var(--f-vz);
+    color: var(--bk-muted);
+}
+
+.bk .checkout-btn {
+    display: grid;
+    place-items: center;
+    height: 52px;
+    margin-top: 26px;
+    border-radius: 16px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 14px var(--f-vz);
+    text-decoration: none;
+    box-shadow: 0 0 0 10px #fcfcfc;
+    transition: background .2s, transform .2s;
+}
+
+.bk .checkout-btn:hover {
+    background: var(--teal);
+}
+
+.bk .checkout-btn:active {
+    transform: scale(.985);
+}
+
+/* این دو بخش در طرح نیستند؛ در DOM می‌مانند */
+.bk .secure-note,
+.bk .summary-features {
+    display: none;
+}
+
+/* ---------------------------------------------------------------- سبد خالی */
+.bk .empty-basket-wraper {
+    max-width: 100%;
+    margin: 10px auto 0;
+    padding: 46px 28px 42px;
+}
+
+.bk .empty-state {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.bk .empty-state svg {
+    width: 92px;
+    height: 92px;
+    margin-bottom: 8px;
+}
+
+.bk .empty-state svg path {
+    stroke: var(--teal);
+}
+
+.bk .empty-state svg path[fill="black"] {
+    fill: var(--teal);
+}
+
+.bk .empty-state h3 {
+    font: 700 17px/1.6 var(--f-sh);
+    color: var(--ink);
+}
+
+.bk .empty-state p {
+    font: 400 13px/2 var(--f-vz);
+    color: var(--bk-muted);
+}
+
+.bk .btn-primary {
+    display: grid;
+    place-items: center;
+    height: 46px;
+    margin-top: 16px;
+    padding: 0 30px;
+    border-radius: 16px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 13px var(--f-vz);
+    text-decoration: none;
+    transition: background .2s;
+}
+
+.bk .btn-primary:hover {
+    background: var(--teal);
+}
+
+/* ---------------------------------------------------------------- ریسپانسیو */
+@media (max-width: 900px) {
+
+    /* هدر: ردیف اول لوگو + حساب، ردیف دوم منو */
+    .bk .site-header {
+        padding-top: 18px;
+    }
+
+    .bk .site-header__row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "brand actions" "nav nav";
+        height: auto;
+        row-gap: 14px;
+    }
+
+    .bk .brand {
+        grid-area: brand;
+    }
+
+    .bk .site-header__row>.search-trigger,
+    .bk .site-header__row>.header-actions {
+        grid-area: actions;
+    }
+
+    .bk .main-nav {
+        grid-area: nav;
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .bk-main {
+        padding-top: 28px;
+    }
+
+    .bk .cart-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .bk .summary-card {
+        position: static;
+        margin-top: 36px;
+    }
+
+    /* فوتر */
+    .bk .footer-card {
+        padding: 28px 22px;
+    }
+
+    .bk .footer-card__top {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .bk .footer-brand {
+        width: auto;
+    }
+
+    .bk .footer-links {
+        gap: 44px;
+    }
+
+    .bk .trust-badges {
+        margin-left: 0;
+    }
+
+    .bk .footer-card__bottom {
+        height: auto;
+        grid-template-columns: 1fr auto;
+        row-gap: 14px;
+    }
+
+    .bk .socials {
+        margin-top: 0;
+    }
+
+    .bk .to-top {
+        margin: 0;
+    }
+
+    .bk .copy {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .bk .cart-items-wrap {
+        padding: 4px 16px;
+    }
+
+    .bk .cart-item {
+        grid-template-columns: 84px minmax(0, 1fr);
+        grid-template-rows: auto auto auto;
+        column-gap: 14px;
+        padding: 18px 0;
+    }
+
+    .bk .item-img {
+        grid-row: 1 / 3;
+        width: 84px;
+        height: 84px;
+        padding: 10px;
+    }
+
+    .bk .item-info {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 0 0 0 36px;
+    }
+
+    .bk .item-info h4 {
+        font-size: 14px;
+    }
+
+    .bk .item-price {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: end;
+        padding-bottom: 0;
+    }
+
+    .bk .item-price .price {
+        font-size: 16px;
+    }
+
+    .bk .item-qty {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        justify-self: end;
+        margin-top: 12px;
+    }
+
+    .bk .item-remove {
+        position: absolute;
+        top: 12px;
+        left: -6px;
+        margin: 0;
+    }
+
+    .bk .footer-links {
+        flex-wrap: wrap;
+        gap: 28px 40px;
+    }
+
+    .bk .trust-badges img {
+        max-height: 84px;
+    }
+}

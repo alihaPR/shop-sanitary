@@ -8,7 +8,11 @@ let priceMax = Infinity
 let activeBrands = []
 let onlyAvailable = false
 
-const PER_PAGE = 8
+// فیلترهای اعمال‌شده روی لیست. متغیرهای بالا (priceMin / priceMax / activeBrands / onlyAvailable)
+// فقط وضعیت کنترل‌های فیلتر هستند و تا زدن دکمه‌ی «نمایش محصولات» روی لیست اثر ندارند.
+let applied = { onlyAvailable: false, brands: [], priceMin: 0, priceMax: Infinity }
+
+const PER_PAGE = 10
 const MAX_VAL = 400000
 
 // ------------------------------------ data -----------------------------------
@@ -32,12 +36,12 @@ function getFilteredSortedProducts() {
   let list = [...products]
 
   if (activeCategory) list = list.filter(p => p.category === activeCategory)
-  if (onlyAvailable) list = list.filter(p => p.available)
-  if (activeBrands.length > 0) list = list.filter(p => activeBrands.includes(p.brand))
+  if (applied.onlyAvailable) list = list.filter(p => p.available)
+  if (applied.brands.length > 0) list = list.filter(p => applied.brands.includes(p.brand))
 
   list = list.filter(p => {
     const final = p.discountPercent > 0 ? getDiscountedPrice(p.price, p.discountPercent) : p.price
-    return final >= priceMin && final <= priceMax
+    return final >= applied.priceMin && final <= applied.priceMax
   })
 
   switch (activeSort) {
@@ -218,6 +222,45 @@ function resetRange(priceInputs) {
   updateTrack()
   syncInputsFromRange(priceInputs)
 }
+// فیلترها فقط با دکمه‌ی «نمایش محصولات» (یا حذف فیلترها) روی لیست اعمال می‌شوند
+function applyFilters() {
+  applied = {
+    onlyAvailable,
+    brands: activeBrands.slice(),
+    priceMin,
+    priceMax
+  }
+  currentPage = 1
+  render()
+}
+
+// اگر پنل فیلتر بدون اعمال بسته شد، کنترل‌ها به وضعیت اعمال‌شده برمی‌گردند
+function restoreFilterControls() {
+  onlyAvailable = applied.onlyAvailable
+  activeBrands = applied.brands.slice()
+
+  const stock = document.querySelector('.stock input[type="checkbox"]')
+  if (stock) stock.checked = onlyAvailable
+
+  document.querySelectorAll('.brand-label-item input[type="checkbox"]').forEach(cb => {
+    const name = cb.closest('.brand-label-item').querySelector('span').textContent.trim()
+    cb.checked = activeBrands.includes(name)
+  })
+
+  if (rangeMin && rangeMax) {
+    rangeMin.value = applied.priceMin
+    rangeMax.value = applied.priceMax === Infinity ? MAX_VAL : applied.priceMax
+    updateTrack()
+    syncInputsFromRange(document.querySelectorAll('.price-input'))
+  }
+}
+
+function appliedFilterCount() {
+  return (applied.onlyAvailable ? 1 : 0)
+    + applied.brands.length
+    + ((applied.priceMin > 0 || applied.priceMax !== Infinity) ? 1 : 0)
+}
+
 // ------------------------------------ init -----------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -249,8 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (stockToggle) {
     stockToggle.addEventListener('change', () => {
       onlyAvailable = stockToggle.checked
-      currentPage = 1
-      render()
     })
   }
 
@@ -265,15 +306,11 @@ document.addEventListener("DOMContentLoaded", function () {
     rangeMin.addEventListener('input', () => {
       updateTrack()
       syncInputsFromRange(priceInputs)
-      currentPage = 1
-      render()
     })
 
     rangeMax.addEventListener('input', () => {
       updateTrack()
       syncInputsFromRange(priceInputs)
-      currentPage = 1
-      render()
     })
 
     if (priceInputs[0]) {
@@ -281,8 +318,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const val = parseInt(priceInputs[0].value.replace(/[^0-9]/g, '')) || 0
         rangeMin.value = val
         updateTrack()
-        currentPage = 1
-        render()
       })
     }
 
@@ -291,8 +326,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const val = parseInt(priceInputs[1].value.replace(/[^0-9]/g, '')) || MAX_VAL
         rangeMax.value = Math.min(val, MAX_VAL)
         updateTrack()
-        currentPage = 1
-        render()
       })
     }
 
@@ -310,8 +343,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         activeBrands = activeBrands.filter(b => b !== brandName)
       }
-      currentPage = 1
-      render()
     })
   })
 
@@ -359,9 +390,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (brandSearch) brandSearch.value = ''
       document.querySelectorAll('.brand-label-item').forEach(i => i.style.display = 'flex')
       resetRange(priceInputs)
-      render()
+      applyFilters()
     })
   }
+
+  // دکمه‌ی «نمایش محصولات»: فیلترهای انتخاب‌شده اینجا اعمال می‌شوند
+  const applyBtn = document.querySelector('.filter-apply')
+  if (applyBtn) applyBtn.addEventListener('click', applyFilters)
 
   // URL params
   const params = new URLSearchParams(window.location.search)
@@ -511,6 +546,8 @@ if (mobileSortBtn) {
 // }
 
 function closeSheet() {
+
+  restoreFilterControls();
 
   if (sheet) sheet.classList.remove("active");
   if (overlay) overlay.classList.remove("active");

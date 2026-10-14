@@ -1,0 +1,135 @@
+/* =====================================================================
+   پوسته‌ی مشترک هدر + فوتر جدید برای صفحه‌هایی که پس‌زمینه‌ی روشن دارند
+   (بدون دست زدن به فونت و استایل محتوای خود صفحه).
+   استفاده: کلاس  on-light  را روی <body> بگذار و این فایل را بعد از global.css لینک کن.
+   - هدر/فوتر/جستجو از global.css می‌آیند (همان صفحه اصلی).
+   - فقط داخل .site-header / .site-footer / .spot اثر دارد.
+   ===================================================================== */
+
+/* فونت و box-sizing فقط برای پوسته (محتوای صفحه با فونت خودش می‌ماند) */
+:where(.on-light .site-header, .on-light .site-footer, .on-light .spot),
+:where(.on-light .site-header, .on-light .site-footer, .on-light .spot) *,
+:where(.on-light .site-header, .on-light .site-footer, .on-light .spot) *::before,
+:where(.on-light .site-header, .on-light .site-footer, .on-light .spot) *::after {
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.on-light .site-header,
+.on-light .site-footer,
+.on-light .spot {
+    font-family: var(--f-vz);
+}
+
+.on-light .site-header button,
+.on-light .site-footer button,
+.on-light .spot button {
+    font: inherit;
+    color: inherit;
+}
+
+/* ---------------------------------------------------------------- هدر روی پس‌زمینه‌ی روشن */
+.on-light .main-nav a {
+    color: #848484;
+}
+
+.on-light .main-nav a:hover {
+    background: rgba(26, 95, 99, .06);
+}
+
+.on-light .main-nav a.is-current {
+    color: #000;
+    background: #fff;
+}
+
+.on-light .site-header .glass {
+    background: rgba(255, 255, 255, .72);
+    border-color: #f1f1f1;
+    box-shadow: 0 9px 28.8px rgba(0, 0, 0, .05);
+}
+
+.on-light .search-trigger {
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid #f1f1f1;
+}
+
+/* ---------------------------------------------------------------- ریسپانسیو هدر و فوتر */
+@media (max-width: 900px) {
+    .on-light .site-header {
+        padding-top: 18px;
+    }
+
+    .on-light .site-header__row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "brand actions" "nav nav";
+        height: auto;
+        row-gap: 14px;
+    }
+
+    .on-light .brand {
+        grid-area: brand;
+    }
+
+    .on-light .site-header__row>.search-trigger,
+    .on-light .site-header__row>.header-actions {
+        grid-area: actions;
+    }
+
+    .on-light .main-nav {
+        grid-area: nav;
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .on-light .footer-card {
+        padding: 28px 22px;
+    }
+
+    .on-light .footer-card__top {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .on-light .footer-brand {
+        width: auto;
+    }
+
+    .on-light .footer-links {
+        gap: 44px;
+    }
+
+    .on-light .trust-badges {
+        margin-left: 0;
+    }
+
+    .on-light .footer-card__bottom {
+        height: auto;
+        grid-template-columns: 1fr auto;
+        row-gap: 14px;
+    }
+
+    .on-light .socials {
+        margin-top: 0;
+    }
+
+    .on-light .to-top {
+        margin: 0;
+    }
+
+    .on-light .copy {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .on-light .footer-links {
+        flex-wrap: wrap;
+        gap: 28px 40px;
+    }
+
+    .on-light .trust-badges img {
+        max-height: 84px;
+    }
+}
