@@ -91,7 +91,7 @@ body.bk {
 .bk .cart-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 372px;
-    gap: 18px;
+    gap: 14px;
     align-items: start;
 }
 

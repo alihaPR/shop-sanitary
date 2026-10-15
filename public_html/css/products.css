@@ -825,6 +825,9 @@ body.pp {
 
 .pp .fp-modal.is-open {
     opacity: 1;
+    margin-top: 5px;
+    width: 300px;
+    height: 420px;
     visibility: visible;
     transform: none;
     transition: opacity .2s ease, transform .28s cubic-bezier(.22, 1, .36, 1);

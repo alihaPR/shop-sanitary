@@ -12,13 +12,25 @@
     width: 226px;
     padding: 8px;
     overflow: visible;
-    background: linear-gradient(180deg, #d3f0eb 0%, #c3eae4 100%);
-    border: 1px solid rgba(255, 255, 255, .75);
-    border-radius: 26px;
-    box-shadow: 0 18px 44px rgba(26, 95, 99, .22), inset 0 1px 0 rgba(255, 255, 255, .6);
+    /* background: linear-gradient(180deg, #d3f0eb 0%, #c3eae4 100%); */
+    /* border: 1px solid rgba(255, 255, 255, .75); */
+    /* border-radius: 26px; */
+    /* box-shadow: 0 18px 44px rgba(26, 95, 99, .22), inset 0 1px 0 rgba(255, 255, 255, .6); */
     transform-origin: 14% 0;
     /* authUI.js با style.display = block باز می‌کند؛ انیمیشن هر بار از نو اجرا می‌شود */
     animation: udIn .24s cubic-bezier(.22, 1, .36, 1);
+
+
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow:
+        0 20px 48px rgba(26, 95, 99, 0.14),
+        0 2px 6px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
 }
 
 @keyframes udIn {
@@ -44,21 +56,21 @@
     align-items: center;
     gap: 10px;
     padding: 9px 10px 9px 12px;
-    background: #fff;
+    background: #f3f3f3;
     border-radius: 20px;
-    box-shadow: 0 6px 16px rgba(26, 95, 99, .08);
+    /* box-shadow: 0 6px 16px rgba(26, 95, 99, .08); */
     transition: box-shadow .2s;
 }
 
 .site-header .user-dropdown-header:hover .name {
-    box-shadow: 0 8px 20px rgba(26, 95, 99, .14);
+    /* box-shadow: 0 8px 10px rgba(228, 226, 226, 0.14); */
 }
 
 .site-header .user-dropdown-avatar {
     flex: none;
     width: 34px;
     height: 34px;
-    background: #e3f9d6;
+    background: #B9DAE6;
     border-radius: 50%;
 }
 
@@ -110,7 +122,7 @@
 .site-header .user-dropdown-divider {
     height: 1px;
     margin: 9px 6px 6px;
-    background: rgba(255, 255, 255, .7);
+    background: rgb(218, 218, 218);
 }
 
 /* ---- آیتم‌ها: آیکن سمت راست، متن، برچسب سمت چپ */
@@ -131,7 +143,7 @@
 }
 
 .site-header .user-dropdown .user-dropdown-item:hover {
-    background: rgba(255, 255, 255, .5);
+    background: #f3f3f3;
 }
 
 .site-header .user-dropdown-item svg {
@@ -145,10 +157,11 @@
     margin-right: auto;
     padding: 2px 9px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, .75);
+    /* background: rgba(209, 209, 209, 0.75); */
+    background-color: #1a5f63;
     font: 700 9.5px/1.5 var(--f-vz);
     font-style: normal;
-    color: #111;
+    color: #fdfcfc;
 }
 
 /* خروج: همان آیتم‌ها، بدون تغییر رنگ */
