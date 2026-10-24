@@ -416,7 +416,7 @@ body.bk {
 
 .bk .empty-state h3 {
     font: 700 17px/1.6 var(--f-sh);
-    color: var(--ink);
+    color: #1f1f1f;
 }
 
 .bk .empty-state p {

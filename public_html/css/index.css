@@ -335,7 +335,7 @@ button {
 .section__title {
     margin-bottom: var(--title-gap);
     font: 700 21.6px/29.7px var(--f-sh);
-    color: var(--ink);
+    color: #1f1f1f;
 }
 
 .section__title--center {
@@ -414,14 +414,14 @@ button {
 }
 
 .cat__title {
-    font: 700 14.4px/18.9px var(--f-sh);
-    color: var(--ink);
+    font: 100 14.4px/18.9px var(--f-sh);
+    color: #333333;
     white-space: nowrap;
 }
 
 .cat__sub {
     font: 300 8.1px/18.9px var(--f-sh);
-    color: var(--ink);
+    color: #333333;
 }
 
 .cat__more {
@@ -578,7 +578,7 @@ a.pc:hover {
     margin: 19.8px 4.5px 0 0;
     text-align: right;
     font: 500 13.5px/18.9px var(--f-sh);
-    color: var(--ink);
+    color: #1f1f1f;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -636,7 +636,7 @@ a.pc:hover {
 
 .pc__price b {
     font: 700 18px/20.7px var(--f-sh);
-    color: var(--ink);
+    color: #1f1f1f;
     white-space: nowrap;
 }
 

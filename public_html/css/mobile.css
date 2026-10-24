@@ -397,14 +397,14 @@
 
     .slide__title {
         font: 700 20px/27px var(--f-sh);
-        color: var(--ink);
+        color: #FFF;
     }
 
     .slide__desc {
         width: auto;
         margin-top: 10px;
         font: 500 12px/20px var(--f-sh);
-        color: #3d3d3d;
+        color: #FFF;
     }
 
     .slide__copy .btn-white {
@@ -417,6 +417,7 @@
         justify-self: start;
         margin: 47px 0 0 9px;
         padding: 0;
+        z-index: 2;
     }
 
     .pill {
@@ -506,6 +507,8 @@
 
     .cat__title {
         font: 700 12px/19px var(--f-sh);
+        font-size: 12px ;
+        font-weight: 500;
     }
 
     .cat__sub {
@@ -527,8 +530,8 @@
 
     .cat__more::after {
         content: "";
-        width: 7px;
-        height: 7px;
+        width: 4px;
+        height: 4px;
         border-left: 1.5px solid var(--ink);
         border-bottom: 1.5px solid var(--ink);
         transform: rotate(45deg);
@@ -573,7 +576,6 @@
     #newest .soft-btn .ico-back {
         width: 11px;
         height: 11px;
-        transform: scaleX(-1);
     }
 
     #newest .rail-layout__aside p {

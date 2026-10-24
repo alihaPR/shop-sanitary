@@ -3152,13 +3152,13 @@ body::selection {
 
 .footer-brand__logo span {
     font: 700 16.2px/19.8px var(--f-sh);
-    color: var(--ink);
+    color: #1f1f1f;
 }
 
 .footer-brand p {
     margin-top: 14.4px;
     font: 400 12.6px/19.8px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
     opacity: .8;
 }
 
@@ -3176,14 +3176,14 @@ body::selection {
 
 .footer-col h4 {
     font: 700 12.6px/17.1px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
     white-space: nowrap;
 }
 
 .footer-col a,
 .footer-col span {
     font: 400 10.8px/17.1px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
     opacity: .7;
     white-space: nowrap;
 }
