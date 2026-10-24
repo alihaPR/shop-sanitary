@@ -138,6 +138,8 @@ async function loadSidebarUser() {
         });
         const user = await res.json();
         document.getElementById("userName").textContent = user.name;
+        const phoneEl = document.getElementById("userPhone");
+        if (phoneEl) phoneEl.textContent = user.phone || "";
     } catch (err) {
         console.log(err);
     }

@@ -199,6 +199,12 @@ function renderFavoritesGrid() {
 
         const imageUrl = `https://api.narmcenter.com/${(product.image || "").replace(/^\/?/, "")}`;
 
+        const hasDiscount = product.discountPercent > 0;
+        const finalPrice = hasDiscount
+            ? Math.round((product.price || 0) * (1 - product.discountPercent / 100))
+            : (product.price || 0);
+        const lowStock = typeof product.stock === "number" && product.stock > 0 && product.stock <= 3;
+
         return `
 
             <a class="favorite-card" href="./cart.html?id=${product._id}" data-id="${product._id}">
@@ -209,7 +215,12 @@ function renderFavoritesGrid() {
 
                 <h4>${product.name}</h4>
 
-                <div class="favorite-card-price">${(product.price || 0).toLocaleString()}</div>
+                ${lowStock ? `<div class="favorite-card-stock">تنها ${product.stock} عدد در انبار باقی مانده</div>` : ""}
+
+                <div class="favorite-card-pricebox">
+                    <div class="favorite-card-price">${finalPrice.toLocaleString()} <small>تومان</small></div>
+                    ${hasDiscount ? `<span class="favorite-card-badge">٪${product.discountPercent}</span><div class="favorite-card-oldprice">${(product.price || 0).toLocaleString()}</div>` : ""}
+                </div>
 
                 <div class="favorite-card-actions">
 

@@ -1,277 +1,829 @@
 /* =====================================================================
-   ریسپانسیو داشبورد کاربر
-   بریک‌پوینت‌ها هماهنگ با بقیه سایت: 1200 / 1024 / 768 / 576 / 430 / 360
-   این فایل بعد از style.css لود میشه تا بتونه override کنه.
-
-   استراتژی ساید‌بار: تو دسکتاپ ثابت و عمودیه. از 1024 به پایین به یه
-   بخش بالای صفحه تبدیل میشه: بالا اطلاعات کاربر، پایینش منوی داشبورد
-   به‌صورت یه لیست تمام‌عرض (ردیف به ردیف با آیکون + عنوان + فلش) —
-   شبیه لیست منوی حساب کاربری دیجی‌کالا تو موبایل.
+   ریسپانسیو پنل کاربری — مطابق فریم‌های موبایل Figma (412px)
+   - بالای 768: همون چیدمان دسکتاپ (سایدبار کنار محتوا)، فقط فشرده‌تر
+   - تا 768: چیدمان موبایل (نوار بالا + کارت‌های تمام‌عرض + نوار پایین شناور)
+   منطق جاوااسکریپت عوض نشده؛ عنوان نوار بالا و نمایش منو با :has() و
+   کلاس active سایدبار تعیین میشه.
 ===================================================================== */
 
-/* دکمه همبرگری فقط تو حالت موبایل/تبلت (زیر 1024) دیده میشه */
-.menu-toggle {
+.menu-toggle,
+.m-topbar {
     display: none;
 }
 
-.user-box-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+/* ------------------------------------------------------------ تبلت */
+@media (max-width:1100px) {
 
-/* =========================================================
-   1200px
-========================================================= */
-@media (max-width:1200px) {
-
-    .content {
-        padding: 28px;
+    .user-page .container,
+    .dashboard {
+        width: calc(100% - 48px);
     }
-
-    .card {
-        width: calc(33.333% - 14px);
-        min-width: 230px;
-    }
-
-    .profile-card,
-    .invoice-card {
-        max-width: 100%;
-    }
-}
-
-
-/* =========================================================
-   1024px — ساید‌بار به بخش بالای صفحه تبدیل میشه
-========================================================= */
-@media (max-width:1024px) {
 
     .dashboard {
-        flex-direction: column;
-        min-height: unset;
-    }
-
-    .sidebar {
-        width: 100%;
-        min-width: 0;
-        height: auto;
-        position: relative;
-        border-left: none;
-        border-bottom: 1px solid #E5E7EB;
-        overflow: visible;
-    }
-
-    /* هدر موبایل: همبرگری راست، اطلاعات کاربر چپ */
-    .user-box {
-        margin: 0;
-        padding: 14px 16px;
-        justify-content: space-between;
-        gap: 0;
-    }
-
-    .user-box-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        border: none;
-        background: #f5f7fb;
-        border-radius: 8px;
-        color: #333;
-        cursor: pointer;
-        padding: 0;
-        flex-shrink: 0;
-    }
-
-    .user-box-svg {
-        padding: 6px;
-    }
-
-    .user-box-svg__svg {
-        width: 17px;
-        height: 17px;
-    }
-
-    #userName {
-        font-size: 15px;
-        width: auto;
-    }
-
-    /* دیگه لازم نیست، لیست دراپ‌داون خودش جداکننده داره */
-    .dashboard-line {
-        display: none;
-    }
-
-    .content {
-        padding: 20px;
-    }
-
-    .btn-home {
-        display: none;
-    }
-
-    /* -------- منوی داشبورد: دراپ‌داون زیر هدر، پیش‌فرض بسته -------- */
-    .dashboard-ul {
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        background: #fff;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, .1);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height .28s ease;
-        z-index: 40;
-    }
-
-    .dashboard-ul.open {
-        max-height: 70vh;
-        overflow-y: auto;
-        border-top: 1px solid #f0f0f0;
-    }
-
-    .dashboard-ul__item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 12px;
-        width: 100%;
-        height: auto;
-        margin-bottom: 0;
-        padding: 15px 20px;
-        border-bottom: 1px solid #f0f0f0;
-        background: #fff;
-        font-size: 14px;
-        position: relative;
-    }
-
-    .dashboard-ul__item:last-child {
-        border-bottom: none;
-    }
-
-    .dashboard-ul__item svg {
-        width: 19px;
-        height: 19px;
-        color: #6b7280;
-        flex-shrink: 0;
-    }
-
-    /* فلش سمت چپ هر ردیف، بدون نیاز به تغییر HTML */
-    .dashboard-ul__item::after {
-        content: "›";
-        margin-right: auto;
-        font-size: 20px;
-        line-height: 1;
-        color: #cbd5e1;
-    }
-
-    .sidebar .active {
-        background-color: #fafafa;
-        border-radius: 0;
-    }
-
-    .active {
-        height: auto;
-    }
-
-    #logout svg {
-        color: #ef4444;
-    }
-
-    .menu-toggle.active {
-        background: #eef0f3;
-    }
-
-    .menu-toggle.active .icon-menu {
-        display: none !important;
-    }
-
-    .menu-toggle.active .icon-close {
-        display: block !important;
-    }
-
-    /* -------- کارت‌های آمار سفارش (خلاصه داشبورد) -------- */
-    .cards {
         gap: 14px;
     }
 
-    .card {
-        width: 100%;
+    .sidebar {
+        width: 210px;
+        min-width: 210px;
     }
 
-    /* آخرین سفارش */
-    #lastOrderBox {
-        width: 100%;
-        height: auto;
+    .user-box {
+        padding: 0 22px;
+    }
+
+    .sidebar .dashboard-ul__item {
+        padding-right: 44px;
+    }
+
+    .summary-card {
+        padding-right: 20px;
+        padding-left: 18px;
+    }
+
+    .card {
+        padding: 0 14px;
+        gap: 12px;
+    }
+
+    .last-order {
+        padding: 28px 20px 24px;
     }
 
     .last-order-card {
-        width: 100%;
-        height: auto;
+        padding: 0 18px;
     }
 
-    /* لیست سفارش‌ها */
-    .order-filter__wraper {
-        height: auto;
-        padding: 20px 20px 15px 20px;
+    .status-badge,
+    #status-badge-text {
+        width: 110px;
     }
 
-    .orders-filter {
-        position: static;
-        flex-wrap: wrap;
+    .order-info {
+        gap: 0 28px;
+    }
+
+    .profile-card {
+        padding: 32px 22px 34px;
+    }
+}
+
+/* ------------------------------------------------------------ موبایل */
+@media (max-width:768px) {
+
+    body.user-page {
+        padding-bottom: 110px;
+    }
+
+    .user-page .site-header {
+        display: none;
+    }
+
+    /* ---------- نوار بالا ---------- */
+    .m-topbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 52px;
+        padding: 0 20px;
+        background: #f9f9f9;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .m-back {
+        display: flex;
+        align-items: center;
+        color: #111;
+    }
+
+    .m-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #383838;
+    }
+
+    .m-title::before {
+        content: "سفارش‌ها";
+    }
+
+    body:has(.dashboard-ul__item[data-view="favorites"].active) .m-title::before {
+        content: "لیست‌ها";
+    }
+
+    body:has(.dashboard-ul__item[data-view="profile"].active) .m-title::before {
+        content: "حساب کاربری";
+    }
+
+    body:has(.dashboard-ul__item[data-view="dashboard"].active) .m-title::before {
+        content: "نرم سنتر";
+    }
+
+    body:has(.dashboard-ul__item[data-view="dashboard"].active) .m-title {
+        font-family: var(--f-sh, "Shabnam", "Vazirmatn", sans-serif);
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--u-ink);
+    }
+
+    body:has(.dashboard-ul__item[data-view="dashboard"].active) .m-back {
+        display: none;
+    }
+
+    /* ---------- چیدمان کلی: سایدبار و محتوا یک ستون میشن ---------- */
+    .dashboard {
+        width: calc(100% - 40px);
+        margin: 16px auto 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .sidebar,
+    .content,
+    #viewContainer {
+        display: contents;
+    }
+
+    /* منو و اطلاعات کاربر فقط تو صفحه‌ی «خلاصه فعالیت‌ها» (مثل فریم موبایل) */
+    .sidebar .user-box,
+    .sidebar .dashboard-ul {
+        display: none;
+    }
+
+    .dashboard:has(.dashboard-ul__item[data-view="dashboard"].active) .user-box {
+        display: flex;
+    }
+
+    .dashboard:has(.dashboard-ul__item[data-view="dashboard"].active) .dashboard-ul {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: none !important;
+    }
+
+    /* ---------- خلاصه فعالیت‌ها: یک کارت سه‌تکه ---------- */
+    .user-box {
+        order: 1;
+        position: relative;
+        margin: 0;
+        padding: 22px 18px 16px;
+        background: #fff;
+        border: 1px solid var(--u-field);
+        border-bottom: 0;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .user-box::after,
+    .summary-card::after {
+        content: "";
+        position: absolute;
+        right: 18px;
+        left: 18px;
+        bottom: 0;
+        height: 1px;
+        background: #eee;
+    }
+
+    .user-box-info {
+        align-items: flex-start;
+    }
+
+    .user-box-text {
+        gap: 4px;
+    }
+
+    #userName {
+        font-size: 12px;
+        font-weight: 500;
+        color: #222;
+    }
+
+    .user-box-phone {
+        font-size: 10px;
+    }
+
+    .user-box-edit {
+        color: var(--u-blue);
+    }
+
+    .user-box-edit svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .summary-card {
+        order: 2;
+        position: relative;
+        min-height: 0;
+        padding: 22px 18px 24px;
+        background: #fff;
+        border: 1px solid var(--u-field);
+        border-width: 0 1px;
+        border-radius: 0;
+    }
+
+    .summary-title {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 19px;
+        padding-bottom: 6px;
+    }
+
+    .summary-title::after {
+        width: 79px;
+        height: 2px;
+        bottom: -2px;
+    }
+
+    .see-all,
+    .last-order__title a {
+        font-size: 10px;
+        gap: 3px;
+    }
+
+    .see-all svg,
+    .last-order__title a svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .cards {
+        margin-top: 26px;
+    }
+
+    .card {
+        position: relative;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
         justify-content: flex-start;
+        gap: 8px;
+        padding: 0;
+        text-align: center;
     }
 
-    .filter-btn {
-        margin-top: 0;
-        padding: 8px 12px 12px 12px;
+    .card:first-child {
+        padding-right: 0;
+    }
+
+    .card+.card {
+        border-right: 1px solid #eee;
+    }
+
+    .cart-svg {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+    }
+
+    .cart-svg svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .cart-svg.svg-1 {
+        background: #e3efee;
+        color: #5f7d7b;
+    }
+
+    .cart-svg.svg-2 {
+        background: #e7f8ee;
+        color: #22c55e;
+    }
+
+    .cart-svg.svg-4 {
+        background: #ffe4e8;
+        color: #ef4444;
+    }
+
+    .cart-content {
+        align-items: center;
+        gap: 0;
+    }
+
+    /* h3 فقط عدد رو نگه میداره (به‌صورت نشان کنار آیکون)، متن «سفارش» مخفی */
+    .card h3 {
+        font-size: 0;
+        height: 0;
+        margin: 0;
+    }
+
+    .dashboard-cards__number {
+        position: absolute;
+        left: calc(50% - 34px);
+        top: 33px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        background: #333;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 1;
+    }
+
+    .cart-content p {
+        font-size: 11px;
+        font-weight: 500;
+        color: #848484;
+    }
+
+    .dashboard-ul {
+        order: 3;
+        flex-direction: column;
+        padding: 12px 18px 12px;
+        background: #fff;
+        border: 1px solid var(--u-field);
+        border-top: 0;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .sidebar .dashboard-ul__item,
+    .sidebar .dashboard-ul__item.active {
+        height: 47px;
+        padding: 0;
+        gap: 12px;
+        font-size: 13px;
+        color: #1b1b1b;
+        border-bottom: 1px solid #eee;
+    }
+
+    .sidebar .dashboard-ul__item:last-child {
+        border-bottom: 0;
+    }
+
+    .sidebar .dashboard-ul__item[data-view="dashboard"] {
+        display: none;
+    }
+
+    .sidebar .dashboard-ul__item.active::before {
+        display: none;
+    }
+
+    .dashboard-ul__item svg {
+        display: block;
+        order: -1;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: #222;
+    }
+
+    .dashboard-ul__item::after {
+        content: "";
+        width: 7px;
+        height: 7px;
+        margin-right: auto;
+        border-left: 1.5px solid #333;
+        border-bottom: 1.5px solid #333;
+        transform: rotate(45deg);
+    }
+
+    .last-order {
+        order: 4;
+        margin-top: 12px;
+        padding: 18px 16px;
+        border-radius: 12px;
+    }
+
+    .last-order__title {
+        margin-bottom: 16px;
+    }
+
+    .last-order__heading {
         font-size: 13px;
     }
 
-    .order-wrapper {
+    .last-order-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
         height: auto;
-        padding: 15px;
+        padding: 16px;
+    }
+
+    .order-row--main {
+        max-width: none;
+    }
+
+    .order-row--price {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .status-badge,
+    #status-badge-text,
+    .track-btn {
+        width: 100%;
+    }
+
+    /* ---------- سفارش‌ها ---------- */
+    .order-filter__wraper {
+        min-height: 0;
+        height: auto;
+        padding: 4px 8px;
+        margin-bottom: 12px;
+        border: 1px solid var(--u-field);
+        border-radius: 12px;
+    }
+
+    .order-filter__wraper h2 {
+        display: none;
+    }
+
+    .orders-filter {
+        gap: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .orders-filter::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-btn {
+        flex-shrink: 0;
+        gap: 8px;
+        padding: 9px 10px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .filter-btn span {
+        min-width: 16px;
+        height: 16px;
+        font-size: 7px;
+    }
+
+    .filter-btn.active::after {
+        height: 3px;
+        bottom: 0;
+    }
+
+    #ordersContainer {
+        margin: 0;
+        padding: 0;
+        min-height: 0;
+        gap: 12px;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+
+    #ordersContainer>h3 {
+        padding: 90px 20px;
+        background: #fff;
+        border: 1px solid var(--u-field);
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #222;
     }
 
     .order-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 18px;
+        min-height: 216px;
+        padding: 0 12px 14px;
+        border-radius: 12px;
     }
 
-    .order-a {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
+    .order-info {
+        display: block;
+        gap: 0;
+    }
+
+    .order-status__wraper {
+        position: absolute;
+        top: 16px;
+        right: 0;
+        height: 30px;
+        padding: 0 22px 0 24px;
+        gap: 0;
+        border-radius: 5px 0 0 5px;
+        background: #fff5e4;
+        color: #997025;
+    }
+
+    .order-status__wraper:has(.processing) {
+        background: #e8f0ff;
+        color: #2b5fc4;
+    }
+
+    .order-status__wraper:has(.shipped),
+    .order-status__wraper:has(.delivered) {
+        background: #e7f8ee;
+        color: #12b76a;
+    }
+
+    .order-status__wraper:has(.cancelled) {
+        background: #ffe4ec;
+        color: #ff5c8a;
+    }
+
+    .order-status__cercel {
+        display: none;
+    }
+
+    .order-status {
+        font-size: 13px;
+        color: inherit;
+    }
+
+    .order-dtail {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
         height: auto;
+        padding-top: 56px;
+        font-size: 13px;
+    }
+
+    .order-code {
+        order: 1;
+        font-size: 13px;
+    }
+
+    .order-date {
+        order: 2;
+        font-size: 13px;
+    }
+
+    .order-price {
+        position: absolute;
+        left: 14px;
+        bottom: 54px;
+        order: 3;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--u-ink);
+    }
+
+    .order-price span {
+        display: none;
     }
 
     .order-products-images {
-        flex-wrap: wrap;
+        position: absolute;
+        right: 12px;
+        bottom: 14px;
+        flex-basis: auto;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        border: 0;
     }
 
-    /* گرید‌های دو ستونه به تک‌ستونه */
-    .profile-info,
+    .order-product-image {
+        width: 54px;
+        height: 70px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    .order-a {
+        position: static;
+        display: block;
+        width: auto;
+    }
+
+    .view-order {
+        position: absolute;
+        left: 12px;
+        top: 20px;
+        height: auto;
+        padding: 0;
+    }
+
+    .view-order p {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .view-invoice {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        width: 108px;
+        height: 30px;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid var(--u-ink);
+        border-radius: 6px;
+        color: var(--u-ink);
+    }
+
+    .view-invoice svg {
+        display: none;
+    }
+
+    .view-invoice p {
+        font-size: 11px;
+    }
+
+    /* ---------- لیست علاقه‌مندی‌ها ---------- */
+    .favorites-header-card {
+        min-height: 42px;
+        padding: 0 16px 0 18px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        box-shadow: none;
+    }
+
+    .favorites-header-card h2 {
+        display: none;
+    }
+
+    .favorites-toolbar {
+        height: 42px;
+        flex-wrap: nowrap;
+    }
+
+    .favorites-sort {
+        gap: 12px;
+    }
+
+    .favorites-sort-label {
+        font-size: 0;
+        margin: 0;
+    }
+
+    .favorites-sort-label svg {
+        display: block;
+        width: 17px;
+        height: 17px;
+        color: #222;
+    }
+
+    .sort-btn,
+    .favorites-count {
+        font-size: 11px;
+    }
+
+    .favorites-list-card {
+        padding: 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .favorite-card {
+        display: grid;
+        grid-template-columns: 118px 1fr;
+        grid-template-rows: auto 1fr auto auto;
+        column-gap: 12px;
+        min-height: 218px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .favorite-card-image {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        width: 118px;
+        height: 118px;
+        margin: 0;
+    }
+
+    .favorite-card-image img {
+        width: 118px;
+        height: 118px;
+        border-radius: 10px;
+    }
+
+    .favorite-card h4 {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 12px 0 0;
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .favorite-card-stock {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+        margin: 20px 0 0;
+        font-size: 10px;
+        text-align: right;
+    }
+
+    .favorite-card-pricebox {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin: 6px 0 4px;
+        min-height: 0;
+    }
+
+    .favorite-card-price {
+        font-size: 16px;
+    }
+
+    .favorite-card-actions {
+        grid-column: 1 / -1;
+        grid-row: 4;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .fav-add-cart-btn {
+        flex-direction: row-reverse;
+        gap: 6px;
+        height: 36px;
+        border: 1px solid var(--u-ink);
+        border-radius: 8px;
+        color: var(--u-ink);
+        font-size: 12px;
+    }
+
+    .fav-add-cart-btn svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+    }
+
+    .fav-remove-btn {
+        width: 57px;
+        height: 36px;
+        border: 1px solid var(--u-field);
+        border-radius: 8px;
+        color: #b5b5b5;
+    }
+
+    .favorites-pagination {
+        margin-top: 16px;
+        font-size: 10px;
+    }
+
+    /* ---------- پروفایل ---------- */
+    .profile-card {
+        min-height: 0;
+        padding: 0 8px;
+        background: none;
+        border: 0;
+    }
+
+    .profile-header {
+        margin: 20px 0 14px;
+    }
+
+    .profile-header h2 {
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .info-item {
+        min-height: 67px;
+        padding: 0 18px 0 20px;
+        border-radius: 12px;
+    }
+
+    .info-item--wide {
+        grid-column: auto;
+    }
+
+    .info-item:has(#changePassword) {
+        order: 9;
+    }
+
+    .info-item span {
+        margin-bottom: 6px;
+        font-size: 11px;
+    }
+
+    .info-item strong,
+    .info-text-p {
+        font-size: 12px;
+    }
+
+    /* ---------- جزئیات سفارش و فاکتور ---------- */
+    .order-details-card,
+    .invoice-card {
+        padding: 18px 16px;
+        border-radius: 12px;
+    }
+
     .order-details-info,
-    .order-info,
     .invoice-meta {
         grid-template-columns: 1fr;
-    }
-
-    .invoice-card,
-    .order-details-card {
-        padding: 20px;
     }
 
     .invoice-header,
@@ -280,277 +832,20 @@
         gap: 12px;
     }
 
-    /* جدول فاکتور: اسکرول افقی بدون نیاز به تغییر HTML */
     .invoice-table {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
 
-    .edit-modal {
-        width: 90%;
-        max-width: 420px;
-        padding: 22px;
-    }
-}
-
-
-/* =========================================================
-   768px — چیدمان کارت‌های آمار سفارش شبیه صفحه حساب کاربری
-   دیجی‌کالا: آیکون بالا، شمارنده کنار آیکون، عنوان پایین
-========================================================= */
-@media (max-width:768px) {
-
-    .cards {
-        display: flex;
-        gap: 8px;
-    }
-
-    .card {
-        flex: 1;
-        min-width: 0;
-        height: 104px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 6px;
-        text-align: center;
-    }
-
-    .cart-svg {
-        width: 42px;
-        height: 42px;
-    }
-
-    .cart-content {
-        align-items: center;
-        gap: 2px;
-    }
-
-    .cart-content h3 {
-        font-size: 12px;
-        font-weight: 500;
-        white-space: nowrap;
-    }
-
-    .cart-content p {
-        display: none;
-    }
-
-    .card span.dashboard-cards__number {
-        position: absolute;
-        top: 10px;
-        right: calc(50% - 34px);
-        left: auto;
-        width: 16px;
-        height: 16px;
-        font-size: 9px;
-    }
-
-    /* هدر «سفارش‌های من» با آندرلاین کوتاه، شبیه رفرنس */
-    .last-order {
-        border: none;
-        border-top: 1px solid #E5E7EB;
-        border-radius: 0;
-        padding: 20px 0;
-        margin-top: 10px;
-
-        border-radius: 8px;
-        padding: 25px;
-    }
-
-    .last-order__title h2 {
-        position: relative;
-        padding-bottom: 10px;
-        font-size: 15px;
-    }
-
-    .last-order__title h2::after {
-        /* content: "";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 34px;
-        height: 3px;
-        background: #ff4757;
-        border-radius: 2px; */
-    }
-}
-
-
-/* =========================================================
-   576px
-========================================================= */
-@media (max-width:576px) {
-
-    .content {
-        padding: 16px;
-    }
-
-    .user-box {
-        padding: 16px;
-        gap: 8px;
-    }
-
-    #userName {
-        font-size: 14px;
-    }
-
-    .dashboard-ul__item {
-        padding: 14px 16px;
-        font-size: 13px;
-    }
-
-    .dashboard-ul__item svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .dashboard-ul__item::after {
-        font-size: 18px;
-    }
-
-    /* کارت‌های آمار سفارش */
-    .card {
-        height: 92px;
-        padding: 10px 4px;
-        gap: 6px;
-    }
-
-    .cart-svg {
-        width: 36px;
-        height: 36px;
-    }
-
-    .cart-content h3 {
-        font-size: 11px;
-    }
-
-    .card span.dashboard-cards__number {
-        right: calc(50% - 28px);
-    }
-
-    /* سفارش‌ها */
-    .order-filter__wraper h2 {
-        font-size: 15px;
-    }
-
-    .order-dtail {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .order-product-image {
-        width: 60px;
-        height: 60px;
-    }
-
-    .order-a {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    /* فاکتور و جزئیات سفارش */
-    .invoice-card,
-    .order-details-card,
-    .profile-card,
-    .favorites-list-card,
-    .favorites-header-card {
-        padding: 16px;
-    }
-
-    .order-details-top h2,
-    .invoice-header h2 {
-        font-size: 18px;
-    }
-
     .product-row {
-        padding: 14px;
-    }
-
-    .product-row img {
-        width: 70px;
-        height: 70px;
-    }
-
-    /* پروفایل */
-    .avatar {
-        width: 90px;
-        height: 90px;
-    }
-
-    .info-item {
-        padding: 14px;
-    }
-
-    /* علاقه‌مندی‌ها */
-    .favorites-grid {
-        /* grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); */
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-
-        gap: 12px;
-    }
-
-    .favorite-card-image {
-        height: 130px;
-    }
-
-    .favorites-pagination {
         flex-direction: column;
-        gap: 10px;
         align-items: flex-start;
     }
 
-    .edit-modal {
-        width: 92%;
-        padding: 18px;
-    }
-}
-
-
-/* =========================================================
-   430px
-========================================================= */
-@media (max-width:430px) {
-
-    .cards {
+    .product-meta {
+        flex-direction: column;
         gap: 8px;
-    }
-
-    .cart-content p {
-        font-size: 11px;
-    }
-
-    .last-order h2 {
-        font-size: 15px;
-    }
-
-    .order-row {
-        padding: 15px 0;
-    }
-
-    .order-id {
-        font-size: 16px;
-    }
-
-    .order-price {
-        font-size: 14px;
-    }
-
-    .filter-btn {
-        font-size: 12px;
-        padding: 6px 10px 10px 10px;
-    }
-
-    .dashboard-ul__item {
-        padding: 13px 14px;
-    }
-
-    .invoice-meta {
-        grid-template-columns: 1fr;
     }
 
     .invoice-total {
@@ -559,107 +854,65 @@
         gap: 8px;
     }
 
-    .favorites-grid {
-        /* grid-template-columns: repeat(2, 1fr); */
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-
-    }
-
-    .favorites-sort {
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .info-item {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .info-wraper span {
-        font-size: 12px;
-    }
-}
-
-
-/* =========================================================
-   360px
-========================================================= */
-@media (max-width:360px) {
-
-    .content {
-        padding: 12px;
-    }
-
-    .user-box {
-        padding: 12px;
-    }
-
-    .user-box-svg {
-        padding: 6px;
-    }
-
-    .dashboard-ul__item {
-        padding: 12px 12px;
-        font-size: 12px;
-        gap: 10px;
-    }
-
-    .dashboard-ul__item::after {
-        font-size: 16px;
-    }
-
-    .card {
-        padding: 8px 4px;
-    }
-
-    .cart-svg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .cart-svg svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .order-product-image {
-        width: 50px;
-        height: 50px;
-    }
-
-    .invoice-card,
-    .order-details-card,
-    .profile-card,
-    .favorites-list-card,
-    .favorites-header-card {
-        padding: 12px;
-    }
-
-    .avatar {
-        width: 75px;
-        height: 75px;
-        border-width: 3px;
-    }
-
-    .favorites-grid {
-        /* grid-template-columns: 1fr 1fr; */
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-
-        gap: 8px;
-    }
-
-    .fav-add-cart-btn,
-    .fav-remove-btn {
-        height: 36px;
-        font-size: 12px;
-    }
-
     .edit-modal {
-        padding: 14px;
+        width: 92%;
+        max-width: 420px;
+        padding: 22px;
     }
 
-    .modal-buttons button {
-        padding: 10px;
-        font-size: 13px;
+    /* ---------- نوار پایین شناور ---------- */
+    .bottom-nav {
+        display: flex;
+        right: 22px;
+        left: 22px;
+        bottom: 24px;
+        height: 56px;
+        padding: 0 8px;
+        background: rgba(255, 255, 255, .78);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, .6);
+        border-radius: 28px;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, .1);
+    }
+
+    .bottom-nav-item.search-btn {
+        display: none;
+    }
+
+    .bottom-nav-item {
+        gap: 3px;
+        color: #848484;
+        font-size: 9px;
+    }
+
+    .bottom-nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bottom-nav-item.active {
+        color: var(--u-ink);
+    }
+
+    .bottom-nav-item::after {
+        font-size: 9px;
+        line-height: 1;
+    }
+
+    .bottom-nav-item:nth-child(1)::after {
+        content: "خانه";
+    }
+
+    .bottom-nav-item:nth-child(2)::after {
+        content: "دسته بندی";
+    }
+
+    .bottom-nav-item:nth-child(4)::after {
+        content: "سبد خرید";
+    }
+
+    .bottom-nav-item:nth-child(5)::after {
+        content: "صفحه من";
     }
 }

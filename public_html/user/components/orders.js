@@ -15,7 +15,8 @@ function createOrderCard(order) {
                 </div>
                 <div class="order-dtail">
                     <div class="order-date">${new Date(order.createdAt).toLocaleDateString("fa-IR")}</div>
-                    <div class="order-price">${order.totalPrice.toLocaleString()} تومان</div>
+                    <div class="order-code"><span>کد سفارش</span> ${order._id.slice(-8)}</div>
+                    <div class="order-price"><span>مبلغ</span> ${order.totalPrice.toLocaleString()} <small>تومان</small></div>
                 </div>
 <div class="order-products-images">
     ${order.items.map(item => `
