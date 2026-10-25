@@ -68,7 +68,9 @@ window.Views.orders = {
                 </button>
             </div>
         </div>
-        <div id="ordersContainer"></div>
+        <div id="ordersContainer">
+            
+        </div>
     `,
 
     /* params.filter میتونه از کارت‌های داشبورد بیاد (current/delivered/cancelled)
@@ -85,7 +87,11 @@ window.Views.orders = {
             const container = document.getElementById("ordersContainer");
 
             if (orders.length === 0) {
-                container.innerHTML = `<h3 style="text-align:center">هنوز سفارشی ثبت نکرده‌اید.</h3>`;
+                container.innerHTML = `
+                    <div class="orders-empty">
+                        <img src="../img/img-notorder.png" alt="سفارشی وجود ندارد">
+                        <h3>هنوز هیچ سفارشی ندادید</h3>
+                    </div>`;
                 return;
             }
 

@@ -3,16 +3,6 @@
 // این فایل مستقل است، به منطق/ظاهر فعلی سایت دست نمی‌زند.
 // =====================================================================
 
-// ===================== AOS =====================
-window.addEventListener('load', () => {
-  if (window.AOS) {
-    AOS.init({ once: true, duration: 800, offset: 60, easing: 'ease-out-cubic' });
-  }
-});
-window.addEventListener('resize', () => {
-  if (window.AOS) AOS.refresh();
-});
-
 // ===================== Toast عمومی =====================
 (function () {
 

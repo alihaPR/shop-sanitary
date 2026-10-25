@@ -168,14 +168,12 @@ function renderFavoritesGrid() {
     countEl.textContent = `${sortedFavorites.length} محصول`;
 
     if (sortedFavorites.length === 0) {
-
+        grid.classList.add("empty");
         grid.innerHTML = `
             <div class="favorites-empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
-                </svg>
+                <img src="../img/img-notorderlike.png" alt="" style="width: 180px;">
                 <p>لیست علاقه‌مندی شما خالی است</p>
-                <a class="favorites-empty-link" href="./products.html">مشاهده محصولات</a>
+                <a class="favorites-empty-link" href="../products.html">مشاهده محصولات</a>
             </div>
         `;
 
@@ -184,7 +182,7 @@ function renderFavoritesGrid() {
         return;
 
     }
-
+    grid.classList.remove("empty");
     document.getElementById("favoritesPagination").style.display = "flex";
 
     const totalPages = Math.max(1, Math.ceil(sortedFavorites.length / FAVORITES_PER_PAGE));
