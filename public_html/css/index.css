@@ -240,7 +240,7 @@ button {
     border-radius: 17.1px;
     box-shadow: var(--shadow-card);
     font: 700 12.6px/19.8px var(--f-vz);
-    color: var(--ink);
+    color: #333333;
     white-space: nowrap;
     transition: transform .2s, box-shadow .2s;
 }

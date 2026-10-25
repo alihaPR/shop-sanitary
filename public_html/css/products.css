@@ -323,13 +323,6 @@ body.pp {
     white-space: nowrap;
 }
 
-.pp .cart-price-after::after {
-    content: "";
-    width: 19.8px;
-    height: 19.8px;
-    background: url("../img/toman.svg") center / contain no-repeat;
-}
-
 .pp .cart-unavailable {
     position: absolute;
     top: 19px;

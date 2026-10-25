@@ -617,7 +617,7 @@ body.ab {
         order: 4;
         width: 100%;
         max-width: 420px;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     .ab-why {
