@@ -144,7 +144,7 @@
     }
 
     .bottom-nav-item:nth-child(2)::after {
-        content: "دسته بندی";
+        content: "محصولات";
     }
 
     .bottom-nav-item:nth-child(4)::after {
@@ -863,7 +863,7 @@
     }
 
     /* خلاصه سفارش: نوار شناور بالای نوار پایین */
-    .summary-card {
+    .bk .summary-card {
         position: fixed;
         right: 18px;
         left: 18px;
@@ -874,9 +874,11 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        width: auto;
+        top: auto;
         height: 56px;
         margin: 0;
-        padding: 0 8px 0 14px;
+        padding: 0 8px 0 17px;
         background: rgba(255, 255, 255, .92);
         -webkit-backdrop-filter: blur(14px);
         backdrop-filter: blur(14px);
@@ -885,7 +887,7 @@
         box-shadow: 0 8px 26px rgba(0, 0, 0, .08);
     }
 
-    .summary-card .checkout-btn {
+    .bk .summary-card .checkout-btn {
         order: -1;
         width: auto;
         height: 40px;
@@ -893,9 +895,10 @@
         padding: 0 28px;
         border-radius: 20px;
         font-size: 12px;
+        box-shadow: none;
     }
 
-    .summary-card .summary-panel {
+    .bk .summary-card .summary-panel {
         flex: 1;
         padding: 0;
         background: none;
@@ -903,14 +906,14 @@
         box-shadow: none;
     }
 
-    .summary-card .summary-panel h3,
-    .summary-card .summary-row,
-    .summary-card .secure-note,
-    .summary-card .summary-features {
+    .bk .summary-card .summary-panel h3,
+    .bk .summary-card .summary-row,
+    .bk .summary-card .secure-note,
+    .bk .summary-card .summary-features {
         display: none;
     }
 
-    .summary-card .summary-total {
+    .bk .summary-card .summary-total {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -920,19 +923,177 @@
         border: 0;
     }
 
-    .summary-card .summary-total .label {
+    .bk .summary-card .summary-total .label {
         font-size: 10px;
         color: #333;
     }
 
-    .summary-card .summary-total .value {
+    .bk .summary-card .summary-total .value {
         font: 700 14px var(--f-sh);
         color: #111;
     }
 
-    .summary-card .summary-total .value small {
+    .bk .summary-card .summary-total .value small {
         margin-right: 4px;
         font-size: 10px;
+    }
+    .bk .summary-card .summary-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+    }
+
+    .bk .summary-card .summary-total .label {
+        display: none;
+    }
+
+    /* دکمه‌ی «جمع N کالا» با فلش */
+    .bk .sum-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0;
+        background: none;
+        border: 0;
+        color: #333;
+        font: 400 10px/1.4 var(--f-vz, "Vazirmatn", sans-serif);
+        cursor: pointer;
+    }
+
+    .bk .sum-toggle svg {
+        transition: transform .25s;
+    }
+
+    .bk .sum-toggle[aria-expanded="true"] svg {
+        transform: rotate(180deg);
+    }
+
+    /* پنجره‌ی جزئیات پرداخت: شناور مثل نوار خرید */
+    .sum-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 950;
+        background: rgba(0, 0, 0, .35);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s, visibility .25s;
+    }
+
+    .sum-backdrop.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sum-sheet {
+        display: block;
+        position: fixed;
+        right: 18px;
+        left: 18px;
+        bottom: 18px;
+        z-index: 960;
+        padding: 10px 18px 18px;
+        background: rgba(255, 255, 255, .96);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--m-line);
+        border-radius: 28px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, .16);
+        font-family: var(--f-vz, "Vazirmatn", sans-serif);
+        transform: translateY(24px);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform .28s, opacity .28s, visibility .28s;
+    }
+
+    .sum-sheet.is-open {
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sum-grip {
+        display: block;
+        width: 40px;
+        height: 4px;
+        margin: 0 auto 10px;
+        background: #ddd;
+        border-radius: 2px;
+    }
+
+    .sum-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+    }
+
+    .sum-head h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: #111;
+    }
+
+    .sum-close {
+        display: grid;
+        place-items: center;
+        padding: 4px;
+        background: none;
+        border: 0;
+        color: #111;
+        cursor: pointer;
+    }
+
+    .sum-note {
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        background: #f3f3f3;
+        border-radius: 14px;
+        font-size: 11px;
+        line-height: 1.9;
+        color: #444;
+    }
+
+    .sum-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 2px;
+        font-size: 12px;
+        color: #111;
+    }
+
+    .sum-row b {
+        font-weight: 700;
+    }
+
+    .sum-row.muted {
+        color: #7a7a7a;
+    }
+
+    .sum-row b.discount {
+        color: #e11d48;
+    }
+
+    .sum-row.total {
+        margin-top: 4px;
+        font-size: 13px;
+    }
+
+    .sum-ok {
+        width: 100%;
+        height: 44px;
+        margin-top: 12px;
+        background: #fff;
+        border: 1px solid #111;
+        border-radius: 22px;
+        color: #111;
+        font: 700 12px var(--f-vz, "Vazirmatn", sans-serif);
+        cursor: pointer;
+    }
+    .site-footer{
+        display: none;
     }
 }
 
@@ -1070,5 +1231,15 @@
 
     .ab-why__card p {
         font-size: 12px;
+    }
+}
+
+/* فقط موبایل: دکمه و پنجره‌ی جزئیات پرداخت */
+@media (min-width:769px) {
+
+    .bk .sum-toggle,
+    .sum-backdrop,
+    .sum-sheet {
+        display: none;
     }
 }

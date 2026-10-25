@@ -216,6 +216,16 @@ function renderSummary(cart) {
 
   const totalEl = document.querySelector(".summary-total .value");
   if (totalEl) totalEl.innerHTML = `${formatPrice(total)}<small>تومان</small>`;
+
+  // نوار شناور موبایل + پنجره‌ی جزئیات پرداخت
+  const count = cart.reduce((n, i) => n + i.qty, 0);
+  const setT = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+  setT("sumToggleText", `جمع ${count} کالا`);
+  setT("sheetCountLabel", `مجموع قیمت کالاها (${count} کالا)`);
+  setT("sheetSubtotal", formatPrice(subtotal) + " تومان");
+  setT("sheetShipping", freeShipping ? "رایگان" : formatPrice(shippingCost) + " تومان");
+  setT("sheetDiscount", discount > 0 ? `— ${formatPrice(discount)} تومان` : "—");
+  setT("sheetTotal", formatPrice(total) + " تومان");
 }
 
 function updateCartTitle() {
@@ -235,4 +245,24 @@ if (clearBtn) {
 document.addEventListener("DOMContentLoaded", () => {
   renderBasket();
   updateCartBadge();
+});
+
+// باز و بسته شدن پنجره‌ی جزئیات پرداخت (موبایل)
+document.addEventListener("DOMContentLoaded", function () {
+  const sheet = document.getElementById("sumSheet");
+  const back = document.getElementById("sumBackdrop");
+  const toggle = document.getElementById("sumToggle");
+  if (!sheet || !back || !toggle) return;
+  const setOpen = (open) => {
+    sheet.classList.toggle("is-open", open);
+    back.classList.toggle("is-open", open);
+    sheet.setAttribute("aria-hidden", String(!open));
+    toggle.setAttribute("aria-expanded", String(open));
+  };
+  toggle.addEventListener("click", () => setOpen(!sheet.classList.contains("is-open")));
+  back.addEventListener("click", () => setOpen(false));
+  document.getElementById("sumClose").addEventListener("click", () => setOpen(false));
+  document.getElementById("sumOk").addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 768) setOpen(false); });
 });
