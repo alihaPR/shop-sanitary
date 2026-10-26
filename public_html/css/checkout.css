@@ -363,3 +363,318 @@ body {
 .form-group.error .error-message {
     display: block;
 }
+
+/* ===========================
+   تبلت/موبایل: تک‌ستونه کردن چیدمان
+   (قانون بالا روی .checkout-container بود که در HTML وجود ندارد)
+=========================== */
+
+@media (max-width:992px) {
+
+    .checkout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .checkout-summary {
+        position: static;
+    }
+
+}
+
+
+/* =====================================================================
+   بازگشت به سبد خرید — بالای صفحه، بیرون از کارت فرم
+===================================================================== */
+
+.checkout-nav {
+    margin-bottom: 26px;
+}
+
+.checkout-nav .back-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 10px;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .9);
+    border-radius: 12px;
+    box-shadow: 0 14px 30px 10px rgba(0, 0, 0, 0.001);
+    color: #1f1f1f;
+    font: 400 12px var(--f-vz);
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+}
+
+
+
+.checkout-nav .back-cart:active {
+    transform: scale(.98);
+}
+
+/* =====================================================================
+   خلاصه سفارش — هم‌سبک .summary-card صفحه سبد خرید
+===================================================================== */
+
+.checkout-summary {
+    position: sticky;
+    top: 24px;
+    margin: 10px;
+}
+
+.checkout-summary .co-panel {
+    padding: 22px 22px 8px;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .7);
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #fcfcfc, 0 14px 30px 10px rgba(0, 0, 0, .045);
+}
+
+.co-panel h3 {
+    margin-bottom: 16px;
+    font: 700 15px/1.6 var(--f-sh);
+    color: var(--ink);
+}
+
+.co-row,
+.co-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid #efefef;
+}
+
+.co-row:first-of-type {
+    border-top: 0;
+}
+
+.co-panel .label {
+    font: 400 13px var(--f-vz);
+    color: var(--ink);
+}
+
+.co-panel .value {
+    font: 700 13px var(--f-vz);
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.co-total .label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.co-total .value {
+    font: 700 17px var(--f-sh);
+}
+
+.checkout-summary #checkout-btn {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 52px;
+    margin: 26px 0 0;
+    border: 0;
+    border-radius: 16px;
+    background: var(--ink);
+    color: #fff;
+    font: 700 14px var(--f-vz);
+    box-shadow: 0 0 0 10px #fcfcfc;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.checkout-summary #checkout-btn:hover {
+    background: var(--teal);
+    transform: none;
+}
+
+.checkout-summary #checkout-btn:active {
+    transform: scale(.985);
+}
+
+.checkout-summary .Tip {
+    margin-top: 24px;
+    padding: 0 4px;
+}
+
+/* =====================================================================
+   لیست‌های استان/شهر (select-ui.js) — ظاهر سفارشی
+===================================================================== */
+
+.form-group .cs {
+    position: relative;
+}
+
+.form-group .cs select.cs-native {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-group .cs-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-radius: 12px;
+    color: #222;
+    font: inherit;
+    font-size: 13px;
+    text-align: right;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .25s, box-shadow .25s;
+}
+
+.form-group .cs-trigger:focus-visible,
+.form-group .cs.is-open .cs-trigger {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(52, 159, 161, .14);
+}
+
+.form-group .cs-value {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.form-group .cs-trigger.is-placeholder .cs-value {
+    color: #aaa;
+}
+
+.form-group .cs-chev {
+    flex: none;
+    color: #7a7a7a;
+    transition: transform .2s;
+}
+
+.form-group .cs.is-open .cs-chev {
+    transform: rotate(180deg);
+}
+
+.form-group.error .cs-trigger {
+    border-color: #ef4444;
+}
+
+.form-group.success .cs-trigger {
+    border-color: #22c55e;
+}
+
+/* پنل منو (دسکتاپ) */
+.cs-pop {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    z-index: 60;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid rgba(235, 235, 235, .9);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .12);
+}
+
+.cs.is-open .cs-pop {
+    display: block;
+}
+
+.cs.cs--up .cs-pop {
+    top: auto;
+    bottom: calc(100% + 6px);
+}
+
+.cs-grip,
+.cs-title,
+.cs-backdrop {
+    display: none;
+}
+
+.cs-search[hidden],
+.cs-empty[hidden],
+.cs-opt[hidden] {
+    display: none;
+}
+
+.checkout-page .form-group .cs-search {
+    margin-bottom: 6px;
+}
+
+.checkout-page .form-group .cs-search input {
+    height: 40px;
+    padding: 0 12px;
+    background: #f7f9f9;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.cs-list {
+    position: relative;
+    max-height: 248px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    outline: none;
+    scrollbar-width: thin;
+    scrollbar-color: #cfd8d8 transparent;
+}
+
+.cs-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: #2b2b2b;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.cs-opt.is-active {
+    background: #eef6f6;
+}
+
+.cs-opt[aria-selected="true"] {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.cs-opt[aria-selected="true"]::after {
+    content: "";
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-inline-start: auto;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a5f63' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg>") center / contain no-repeat;
+}
+
+.cs-empty {
+    padding: 14px 12px;
+    color: #777;
+    font-size: 12.5px;
+    text-align: center;
+}
+
+
+/* دکمه‌ی «جمع N کالا» فقط در نوار شناور موبایل دیده می‌شود (mobile.css) */
+.co-toggle {
+    display: none;
+}
