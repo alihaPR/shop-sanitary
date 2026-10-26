@@ -507,7 +507,7 @@
 
     .cat__title {
         font: 700 12px/19px var(--f-sh);
-        font-size: 12px ;
+        font-size: 12px;
         font-weight: 500;
     }
 
@@ -704,9 +704,14 @@
         color: #fff;
     }
 
+    .mini-btn svg {
+        fill: #fff;
+        color: #FFF;
+    }
+
     .offer-panel .rail {
         margin: 14px 0 0;
-        padding: 12px var(--m-gutter) 16px;
+        padding: 50px var(--m-gutter) 50px;
     }
 }
 
@@ -937,6 +942,7 @@
         margin-right: 4px;
         font-size: 10px;
     }
+
     .bk .summary-card .summary-panel {
         display: flex;
         flex-direction: column;
@@ -1092,7 +1098,8 @@
         font: 700 12px var(--f-vz, "Vazirmatn", sans-serif);
         cursor: pointer;
     }
-    .site-footer{
+
+    .site-footer {
         display: none;
     }
 }

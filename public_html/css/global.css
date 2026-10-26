@@ -3241,7 +3241,7 @@ body::selection {
     margin-top: 52.2px;
     text-align: center;
     font: 400 10.8px/17.1px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
     opacity: .6;
 }
 

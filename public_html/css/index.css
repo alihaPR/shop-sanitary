@@ -420,7 +420,7 @@ button {
 }
 
 .cat__sub {
-    font: 300 8.1px/18.9px var(--f-sh);
+    font: 300 9.1px/18.9px var(--f-sh);
     color: #333333;
 }
 
@@ -431,7 +431,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 14.4px;
-    font: 300 9px/11.7px var(--f-vz);
+    font: 300 10px/11.7px var(--f-vz);
     color: var(--ink);
 }
 
@@ -511,7 +511,7 @@ button {
 
 /* ردیف تا لبه‌ی چپ صفحه ادامه دارد */
 .rail-empty {
-    margin: 108px auto 0;
+    margin:auto;
     font: 500 13.5px var(--f-vz);
     color: var(--muted);
 }
@@ -701,7 +701,7 @@ a.pc:hover {
     border-radius: 5.4px;
     box-shadow: var(--shadow-card);
     font: 700 11.7px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
 }
 
 .timer svg {
@@ -724,9 +724,12 @@ a.pc:hover {
     border-radius: 7.2px;
     box-shadow: var(--shadow-card);
     font: 700 9.9px/16.2px var(--f-vz);
-    color: var(--ink);
+    color: #1f1f1f;
     white-space: nowrap;
     transition: transform .2s;
+}
+.mini-btn svg{
+    fill: #1f1f1f;
 }
 
 .mini-btn:hover {
