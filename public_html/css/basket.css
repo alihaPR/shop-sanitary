@@ -495,7 +495,9 @@
        background: #0891b2;
        color: #fff;
    }
-
+    .site-footer {
+        display: none;
+    }
 
    /* -------------------------------- Responsive -------------------------------- */
 
@@ -581,7 +583,7 @@
    }
 
    @media (max-width:768px) {
-
+        
        /* ---------- Breadcrumb ---------- */
 
        .breadcrumb {
