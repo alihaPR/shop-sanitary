@@ -3003,24 +3003,28 @@ body::selection {
 .profile-btn path {
     fill: #000;
 }
-
-.cart-badge {
+.cart-badge-wraper{
     position: absolute;
     left: 24.3px;
     top: -6.3px;
-    width: 12.6px;
-    height: 12.6px;
+    width: 14.6px;
+    height: 14.6px;
     /* موقعیت نشان نسبت به آیکن سبد */
     display: flex !important;
-    align-items: center;
     justify-content: center;
-    border-radius: 5.4px;
+    align-items: center;
+    border-radius: 50%;
     background: var(--ink);
+    
+}
+
+.cart-badge {
     color: #fff;
-    font: 900 7.2px/1 var(--f-vz);
+    font-size: 10px;
 }
 
 .profile-btn {
+    cursor: pointer;
     display: grid;
     place-items: center;
     width: 28.8px;
