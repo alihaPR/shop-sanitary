@@ -420,7 +420,8 @@ body.user-page {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 3px 14px;
+    justify-content: start;
+    gap: 3px 10px;
     max-width: 380px;
 }
 
