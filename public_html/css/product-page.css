@@ -1129,3 +1129,32 @@ body.pd {
         max-height: 84px;
     }
 }
+
+/* ویژگی‌ها: عنوان (خاکستری) بالا، مقدار (بولد) پایین، هر کدام تک‌خطی با ... */
+.pd .feat-item {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.pd .feat-item .feat-label,
+.pd .feat-item .feat-value {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pd .feat-item .feat-label {
+    font: 400 12px/1.6 var(--f-vz);
+    color: #7a7a7a;
+}
+
+.pd .feat-item .feat-value {
+    font: 500 12px/1.6 var(--f-vz);
+    color: #1f1f1f;
+}

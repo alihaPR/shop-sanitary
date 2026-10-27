@@ -60,3 +60,78 @@ window.setBtnLoading = function (btn, isLoading) {
     btn.classList.remove('btn-loading');
   }
 };
+
+// ===================== Toast تأیید (بله / انصراف) =====================
+(function () {
+
+  var STYLE_ID = 'app-confirm-toast-style';
+
+  function injectStyle() {
+    if (document.getElementById(STYLE_ID)) return;
+    var st = document.createElement('style');
+    st.id = STYLE_ID;
+    st.textContent =
+      '.app-confirm-toast{position:fixed;left:50%;bottom:-160px;transform:translateX(-50%);z-index:100000;' +
+      'direction:rtl;background:#fff;border:1px solid #e0e0e0;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14);' +
+      'padding:14px 16px;display:flex;align-items:center;gap:16px;min-width:300px;max-width:calc(100vw - 24px);' +
+      'font-family:inherit;transition:bottom .4s cubic-bezier(.34,1.56,.64,1)}' +
+      '.app-confirm-toast.show{bottom:24px}' +
+      '.app-confirm-toast__msg{font-size:14px;font-weight:600;color:#222;flex:1}' +
+      '.app-confirm-toast__actions{display:flex;align-items:center;gap:8px}' +
+      '.app-confirm-toast__btn{font-family:inherit;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;' +
+      'cursor:pointer;white-space:nowrap;border:1px solid transparent;transition:background .2s}' +
+      '.app-confirm-toast__btn--yes{background:#d64545;color:#fff}' +
+      '.app-confirm-toast__btn--yes:hover{background:#b93636}' +
+      '.app-confirm-toast__btn--no{background:#fff;color:#444;border-color:#d8d8d8}' +
+      '.app-confirm-toast__btn--no:hover{background:#f4f4f4}' +
+      '@media (max-width:600px){.app-confirm-toast{flex-direction:column;align-items:stretch;gap:12px;min-width:0;width:calc(100vw - 24px)}' +
+      '.app-confirm-toast__actions{justify-content:flex-end}.app-confirm-toast.show{bottom:84px}}';
+    document.head.appendChild(st);
+  }
+
+  window.showConfirmToast = function (message, onConfirm, opts) {
+
+    opts = opts || {};
+    injectStyle();
+
+    var existing = document.getElementById('app-confirm-toast');
+    if (existing) existing.remove();
+
+    var toast = document.createElement('div');
+    toast.id = 'app-confirm-toast';
+    toast.className = 'app-confirm-toast';
+    toast.setAttribute('role', 'alertdialog');
+    toast.innerHTML =
+      '<div class="app-confirm-toast__msg"></div>' +
+      '<div class="app-confirm-toast__actions">' +
+      '<button type="button" class="app-confirm-toast__btn app-confirm-toast__btn--yes"></button>' +
+      '<button type="button" class="app-confirm-toast__btn app-confirm-toast__btn--no"></button>' +
+      '</div>';
+
+    toast.querySelector('.app-confirm-toast__msg').textContent = message;
+    toast.querySelector('.app-confirm-toast__btn--yes').textContent = opts.confirmText || 'بله';
+    toast.querySelector('.app-confirm-toast__btn--no').textContent = opts.cancelText || 'انصراف';
+
+    document.body.appendChild(toast);
+
+    var closed = false;
+    function close() {
+      if (closed) return;
+      closed = true;
+      document.removeEventListener('keydown', onKey);
+      toast.classList.remove('show');
+      setTimeout(function () { toast.remove(); }, 300);
+    }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+
+    toast.querySelector('.app-confirm-toast__btn--no').addEventListener('click', close);
+    toast.querySelector('.app-confirm-toast__btn--yes').addEventListener('click', function () {
+      close();
+      if (typeof onConfirm === 'function') onConfirm();
+    });
+    document.addEventListener('keydown', onKey);
+
+    requestAnimationFrame(function () { toast.classList.add('show'); });
+  };
+
+})();

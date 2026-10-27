@@ -153,10 +153,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         logoutBtn.addEventListener("click", () => {
 
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
+            const doLogout = () => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
 
-            window.location.href = "./index.html";
+                window.location.href = "./index.html";
+            };
+
+            if (typeof window.showConfirmToast === "function") {
+                window.showConfirmToast("آیا مطمئن هستید که می‌خواهید از حساب خود خارج شوید؟", doLogout, {
+                    confirmText: "بله، خروج",
+                    cancelText: "انصراف"
+                });
+            } else {
+                doLogout();
+            }
 
         });
 

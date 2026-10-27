@@ -123,11 +123,13 @@ document.title = product.name;
 
             <ul class="feat-list">
 
-                ${(product.features || [])
+                ${(product.specs || [])
+        .slice(0, 4)
         .map(
-          feature => `
+          spec => `
                     <li class="feat-item">
-                        <span>${feature}</span>
+                        <span class="feat-label" title="${spec.label}">${spec.label}</span>
+                        <span class="feat-value" title="${spec.value}">${spec.value}</span>
                     </li>
                 `
         )

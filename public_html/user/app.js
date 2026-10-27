@@ -99,8 +99,19 @@ viewContainer.addEventListener("click", (e) => {
 
 /* خروج از حساب */
 document.getElementById("logout").onclick = () => {
-    localStorage.removeItem("token");
-    location.href = "../login.html";
+    const doLogout = () => {
+        localStorage.removeItem("token");
+        location.href = "../login.html";
+    };
+
+    if (typeof window.showConfirmToast === "function") {
+        window.showConfirmToast("آیا مطمئن هستید که می‌خواهید از حساب خود خارج شوید؟", doLogout, {
+            confirmText: "بله، خروج",
+            cancelText: "انصراف"
+        });
+    } else {
+        doLogout();
+    }
 };
 
 /* باز کردن جزئیات یک سفارش خاص - از کامپوننت سفارش‌ها صدا زده میشه */

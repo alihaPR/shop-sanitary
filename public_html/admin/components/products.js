@@ -578,19 +578,6 @@ function openProductModal(product = null) {
 
                         </div>
 
-                        <div class="form-card">
-
-                            <div class="form-card-header-row">
-                                <h3 class="form-card-title">ویژگی‌ها</h3>
-                                <button type="button" id="addFeature" class="add-specification-btn">
-                                    + افزودن ویژگی
-                                </button>
-                            </div>
-
-                            <div id="featuresContainer"></div>
-
-                        </div>
-
                     </div>
 
                     <div class="form-col form-col-side">
@@ -763,46 +750,9 @@ function openProductModal(product = null) {
         .getElementById("addSpecification")
         .addEventListener("click", () => addSpecRow());
 
-    const featuresContainer = document.getElementById("featuresContainer");
-
-    function addFeatureRow(value = "") {
-
-        featuresContainer.insertAdjacentHTML(
-
-            "beforeend",
-
-            `
-        <div class="feature-row">
-
-            <input
-                type="text"
-                class="feature-value"
-                placeholder="مثلا: ضد حساسیت"
-                value="${escapeAttr(value)}"
-            >
-
-            <button
-                type="button"
-                class="remove-feature"
-            >
-                ×
-            </button>
-
-        </div>
-        `
-
-        );
-
-    }
-
-    document
-        .getElementById("addFeature")
-        .addEventListener("click", () => addFeatureRow());
-
     if (product) {
 
         (product.specs || []).forEach(spec => addSpecRow(spec.label, spec.value));
-        (product.features || []).forEach(feature => addFeatureRow(feature));
 
     }
 
@@ -810,12 +760,6 @@ function openProductModal(product = null) {
 document.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("remove-spec")) {
-
-        e.target.parentElement.remove();
-
-    }
-
-    if (e.target.classList.contains("remove-feature")) {
 
         e.target.parentElement.remove();
 
@@ -903,20 +847,6 @@ async function submitProductInner(token, submitBtn) {
 
     });
 
-    const features = [];
-
-    document.querySelectorAll(".feature-row").forEach(row => {
-
-        const value = row.querySelector(".feature-value").value.trim();
-
-        if (value) {
-            features.push(value);
-        }
-
-    });
-
-
-
     try {
 
 const url = editingProductId
@@ -945,7 +875,7 @@ const method = editingProductId ? "PUT" : "POST";
                 brand,
                 category,
                 specs: specifications,
-                features
+                features: []
 
             })
 
