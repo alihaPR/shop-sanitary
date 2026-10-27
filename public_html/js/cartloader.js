@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     ? Math.round(product.price * (1 - product.discountPercent / 100))
     : product.price;
   const lowStock = typeof product.stock === "number" && product.stock > 0 && product.stock <= 3;
+  const isOutOfStock = (typeof product.stock === "number" && product.stock <= 0) || product.available === false;
 
   function formatPrice(p) { return p.toLocaleString("fa-IR"); }
 
@@ -176,30 +177,16 @@ document.title = product.name;
                 </span>
             </div>
 
-            <div class="check-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2 4 5v6c0 5 8 11 8 11s8-6 8-11V5l-8-3Z"/>
-                </svg>
-
+            <div class="check-item check-item--stock ${isOutOfStock ? "check-item--out" : ""}">
                 <span>
-                    <b>${product.warranty || "-"}</b>
-                    گارانتی اصالت کالا
+                    ${isOutOfStock ? "<b>ناموجود</b>" : "<b>موجود</b> در انبار"}
                 </span>
-
             </div>
 
-            <div class="check-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 7h13v9H3z"/>
-                    <path d="M16 10h4l1 3v3h-5z"/>
-                    <circle cx="7" cy="18" r="1.5"/>
-                    <circle cx="18" cy="18" r="1.5"/>
-                </svg>
-
+            <div class="check-item check-item--ship">
                 <span>
-                    موجود در انبار، ارسال توسط فروشنده
+                    ارسال توسط فروشگاه
                 </span>
-
             </div>
 
         </div>
@@ -322,7 +309,7 @@ document.title = product.name;
 
     if (qty <= 0) {
 
-      const outOfStock = typeof product.stock === "number" && product.stock <= 0;
+      const outOfStock = isOutOfStock;
 
       if (outOfStock) {
 
@@ -380,8 +367,6 @@ document.title = product.name;
         </div>
        
     </div>
-
-    ${atMax ? `<div class="qty-max-warning">به سقف موجودی این محصول رسیدید</div>` : ""}
 </div>
     `;
 
@@ -390,6 +375,7 @@ document.title = product.name;
         .addEventListener("click", () => {
           if (getQty() >= maxQty) return;
           setQty(getQty() + 1);
+          if (getQty() >= maxQty) showStockToast();
         });
 
       document
@@ -439,6 +425,16 @@ document.title = product.name;
     like: `<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>`,
     neutral: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>`
   };
+
+  function showStockToast() {
+    renderToast({
+      id: "stock-toast-box",
+      position: "bottom-left",
+      type: "neutral",
+      icon: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5m0 3.5h.01"/></svg>`,
+      title: "به سقف موجودی این محصول رسیدید"
+    });
+  }
 
   function showCartToast(product) {
     renderToast({

@@ -140,6 +140,7 @@ body.pd {
 /* ---------------------------------------------------------------- کارت اصلی محصول */
 .pd .main-card {
     display: flex;
+    align-self: start; /* ارتفاع کارت ثابت می‌ماند و با بلندتر شدن ستون چپ کش نمی‌آید */
     align-items: flex-start;
     margin-left: 22px;
     width: auto;
@@ -391,7 +392,7 @@ body.pd {
     justify-content: flex-end;
     align-items: center;
     gap: 6px 10px;
-    margin-top: 26px;
+
     padding: 0;
     background: none;
     border: 0;
@@ -452,10 +453,9 @@ body.pd {
     padding: 8px 10px;
     border: 0;
     border-radius: 10px;
-    background: #fdecec;
     color: #c0392b;
     font: 500 11.5px var(--f-vz);
-    text-align: center;
+    text-align: start;
 }
 
 .pd #cart-btn-container {
@@ -1150,11 +1150,33 @@ body.pd {
 }
 
 .pd .feat-item .feat-label {
-    font: 400 12px/1.6 var(--f-vz);
+    font: 400 11px/1.6 var(--f-vz);
     color: #7a7a7a;
 }
 
 .pd .feat-item .feat-value {
-    font: 500 12px/1.6 var(--f-vz);
-    color: #1f1f1f;
+    font: 700 11.5px/1.6 var(--f-vz);
+    color: #222;
+}
+
+/* کارت فروشنده: «موجود در انبار» (سبز) / «ناموجود» (قرمز) و زیرش «ارسال توسط فروشگاه» */
+.pd .seller-card .check-item.check-item--stock::before {
+    background: var(--pd-green);
+}
+
+.pd .seller-card .check-item.check-item--stock b {
+    color: var(--pd-green);
+}
+
+.pd .seller-card .check-item.check-item--stock.check-item--out::before {
+    background: #d64545;
+}
+
+.pd .seller-card .check-item.check-item--stock.check-item--out b {
+    color: #d64545;
+}
+
+.pd .seller-card .check-item.check-item--ship::before,
+.pd .seller-card .check-item.check-item--warranty::before {
+    background: var(--ink);
 }

@@ -1626,3 +1626,11 @@ body.user-page {
         width: 100%;
     }
 }
+
+/* دکمه افزودن به سبد برای محصول ناموجود */
+.fav-add-cart-btn:disabled {
+    background: #e3e6e6;
+    color: #8a9494;
+    border-color: transparent;
+    cursor: not-allowed;
+}

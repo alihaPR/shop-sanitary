@@ -202,6 +202,7 @@ function renderFavoritesGrid() {
             ? Math.round((product.price || 0) * (1 - product.discountPercent / 100))
             : (product.price || 0);
         const lowStock = typeof product.stock === "number" && product.stock > 0 && product.stock <= 3;
+        const outOfStock = typeof product.stock === "number" && product.stock <= 0;
 
         return `
 
@@ -222,8 +223,8 @@ function renderFavoritesGrid() {
 
                 <div class="favorite-card-actions">
 
-                    <button type="button" class="fav-add-cart-btn" data-id="${product._id}">
-                        افزودن به سبد خرید
+                    <button type="button" class="fav-add-cart-btn" data-id="${product._id}" ${outOfStock ? "disabled" : ""}>
+                        ${outOfStock ? "ناموجود" : "افزودن به سبد خرید"}
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
                             <circle cx="9" cy="21" r="1"/>
                             <circle cx="20" cy="21" r="1"/>
@@ -345,8 +346,21 @@ function addFavoriteToCart(id) {
 
     const existing = cart.find(item => item._id === id);
 
+    const maxQty = typeof product.stock === "number" ? product.stock : Infinity;
+
+    if (maxQty <= 0) {
+        showAppToast("این محصول ناموجود است.", "error");
+        return;
+    }
+
+    if (existing && existing.qty >= maxQty) {
+        showAppToast("به سقف موجودی این محصول رسیدید.", "warning");
+        return;
+    }
+
     if (existing) {
         existing.qty += 1;
+        existing.stock = product.stock;
     } else {
         cart.push({ ...product, qty: 1 });
     }

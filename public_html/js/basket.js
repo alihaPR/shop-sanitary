@@ -60,8 +60,17 @@ function addToCart(product) {
 
   const existing = cart.find(item => item._id === product._id);
 
+  // سقف تعداد = موجودی انبار
+  const maxQty = typeof product.stock === "number" ? product.stock : Infinity;
+
+  if (maxQty <= 0 || (existing && existing.qty >= maxQty)) {
+    if (window.showAppToast) window.showAppToast("به سقف موجودی این محصول رسیدید", "warning");
+    return false;
+  }
+
   if (existing) {
     existing.qty += 1;
+    existing.stock = product.stock;
   } else {
     cart.push({ ...product, qty: 1 });
   }
@@ -90,6 +99,10 @@ function changeQty(productId, delta) {
   const cart = getCart();
   const item = cart.find(i => i._id === productId);
   if (!item) return;
+  if (delta > 0 && typeof item.stock === "number" && item.qty + delta > item.stock) {
+    if (window.showAppToast) window.showAppToast("به سقف موجودی این محصول رسیدید", "warning");
+    return;
+  }
   item.qty += delta;
   if (item.qty <= 0) {
     removeFromCart(productId);
@@ -167,7 +180,7 @@ function renderBasket() {
       <div class="item-qty">
         <button class="qty-btn" onclick="event.stopPropagation(); changeQty('${item._id}', -1)" >−</button>
         <span class="qty-num">${item.qty}</span>
-        <button class="qty-btn" onclick="event.stopPropagation(); changeQty('${item._id}', 1)">+</button>
+        <button class="qty-btn" ${typeof item.stock === "number" && item.qty >= item.stock ? "disabled" : ""} onclick="event.stopPropagation(); changeQty('${item._id}', 1)">+</button>
       </div>
       <div class="item-price">
         <span class="price">${formatPrice(totalPrice)}</span>
@@ -245,7 +258,43 @@ if (clearBtn) {
 document.addEventListener("DOMContentLoaded", () => {
   renderBasket();
   updateCartBadge();
+  refreshCartStock();
 });
+
+// موجودی فعلی محصولات داخل سبد را از سرور می‌گیرد (فقط در صفحه سبد)
+// تا تعداد هر کالا بیشتر از موجودی انبار نماند.
+async function refreshCartStock() {
+  if (!document.querySelector(".cart-items-wrap")) return;
+  const cart = getCart();
+  if (!cart.length) return;
+
+  let changed = false;
+  let trimmed = false;
+
+  await Promise.all(cart.map(async (item) => {
+    try {
+      const res = await fetch(`https://api.narmcenter.com/api/products/${item._id}`);
+      if (!res.ok) return;
+      const fresh = await res.json();
+      if (!fresh || typeof fresh.stock !== "number") return;
+      if (item.stock !== fresh.stock) { item.stock = fresh.stock; changed = true; }
+      if (fresh.stock > 0 && item.qty > fresh.stock) { item.qty = fresh.stock; changed = true; trimmed = true; }
+    } catch (e) { /* خطای شبکه: همان موجودی ذخیره‌شده می‌ماند */ }
+  }));
+
+  const outOfStock = cart.filter(i => typeof i.stock === "number" && i.stock <= 0);
+  const finalCart = cart.filter(i => !(typeof i.stock === "number" && i.stock <= 0));
+
+  if (!changed && !outOfStock.length) return;
+  saveCart(finalCart);
+  renderBasket();
+  updateCartBadge();
+
+  if (window.showAppToast) {
+    if (outOfStock.length) window.showAppToast("بعضی کالاها ناموجود شدند و از سبد حذف شدند", "warning");
+    else if (trimmed) window.showAppToast("تعداد بعضی کالاها با موجودی انبار تنظیم شد", "warning");
+  }
+}
 
 // باز و بسته شدن پنجره‌ی جزئیات پرداخت (موبایل)
 document.addEventListener("DOMContentLoaded", function () {
