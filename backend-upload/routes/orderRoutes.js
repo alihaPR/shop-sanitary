@@ -197,7 +197,7 @@ router.get('/myorders', protect, async (req, res) => {
 router.get('/:id', protect, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
-      .populate('user', 'name email')
+      .populate('user', 'name email phone')
       .populate('items.product', 'name image')
 
     if (!order) {
@@ -208,7 +208,7 @@ router.get('/:id', protect, async (req, res) => {
     }
     if (
       order.user._id.toString() !== req.user._id.toString() &&
-      !req.user.isAdmin
+      req.user.role !== 'admin'
     ) {
       return res.status(403).json({
         message: "دسترسی غیرمجاز."
@@ -234,7 +234,7 @@ router.get('/:id', protect, async (req, res) => {
 router.get('/', protect, admin, async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate('user', 'name email')
+      .populate('user', 'name email phone')
       .sort({ createdAt: -1 })
     res.json(orders)
   } catch (error) {

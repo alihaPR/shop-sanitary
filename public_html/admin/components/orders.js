@@ -556,7 +556,6 @@ function buildInvoiceHTML(order) {
 
                     <p><b>نام و نام خانوادگی:</b> ${order.user?.name || "-"}</p>
                     <p><b>شماره تماس:</b> ${order.shippingAddress?.phone || order.user?.phone || "-"}</p>
-                    <p><b>ایمیل:</b> ${order.user?.email || "-"}</p>
 
                 </div>
 
