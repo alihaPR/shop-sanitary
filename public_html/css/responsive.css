@@ -1,5 +1,5 @@
 /* =====================================================================
-   نرم سنتر — ریسپانسیو (صفحه اصلی + محصولات)
+   نرم سنتر — ریسپانسیو (صفحه اصلی + محصولات + صفحه‌ی محصول)
    فقط ظاهر؛ منطق و HTML دست‌نخورده.
 
    بریک‌پوینت‌ها (دسکتاپ‌فرست؛ طرح پایه‌ی دسکتاپ ۱۴۴۰ در index.css / global.css است):
@@ -113,7 +113,7 @@ html {
 
 /* =====================================================================
    ≤ 1024 : حالت موبایل
-   ۱) توکن‌ها   ۲) مشترک (هدر، نوار پایین، منوی کاربر، فوتر)   ۳) صفحه اصلی   ۴) صفحه محصولات
+   ۱) توکن‌ها   ۲) مشترک (هدر، نوار پایین، منوی کاربر، فوتر)   ۳) صفحه اصلی   ۴) صفحه محصولات   ۵) صفحه‌ی محصول (cart.html)
    ===================================================================== */
 
 /* ---------------------------------------------------------------- ۱) توکن‌ها */
@@ -1621,5 +1621,626 @@ font-size: 13.5px;
         .pp .mobile-sheet {
             max-height: 94dvh;
         }
+    }
+}
+
+
+/* ---------------------------------------------------------------- ۵) صفحه‌ی محصول (cart.html)
+   همه‌ی قانون‌ها زیر .pd (کلاس body در cart.html) تا جای دیگر نشت نکنند.
+
+     ≥ 1201       دسکتاپ — product-page.css
+     1025 – 1200  لپ‌تاپ کوچک — همان طرح دسکتاپ با اندازه‌های جمع‌تر، کارت خرید در ستون چپ — product-page.css
+     ≤ 1024       حالت موبایل (همین بخش): کارت خرید = کپسول شناور بالای نوار پایین (cartloader.js آن را به body می‌برد)
+                  کارت فروشنده‌ی ستون چپ پنهان و همان اطلاعات (.pd-seller) زیر «توضیحات کامل» می‌آید
+       601 – 1024   تبلت: کارت اصلی دو ستونه (عکس کنار اطلاعات)
+       ≤ 600        گوشی: تک‌ستونه، عکس بالا (طرح فیگما ۴۰۲)
+   ---------------------------------------------------------------- */
+
+/* ---------- ≤ 1024 : پایه = گوشی ---------- */
+@media (max-width: 1024px) {
+
+    body.pd {
+        padding-bottom: calc(var(--nav-h) + var(--nav-gap) + 112px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .pd .container {
+        width: calc(100% - 2 * var(--m-gutter));
+    }
+
+    .pd-main {
+        padding-top: 22px;
+    }
+
+    .pd .main-header {
+        margin-bottom: 14px;
+    }
+
+    .pd .breadcrumb {
+        flex-wrap: wrap;
+        row-gap: 2px;
+        font-size: 11px;
+    }
+
+    /* ---------- چیدمان کلی: تک‌ستون ---------- */
+    .pd .wrap {
+        grid-template-columns: minmax(0, 1fr);
+        margin-bottom: 0;
+    }
+
+    .pd .main-card,
+    .pd .left-col,
+    .pd .lower-card {
+        margin: 0 0 14px;
+        border-radius: 22px;
+    }
+
+    /* ---------- کارت اصلی ---------- */
+    .pd .main-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 18px 18px 20px;
+    }
+
+    .pd .image-side {
+        width: 100%;
+    }
+
+    .pd .main-img {
+        width: 100%;
+        max-width: 300px;
+        height: clamp(210px, 64vw, 300px);
+        margin: 4px auto 0;
+    }
+
+    .pd .icon-row {
+        top: 4px;
+        right: 0;
+    }
+
+    .pd .info-side {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .pd h1 {
+        margin-bottom: 8px;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    /* این خط با style درون‌خطی ساخته می‌شود؛ !important فقط برای غلبه بر همان است */
+    .pd .short-desc-line {
+        margin: 0 0 20px !important;
+        font-size: 12px !important;
+        line-height: 1.95 !important;
+    }
+
+    .pd .feat-title {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .pd .feat-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .pd .feat-item {
+        min-height: 44px;
+        padding: 8px 10px;
+        background: #fff;
+        border: 1px solid var(--m-line);
+        border-radius: 12px;
+    }
+
+    .pd .feat-item .feat-label {
+        font-size: 10px;
+    }
+
+    .pd .feat-item .feat-value {
+        font-size: 10.5px;
+    }
+
+    .pd .more-link {
+        margin-top: 20px;
+    }
+
+    /* ---------- ستون چپ: روی گوشی فقط کارت فروشنده بود که در طرح نیست؛ کارت خرید هم به body رفته ---------- */
+    .pd .left-col {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .pd .seller-card {
+        display: none;
+    }
+
+    /* ---------- کارت خرید: کپسول شناور بالای نوار پایین ---------- */
+    .pd .buy-card {
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: calc(var(--nav-gap) + var(--nav-h) + 10px + env(safe-area-inset-bottom, 0px));
+        z-index: 700;
+        order: 0;
+        display: grid;
+        width: min(100%, calc(100% - 2 * var(--nav-gap)));
+        margin: 0 auto;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas: "warn warn" "btn price";
+        align-items: center;
+        gap: 0 12px;
+        padding: 9px 9px 9px 16px;
+        background: rgba(255, 255, 255, .92);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        border: 1px solid var(--m-line);
+        border-radius: 28px;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, .08);
+    }
+
+    .pd .buy-card::before {
+        display: none;
+    }
+
+    .pd .buy-card .best-price-tag {
+        position: absolute;
+        top: -14px;
+        left: 18px;
+        padding: 1px 9px;
+        font-size: 10px;
+        line-height: 1.8;
+        box-shadow: 0 3px 8px rgba(26, 95, 99, .22);
+    }
+
+    .pd .buy-card .price-row {
+        grid-area: price;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1px 6px;
+    }
+
+    /* قیمت قبلی: بالای قیمت نهایی و هم‌تراز با آن (سمت چپ کپسول) */
+    .pd .buy-card .price-row>span:not(.price-num):not(.price-unit) {
+        flex-basis: 100%;
+        font-size: 10.5px !important;
+        line-height: 1.3 !important;
+        text-align: end;
+    }
+
+    .pd .buy-card .price-num {
+        font-size: 17px;
+        line-height: 1.3;
+    }
+
+    .pd .buy-card .price-unit {
+        width: 17px;
+        height: 17px;
+    }
+
+    .pd .buy-card .stock-warning {
+        grid-area: warn;
+        margin: 0 0 8px;
+        padding: 6px 10px;
+        background: #fdf1f0;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .pd .buy-card #cart-btn-container {
+        grid-area: btn;
+        min-width: 150px;
+        margin: 0;
+    }
+
+    .pd .buy-card .cart-status-text {
+        display: none;
+    }
+
+    .pd .buy-card .btn-cart {
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 20px;
+        font-size: 12.5px;
+        white-space: nowrap;
+    }
+
+    .pd .buy-card .btn-cart-wrap_top {
+        justify-content: center;
+    }
+
+    .pd .buy-card .qty-control {
+        padding: 3px;
+        border-radius: 18px;
+    }
+
+    .pd .buy-card .qty-ctrl-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* ---------- کارت پایین: تب‌ها + توضیحات + مشخصات ---------- */
+    .pd .lower-card {
+        margin-bottom: 0;
+        padding: 14px 18px 24px;
+    }
+
+    .pd .pd-tabs {
+        gap: 26px;
+        margin-bottom: 26px;
+        padding: 4px 4px 0;
+    }
+
+    .pd .pd-tabs button {
+        padding: 10px 0 14px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .pd .section-title {
+        margin-bottom: 18px;
+        font-size: 14px;
+    }
+
+    .pd .desc-text {
+        font-size: 12px;
+        line-height: 2.1;
+    }
+
+    .pd .pd-more {
+        padding-top: 16px;
+    }
+
+    .pd .pd-more--desc {
+        margin-bottom: 28px;
+        padding-bottom: 24px;
+    }
+
+    .pd .feature-table td {
+        padding: 12px 0;
+        font-size: 11.5px;
+    }
+
+    /* ستون عنوان جدول باریک نباشد تا «تعداد در بسته» دو خطی نشود */
+    .pd .feature-table td:first-child {
+        width: 38%;
+        padding-left: 8px;
+    }
+
+    .pd .feature-table td:last-child {
+        padding-right: 10px;
+    }
+
+    /* ---------- فروشنده: زیر «توضیحات کامل» داخل کارت پایین (ستون چپ در این عرض‌ها نیست) ---------- */
+    .pd .pd-seller {
+        display: block;
+        margin-bottom: 28px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--pd-line);
+    }
+
+    .pd .lower-card[data-pd-ready] .pd-seller {
+        order: 4;
+    }
+
+    .pd .lower-card[data-pd-ready] #pd-specs {
+        order: 5;
+    }
+
+    .pd .lower-card[data-pd-ready] .feature-table {
+        order: 6;
+    }
+
+    .pd .lower-card[data-pd-ready] .pd-more--specs {
+        order: 7;
+    }
+
+    .pd .pd-seller__title {
+        margin: 0 0 18px;
+        padding: 2px 14px 2px 0;
+        border-right: 2px solid var(--ink);
+        font: 500 14px/1.6 var(--f-sh);
+        color: var(--ink);
+    }
+
+    .pd .pd-seller__name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 14px;
+        font: 500 12.5px var(--f-vz);
+        color: #111;
+    }
+
+    .pd .pd-seller__name::before {
+        content: "";
+        flex: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 8px;
+        background: url("../img/logo-mark.png") center / cover no-repeat;
+    }
+
+    .pd .pd-seller__list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .pd .pd-seller__list li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font: 400 11.5px/1.8 var(--f-vz);
+        color: #222;
+    }
+
+    .pd .pd-seller__list li:nth-child(n+2)::before {
+        content: "";
+        flex: none;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--ink);
+    }
+
+    .pd .pd-seller__list b {
+        font-weight: 700;
+        color: var(--pd-green);
+    }
+
+    .pd .pd-seller__stock::before {
+        background: var(--pd-green) !important;
+    }
+
+    .pd .pd-seller__stock.is-out::before {
+        background: #d64545 !important;
+    }
+
+    .pd .pd-seller__stock.is-out b {
+        color: #d64545;
+    }
+
+    /* ---------- پیام‌ها: بالای صفحه (پایین صفحه زیر کپسول خرید و نوار پایین می‌رفتند) ---------- */
+    .pd .pill-toast {
+        min-width: 0;
+    }
+
+    .pd .pill-toast.pos-bottom-left,
+    .pd .pill-toast.pos-top-center {
+        top: calc(14px + env(safe-area-inset-top, 0px));
+        right: 12px;
+        bottom: auto;
+        left: 12px;
+        max-width: 420px;
+        margin-inline: auto;
+        transform: translateY(-16px);
+    }
+
+    .pd .pill-toast.pos-bottom-left.show,
+    .pd .pill-toast.pos-top-center.show {
+        transform: translateY(0);
+    }
+
+    .pd .share-toast {
+        bottom: calc(var(--nav-gap) + var(--nav-h) + 86px + env(safe-area-inset-bottom, 0px));
+        max-width: calc(100% - 2 * var(--nav-gap));
+        text-align: center;
+    }
+}
+
+/* ---------- 601 – 1024 : تبلت ---------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .pd-main {
+        padding-top: 26px;
+    }
+
+    /* کارت اصلی: عکس کنار اطلاعات */
+    .pd .main-card {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px 26px 26px;
+    }
+
+    .pd .image-side {
+        flex: none;
+        width: 190px;
+    }
+
+    .pd .main-img {
+        max-width: none;
+        height: 240px;
+        margin: 0;
+    }
+
+    .pd .info-side {
+        flex: 1;
+        width: auto;
+        margin-top: 4px;
+    }
+
+    .pd h1 {
+        font-size: 16px;
+    }
+
+    .pd .short-desc-line {
+        font-size: 12.5px !important;
+    }
+
+    .pd .feat-list {
+        grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+        gap: 10px;
+    }
+
+    .pd .feat-item .feat-label {
+        font-size: 10.5px;
+    }
+
+    .pd .feat-item .feat-value {
+        font-size: 11px;
+    }
+
+    /* کپسول خرید: وضعیت «در سبد شما» هم دیده شود */
+    .pd .buy-card {
+        padding: 10px 10px 10px 20px;
+    }
+
+    .pd .buy-card #cart-btn-container {
+        min-width: 230px;
+    }
+
+    .pd .buy-card .cart-status-text {
+        display: flex;
+    }
+
+    .pd .buy-card .btn-cart-wrap_top {
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .pd .buy-card .btn-cart {
+        font-size: 13px;
+    }
+
+    .pd .buy-card .price-num {
+        font-size: 19px;
+    }
+
+    .pd .lower-card {
+        padding: 18px 28px 30px;
+    }
+
+    .pd .pd-seller__list {
+        grid-template-columns: repeat(3, auto);
+        justify-content: start;
+        gap: 10px 32px;
+    }
+
+    .pd .pd-tabs {
+        gap: 34px;
+        margin-bottom: 32px;
+    }
+
+    .pd .pd-tabs button {
+        font-size: 14px;
+    }
+
+    .pd .section-title {
+        font-size: 15px;
+    }
+
+    .pd .desc-text {
+        font-size: 12.5px;
+    }
+
+    .pd .feature-table td {
+        font-size: 12.5px;
+    }
+
+    .pd .feature-table td:first-child {
+        width: 26%;
+    }
+}
+
+/* ---------- 769 – 1024 : تبلت بزرگ / افقی ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    .pd .main-card {
+        gap: 36px;
+        padding: 30px 34px 32px;
+    }
+
+    .pd .image-side {
+        width: 250px;
+    }
+
+    .pd .main-img {
+        height: 300px;
+    }
+
+    .pd .lower-card {
+        padding: 20px 34px 34px;
+    }
+}
+
+/* ---------- گوشی باریک (≤ 389): ویژگی‌ها دوستونه تا مقدارها بریده نشوند ---------- */
+@media (max-width: 389px) {
+
+    .pd .feat-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pd .feat-item .feat-label,
+    .pd .feat-item .feat-value {
+        font-size: 11px;
+    }
+}
+
+/* ---------- گوشی کوچک (≤ 360) ---------- */
+@media (max-width: 360px) {
+
+    .pd .main-card {
+        padding: 16px 14px 18px;
+    }
+
+    .pd .lower-card {
+        padding: 12px 14px 20px;
+    }
+
+    .pd .pd-tabs {
+        gap: 20px;
+    }
+
+    .pd .pd-tabs button {
+        font-size: 12.5px;
+    }
+
+    .pd .buy-card {
+        padding: 8px 8px 8px 12px;
+        gap: 0 8px;
+    }
+
+    .pd .buy-card #cart-btn-container {
+        min-width: 128px;
+    }
+
+    .pd .buy-card .btn-cart {
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .pd .buy-card .price-num {
+        font-size: 15px;
+    }
+
+    .pd .buy-card .price-unit {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* ---------- گوشی در حالت افقی (ارتفاع کم) ---------- */
+@media (max-width: 1024px) and (max-height: 480px) and (orientation: landscape) {
+
+    body.pd {
+        padding-bottom: calc(var(--nav-h) + var(--nav-gap) + 92px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .pd .main-img {
+        height: 170px;
+    }
+
+    .pd .buy-card {
+        bottom: calc(var(--nav-gap) + var(--nav-h) + 8px + env(safe-area-inset-bottom, 0px));
     }
 }
