@@ -1,0 +1,1163 @@
+/* =====================================================================
+   نرم سنتر — ریسپانسیو (صفحه اصلی)
+   فقط ظاهر؛ منطق و HTML دست‌نخورده.
+
+   بریک‌پوینت‌ها (دسکتاپ‌فرست؛ طرح پایه‌ی دسکتاپ ۱۴۴۰ در index.css / global.css است):
+     ≥ 1441        مانیتور بزرگ     همان طرح ۱۴۴۰ وسط صفحه (کانتینر ۱۱۵۸)
+     1201 – 1440   دسکتاپ           طرح اصلی
+     1025 – 1200   لپ‌تاپ کوچک      فقط هیرو کوچک‌تر می‌شود
+     ≤ 1024        حالت موبایل      هدر فقط کادر جستجو + نوار پایین + فوتر آکاردئونی
+       769 – 1024    تبلت
+       601 – 768     تبلت عمودی / گوشی بزرگ
+       481 – 600     گوشی بزرگ
+       ≤ 480         گوشی (طرح فیگما ۴۰۲)
+       ≤ 360         گوشی کوچک
+
+   ترتیب لینک در index.html: global → user-menu → index → ui-enhancements → mobile → responsive
+   (این فایل باید آخر باشد.)
+
+   قانون: هر اندازه‌ی «موبایل» یا توکن (متغیر) است یا فقط در همین فایل نوشته می‌شود.
+   قانون‌های ریسپانسیو هدر/فوتر قدیمی که در global.css مانده‌اند فقط روی کلاس‌های قدیمی
+   (.footer-container، .mobile-header، ...) اثر دارند؛ تنها دو مورد مشترک
+   (.bottom-nav و .user-dropdown--mobile) اینجا کامل بازنویسی شده‌اند.
+   ===================================================================== */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* روی لمسی، هاور «گیر» نکند */
+@media (hover: none) {
+
+    a.pc:hover,
+    .cat:hover,
+    .btn-white:hover,
+    .mini-btn:hover,
+    .hero__thumb:hover,
+    .round-btn:hover {
+        transform: none;
+    }
+}
+
+
+/* =====================================================================
+   1025 – 1200 : لپ‌تاپ کوچک (دسکتاپ هنوز؛ فقط هیرو جمع‌تر)
+   ===================================================================== */
+@media (min-width: 1025px) and (max-width: 1200px) {
+
+    .hero {
+        height: 620px;
+    }
+
+    .hero::before {
+        top: 100px;
+        width: 520px;
+        height: 430px;
+    }
+
+    .slide {
+        grid-template-columns: 360px 1fr;
+    }
+
+    .slide__art {
+        width: 360px;
+        height: 360px;
+    }
+
+    .slide__title {
+        font-size: 38px;
+        line-height: 52px;
+    }
+
+    .slide__desc {
+        width: 330px;
+        font-size: 16px;
+        line-height: 23px;
+    }
+
+    .btn-white {
+        margin-top: 36px;
+    }
+
+    .slide__side {
+        margin-inline-end: 24px;
+        padding-top: 150px;
+    }
+
+    .hero__thumb {
+        width: 112px;
+        height: 112px;
+        margin-bottom: 50px;
+    }
+
+    .hero__thumb img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .hero__dots {
+        margin-bottom: 44px;
+    }
+
+    /* دسته‌بندی‌ها: سه ستون ۲۷۷ + دکمه‌ی گرد باید در ۹۹۶ جا شوند */
+    .cats {
+        gap: 40px;
+    }
+
+    .cats__grid {
+        column-gap: 24px;
+    }
+}
+
+
+/* =====================================================================
+   ≤ 1024 : حالت موبایل
+   ۱) توکن‌ها   ۲) مشترک (هدر، نوار پایین، منوی کاربر، فوتر)   ۳) صفحه اصلی
+   ===================================================================== */
+
+/* ---------------------------------------------------------------- ۱) توکن‌ها */
+@media (max-width: 1024px) {
+    :root {
+        --m-gutter: 24px;
+        --gutter: 24px;
+        --m-ink: #1a5f63;
+        --m-line: #e5e7eb;
+
+        --section-gap: 34px;
+
+        /* کارت محصول */
+        --card-w: 165px;
+        --card-h: 255px;
+        --card-gap: 15px;
+
+        /* هیرو */
+        --art: clamp(270px, 75.9vw, 420px);
+        --thumb: 102px;
+
+        /* دسته‌بندی */
+        --cat-h: 64px;
+
+        /* نوار پایین */
+        --nav-h: 55px;
+        --nav-gap: 18px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    :root {
+        --m-gutter: 28px;
+        --gutter: 28px;
+        --section-gap: 38px;
+        --card-w: 176px;
+        --card-h: 272px;
+        --card-gap: 16px;
+        --thumb: 112px;
+        --cat-h: 70px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    :root {
+        --m-gutter: 32px;
+        --gutter: 32px;
+        --section-gap: 44px;
+        --card-w: 188px;
+        --card-h: 290px;
+        --card-gap: 18px;
+        --thumb: 124px;
+        --cat-h: 76px;
+        --nav-h: 60px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+        --m-gutter: 40px;
+        --gutter: 40px;
+        --section-gap: 52px;
+        --card-w: 200px;
+        --card-h: 308px;
+        --card-gap: 20px;
+        --art: 440px;
+        --thumb: 132px;
+        --cat-h: 84px;
+    }
+}
+
+@media (max-width: 360px) {
+    :root {
+        --m-gutter: 16px;
+        --gutter: 16px;
+        --card-w: 150px;
+        --card-h: 236px;
+        --card-gap: 12px;
+        --thumb: 92px;
+        --cat-h: 60px;
+        --nav-gap: 12px;
+    }
+}
+
+
+/* ---------------------------------------------------------------- ۲) مشترک */
+@media (max-width: 1024px) {
+
+    html,
+    body {
+        overflow-x: clip;
+    }
+
+    body {
+        padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* ---------- هدر: فقط کادر جستجو ---------- */
+    .site-header {
+        padding-top: 21px;
+    }
+
+    .site-header .container {
+        width: calc(100% - 2 * var(--m-gutter));
+    }
+
+    .site-header__row {
+        display: block;
+        height: auto;
+    }
+
+    .site-header .brand,
+    .site-header .main-nav,
+    .site-header .header-basket,
+    .site-header .profile-btn {
+        display: none;
+    }
+
+    .site-header .header-actions {
+        position: static;
+        display: block;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .site-header .search-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 45px;
+        padding: 0 14px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, .72);
+        border: 1px solid rgba(235, 235, 235, .65);
+        box-shadow: 0 9px 28px rgba(0, 0, 0, .05);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+    }
+
+    .site-header .search-trigger:hover {
+        transform: none;
+    }
+
+    .site-header .search-trigger svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* ---------- نوار پایین شناور ---------- */
+    .bottom-nav {
+        display: flex;
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: calc(var(--nav-gap) + env(safe-area-inset-bottom, 0px));
+        z-index: 800;
+        width: min(100%, calc(100% - 2 * var(--nav-gap)));
+        height: var(--nav-h);
+        margin-inline: auto;
+        padding: 0 10px;
+        align-items: center;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, .78);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, .6);
+        border-radius: 28px;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, .1);
+    }
+
+    .bottom-nav .bottom-nav-item.search-btn {
+        display: none;
+    }
+
+    .bottom-nav .bottom-nav-item {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        color: #848484;
+        text-decoration: none;
+    }
+
+    .bottom-nav .bottom-nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .bottom-nav .bottom-nav-item.active {
+        color: var(--m-ink);
+    }
+
+    .bottom-nav .bottom-nav-item::after {
+        font: 400 9px/1 var(--f-vz, "Vazirmatn", sans-serif);
+    }
+
+    .bottom-nav .bottom-nav-item:nth-child(1)::after {
+        content: "خانه";
+    }
+
+    .bottom-nav .bottom-nav-item:nth-child(2)::after {
+        content: "محصولات";
+    }
+
+    .bottom-nav .bottom-nav-item:nth-child(4)::after {
+        content: "سبد خرید";
+    }
+
+    .bottom-nav .bottom-nav-item:nth-child(5)::after {
+        content: "صفحه من";
+    }
+
+    /* ---------- منوی حساب کاربری (authUI.js آن را به body منتقل می‌کند) ---------- */
+    .user-dropdown.user-dropdown--mobile {
+        position: fixed;
+        top: auto;
+        right: 0;
+        left: 0;
+        bottom: calc(var(--nav-gap) + var(--nav-h) + 11px + env(safe-area-inset-bottom, 0px));
+        z-index: 900;
+        width: min(560px, calc(100% - 2 * var(--nav-gap)));
+        margin-inline: auto;
+        padding: 10px;
+        background: rgba(232, 231, 231, .82);
+        border: 1px solid rgba(255, 255, 255, .75);
+        border-radius: 25px;
+        -webkit-backdrop-filter: blur(18px) saturate(2);
+        backdrop-filter: blur(18px) saturate(2);
+        box-shadow: 0 22px 52px rgba(26, 95, 99, .16);
+        animation: mDropUp .26s ease-out;
+    }
+
+    @keyframes mDropUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .user-dropdown--mobile .name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        background: rgba(176, 176, 176, .45);
+        border-radius: 20px;
+    }
+
+    .user-dropdown--mobile .user-dropdown-avatar {
+        flex: none;
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, .92);
+        border-radius: 50%;
+    }
+
+    .user-dropdown--mobile .ud-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: right;
+    }
+
+    .user-dropdown--mobile .user-dropdown-name {
+        font: 700 12.6px/1.4 var(--f-sh, "Shabnam", sans-serif);
+        color: #111;
+    }
+
+    .user-dropdown--mobile .ud-phone {
+        font: 400 9.5px/1.3 var(--f-vz, sans-serif);
+        color: #555;
+    }
+
+    .user-dropdown--mobile .user-dropdown-divider {
+        height: 1px;
+        margin: 9px 6px 6px;
+        background: rgba(0, 0, 0, .06);
+    }
+
+    .user-dropdown--mobile .user-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 11px 12px;
+        font: 500 12.6px/1.4 var(--f-vz, sans-serif);
+        color: #222;
+        text-decoration: none;
+        background: none;
+        border: 0;
+        text-align: right;
+    }
+
+    /* ---------- فوتر: کارت سفید با آکاردئون (mobile.js) ---------- */
+    .site-footer {
+        margin-top: calc(var(--section-gap) + 6px);
+        padding-bottom: 20px;
+    }
+
+    .site-footer .container {
+        width: calc(100% - 2 * var(--m-gutter));
+    }
+
+    .footer-card {
+        gap: 18px;
+        min-height: 0;
+        padding: 28px 22px 24px;
+        border-radius: 28px;
+    }
+
+    .footer-card__top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+    }
+
+    .footer-brand {
+        width: auto;
+    }
+
+    .footer-brand p {
+        font-size: 12px;
+        line-height: 21px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-col {
+        align-items: stretch;
+        gap: 0;
+        padding: 0 14px;
+        background: #fff;
+        border: 1px solid #efefef;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .03);
+    }
+
+    .footer-col h4 {
+        position: relative;
+        padding: 11px 0;
+        font-size: 12px;
+    }
+
+    .footer-col h4::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        width: 6px;
+        height: 6px;
+        margin-top: -5px;
+        border-left: 1.5px solid var(--m-ink);
+        border-bottom: 1.5px solid var(--m-ink);
+        transform: rotate(-45deg);
+        transition: transform .2s;
+    }
+
+    .footer-col.is-open h4::after {
+        margin-top: -2px;
+        transform: rotate(135deg);
+    }
+
+    .footer-col a,
+    .footer-col span {
+        display: none;
+        padding: 6px 0;
+    }
+
+    .footer-col.is-open a,
+    .footer-col.is-open span {
+        display: block;
+    }
+
+    .footer-col.is-open {
+        padding-bottom: 8px;
+    }
+
+    .trust-badges {
+        min-width: 0;
+        margin: 0;
+        justify-content: center;
+    }
+
+    .trust-badges img {
+        max-height: 64px;
+    }
+
+    .footer-card__bottom {
+        display: block;
+        height: auto;
+        padding-top: 14px;
+        border-top: 1px solid #eee;
+        text-align: center;
+    }
+
+    .footer-card__bottom .socials,
+    .footer-card__bottom .to-top {
+        display: none;
+    }
+
+    .footer-card__bottom .copy {
+        margin-top: 0;
+        font: 400 10px/16px var(--f-vz, sans-serif);
+        color: #777;
+    }
+}
+
+/* مشترک: ≥ 601 (تبلت و گوشی‌های بزرگ) */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .site-header {
+        padding-top: 24px;
+    }
+
+    .site-header .search-trigger {
+        width: min(100%);
+        height: 48px;
+        margin-inline: auto;
+    }
+
+    .bottom-nav .bottom-nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bottom-nav .bottom-nav-item::after {
+        font-size: 10px;
+    }
+
+    .footer-card {
+        padding: 32px 36px 28px;
+    }
+
+    .footer-brand p {
+        max-width: 520px;
+    }
+
+    .footer-links {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-col {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* مشترک: گوشی کوچک */
+@media (max-width: 360px) {
+
+    .bottom-nav {
+        padding: 0 4px;
+    }
+
+    .bottom-nav .bottom-nav-item {
+        gap: 3px;
+    }
+
+    .bottom-nav .bottom-nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .bottom-nav .bottom-nav-item::after {
+        font-size: 8.5px;
+    }
+
+    .footer-card {
+        padding: 24px 16px 20px;
+    }
+}
+
+/* مشترک: گوشی در حالت افقی (ارتفاع کم) */
+@media (max-width: 1024px) and (max-height: 480px) and (orientation: landscape) {
+    :root {
+        --nav-h: 46px;
+        --nav-gap: 10px;
+    }
+
+    body {
+        padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+
+/* ---------------------------------------------------------------- ۳) صفحه اصلی
+   همه‌ی قانون‌ها زیر .page-home (کلاس body در index.html) تا جای دیگر نشت نکنند. */
+@media (max-width: 1024px) {
+.search-trigger span{
+display: block;
+font-size: 13.5px;
+}
+    /* ---------- هیرو ---------- */
+    .page-home .hero {
+        height: auto;
+    }
+
+    .page-home .hero::before {
+        top: calc(var(--art) * .23);
+        width: calc(var(--art) * 1.38);
+        height: calc(var(--art) * 1.25);
+    }
+
+    .page-home .hero__body {
+        position: relative;
+        flex: none;
+        min-height: 0;
+        width: min(calc(100% - 2 * var(--m-gutter)), 720px);
+        padding-bottom: 28px;
+    }
+
+    .page-home .slide {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        align-content: start;
+        align-items: start;
+    }
+
+    .page-home .slide__art {
+        grid-area: 1 / 1;
+        width: var(--art);
+        height: var(--art);
+        margin-top: 27px;
+    }
+
+    .page-home .slide__copy {
+        grid-area: 2 / 1;
+        margin-top: -4px;
+        padding: 0;
+    }
+
+    .page-home .slide__title {
+        font: 700 20px/27px var(--f-sh);
+        color: #fff;
+    }
+
+    .page-home .slide__desc {
+        width: auto;
+        max-width: 520px;
+        margin-top: 10px;
+        font: 500 12px/20px var(--f-sh);
+        color: #fff;
+    }
+
+    .page-home .slide__copy .btn-white {
+        display: none;
+    }
+
+    .page-home .slide__side {
+        grid-area: 1 / 1;
+        align-self: start;
+        justify-self: start;
+        margin: calc(var(--art) * .154) 0 0 9px;
+        padding: 0;
+        z-index: 2;
+    }
+
+    .page-home .pill {
+        min-width: 0;
+        height: 24px;
+        padding-inline: 12px;
+        font-size: 9.5px;
+    }
+
+    .page-home .hero__thumb {
+        position: absolute;
+        left: 15px;
+        top: calc(27px + var(--art) - var(--thumb) * .8);
+        margin: 0;
+        width: var(--thumb);
+        height: var(--thumb);
+        border-radius: calc(var(--thumb) * .2);
+    }
+
+    .page-home .hero__thumb img {
+        width: calc(var(--thumb) * .8);
+        height: calc(var(--thumb) * .8);
+    }
+
+    .page-home .hero__dots {
+        display: none;
+    }
+
+    /* ---------- تیتر سکشن‌ها ---------- */
+    .page-home .section {
+        margin-top: var(--section-gap);
+    }
+
+    .page-home .section--first {
+        margin-top: 26px;
+    }
+
+    .page-home .section__title {
+        margin-bottom: 18px;
+        font: 700 16px/22px var(--f-sh);
+    }
+
+    /* ---------- دسته‌بندی‌ها: دو ردیف اسکرول افقی (گوشی) ---------- */
+    .page-home #categories .container {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .page-home .cats {
+        display: block;
+    }
+
+    .page-home .cats .round-btn {
+        display: none;
+    }
+
+    .page-home .cats__grid {
+        display: grid;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(2, var(--cat-h));
+        grid-auto-columns: calc(var(--cat-h) * 2.72);
+        gap: 16px 8px;
+        padding: 6px calc(var(--m-gutter) - 5px) 14px;
+        margin-block: -6px -14px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .page-home .cats__grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .page-home .cat {
+        width: calc(var(--cat-h) * 2.72);
+        height: var(--cat-h);
+        padding: 0 0 0 10px;
+        border-radius: 14px;
+    }
+
+    .page-home .cat__img {
+        width: calc(var(--cat-h) * .92);
+        height: calc(var(--cat-h) * .8);
+        margin: 0 8px 0 4px;
+    }
+
+    .page-home .cat__body {
+        position: relative;
+        margin: 0;
+        padding-top: calc(var(--cat-h) * .2);
+        padding-left: 26px;
+    }
+
+    .page-home .cat__title {
+        font: 400 12px/19px var(--f-sh);
+    }
+
+    .page-home .cat__sub {
+        white-space: nowrap;
+        font: 100 8px/14px var(--f-sh);
+    }
+
+    .page-home .cat__more {
+        position: absolute;
+        left: 2px;
+        top: calc(var(--cat-h) * .375);
+        margin: 0;
+        font-size: 0;
+    }
+
+    .page-home .cat__more .ico-arrow {
+        display: none;
+    }
+
+    .page-home .cat__more::after {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-left: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+        transform: rotate(45deg);
+    }
+
+    /* ---------- جدیدترین محصولات ---------- */
+    .page-home #newest .container {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        width: 100%;
+        padding: 0 var(--m-gutter);
+    }
+
+    .page-home #newest .section__title {
+        grid-area: 1 / 1;
+        margin: 0;
+    }
+
+    .page-home #newest .rail-layout,
+    .page-home #newest .rail-layout__aside {
+        display: contents;
+    }
+
+    .page-home #newest .soft-btn {
+        grid-area: 1 / 2;
+        width: auto;
+        height: auto;
+        padding: 0;
+        gap: 6px;
+        background: none;
+        box-shadow: none;
+        border: 0;
+        font-size: 11px;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .page-home #newest .soft-btn .ico-back {
+        width: 11px;
+        height: 11px;
+    }
+
+    .page-home #newest .rail-layout__aside p {
+        grid-area: 2 / 1 / 3 / 3;
+        max-width: 560px;
+        margin: 4px 0 18px;
+        font: 400 12px/19px var(--f-vz);
+    }
+
+    .page-home #newest .rail {
+        grid-area: 3 / 1 / 4 / 3;
+        margin: -12px calc(-1 * var(--m-gutter)) -24px;
+        padding: 12px var(--m-gutter) 24px;
+    }
+
+    .page-home .rail--bleed {
+        margin-left: calc(-1 * var(--m-gutter));
+        padding-left: var(--m-gutter);
+    }
+
+    /* ---------- کارت محصول (اندازه از توکن‌های --card-w / --card-h) ---------- */
+    .page-home .pc {
+        padding: 8px 8px 0;
+        border-radius: 22px;
+    }
+
+    .page-home .pc__media img {
+        width: calc(var(--card-w) * .727);
+        height: calc(var(--card-w) * .727);
+    }
+
+    .page-home .pc__name {
+        width: auto;
+        height: 36px;
+        margin: 14px 6px 0 0;
+        font: 400 12px/18px var(--f-sh);
+    }
+
+    .page-home .pc__prices {
+        margin-bottom: 10px;
+    }
+
+    .page-home .pc__old s {
+        font-size: 12px;
+    }
+
+    .page-home .pc__price {
+        gap: 8px;
+        padding-left: 6px;
+    }
+
+    .page-home .pc__price img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .page-home .pc__price b {
+        font-size: 15px;
+    }
+
+    /* ---------- محصولات شگفت‌انگیز ---------- */
+    .page-home #offers {
+        margin-top: var(--section-gap);
+        padding: 18px 0 22px;
+        background: var(--mint);
+    }
+
+    .page-home #offers .container {
+        width: 100%;
+    }
+
+    .page-home #offers .section__title {
+        display: none;
+    }
+
+    .page-home .offer-panel {
+        display: block;
+        height: auto;
+        background: none;
+        border-radius: 0;
+        overflow: visible;
+    }
+
+    .page-home .offer-panel__aside {
+        width: auto;
+        padding: 0 var(--m-gutter);
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .page-home .offer-panel__title img {
+        display: none;
+    }
+
+    .page-home .offer-panel__title::after {
+        content: "شگفت‌انگیز";
+        font: 700 18px/26px var(--f-sh);
+        color: #fff;
+    }
+
+    .page-home .timer {
+        margin: 0;
+    }
+
+    .page-home .timer span {
+        width: 27.5px;
+        height: 27.5px;
+        font-size: 10px;
+    }
+
+    .page-home .timer svg {
+        width: 4px;
+        height: 12px;
+        margin: 8px 3px 0;
+    }
+
+    .page-home .offer-panel__aside .mini-btn {
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        gap: 6px;
+        background: none;
+        border: 0;
+        box-shadow: none;
+        font: 400 11px/16px var(--f-vz);
+        color: #fff;
+    }
+
+    .page-home .mini-btn svg {
+        fill: #fff;
+        color: #fff;
+    }
+
+    .page-home .offer-panel .rail {
+        margin: 14px 0 0;
+        padding: 50px var(--m-gutter) 50px;
+    }
+}
+
+/* ---------- صفحه اصلی: ۴۸۱ تا ۱۰۲۴ ---------- */
+@media (min-width: 481px) and (max-width: 1024px) {
+
+    .page-home .slide__title {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+    .page-home .slide__desc {
+        font-size: 13px;
+        line-height: 22px;
+    }
+
+    .page-home .pill {
+        height: 26px;
+        font-size: 10.5px;
+    }
+
+    .page-home .pc__name {
+        font-size: 12.5px;
+    }
+}
+
+/* ---------- صفحه اصلی: ۶۰۱ تا ۱۰۲۴ (تبلت) ---------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .page-home .section__title {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    .page-home .section--first {
+        margin-top: 32px;
+    }
+
+    .page-home .slide__title {
+        font-size: 26px;
+        line-height: 36px;
+    }
+
+    .page-home .slide__desc {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .page-home .pill {
+        height: 28px;
+        padding-inline: 14px;
+        font-size: 11px;
+    }
+
+    /* دسته‌بندی‌ها: به‌جای اسکرول، شبکه‌ی دوستونه */
+    .page-home #categories .container {
+        width: calc(100% - 2 * var(--m-gutter));
+    }
+
+    .page-home .cats__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-flow: row;
+        grid-template-rows: none;
+        grid-auto-columns: auto;
+        gap: 16px;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+    }
+
+    .page-home .cat {
+        width: 100%;
+    }
+
+    .page-home .cat__title {
+        font-size: 13px;
+        line-height: 20px;
+    }
+
+    .page-home .cat__sub {
+        font-size: 9px;
+        line-height: 15px;
+    }
+
+    .page-home #newest .soft-btn {
+        font-size: 12px;
+    }
+
+    .page-home #newest .rail-layout__aside p {
+        font-size: 13px;
+        line-height: 21px;
+    }
+
+    .page-home .pc__name {
+        height: 38px;
+        font-size: 13px;
+        line-height: 19px;
+    }
+
+    .page-home .pc__old s {
+        font-size: 13px;
+    }
+
+    .page-home .pc__price b {
+        font-size: 16px;
+    }
+
+    .page-home #offers {
+        padding: 22px 0 26px;
+    }
+
+    .page-home .offer-panel__title::after {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+    .page-home .timer span {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+
+    .page-home .offer-panel__aside .mini-btn {
+        font-size: 12px;
+    }
+}
+
+/* ---------- صفحه اصلی: ۷۶۹ تا ۱۰۲۴ (تبلت بزرگ / افقی) ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    .page-home .section__title {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .page-home .slide__title {
+        font-size: 30px;
+        line-height: 42px;
+    }
+
+    .page-home .slide__desc {
+        font-size: 15px;
+        line-height: 26px;
+    }
+
+    .page-home .pill {
+        height: 30px;
+        font-size: 11.5px;
+    }
+
+    .page-home .cats__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .page-home .cat__title {
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    .page-home .cat__sub {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .page-home .pc__name {
+        font-size: 13.5px;
+    }
+}
