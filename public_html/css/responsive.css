@@ -1,5 +1,5 @@
 /* =====================================================================
-   نرم سنتر — ریسپانسیو (صفحه اصلی)
+   نرم سنتر — ریسپانسیو (صفحه اصلی + محصولات)
    فقط ظاهر؛ منطق و HTML دست‌نخورده.
 
    بریک‌پوینت‌ها (دسکتاپ‌فرست؛ طرح پایه‌ی دسکتاپ ۱۴۴۰ در index.css / global.css است):
@@ -113,7 +113,7 @@ html {
 
 /* =====================================================================
    ≤ 1024 : حالت موبایل
-   ۱) توکن‌ها   ۲) مشترک (هدر، نوار پایین، منوی کاربر، فوتر)   ۳) صفحه اصلی
+   ۱) توکن‌ها   ۲) مشترک (هدر، نوار پایین، منوی کاربر، فوتر)   ۳) صفحه اصلی   ۴) صفحه محصولات
    ===================================================================== */
 
 /* ---------------------------------------------------------------- ۱) توکن‌ها */
@@ -1159,5 +1159,467 @@ font-size: 13.5px;
 
     .page-home .pc__name {
         font-size: 13.5px;
+    }
+}
+
+
+/* ---------------------------------------------------------------- ۴) صفحه محصولات
+   همه‌ی قانون‌ها زیر .pp (کلاس body در products.html) تا جای دیگر نشت نکنند.
+   ترتیب لینک در products.html: global → user-menu → products → ui-enhancements → mobile → responsive.
+   هدر، نوار پایین و فوتر از بخش «۲) مشترک» بالا می‌آیند؛ اینجا فقط محتوای صفحه (نوار فیلتر،
+   شبکه و کارت محصول، صفحه‌بندی، شیت فیلتر/مرتب‌سازی) و خنثی‌کردن قانون‌های قدیمی ≤900 و ≤640
+   که در products.css مانده‌اند (هدر/فوتر) نوشته شده. */
+
+/* روی لمسی، هاور «گیر» نکند */
+@media (hover: none) {
+
+    .pp a.cart:hover {
+        transform: none;
+        box-shadow: var(--shadow-card);
+    }
+
+    .pp .mobile-toolbar button:hover {
+        border-color: var(--pp-line);
+    }
+}
+
+/* ---------- 1025 – 1200 : لپ‌تاپ کوچک (دسکتاپ هنوز؛ پنج ستون جمع‌تر) ---------- */
+@media (min-width: 1025px) and (max-width: 1200px) {
+
+    .pp #products-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .pp .control-bar {
+        gap: 12px;
+    }
+
+    .pp .bar-wrapper-item a {
+        padding: 0 13px;
+    }
+}
+
+/* ---------- ≤ 1024 : حالت موبایل (پایه = گوشی؛ بعدش از ۴۸۱ به بالا بزرگ‌تر می‌شود) ---------- */
+@media (max-width: 1024px) {
+
+    .pp-main {
+        padding-top: 22px;
+    }
+
+    .pp .container {
+        width: calc(100% - 2 * var(--m-gutter));
+    }
+
+    /* هدر: قانون قدیمی ≤900 در products.css (padding-top:18px) جلوی مقدار مشترک را می‌گرفت */
+    .pp .site-header {
+        padding-top: 21px;
+    }
+
+    /* ---------- نوار فیلتر / مرتب‌سازی ---------- */
+    .pp .mobile-toolbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .pp .mobile-toolbar button {
+        flex: 0 0 auto;
+        min-width: 98px;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 15px;
+        font-size: 11px;
+        color: #333;
+    }
+
+    .pp .mobile-toolbar button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .pp .mobile-sort-btn::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        margin-top: -3px;
+        border-left: 1.5px solid #333;
+        border-bottom: 1.5px solid #333;
+        transform: rotate(-45deg);
+    }
+
+    /* ---------- شبکه‌ی محصولات: ۲ ستون ---------- */
+    .pp #products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--card-gap);
+    }
+
+    .pp #products-grid>p {
+        padding: 48px 0 !important;
+        font-size: 13px;
+    }
+
+    /* ---------- کارت محصول (هم‌اندازه‌ی کارت صفحه اصلی) ---------- */
+    .pp .cart {
+        min-width: 0;
+        min-height: 0;
+        padding: 8px 8px 11px;
+        border-radius: 22px;
+    }
+
+    .pp .cart-image {
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .pp .cart-head {
+        margin: 14px 6px 0 0;
+    }
+
+    .pp .cart-head h5 {
+        height: 36px;
+        font: 400 12px/18px var(--f-sh);
+    }
+
+    .pp .cart-Discount {
+        min-width: 26px;
+        height: 16px;
+        padding: 0 5px;
+        border-radius: 5px;
+        font-size: 10.5px;
+    }
+
+    .pp .cart-price-before {
+        margin: 0 6px 0 2px;
+        font: 400 12px/18px var(--f-sh);
+    }
+
+    .pp .cart-price-after {
+        gap: 8px;
+        margin-left: 4px;
+        font: 700 15px/20px var(--f-sh);
+    }
+
+    .pp .cart-price-after svg {
+        flex: none;
+        width: 16px;
+        height: 16px;
+    }
+
+    .pp .cart-unavailable {
+        top: 14px;
+        left: 14px;
+        padding: 2px 8px;
+        font-size: 9px;
+    }
+
+    /* ---------- صفحه‌بندی ---------- */
+    .pp #pagination {
+        flex-wrap: wrap;
+        gap: 3px;
+        margin-top: 28px;
+        padding: 6px;
+        border-radius: 18px;
+    }
+
+    .pp .page-btn {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 6px;
+    }
+
+    .pp .page-arrow {
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    /* ---------- شیت فیلتر / مرتب‌سازی ---------- */
+    .pp .mobile-sheet {
+        max-height: 88vh;
+        padding: 12px 20px calc(22px + env(safe-area-inset-bottom, 0px));
+        overscroll-behavior: contain;
+    }
+
+    @supports (height: 1dvh) {
+        .pp .mobile-sheet {
+            max-height: 88dvh;
+        }
+    }
+
+    .pp .sheet-close {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* فیلدهای فیلتر: ۱۶px تا iOS هنگام فوکوس صفحه را بزرگ نکند */
+    .pp .price-input,
+    .pp .body-search {
+        font-size: 16px;
+    }
+
+    /* دسته‌ی اسلایدر قیمت برای لمس بزرگ‌تر */
+    .pp .price-range-wrap {
+        height: 44px;
+    }
+
+    .pp .price-range-wrap input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .pp .price-range-wrap input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .pp .filter-actions {
+        padding-bottom: 2px;
+    }
+
+    /* ---------- فوتر: قانون‌های قدیمی ≤900 و ≤640 در products.css دوباره خنثی می‌شوند ---------- */
+    .pp .footer-card {
+        padding: 28px 22px 24px;
+    }
+
+    .pp .footer-card__top {
+        gap: 22px;
+    }
+
+    .pp .footer-links {
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+
+    .pp .trust-badges img {
+        max-height: 64px;
+    }
+}
+
+/* ---------- 481 – 1024 ---------- */
+@media (min-width: 481px) and (max-width: 1024px) {
+
+    .pp-main {
+        padding-top: 24px;
+    }
+
+    .pp .mobile-toolbar {
+        margin-bottom: 20px;
+    }
+
+    .pp .mobile-toolbar button {
+        min-width: 112px;
+        height: 42px;
+        font-size: 12px;
+    }
+
+    .pp .cart-head h5 {
+        font-size: 12.5px;
+    }
+
+    .pp .cart-price-before {
+        font-size: 13px;
+    }
+
+    .pp .cart-price-after {
+        font-size: 16px;
+    }
+
+    .pp #pagination {
+        gap: 4px;
+        margin-top: 32px;
+    }
+}
+
+/* ---------- 601 – 1024 (تبلت): ۳ ستون ---------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .pp-main {
+        padding-top: 28px;
+    }
+
+    .pp .site-header {
+        padding-top: 24px;
+    }
+
+    .pp .mobile-toolbar {
+        margin-bottom: 22px;
+    }
+
+    .pp .mobile-toolbar button {
+        min-width: 124px;
+        height: 44px;
+        border-radius: 16px;
+        font-size: 12.5px;
+    }
+
+    .pp .mobile-toolbar button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .pp #products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pp .cart-head h5 {
+        height: 38px;
+        font-size: 13px;
+        line-height: 19px;
+    }
+
+    .pp .cart-Discount {
+        min-width: 28px;
+        height: 17px;
+        font-size: 11px;
+    }
+
+    .pp .cart-price-before {
+        font-size: 13.5px;
+    }
+
+    .pp .cart-price-after svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .pp .page-btn {
+        min-width: 38px;
+        height: 38px;
+    }
+
+    .pp .page-arrow {
+        padding: 0 14px;
+    }
+
+    /* شیت فیلتر: روی صفحه‌ی عریض تمام‌عرض نشود، وسط بنشیند */
+    .pp .mobile-sheet {
+        right: 0;
+        left: 0;
+        width: min(560px, 100%);
+        margin-inline: auto;
+        padding-inline: 24px;
+    }
+
+    .pp .footer-card {
+        padding: 32px 36px 28px;
+    }
+
+    .pp .footer-links {
+        gap: 12px;
+    }
+}
+
+/* ---------- 769 – 1024 (تبلت بزرگ / افقی) ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    .pp-main {
+        padding-top: 32px;
+    }
+
+    .pp .cart-head h5 {
+        font-size: 13.5px;
+    }
+
+    .pp .cart-price-after {
+        font-size: 17px;
+    }
+}
+
+/* ---------- 901 – 1024: ۴ ستون ---------- */
+@media (min-width: 901px) and (max-width: 1024px) {
+
+    .pp #products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+/* ---------- ≤ 480 : گوشی (طرح فیگما ۴۰۲) ---------- */
+@media (max-width: 480px) {
+
+    .pp #pagination {
+        gap: 2px;
+        padding: 5px;
+    }
+
+    .pp .page-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 4px;
+        font-size: 12px;
+    }
+
+    /* برچسب «قبلی/بعدی» پنهان می‌شود؛ فقط شورون می‌ماند تا ۷ شماره + ۲ فلش در یک ردیف جا شوند */
+    .pp .page-arrow {
+        padding: 0 8px;
+        gap: 0;
+    }
+
+    .pp .page-arrow::after {
+        display: none;
+    }
+}
+
+/* ---------- ≤ 360 : گوشی کوچک ---------- */
+@media (max-width: 360px) {
+
+    .pp .mobile-toolbar button {
+        min-width: 88px;
+        padding: 0 12px;
+    }
+
+    .pp .cart {
+        padding: 7px 7px 10px;
+        border-radius: 20px;
+    }
+
+    .pp .cart-head {
+        margin-top: 12px;
+    }
+
+    .pp .cart-head h5 {
+        font-size: 11.5px;
+    }
+
+    .pp .cart-price-before {
+        margin-right: 4px;
+        font-size: 11px;
+    }
+
+    .pp .cart-price-after {
+        gap: 6px;
+        font-size: 14px;
+    }
+
+    .pp .cart-price-after svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .pp .page-btn {
+        min-width: 30px;
+        height: 30px;
+    }
+
+    .pp .mobile-sheet {
+        padding-inline: 16px;
+    }
+
+    .pp .footer-card {
+        padding: 24px 16px 20px;
+    }
+}
+
+/* ---------- گوشی در حالت افقی (ارتفاع کم): شیت تقریباً تمام‌قد باشد ---------- */
+@media (max-width: 1024px) and (max-height: 480px) and (orientation: landscape) {
+
+    .pp .mobile-sheet {
+        max-height: 94vh;
+    }
+
+    @supports (height: 1dvh) {
+        .pp .mobile-sheet {
+            max-height: 94dvh;
+        }
     }
 }
