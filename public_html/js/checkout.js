@@ -189,6 +189,8 @@ async function checkout(e) {
   const unit = document.getElementById("unit").value.trim();
   const postalCode = document.getElementById("postalCode").value.trim();
 
+  const payMethod = (document.querySelector('input[name="payMethod"]:checked') || {}).value || "gateway";
+
   const order = {
 
     items: cart.map(item => ({
@@ -209,6 +211,31 @@ async function checkout(e) {
   };
 
   try {
+
+    // ---- پرداخت کارت‌به‌کارت: ثبت سفارش (در انتظار پرداخت) و رفتن به صفحه‌ی پرداخت ----
+    if (payMethod === "card") {
+
+      const cardRes = await fetch(`${API_BASE_URL}/orders/card`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(order)
+      });
+
+      const cardData = await cardRes.json();
+
+      if (!cardRes.ok) {
+        showAppToast(cardData.message || "خطا در ثبت سفارش.", "error");
+        return;
+      }
+
+      localStorage.removeItem("cart");
+      window.location.href = `card-payment.html?orderId=${cardData._id}`;
+      return;
+
+    }
 
     const paymentRes = await fetch(`${API_BASE_URL}/payment/create`, {
 
@@ -264,3 +291,24 @@ async function checkout(e) {
   }
 
 }
+
+
+// -------------------- انتخاب روش پرداخت (فقط نمایشی) --------------------
+
+(function () {
+  const wrap = document.getElementById("payMethods");
+  const btn = document.getElementById("checkout-btn");
+  if (!wrap || !btn) return;
+
+  function sync() {
+    const val = (wrap.querySelector("input:checked") || {}).value;
+    wrap.querySelectorAll(".pay-method").forEach(l =>
+      l.classList.toggle("is-active", l.querySelector("input").checked));
+    if (!btn.disabled) {
+      btn.textContent = val === "card" ? "ثبت سفارش و پرداخت کارت‌به‌کارت" : "ثبت سفارش و ادامه پرداخت";
+    }
+  }
+
+  wrap.addEventListener("change", sync);
+  sync();
+})();

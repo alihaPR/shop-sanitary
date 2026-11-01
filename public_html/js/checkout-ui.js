@@ -51,7 +51,7 @@
         document.getElementById("coClose").addEventListener("click", function () { setOpen(false); });
         document.getElementById("coOk").addEventListener("click", function () { setOpen(false); });
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
-        window.addEventListener("resize", function () { if (window.innerWidth > 768) setOpen(false); });
+        window.addEventListener("resize", function () { if (window.innerWidth > 1024) setOpen(false); });
     }
 
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

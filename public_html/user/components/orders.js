@@ -4,6 +4,33 @@
 
 window.Views = window.Views || {};
 
+// وضعیت سفارش‌های کارت‌به‌کارت تا قبل از تأیید پرداخت
+function orderStatusText(order) {
+    if (order.paymentMethod === "card" && order.status === "pending") {
+        if (order.paymentStatus === "unpaid") return "در انتظار پرداخت";
+        if (order.paymentStatus === "receipt_submitted") return "در انتظار تأیید رسید";
+        if (order.paymentStatus === "rejected") return "رسید تأیید نشد";
+    }
+    return translateStatus(order.status);
+}
+
+function cardPayLink(order) {
+    if (order.paymentMethod !== "card" || order.status !== "pending") return "";
+    if (!["unpaid", "rejected"].includes(order.paymentStatus)) return "";
+    return `<a class="view-order" href="../card-payment.html?orderId=${order._id}" style="color:#e11d48;font-weight:700">
+                    <p>پرداخت و ارسال رسید</p>
+                </a>`;
+}
+
+function cardRejectNote(order) {
+    if (order.paymentMethod !== "card" || order.paymentStatus !== "rejected" || order.status !== "pending") return "";
+    const note = String(order.adminNote || "رسید پرداخت تأیید نشد.")
+        .replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    return `<div style="margin-top:12px;padding:10px 14px;background:#fef2f2;color:#b91c1c;border-radius:10px;font-size:13px;line-height:1.9">
+                <b>دلیل رد رسید:</b> ${note}
+            </div>`;
+}
+
 function createOrderCard(order) {
     return `
     <div class="order-wrapper">
@@ -11,7 +38,7 @@ function createOrderCard(order) {
             <div class="order-info">
                 <div class="order-status__wraper">
                     <div class="order-status__cercel ${order.status}"></div>
-                    <span class="order-status">${translateStatus(order.status)}</span>
+                    <span class="order-status">${orderStatusText(order)}</span>
                 </div>
                 <div class="order-dtail">
                     <div class="order-date">${new Date(order.createdAt).toLocaleDateString("fa-IR")}</div>
@@ -38,7 +65,9 @@ function createOrderCard(order) {
                         <path d="M8.5 8h7M8.5 11h7M8.5 14h4" stroke="#336DFF" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </a>
+                ${cardPayLink(order)}
             </div>
+            ${cardRejectNote(order)}
         </div>
     </div>
     `;

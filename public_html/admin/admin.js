@@ -83,15 +83,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         products: () => renderProducts(),
         orders: () => renderOrders(),
         users: () => renderUsers(),
-        settings: () => renderSettings()
+        settings: () => renderSettings(),
+        help: () => renderHelp()
     };
 
-    const renderFn = pageRenderers[lastPage] || pageRenderers.dashboard;
+    if (!pageRenderers[lastPage]) lastPage = "dashboard";
 
     document.querySelectorAll(".menu-item").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.page === lastPage);
     });
 
-    renderFn();
+    if (lastPage === "orders") {
+        const g = document.getElementById("ordersGroup");
+        if (g) g.classList.add("open");
+        const all = document.querySelector('.submenu-item[data-filter="all"]');
+        if (all) all.classList.add("active");
+    }
+
+    if (window.setPageTitle) window.setPageTitle(lastPage);
+
+    pageRenderers[lastPage]();
 
 });

@@ -206,7 +206,7 @@ function renderFavoritesGrid() {
 
         return `
 
-            <a class="favorite-card" href="./cart.html?id=${product._id}" data-id="${product._id}">
+            <a class="favorite-card" href="../cart.html?id=${product._id}" data-id="${product._id}">
 
                 <div class="favorite-card-image">
                     <img src="${imageUrl}" alt="${product.name}">

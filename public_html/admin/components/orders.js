@@ -361,6 +361,7 @@ function renderOrdersTableBody() {
                             <span class="status-badge ${order.status}">
                                 ${getOrderStatusLabel(order.status)}
                             </span>
+                            ${cardPayBadge(order)}
                         </td>
 
                         <td>
@@ -668,6 +669,8 @@ function openStatusModal(order) {
                         <span>سفارش #${order._id.slice(-6)} — ${order.user?.name || "-"}</span>
                     </div>
 
+                    ${cardPaymentBlock(order)}
+
                     <label for="orderStatusSelect">وضعیت سفارش</label>
 
                     <select id="orderStatusSelect">
@@ -694,6 +697,8 @@ function openStatusModal(order) {
         document.querySelector(".modal-overlay").remove();
 
     };
+
+    bindCardPaymentActions(order);
 
     document.getElementById("statusForm").addEventListener("submit", (e) => {
 
@@ -749,4 +754,214 @@ const res = await fetch(
 
     }
 
+}
+
+
+/* ===========================
+    پرداخت کارت‌به‌کارت (بررسی رسید)
+=========================== */
+
+const CARD_PAY_LABELS = {
+    unpaid: "منتظر واریز مشتری",
+    receipt_submitted: "رسید ارسال شده — نیاز به بررسی",
+    paid: "پرداخت تأیید شد",
+    rejected: "رسید رد شد — منتظر رسید جدید",
+    expired: "مهلت پرداخت تمام شد"
+};
+
+function ensureCardPayStyle() {
+    if (document.getElementById("cpayStyle")) return;
+    const st = document.createElement("style");
+    st.id = "cpayStyle";
+    st.textContent = `
+        .modal-overlay { padding: 16px; box-sizing: border-box; }
+
+        /* مودال مستطیلی دو ستونه: پرداخت سمت راست، وضعیت سمت چپ */
+        .stock-modal:has(#statusForm .cpay) { width: 780px; max-width: 100%; }
+        #statusForm:has(.cpay) { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 28px; align-items: start; }
+        #statusForm:has(.cpay) > .cpay { grid-column: 1; grid-row: 1 / span 99; margin: 0; }
+        #statusForm:has(.cpay) > :not(.cpay) { grid-column: 2; }
+
+        @media (max-width: 820px) {
+            .stock-modal:has(#statusForm .cpay) { width: 100%; max-height: calc(100dvh - 32px); overflow-y: auto; }
+            #statusForm:has(.cpay) { display: block; }
+            #statusForm:has(.cpay) > .cpay { margin: 0 0 22px; }
+        }
+        .cpay-sub { display: block; margin-top: 4px; font-size: 11.5px; color: #6b7280; }
+        .cpay-sub.is-review { color: #d97706; font-weight: 600; }
+
+        .cpay { margin: 0 0 22px; padding: 14px; border-radius: 24px; background: #fff; box-shadow: 0 2px 6px rgba(15,23,42,.04), 0 14px 34px rgba(15,23,42,.08); }
+
+        /* کارت نارنجی بالا */
+        .cpay__card { position: relative; overflow: hidden; padding: 16px 18px; border-radius: 20px; color: #fff; background: linear-gradient(135deg, #ff9a6c 0%, #f97b4a 55%, #f4693a 100%); box-shadow: 0 10px 22px rgba(249,123,74,.35); }
+        .cpay__card::before { content: ""; position: absolute; top: -40px; left: -30px; width: 190px; height: 190px; background: radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 68%); }
+        .cpay__card-top { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12.5px; opacity: .95; }
+        .cpay__chip { font-style: normal; font-size: 11px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.22); backdrop-filter: blur(4px); white-space: nowrap; }
+        .cpay__amount { position: relative; margin: 18px 0 16px; display: flex; align-items: baseline; gap: 6px; }
+        .cpay__amount b { font-size: 26px; font-weight: 700; letter-spacing: .3px; }
+        .cpay__amount span { font-size: 12px; opacity: .9; }
+        .cpay__card-bottom { position: relative; display: flex; align-items: center; justify-content: space-between; font-size: 12px; opacity: .95; }
+        .cpay__code { direction: ltr; letter-spacing: 2px; }
+        .cpay__sim { width: 34px; height: 24px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(255,255,255,.18); }
+
+        /* ردیف رسید مثل لیست روش‌های پرداخت */
+        .cpay__row { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 10px; border-radius: 16px; background: #f7f7f8; }
+        .cpay__icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #fff; color: #1f1f1f; box-shadow: 0 1px 3px rgba(15,23,42,.08); }
+        .cpay__row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+        .cpay__row-text b { font-size: 13px; color: #1f1f1f; }
+        .cpay__row-text small { font-size: 11.5px; color: #8b8f98; }
+        .cpay__check { width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid #d4d4d8; display: flex; align-items: center; justify-content: center; color: transparent; }
+        .cpay__check.is-on { background: #1f1f1f; border-color: #1f1f1f; color: #fff; }
+
+        /* دکمه‌ها */
+        .cpay__actions { display: flex; gap: 8px; margin-top: 12px; }
+        .cpay__actions > .cpay__btn { flex: 1; }
+        #statusForm .cpay__btn { height: 48px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: transform .15s, background .2s; }
+        #statusForm .cpay__btn:active { transform: scale(.98); }
+        #statusForm .cpay__btn--dark { background: #1f1f1f; color: #fff; }
+        #statusForm .cpay__btn--dark:hover { background: #000; }
+        #statusForm .cpay__btn--soft { background: #f1f1f2; color: #1f1f1f; }
+        #statusForm .cpay__btn--soft:hover { background: #e7e7e9; }
+        #statusForm .cpay__btn--danger { background: #f1f1f2; color: #dc2626; }
+        #statusForm .cpay__btn--danger:hover { background: #fee2e2; }
+
+        /* کادر دلیل رد */
+        .cpay__reject { margin-top: 12px; padding: 12px; border-radius: 16px; background: #f7f7f8; }
+        .cpay__reject[hidden] { display: none; }
+        #statusForm .cpay__reject label { margin-bottom: 8px; font-size: 12.5px; color: #6b7280; }
+        #statusForm .cpay__reject textarea { width: 100%; min-height: 80px; padding: 12px 14px; border: 1.5px solid transparent; border-radius: 14px; background: #fff; font-family: inherit; font-size: 13px; color: #1f1f1f; resize: vertical; outline: none; box-sizing: border-box; transition: border-color .2s; }
+        #statusForm .cpay__reject textarea:focus { border-color: #1f1f1f; }
+        .cpay__reject .cpay__actions { margin-top: 10px; }
+    `;
+    document.head.appendChild(st);
+}
+
+function cardPayBadge(order) {
+    if (order.paymentMethod !== "card") return "";
+    ensureCardPayStyle();
+    const review = order.paymentStatus === "receipt_submitted" ? " is-review" : "";
+    return `<small class="cpay-sub${review}">کارت‌به‌کارت: ${CARD_PAY_LABELS[order.paymentStatus] || ""}</small>`;
+}
+
+function cardPaymentBlock(order) {
+    ensureCardPayStyle();
+    if (order.paymentMethod !== "card") return "";
+
+    const canDecide = order.status !== "cancelled" &&
+        ["unpaid", "receipt_submitted", "rejected"].includes(order.paymentStatus);
+    const hasReceipt = !!order.receiptImage;
+    const payable = ((order.totalPrice || 0) + (order.shippingCost || 0)).toLocaleString();
+    const code = String(order._id || "").slice(-8);
+    const sentAt = order.receiptSubmittedAt
+        ? new Date(order.receiptSubmittedAt).toLocaleString("fa-IR", { dateStyle: "medium", timeStyle: "short" })
+        : "";
+
+    return `
+        <div class="cpay">
+
+            <div class="cpay__card">
+                <div class="cpay__card-top">
+                    <span>پرداخت کارت‌به‌کارت</span>
+                    <em class="cpay__chip">${CARD_PAY_LABELS[order.paymentStatus] || ""}</em>
+                </div>
+                <div class="cpay__amount">
+                    <b>${payable}</b>
+                    <span>تومان</span>
+                </div>
+                <div class="cpay__card-bottom">
+                    <span class="cpay__code">•••• ${code}</span>
+                    <span class="cpay__sim"></span>
+                </div>
+            </div>
+
+            <div class="cpay__row">
+                <span class="cpay__icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                        <path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="cpay__row-text">
+                    <b>رسید پرداخت</b>
+                    <small>${hasReceipt ? (sentAt || "رسید ارسال شده") : "هنوز رسیدی ارسال نشده است"}</small>
+                </span>
+                <span class="cpay__check ${hasReceipt ? "is-on" : ""}">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </div>
+
+            ${hasReceipt ? `<div class="cpay__actions">
+                <button type="button" id="viewReceiptBtn" class="cpay__btn cpay__btn--soft">مشاهده رسید</button>
+                ${canDecide ? `<button type="button" id="approvePayBtn" class="cpay__btn cpay__btn--dark">تأیید پرداخت</button>` : ""}
+                ${canDecide && order.paymentStatus === "receipt_submitted" ? `<button type="button" id="rejectPayBtn" class="cpay__btn cpay__btn--danger">رد رسید</button>` : ""}
+            </div>` : ""}
+        </div>
+
+        <div class="cpay__reject" id="rejectBox" hidden>
+            <label for="rejectNote">دلیل رد رسید (برای مشتری نمایش داده می‌شود)</label>
+            <textarea id="rejectNote" maxlength="300" placeholder="مثلاً: مبلغ واریزی با مبلغ سفارش مطابقت ندارد."></textarea>
+            <div class="cpay__actions">
+                <button type="button" id="confirmRejectBtn" class="cpay__btn cpay__btn--dark">ثبت رد رسید</button>
+                <button type="button" id="cancelRejectBtn" class="cpay__btn cpay__btn--soft">انصراف</button>
+            </div>
+        </div>
+    `;
+}
+
+function bindCardPaymentActions(order) {
+    const view = document.getElementById("viewReceiptBtn");
+    const approve = document.getElementById("approvePayBtn");
+    const reject = document.getElementById("rejectPayBtn");
+    const box = document.getElementById("rejectBox");
+
+    if (view) view.onclick = () => viewOrderReceipt(order._id);
+    if (approve) approve.onclick = () => decideCardPayment(order._id, "approve");
+    if (reject) reject.onclick = () => { box.hidden = false; document.getElementById("rejectNote").focus(); };
+
+    const cancel = document.getElementById("cancelRejectBtn");
+    if (cancel) cancel.onclick = () => { box.hidden = true; };
+
+    const confirm = document.getElementById("confirmRejectBtn");
+    if (confirm) confirm.onclick = () => {
+        const note = document.getElementById("rejectNote").value.trim();
+        if (!note) return showToast("error", "خطا", "دلیل رد رسید را بنویسید.");
+        decideCardPayment(order._id, "reject", note);
+    };
+}
+
+async function viewOrderReceipt(id) {
+    const win = window.open("", "_blank");
+    try {
+        const res = await fetch(`https://api.narmcenter.com/api/orders/${id}/receipt`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        });
+        if (!res.ok) throw new Error("رسید پیدا نشد");
+        const blob = await res.blob();
+        win.location = URL.createObjectURL(blob);
+    } catch (err) {
+        if (win) win.close();
+        showToast("error", "خطا", err.message);
+    }
+}
+
+async function decideCardPayment(id, action, note = "") {
+    try {
+        const res = await fetch(`https://api.narmcenter.com/api/orders/${id}/payment`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({ action, note })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "خطا در ثبت نتیجه");
+
+        showToast("success", "موفق", action === "approve" ? "پرداخت تأیید شد" : "رسید رد شد");
+        const overlay = document.querySelector(".modal-overlay");
+        if (overlay) overlay.remove();
+        renderOrders();
+    } catch (err) {
+        showToast("error", "خطا", err.message);
+    }
 }

@@ -1,0 +1,363 @@
+/* ===== انتخاب روش پرداخت (checkout.html) ===== */
+.pay-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    margin-top:24px;
+}
+
+.pay-method {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color .15s, background .15s;
+}
+
+.pay-method.is-active {
+    border-color: #336DFF;
+    background: #f3f6ff;
+}
+
+.pay-method input {
+    accent-color: #336DFF;
+    margin: 0;
+}
+
+.pay-method__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pay-method__text b {
+    font-size: 13px;
+    color: #1f2937;
+}
+
+.pay-method__text small {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* ===== صفحه‌ی پرداخت کارت‌به‌کارت (card-payment.html) ===== */
+.cp-body {
+    margin: 0;
+    color: #1f1f1f;
+    font-family: 'shabnam', sans-serif;
+    background:
+        radial-gradient(circle at 15% 0%, #ffe3d6 0%, rgba(255, 227, 214, 0) 55%),
+        radial-gradient(circle at 95% 35%, #ffd5c2 0%, rgba(255, 213, 194, 0) 50%),
+        #fdf6f2;
+    background-attachment: fixed;
+}
+
+.cp-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 28px 14px 40px;
+}
+
+.cp-card {
+    width: min(440px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cp-head {
+    text-align: center;
+    padding: 6px 0 2px;
+}
+
+.cp-head h1 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cp-sub,
+.cp-note,
+.cp-state p,
+.cp-loading {
+    margin: 0;
+    font-size: 12.5px;
+    color: #7b7f88;
+    line-height: 1.9;
+}
+
+.cp-ltr {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+/* تایمر */
+.cp-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .04), 0 10px 26px rgba(15, 23, 42, .06);
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.cp-timer b {
+    direction: ltr;
+    font-size: 17px;
+    color: #f4693a;
+}
+
+.cp-alert {
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    font-size: 12.5px;
+    line-height: 1.9;
+}
+
+/* کارت نارنجی شماره کارت */
+.cp-bank {
+    position: relative;
+    overflow: hidden;
+    padding: 18px 20px;
+    border-radius: 24px;
+    color: #fff;
+    background: linear-gradient(135deg, #ff9a6c 0%, #f97b4a 55%, #f4693a 100%);
+    box-shadow: 0 14px 30px rgba(249, 123, 74, .38);
+}
+
+.cp-bank::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -40px;
+    width: 230px;
+    height: 230px;
+    background: radial-gradient(circle, rgba(255, 255, 255, .3) 0%, rgba(255, 255, 255, 0) 68%);
+}
+
+.cp-bank__top,
+.cp-bank__bottom {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cp-bank__top {
+    font-size: 13px;
+}
+
+.cp-bank__num {
+    position: relative;
+    margin: 26px 0 22px;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-align: left;
+}
+
+.cp-bank__bottom small {
+    display: block;
+    font-size: 11px;
+    opacity: .85;
+    margin-bottom: 2px;
+}
+
+.cp-bank__bottom b {
+    font-size: 14px;
+}
+
+.cp-bank__sim {
+    width: 38px;
+    height: 27px;
+    border-radius: 7px;
+    border: 1.5px solid rgba(255, 255, 255, .55);
+    background: rgba(255, 255, 255, .18);
+}
+
+.cp-copy {
+    border: 0;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .25);
+    color: #fff;
+    font-family: inherit;
+    font-size: 11.5px;
+    cursor: pointer;
+}
+
+.cp-copy--soft {
+    background: #f1f1f2;
+    color: #1f1f1f;
+}
+
+/* خلاصه پرداخت */
+.cp-panel {
+    padding: 18px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .04), 0 10px 26px rgba(15, 23, 42, .06);
+}
+
+.cp-panel h2 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cp-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    font-size: 13px;
+    color: #7b7f88;
+}
+
+.cp-line b {
+    font-weight: 500;
+    color: #1f1f1f;
+}
+
+.cp-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px dashed #e5e5e8;
+    font-size: 13px;
+}
+
+.cp-total__val {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #f4693a;
+}
+
+/* آپلود رسید */
+.cp-upload {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .04), 0 10px 26px rgba(15, 23, 42, .06);
+    cursor: pointer;
+}
+
+.cp-upload__icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #f1f1f2;
+    color: #1f1f1f;
+}
+
+.cp-upload__text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cp-upload__text b {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.cp-upload__text small {
+    font-size: 11.5px;
+    color: #8b8f98;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cp-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 240px;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+
+.cp-btn {
+    display: block;
+    width: 100%;
+    height: 54px;
+    border: 0;
+    border-radius: 999px;
+    background: #1f1f1f;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    line-height: 54px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .18);
+}
+
+.cp-btn:active {
+    transform: scale(.99);
+}
+
+.cp-btn:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.cp-btn--ghost {
+    background: #f1f1f2;
+    color: #1f1f1f;
+    box-shadow: none;
+    margin-top: 16px;
+}
+
+.cp-note {
+    text-align: center;
+}
+
+/* حالت‌های نتیجه */
+.cp-state {
+    padding: 34px 22px 24px;
+    background: #fff;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .04), 0 14px 34px rgba(15, 23, 42, .08);
+}
+
+.cp-state h1 {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.cp-state--success h1 { color: #16a34a; }
+.cp-state--error h1 { color: #dc2626; }
+.cp-state--wait h1 { color: #f4693a; }

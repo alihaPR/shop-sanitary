@@ -100,6 +100,36 @@ const orderSchema = new mongoose.Schema({
 
   paidAt: {
     type: Date
+  },
+
+  // ---------- پرداخت کارت‌به‌کارت ----------
+  paymentMethod: {
+    type: String,
+    enum: ['gateway', 'card'],
+    default: 'gateway'
+  },
+
+  paymentStatus: {
+    type: String,
+    enum: ['unpaid', 'receipt_submitted', 'paid', 'rejected', 'expired'],
+    default: 'unpaid'
+  },
+
+  receiptImage: {
+    type: String
+  },
+
+  receiptSubmittedAt: {
+    type: Date
+  },
+
+  paymentExpiresAt: {
+    type: Date
+  },
+
+  adminNote: {
+    type: String,
+    default: ""
   }
 
 }, {

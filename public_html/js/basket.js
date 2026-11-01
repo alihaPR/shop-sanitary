@@ -313,5 +313,5 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("sumClose").addEventListener("click", () => setOpen(false));
   document.getElementById("sumOk").addEventListener("click", () => setOpen(false));
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
-  window.addEventListener("resize", () => { if (window.innerWidth > 768) setOpen(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 1024) setOpen(false); });
 });

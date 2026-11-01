@@ -9,7 +9,7 @@
     "use strict";
 
     var CHEVRON = '<svg class="cs-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
-    var mq = window.matchMedia("(max-width:768px)");
+    var mq = window.matchMedia("(max-width:1024px)");
     var current = null;
 
     function norm(s) {

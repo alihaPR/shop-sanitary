@@ -2812,7 +2812,7 @@ body::selection {
     --gutter: 14.4px;
     --section-gap: 81px;
     /* سکشن تا سکشن، و تا فوتر */
-    --shadow-card: 0 9px 14.4px rgba(0, 0, 0, .07);
+    --shadow-card: 0 9px 14.4px rgba(0, 0, 0, .03);
     --shadow-soft: 0 9px 28.8px rgba(0, 0, 0, .07);
 }
 
@@ -3290,6 +3290,13 @@ body::selection {
     /* transform: rotate(-8deg) scale(1.08); */
 }
 
+.search-trigger span{
+    font-size: 14px;
+    margin-right:  10px;
+    color: #1f1f1f;
+    display: none;
+}
+
 /* اسپات‌لایت: تمام صفحه، اطراف تار، پنل وسط */
 .spot {
     position: fixed;
@@ -3641,3 +3648,4 @@ body::selection {
         display: none;
     }
 }
+

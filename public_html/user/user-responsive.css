@@ -916,3 +916,132 @@
         content: "صفحه من";
     }
 }
+
+/* =====================================================================
+   عرض‌های مختلف موبایل (مرجع طراحی: ۴۱۲px — چیدمان ۴۱۲ دست‌نخورده مونده)
+   - ۷۶۸ تا ۳۶۰: فقط محافظ برای عکس محصولات سفارش
+   - زیر ۳۶۰: فشرده‌تر کردن چیزهایی که تو ۳۲۰/۳۴۰ جا نمیشن
+===================================================================== */
+@media (max-width:768px) {
+
+    /* وقتی تعداد محصولات سفارش زیاده، عکس‌ها روی قیمت نیفتن */
+    .order-products-images {
+        max-width: calc(100% - 140px);
+        overflow: hidden;
+    }
+
+    .order-product-image {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width:374px) {
+
+    .dashboard {
+        width: calc(100% - 32px);
+    }
+
+    .m-topbar {
+        padding: 0 16px;
+    }
+
+    .user-box,
+    .summary-card {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .user-box::after,
+    .summary-card::after {
+        right: 14px;
+        left: 14px;
+    }
+
+    .dashboard-ul {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .od-cell {
+        font-size: 13px;
+    }
+
+    .bottom-nav {
+        right: 14px;
+        left: 14px;
+    }
+}
+
+@media (max-width:359px) {
+
+    .order-card {
+        padding: 0 10px 14px;
+    }
+
+    .order-products-images {
+        gap: 6px;
+        right: 10px;
+        max-width: calc(100% - 130px);
+    }
+
+    .order-product-image {
+        width: 42px;
+        height: 54px;
+    }
+
+    .order-price {
+        left: 12px;
+    }
+
+    .view-invoice {
+        left: 12px;
+        width: 100px;
+    }
+
+    .favorites-header-card {
+        padding: 0 12px;
+    }
+
+    .favorites-sort {
+        gap: 8px;
+    }
+
+    .sort-btn,
+    .favorites-count {
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .favorite-card {
+        grid-template-columns: 96px 1fr;
+        column-gap: 10px;
+        padding: 12px;
+    }
+
+    .favorite-card-image,
+    .favorite-card-image img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .filter-btn {
+        padding: 9px 8px 10px;
+        font-size: 11px;
+    }
+
+    .order-details-card,
+    .invoice-card,
+    .od-card {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .info-item {
+        padding: 0 14px 0 16px;
+    }
+
+    .edit-modal {
+        width: 94%;
+        padding: 18px;
+    }
+}

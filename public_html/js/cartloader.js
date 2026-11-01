@@ -41,7 +41,8 @@ document.title = product.name;
     const buyCard = document.querySelector(".buy-card");
     if (!buyCard) return;
 
-    const isMobile = window.innerWidth <= 1200;
+    // تا ۱۰۲۴ (تبلت و موبایل) کارت خرید کپسول شناور است؛ از ۱۰۲۵ به بالا در ستون چپ می‌ماند
+    const isMobile = window.matchMedia("(max-width: 1024px)").matches;
     const isInBody = buyCard.parentElement === document.body;
 
     if (isMobile && !isInBody) {
@@ -263,6 +264,19 @@ document.title = product.name;
         <p class="desc-text">
             ${product.description || ""}
         </p>
+
+        <!-- اطلاعات فروشنده: فقط در تبلت و موبایل (≤۱۰۲۴) دیده می‌شود؛ در دسکتاپ همین‌ها در ستون چپ‌اند -->
+        <div class="pd-seller">
+            <div class="pd-seller__title">فروشنده</div>
+            <div class="pd-seller__name">فروشگاه نرم سنتر</div>
+            <ul class="pd-seller__list">
+                <li>عملکرد <b>98%</b> رضایت از کالا</li>
+                <li class="pd-seller__stock ${isOutOfStock ? "is-out" : ""}">
+                    ${isOutOfStock ? "<b>ناموجود</b>" : "<b>موجود</b> در انبار"}
+                </li>
+                <li>ارسال توسط فروشگاه</li>
+            </ul>
+        </div>
 
     </div>
 
