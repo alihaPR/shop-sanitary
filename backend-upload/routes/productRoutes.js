@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 const Product = require('../models/Product')
 const { protect, admin } = require('../middleware/auth')
 
@@ -287,6 +288,41 @@ router.get('/seed', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+// تنظیم دسته‌جمعی تخفیف — فقط ادمین
+// PUT /api/products/discounts/bulk
+// body: { updates: [{ id, discountPercent }] }   (۰ = بدون تخفیف، حداکثر ۹۰)
+router.put('/discounts/bulk', protect, admin, async (req, res) => {
+  try {
+    const { updates } = req.body || {}
+
+    if (!Array.isArray(updates) || updates.length === 0) {
+      return res.status(400).json({ message: 'هیچ تغییری ارسال نشده است' })
+    }
+    if (updates.length > 500) {
+      return res.status(400).json({ message: 'تعداد تغییرات بیش از حد مجاز است' })
+    }
+
+    const ops = []
+    for (const u of updates) {
+      const pct = Number(u && u.discountPercent)
+      if (!u || !mongoose.Types.ObjectId.isValid(u.id) || !Number.isFinite(pct) || pct < 0 || pct > 90) {
+        return res.status(400).json({ message: 'درصد تخفیف باید عددی بین ۰ تا ۹۰ باشد' })
+      }
+      ops.push({
+        updateOne: {
+          filter: { _id: u.id },
+          update: { $set: { discountPercent: Math.round(pct) } }
+        }
+      })
+    }
+
+    const result = await Product.bulkWrite(ops)
+    res.json({ message: 'تخفیف‌ها ذخیره شد', modified: result.modifiedCount, matched: result.matchedCount })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
 // یه محصول
 // GET /api/products/:id
 router.get('/:id', async (req, res) => {

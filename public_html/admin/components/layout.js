@@ -240,6 +240,7 @@
     const PAGES = [
         { label: "داشبورد", page: "dashboard", ico: "grid", kw: "dashboard خانه آمار" },
         { label: "محصولات", page: "products", ico: "box", kw: "products کالا موجودی" },
+        { label: "تخفیف‌ها", page: "discounts", ico: "tag", kw: "discounts تخفیف شگفت‌انگیز حراج" },
         { label: "سفارش‌ها", page: "orders", ico: "cart", kw: "orders فروش ارسال" },
         { label: "کاربران", page: "users", ico: "users", kw: "users مشتری مشتریان" },
         { label: "تنظیمات", page: "settings", ico: "sliders", kw: "settings تم ظاهر" },

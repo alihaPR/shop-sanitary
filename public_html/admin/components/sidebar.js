@@ -10,6 +10,7 @@
     const PAGE_TITLES = {
         dashboard: "داشبورد",
         products: "محصولات",
+        discounts: "تخفیف‌ها",
         orders: "سفارش‌ها",
         users: "کاربران",
         settings: "تنظیمات",
@@ -63,6 +64,7 @@
                 <nav class="sidebar-menu" aria-label="منوی اصلی">
                     ${navItem("dashboard", "داشبورد", "grid")}
                     ${navItem("products", "محصولات", "box")}
+                    ${navItem("discounts", "تخفیف‌ها", "tag")}
 
                     <div class="menu-group" id="ordersGroup">
                         ${navItem("orders", "سفارش‌ها", "cart", `<span class="menu-chevron" id="ordersChevron" role="button" aria-label="زیرمنوی سفارش‌ها">${icon("chevron", 14)}</span>`)}
@@ -114,6 +116,7 @@
     const renderers = {
         dashboard: () => window.renderDashboard && window.renderDashboard(),
         products: () => window.renderProducts && window.renderProducts(),
+        discounts: () => window.renderDiscounts && window.renderDiscounts(),
         orders: () => window.renderOrders && window.renderOrders(),
         users: () => window.renderUsers && window.renderUsers(),
         settings: () => window.renderSettings && window.renderSettings(),

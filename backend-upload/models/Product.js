@@ -35,7 +35,9 @@ const productSchema = new mongoose.Schema({
   },
   discountPercent: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0,
+    max: 90
   },
   image: {
     type: String,
