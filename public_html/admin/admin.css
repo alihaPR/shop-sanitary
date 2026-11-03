@@ -607,7 +607,7 @@ Admin Sidebar Like User Dashboard
 /* -------------------------product----------------------- */
 .modal-header {
     padding: 20px 0;
-    border-bottom: 1px solid #646363;
+    border-bottom: 1px solid #d3d3d3;
     flex-shrink: 0;
 
 }
@@ -2831,6 +2831,7 @@ Admin Sidebar Like User Dashboard
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
+    margin-top: 20px;
     cursor: pointer;
     transition: .2s;
 }
