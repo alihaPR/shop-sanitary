@@ -425,7 +425,6 @@
                 var total = cart.reduce(function (sum, i) { return sum + (i.qty || 0); }, 0);
                 document.querySelectorAll(".cart-badge").forEach(function (b) {
                     b.textContent = total;
-                    b.style.display = total > 0 ? "flex" : "none";
                 });
             } catch (e) { }
         })();
