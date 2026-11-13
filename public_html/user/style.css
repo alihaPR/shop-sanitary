@@ -606,6 +606,21 @@ body.user-page {
     border-radius: 11px;
 }
 
+/* دسکتاپ: این ظرف هیچ باکسی نداره و چیدمان قبلی دست‌نخورده می‌مونه */
+.order-main {
+    display: contents;
+}
+
+.order-reject-note {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #fef2f2;
+    color: #b91c1c;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
 .order-info {
     display: flex;
     flex-wrap: wrap;

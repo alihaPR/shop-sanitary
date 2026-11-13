@@ -2,6 +2,8 @@
    کامپوننت جزئیات سفارش
 ===================================================================== */
 
+const odEsc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 window.Views = window.Views || {};
 
 window.Views["order-details"] = {
@@ -37,6 +39,7 @@ window.Views["order-details"] = {
             const addressText = [
                 addr.province,
                 addr.city,
+                addr.neighborhood,
                 addr.address,
                 addr.plaque ? "پلاک " + addr.plaque : "",
                 addr.unit ? "واحد " + addr.unit : ""
@@ -56,8 +59,8 @@ window.Views["order-details"] = {
                 return `
                     <div class="od-row">
                         <div class="od-prod">
-                            <img src="../${image}" alt="${name}">
-                            <span>${name}</span>
+                            <img src="../${odEsc(image)}" alt="${odEsc(name)}">
+                            <span>${odEsc(name)}</span>
                         </div>
                         <div class="od-cell" data-label="تعداد">${faDigits(qty)}</div>
                         <div class="od-cell" data-label="قیمت واحد">${money(unit)} تومان</div>
@@ -98,9 +101,9 @@ window.Views["order-details"] = {
                     </div>
 
                     <div class="od-line">
-                        <div class="od-item"><span>تحویل گیرنده</span><strong>${order.user?.name || "-"}</strong></div>
-                        <div class="od-item"><span>شماره موبایل</span><strong>${order.user?.phone || "-"}</strong></div>
-                        <div class="od-item od-item--grow"><span>آدرس</span><strong>${addressText || "-"}</strong></div>
+                        <div class="od-item"><span>تحویل گیرنده</span><strong>${odEsc(addr.recipientName || order.user?.name || "-")}</strong></div>
+                        <div class="od-item"><span>شماره موبایل</span><strong>${odEsc(addr.recipientPhone || order.user?.phone || "-")}</strong></div>
+                        <div class="od-item od-item--grow"><span>آدرس</span><strong>${odEsc(addressText || "-")}</strong></div>
                     </div>
 
                     <div class="od-line">

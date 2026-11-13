@@ -39,6 +39,27 @@ const orderSchema = new mongoose.Schema({
 
   shippingAddress: {
 
+    // ---- Snapshot آدرس دفترچه‌ی کاربر (اختیاری؛ سفارش‌های قدیمی بدون این فیلدها معتبرند) ----
+    addressId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Address'
+    },
+
+    recipientName: {
+      type: String,
+      default: ""
+    },
+
+    recipientPhone: {
+      type: String,
+      default: ""
+    },
+
+    neighborhood: {
+      type: String,
+      default: ""
+    },
+
     province: {
       type: String,
       required: true
@@ -125,6 +146,17 @@ const orderSchema = new mongoose.Schema({
 
   paymentExpiresAt: {
     type: Date
+  },
+
+  // ---------- پرداخت درگاه (زرین‌پال) ----------
+  authority: {
+    type: String,
+    index: true,
+    sparse: true
+  },
+
+  refId: {
+    type: String
   },
 
   adminNote: {

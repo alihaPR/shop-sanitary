@@ -62,3 +62,150 @@ Error: Could not connect to any servers in your MongoDB Atlas cluster. One commo
 expireCardOrders error: connection <monitor> to 65.62.241.104:27017 timed out
 expireCardOrders error: connection timed out
 expireCardOrders error: connection timed out
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
+Error: getaddrinfo ENOTFOUND alireza2002
+Error: getaddrinfo ENOTFOUND alireza2002
+Error: getaddrinfo ENOTFOUND alireza2002
+Error: getaddrinfo ENOTFOUND alireza2002
+Error: getaddrinfo ENOTFOUND alireza2002
+Error: getaddrinfo ENOTFOUND alireza2002
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.onMessage (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:202:26)
+    at MessageStream.<anonymous> (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/connection.js:61:60)
+    at MessageStream.emit (node:events:519:28)
+    at processIncomingData (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:124:16)
+    at MessageStream._write (/home/narmcent/nodevenv/backend-upload/22/lib/node_modules/mongodb/lib/cmap/message_stream.js:33:9)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Socket.ondata (node:internal/streams/readable:1009:22)
+    at Socket.emit (node:events:519:28) {
+  ok: 0,
+  code: 20,
+  codeName: 'IllegalOperation',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+[security] helmet نصب نیست؛ npm install را اجرا کنید.
+[security] express-rate-limit نصب نیست؛ npm install را اجرا کنید.
+DETAIL ERROR:
+TypeError: Cannot read properties of null (reading '_id')
+    at /home/narmcent/backend-upload/routes/orderRoutes.js:358:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+DETAIL ERROR:
+TypeError: Cannot read properties of null (reading '_id')
+    at /home/narmcent/backend-upload/routes/orderRoutes.js:358:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[security] helmet نصب نیست؛ npm install را اجرا کنید.
+[security] express-rate-limit نصب نیست؛ npm install را اجرا کنید.
+[security] helmet نصب نیست؛ npm install را اجرا کنید.
+[security] express-rate-limit نصب نیست؛ npm install را اجرا کنید.

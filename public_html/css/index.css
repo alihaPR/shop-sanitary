@@ -407,10 +407,11 @@ button {
 .cat__body {
     flex: 1;
     min-width: 0;
-    margin-inline-start: -3.6px;
-    padding-top: 27.9px;
+    margin-inline-start: 6px;
+    padding: 24px 0 14px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .cat__title {
@@ -420,14 +421,13 @@ button {
 }
 
 .cat__sub {
-    font: 300 9px/18.9px var(--f-sh);
-    color: #333333;
+    display: none;
 }
 
 .cat__more {
     align-self: flex-end;
     margin-inline-end: 19.8px;
-    margin-top: -2px;
+    margin-top: 0;
     display: inline-flex;
     align-items: center;
     gap: 14.4px;
@@ -522,7 +522,7 @@ button {
     display: flex;
     flex-direction: column;
     width: var(--card-w);
-    height: var(--card-h);
+    min-height: var(--card-h);
     padding: 9.9px 8.1px 0 9px;
     background: #fff;
     border: 1px solid var(--glass-bd);
@@ -587,7 +587,7 @@ a.pc:hover {
 
 .pc__prices {
     margin-top: auto;
-    margin-bottom: 12.6px;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
 }
@@ -602,7 +602,7 @@ a.pc:hover {
 /* به سمت چپ کارت (مطابق طرح) */
 .pc__old {
     height: 18px;
-    margin-bottom: -2.7px;
+    margin-bottom: 4px;
     padding-left: 27px;
     gap: 2.7px;
 }

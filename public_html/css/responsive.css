@@ -991,8 +991,8 @@ font-size: 13.5px;
     }
 
     .page-home .offer-panel .rail {
-        margin: 14px 0 0;
-        padding: 50px var(--m-gutter) 50px;
+        margin: 10px 0 0;
+        padding: 26px var(--m-gutter) 26px;
     }
 }
 
@@ -3458,5 +3458,14 @@ font-size: 13.5px;
     .cs-pop,
     .cs.cs--up .cs-pop {
         max-height: calc(100vh - 24px);
+    }
+}
+
+/* ---------- ردیف کارت‌های صفحه اصلی (موبایل/تبلت): فاصله‌ی ابتدای ردیف از لبه‌ی راست ----------
+   scroll-snap-align:start کارت اول را به لبه‌ی اسکرول می‌چسباند و padding را نادیده می‌گرفت؛
+   scroll-padding همان فاصله‌ی گاتر را برای snap هم اعمال می‌کند. */
+@media (max-width: 1024px) {
+    .page-home .rail {
+        scroll-padding-inline: var(--m-gutter);
     }
 }

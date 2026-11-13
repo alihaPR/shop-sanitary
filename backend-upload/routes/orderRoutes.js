@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const express = require('express')
+const serverError = require('../utils/serverError')
 const router = express.Router()
 const { protect, admin } = require('../middleware/auth')
+const { resolveShippingAddress } = require('../utils/addressHelper')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
@@ -65,6 +67,67 @@ async function expireCardOrders() {
 }
 setInterval(expireCardOrders, 60 * 1000)
 
+// ============================================================
+//  کم کردن اتمیک موجودی (جایگزین تراکنش)
+// ============================================================
+async function rollbackReserved(reserved) {
+  for (const r of reserved) {
+    try {
+      await Product.updateOne({ _id: r.id }, { $inc: { stock: r.qty, buyers: -r.qty } })
+    } catch (e) {
+      console.error('rollback error:', e.message)
+    }
+  }
+}
+
+async function reserveItems(items) {
+  const reserved = []
+  const orderItems = []
+  let totalPrice = 0
+
+  try {
+    for (const item of items) {
+      if (!item.product || !mongoose.Types.ObjectId.isValid(item.product)) {
+        const e = new Error('شناسه محصول نامعتبر است.'); e.status = 400; throw e
+      }
+      if (!Number.isInteger(item.quantity) || item.quantity <= 0) {
+        const e = new Error('تعداد محصول نامعتبر است.'); e.status = 400; throw e
+      }
+
+      const product = await Product.findById(item.product)
+      if (!product) { const e = new Error('یکی از محصولات پیدا نشد.'); e.status = 404; throw e }
+      if (!product.available) { const e = new Error(`${product.name} موجود نیست.`); e.status = 400; throw e }
+
+      // کم کردن اتمیک: فقط اگر موجودی کافی باشد
+      const updated = await Product.findOneAndUpdate(
+        { _id: product._id, available: true, stock: { $gte: item.quantity } },
+        { $inc: { stock: -item.quantity, buyers: item.quantity } },
+        { new: true }
+      )
+      if (!updated) { const e = new Error(`موجودی ${product.name} کافی نیست.`); e.status = 400; throw e }
+
+      reserved.push({ id: product._id, qty: item.quantity })
+
+      const finalPrice = product.discountPercent > 0
+        ? Math.round(product.price * (1 - product.discountPercent / 100))
+        : product.price
+
+      totalPrice += finalPrice * item.quantity
+      orderItems.push({
+        product: product._id,
+        name: product.name,
+        image: product.image,
+        price: finalPrice,
+        qty: item.quantity
+      })
+    }
+    return { orderItems, totalPrice, reserved }
+  } catch (err) {
+    await rollbackReserved(reserved)
+    throw err
+  }
+}
+
 // اطلاعات کارت (از فایل .env خوانده می‌شود)
 // GET /api/orders/card-info
 router.get('/card-info', protect, (req, res) => {
@@ -80,10 +143,12 @@ router.get('/card-info', protect, (req, res) => {
 // ثبت سفارش با پرداخت کارت‌به‌کارت (وضعیت: pending / unpaid)
 // POST /api/orders/card
 router.post('/card', protect, async (req, res) => {
-  let session
+  let reserved = []
   try {
     const { items, shippingAddress } = req.body
-    const sa = shippingAddress || {}
+    // اگر addressId ارسال شده باشد، مالکیت بررسی و Snapshot آدرس از دیتابیس ساخته می‌شود
+    const resolved = await resolveShippingAddress(req)
+    const sa = resolved || shippingAddress || {}
 
     if (!sa.province || !sa.city || !sa.address || !sa.plaque || !sa.postalCode) {
       return res.status(400).json({ message: 'اطلاعات آدرس ناقص است.' })
@@ -92,64 +157,34 @@ router.post('/card', protect, async (req, res) => {
       return res.status(400).json({ message: 'سبد خرید خالی است.' })
     }
 
-    session = await mongoose.startSession()
-    session.startTransaction()
-
-    const orderItems = []
-    let totalPrice = 0
-
-    for (const item of items) {
-      if (!item.product || !Number.isInteger(item.quantity) || item.quantity <= 0) {
-        throw new Error('اطلاعات محصول نامعتبر است.')
-      }
-      const product = await Product.findById(item.product).session(session)
-      if (!product) throw new Error('یکی از محصولات پیدا نشد.')
-      if (!product.available) throw new Error(`${product.name} موجود نیست.`)
-      if (product.stock < item.quantity) throw new Error(`موجودی ${product.name} کافی نیست.`)
-
-      const finalPrice = product.discountPercent > 0
-        ? Math.round(product.price * (1 - product.discountPercent / 100))
-        : product.price
-
-      totalPrice += finalPrice * item.quantity
-      orderItems.push({
-        product: product._id,
-        name: product.name,
-        image: product.image,
-        price: finalPrice,
-        qty: item.quantity
-      })
-
-      product.stock -= item.quantity
-      product.buyers += item.quantity
-      await product.save({ session })
-    }
+    const result = await reserveItems(items)
+    reserved = result.reserved
+    const { orderItems, totalPrice } = result
 
     const shippingCost = totalPrice >= 500000 ? 0 : 35000
 
-    const [order] = await Order.create([{
-      user: req.user._id,
-      items: orderItems,
-      shippingAddress: sa,
-      totalPrice,
-      shippingCost,
-      status: 'pending',
-      paymentMethod: 'card',
-      paymentStatus: 'unpaid',
-      paymentExpiresAt: new Date(Date.now() + CARD_PAY_MINUTES * 60 * 1000)
-    }], { session })
-
-    await session.commitTransaction()
-    session.endSession()
-    res.status(201).json(order)
-
-  } catch (error) {
-    if (session) {
-      try { await session.abortTransaction() } catch (e) { }
-      session.endSession()
+    let order
+    try {
+      order = await Order.create({
+        user: req.user._id,
+        items: orderItems,
+        shippingAddress: sa,
+        totalPrice,
+        shippingCost,
+        status: 'pending',
+        paymentMethod: 'card',
+        paymentStatus: 'unpaid',
+        paymentExpiresAt: new Date(Date.now() + CARD_PAY_MINUTES * 60 * 1000)
+      })
+    } catch (e) {
+      await rollbackReserved(reserved)
+      throw e
     }
+
+    res.status(201).json(order)
+  } catch (error) {
     console.error(error)
-    res.status(400).json({ message: error.message || 'خطا در ثبت سفارش.' })
+    res.status(error.status || 500).json({ message: error.status ? error.message : 'خطا در ثبت سفارش.' })
   }
 })
 
@@ -206,7 +241,7 @@ router.get('/:id/receipt', protect, async (req, res) => {
     }
     res.sendFile(path.join(RECEIPT_DIR, path.basename(order.receiptImage)))
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -245,184 +280,56 @@ router.put('/:id/payment', protect, admin, async (req, res) => {
     await order.save()
     res.json(order)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
-
-
 // ثبت سفارش جدید
+// POST /api/orders
 router.post('/', protect, async (req, res) => {
-  let session;
-
+  let reserved = []
   try {
-    session = await mongoose.startSession();
-    session.startTransaction();
+    const { items } = req.body
+    const resolved = await resolveShippingAddress(req)
+    const shippingAddress = resolved || req.body.shippingAddress
 
-    const { items, shippingAddress } = req.body;
     if (!shippingAddress) {
-      await session.abortTransaction();
-      session.endSession();
-
-      return res.status(400).json({
-        message: "اطلاعات آدرس ارسال الزامی است."
-      });
+      return res.status(400).json({ message: 'اطلاعات آدرس ارسال الزامی است.' })
+    }
+    const { province, city, address, plaque, postalCode } = shippingAddress
+    if (!province || !city || !address || !plaque || !postalCode) {
+      return res.status(400).json({ message: 'اطلاعات آدرس ناقص است.' })
+    }
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ message: 'سبد خرید خالی است.' })
     }
 
-    const {
-      province,
-      city,
-      address,
-      plaque,
-      postalCode
-    } = shippingAddress;
+    const result = await reserveItems(items)
+    reserved = result.reserved
+    const { orderItems, totalPrice } = result
 
-    if (
-      !province ||
-      !city ||
-      !address ||
-      !plaque ||
-      !postalCode
-    ) {
-      await session.abortTransaction();
-      session.endSession();
+    const shippingCost = totalPrice >= 500000 ? 0 : 35000
 
-      return res.status(400).json({
-        message: "اطلاعات آدرس ناقص است."
-      });
-    }
-    if (!items || items.length === 0) {
-      return res.status(400).json({
-        message: "سبد خرید خالی است."
-      });
+    let order
+    try {
+      order = await Order.create({
+        user: req.user._id,
+        items: orderItems,
+        shippingAddress,
+        totalPrice,
+        shippingCost
+      })
+    } catch (e) {
+      await rollbackReserved(reserved)
+      throw e
     }
 
-    let orderItems = [];
-
-    let totalPrice = 0;
-
-    for (const item of items) {
-      if (!item.product) {
-        await session.abortTransaction();
-        session.endSession();
-
-        return res.status(400).json({
-          message: "شناسه محصول نامعتبر است."
-        });
-      }
-
-      if (
-        !Number.isInteger(item.quantity) ||
-        item.quantity <= 0
-      ) {
-        await session.abortTransaction();
-        session.endSession();
-
-        return res.status(400).json({
-          message: "تعداد محصول نامعتبر است."
-        });
-      }
-      const product = await Product
-        .findById(item.product)
-        .session(session);
-
-      if (!product) {
-
-        return res.status(404).json({
-          message: "یکی از محصولات پیدا نشد."
-        });
-
-      }
-
-      if (!product.available) {
-
-        return res.status(400).json({
-          message: `${product.name} موجود نیست.`
-        });
-
-      }
-
-      if (product.stock < item.quantity) {
-
-        return res.status(400).json({
-          message: `موجودی ${product.name} کافی نیست.`
-        });
-
-      }
-
-      const finalPrice = product.discountPercent > 0
-        ? Math.round(product.price * (1 - product.discountPercent / 100))
-        : product.price;
-
-      totalPrice += finalPrice * item.quantity;
-
-      orderItems.push({
-
-        product: product._id,
-
-        name: product.name,
-
-        image: product.image,
-
-        price: finalPrice,
-
-        qty: item.quantity
-
-      });
-      product.stock -= item.quantity;
-
-      product.buyers += item.quantity;
-
-      await product.save({
-        session
-      });
-
-    }
-
-    const shippingCost = totalPrice >= 500000 ? 0 : 35000;
-
-    const [order] = await Order.create([{
-
-      user: req.user._id,
-
-      items: orderItems,
-
-      shippingAddress,
-
-      totalPrice,
-
-      shippingCost
-
-    }], {
-
-      session
-
-    });
-
-    await session.commitTransaction();
-
-    session.endSession();
-
-    res.status(201).json(order);
-
+    res.status(201).json(order)
+  } catch (error) {
+    console.error(error)
+    res.status(error.status || 500).json({ message: error.status ? error.message : 'خطا در ثبت سفارش.' })
   }
-
-  catch (error) {
-
-    if (session) {
-      await session.abortTransaction();
-      session.endSession();
-    }
-
-    console.error(error);
-
-    return res.status(500).json({
-      message: "خطا در ثبت سفارش."
-    });
-
-  }
-});
-
+})
 
 // سفارشات کاربر لاگین شده
 // GET /api/orders/myorders
@@ -433,7 +340,7 @@ router.get('/myorders', protect, async (req, res) => {
       .sort({ createdAt: -1 })
     res.json(orders)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -446,33 +353,22 @@ router.get('/:id', protect, async (req, res) => {
       .populate('items.product', 'name image')
 
     if (!order) {
-
-      return res.status(404).json({
-        message: "سفارش پیدا نشد"
-      });
+      return res.status(404).json({ message: "سفارش پیدا نشد" })
     }
     if (
       order.user._id.toString() !== req.user._id.toString() &&
       req.user.role !== 'admin'
     ) {
-      return res.status(403).json({
-        message: "دسترسی غیرمجاز."
-      });
+      return res.status(403).json({ message: "دسترسی غیرمجاز." })
     }
 
-    return res.json(order);
-
+    return res.json(order)
   } catch (error) {
-
-    console.error("DETAIL ERROR:");
-    console.error(error);
-
-    return res.status(500).json({
-      message: error.message
-    });
-
+    console.error("DETAIL ERROR:")
+    console.error(error)
+    return serverError(res, error)
   }
-});
+})
 
 // همه سفارشات — فقط ادمین
 // GET /api/orders
@@ -483,7 +379,7 @@ router.get('/', protect, admin, async (req, res) => {
       .sort({ createdAt: -1 })
     res.json(orders)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -499,15 +395,10 @@ router.put('/:id/status', protect, admin, async (req, res) => {
       "shipped",
       "delivered",
       "cancelled"
-    ];
+    ]
 
-    if (
-      req.body.status &&
-      !allowedStatus.includes(req.body.status)
-    ) {
-      return res.status(400).json({
-        message: "وضعیت سفارش نامعتبر است."
-      });
+    if (req.body.status && !allowedStatus.includes(req.body.status)) {
+      return res.status(400).json({ message: "وضعیت سفارش نامعتبر است." })
     }
     order.status = req.body.status || order.status
     if (req.body.isPaid) {
@@ -518,7 +409,7 @@ router.put('/:id/status', protect, admin, async (req, res) => {
     const updatedOrder = await order.save()
     res.json(updatedOrder)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 

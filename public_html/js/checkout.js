@@ -173,7 +173,25 @@ async function checkout(e) {
     return;
   }
 
-  if (!validateCheckoutForm()) {
+  // ---- آدرس: اگر دفترچه آدرس فعال است فقط addressId ارسال می‌شود (مالکیت را بک‌اند بررسی می‌کند) ----
+  const AD = window.NCCheckoutAddress;
+
+  if (AD && AD.loading) {
+    showAppToast("در حال دریافت آدرس‌ها، لحظه‌ای صبر کنید.", "warning");
+    return;
+  }
+
+  const useBook = !!(AD && AD.ready);
+
+  if (useBook) {
+
+    if (!AD.selectedId) {
+      showAppToast("لطفاً آدرس ارسال سفارش را انتخاب یا اضافه کنید.", "error");
+      AD.open("form");
+      return;
+    }
+
+  } else if (!validateCheckoutForm()) {
 
     return;
 
@@ -182,12 +200,26 @@ async function checkout(e) {
   const submitBtn = checkoutForm.querySelector('button[type="submit"]');
   setBtnLoading(submitBtn, true);
 
-  const province = document.getElementById("province").value.trim();
-  const city = document.getElementById("city").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const plaque = document.getElementById("plaque").value.trim();
-  const unit = document.getElementById("unit").value.trim();
-  const postalCode = document.getElementById("postalCode").value.trim();
+  let addressPart;
+
+  if (useBook) {
+
+    addressPart = { addressId: AD.selectedId };
+
+  } else {
+
+    addressPart = {
+      shippingAddress: {
+        province: document.getElementById("province").value.trim(),
+        city: document.getElementById("city").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        plaque: document.getElementById("plaque").value.trim(),
+        unit: document.getElementById("unit").value.trim(),
+        postalCode: document.getElementById("postalCode").value.trim()
+      }
+    };
+
+  }
 
   const payMethod = (document.querySelector('input[name="payMethod"]:checked') || {}).value || "gateway";
 
@@ -198,15 +230,7 @@ async function checkout(e) {
       quantity: item.qty
     })),
 
-    shippingAddress: {
-
-      province,
-      city,
-      address,
-      plaque,
-      unit,
-      postalCode
-    }
+    ...addressPart
 
   };
 
@@ -246,23 +270,7 @@ async function checkout(e) {
         Authorization: `Bearer ${token}`
       },
 
-      body: JSON.stringify({
-
-        items: cart.map(item => ({
-          product: item._id,
-          quantity: item.qty
-        })),
-
-        shippingAddress: {
-          province,
-          city,
-          address,
-          plaque,
-          unit,
-          postalCode
-        }
-
-      })
+      body: JSON.stringify(order)
 
     });
 
@@ -311,4 +319,135 @@ async function checkout(e) {
 
   wrap.addEventListener("change", sync);
   sync();
+})();
+
+
+// -------------------- آدرس ارسال سفارش (دفترچه آدرس) --------------------
+// آدرس‌های ذخیره‌شده‌ی کاربر از /api/addresses خوانده می‌شود؛ کاربر می‌تواند آدرس را
+// تغییر دهد یا آدرس جدید اضافه کند. اگر دریافت آدرس‌ها ناموفق باشد، فرم قدیمی آدرس فعال می‌ماند.
+
+window.NCCheckoutAddress = (function () {
+
+  const state = { ready: false, loading: false, selectedId: null, list: [], open: function () { } };
+
+  const box = document.getElementById("abCheckout");
+  const body = document.getElementById("abCheckoutBody");
+  const token = localStorage.getItem("token");
+
+  if (!box || !body || !token || !window.NCAddressBook) return state;
+
+  const AB = window.NCAddressBook;
+  const KEY = "nc_checkout_addr";
+
+  AB.init({ apiBase: API_BASE_URL, token });
+
+  function selected() {
+    return state.list.find(a => a._id === state.selectedId) || null;
+  }
+
+  // آدرس انتخاب‌شده‌ی قبلی (همین نشست) ← آدرس پیش‌فرض ← اولین آدرس
+  function choose() {
+    let id = null;
+    try { id = sessionStorage.getItem(KEY); } catch (e) { /* ignore */ }
+
+    let a = state.list.find(x => x._id === id)
+      || state.list.find(x => x.isDefault)
+      || state.list[0]
+      || null;
+
+    state.selectedId = a ? a._id : null;
+    remember();
+  }
+
+  function remember() {
+    try {
+      if (state.selectedId) sessionStorage.setItem(KEY, state.selectedId);
+      else sessionStorage.removeItem(KEY);
+    } catch (e) { /* ignore */ }
+  }
+
+  function render() {
+
+    box.hidden = false;
+
+    const a = selected();
+
+    if (!a) {
+      body.innerHTML =
+        '<div class="ab-checkout__empty">' +
+        '<p>هنوز آدرسی برای ارسال سفارش ثبت نکرده‌اید.</p>' +
+        '<small>برای ادامه، یک آدرس جدید اضافه کنید.</small>' +
+        '<button type="button" class="ab-btn ab-btn--primary" data-act="add">' + AB.icons.plus + '<span>افزودن آدرس جدید</span></button>' +
+        '</div>';
+      return;
+    }
+
+    body.innerHTML =
+      AB.cardHTML(a, { selected: true }) +
+      '<div class="ab-checkout__acts">' +
+      '<button type="button" class="ab-btn ab-btn--ghost" data-act="change">تغییر آدرس</button>' +
+      '<button type="button" class="ab-btn ab-btn--ghost" data-act="add">' + AB.icons.plus + '<span>افزودن آدرس جدید</span></button>' +
+      '</div>';
+  }
+
+  state.open = function (view) {
+
+    const opts = {
+      view: view || "list",
+      pick: true,
+      selectedId: state.selectedId,
+
+      onSelect(a) {
+        state.selectedId = a._id;
+        opts.selectedId = a._id;
+        remember();
+        render();
+      },
+
+      // بعد از افزودن / ویرایش / حذف / تغییر آدرس پیش‌فرض
+      onChange(list) {
+        state.list = list;
+        if (!selected()) choose();
+        opts.selectedId = state.selectedId;
+        render();
+      }
+    };
+
+    AB.openSheet(opts);
+  };
+
+  body.addEventListener("click", function (e) {
+    const btn = e.target.closest("[data-act]");
+    if (!btn) return;
+    state.open(btn.dataset.act === "add" ? "form" : "list");
+  });
+
+  // ---- شروع: تا رسیدن آدرس‌ها، فرم قدیمی مخفی و اسکلت نمایش داده می‌شود ----
+  state.loading = true;
+  checkoutForm.classList.add("ab-hidden");
+  box.hidden = false;
+  body.innerHTML = '<div class="ab-skel"></div>';
+
+  AB.list().then(function (list) {
+
+    state.list = list;
+    state.ready = true;
+    choose();
+    render();
+
+  }).catch(function (err) {
+
+    // دریافت آدرس‌ها ممکن نشد: فرم قدیمی آدرس فعال می‌ماند
+    console.error(err);
+    box.hidden = true;
+    checkoutForm.classList.remove("ab-hidden");
+
+  }).finally(function () {
+
+    state.loading = false;
+
+  });
+
+  return state;
+
 })();

@@ -1,0 +1,713 @@
+/* =====================================================================
+   دفترچه آدرس نرم‌سنتر: پنجره (Bottom Sheet / Modal)، کارت آدرس، فرم
+   فقط کلاس‌های با پیشوند ab- را استایل می‌کند و روی بقیه‌ی سایت اثری ندارد.
+===================================================================== */
+
+.ab-lock { overflow: hidden; }
+
+/* ------------------------------------------------ پنجره ------------------------------------------------ */
+.ab-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(15, 23, 42, .5);
+    opacity: 0;
+    transition: opacity .22s ease;
+    direction: rtl;
+    font-family: inherit;
+}
+
+.ab-overlay.is-open { opacity: 1; }
+
+.ab-overlay *,
+.ab-overlay *::before,
+.ab-overlay *::after { box-sizing: border-box; }
+
+.ab-overlay button,
+.ab-overlay input,
+.ab-overlay select,
+.ab-overlay textarea { font: inherit; }
+
+.ab-sheet {
+    width: 100%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #1f2937;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, .15);
+}
+
+.ab-overlay.is-open .ab-sheet { transform: none; }
+
+.ab-sheet__grab {
+    width: 42px;
+    height: 4px;
+    border-radius: 4px;
+    background: #d1d5db;
+    margin: 8px auto 0;
+    flex: none;
+}
+
+.ab-sheet__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #eef0f3;
+    flex: none;
+}
+
+.ab-sheet__title {
+    margin: 0;
+    flex: 1;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.ab-x,
+.ab-back {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #4b5563;
+    cursor: pointer;
+    flex: none;
+    transition: background .15s;
+}
+
+.ab-x:hover,
+.ab-back:hover { background: #f3f4f6; }
+
+.ab-back[hidden] { display: none; }
+
+.ab-sheet__body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 18px;
+}
+
+.ab-sheet__foot {
+    flex: none;
+    padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid #eef0f3;
+    background: #fff;
+}
+
+@media (min-width: 768px) {
+    .ab-overlay { align-items: center; }
+
+    .ab-sheet {
+        width: 580px;
+        max-width: calc(100vw - 32px);
+        max-height: 86vh;
+        border-radius: 18px;
+        transform: translateY(16px) scale(.98);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, .25);
+    }
+
+    .ab-overlay.is-open .ab-sheet { transform: none; }
+    .ab-sheet__grab { display: none; }
+}
+
+/* ------------------------------------------------ دکمه‌ها ------------------------------------------------ */
+.ab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 18px;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, opacity .15s;
+}
+
+.ab-btn:disabled { opacity: .65; cursor: not-allowed; }
+
+.ab-btn--primary { background: #336DFF; color: #fff; }
+.ab-btn--primary:hover:not(:disabled) { background: #2858d6; }
+
+.ab-btn--ghost { background: #fff; color: #374151; border-color: #d1d5db; }
+.ab-btn--ghost:hover:not(:disabled) { background: #f9fafb; }
+
+.ab-btn--danger { background: #e53935; color: #fff; }
+.ab-btn--danger:hover:not(:disabled) { background: #c62828; }
+
+.ab-btn.btn-loading { position: relative; color: transparent !important; pointer-events: none; }
+.ab-btn.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: abSpin .7s linear infinite;
+}
+.ab-btn--ghost.btn-loading::after { border-color: #d1d5db; border-top-color: #336DFF; }
+
+@keyframes abSpin { to { transform: rotate(360deg); } }
+
+.ab-foot2 { display: flex; gap: 10px; }
+
+.ab-txtbtn {
+    border: 0;
+    background: none;
+    padding: 4px 0;
+    color: #336DFF;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.ab-txtbtn:hover { text-decoration: underline; }
+.ab-txtbtn.btn-loading { opacity: .5; pointer-events: none; }
+
+.ab-iconbtn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+}
+.ab-iconbtn:hover { background: #eef2ff; color: #336DFF; }
+.ab-iconbtn--danger:hover { background: #fdecec; color: #e53935; }
+
+/* ------------------------------------------------ کارت آدرس ------------------------------------------------ */
+.ab-sub { margin: 0 0 12px; font-size: 14px; font-weight: 700; color: #111827; }
+
+.ab-list { display: flex; flex-direction: column; gap: 12px; }
+
+.ab-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+}
+
+.ab-card.is-pickable { cursor: pointer; }
+.ab-card.is-pickable:hover { border-color: #b8c8ff; }
+.ab-card.is-pickable:focus-visible { outline: 2px solid #336DFF; outline-offset: 2px; }
+
+.ab-card.is-selected {
+    border-color: #336DFF;
+    background: #f5f8ff;
+    box-shadow: 0 0 0 3px rgba(51, 109, 255, .08);
+}
+
+.ab-card__row { display: flex; align-items: flex-start; gap: 10px; }
+
+.ab-card__pin { color: #336DFF; flex: none; margin-top: 2px; display: inline-flex; }
+
+.ab-card__main { flex: 1; min-width: 0; }
+
+.ab-card__top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ab-card__top strong { font-size: 14px; font-weight: 700; color: #111827; overflow-wrap: anywhere; }
+
+.ab-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    background: #e8f7ee;
+    color: #1b8a4b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.ab-card__addr {
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 2;
+    color: #374151;
+    overflow-wrap: anywhere;
+}
+
+.ab-card__meta {
+    margin: 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.ab-check {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: #fff;
+    position: relative;
+    transition: border-color .15s, background .15s;
+}
+
+.ab-card.is-selected .ab-check { border-color: #336DFF; background: #336DFF; }
+.ab-card.is-selected .ab-check::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2.5px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ab-card__acts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+}
+
+.ab-card__icons { display: inline-flex; gap: 2px; margin-inline-start: auto; }
+
+/* ------------------------------------------------ وضعیت‌ها ------------------------------------------------ */
+.ab-empty { text-align: center; padding: 30px 10px; color: #6b7280; }
+.ab-empty p { margin: 8px 0 4px; font-size: 14px; color: #374151; font-weight: 600; }
+.ab-empty small { font-size: 12.5px; }
+.ab-empty .ab-btn { margin-top: 14px; width: auto; }
+.ab-empty__ico {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #336DFF;
+}
+.ab-empty__ico svg { width: 28px; height: 28px; }
+
+.ab-skel {
+    height: 118px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e9ebef 37%, #f3f4f6 63%);
+    background-size: 400% 100%;
+    animation: abShimmer 1.3s ease infinite;
+}
+@keyframes abShimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+.ab-confirm { text-align: center; }
+.ab-confirm__ico {
+    width: 56px;
+    height: 56px;
+    margin: 6px auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fdecec;
+    color: #e53935;
+}
+.ab-confirm__ico svg { width: 26px; height: 26px; }
+.ab-confirm p { margin: 0 0 14px; font-size: 15px; font-weight: 700; color: #111827; }
+.ab-confirm__card { text-align: right; margin-bottom: 10px; pointer-events: none; }
+.ab-confirm small { color: #6b7280; font-size: 12.5px; }
+
+/* ------------------------------------------------ فرم ------------------------------------------------ */
+.ab-form { display: flex; flex-direction: column; gap: 14px; }
+
+.ab-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ab-row3 { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 12px; }
+
+@media (max-width: 520px) {
+    .ab-row2 { grid-template-columns: 1fr; }
+    .ab-row3 { grid-template-columns: 1fr 1fr; }
+    .ab-row3 .ab-field:last-child { grid-column: 1 / -1; }
+}
+
+.ab-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+.ab-field label { font-size: 13px; font-weight: 600; color: #374151; }
+.ab-field label i { color: #e53935; font-style: normal; }
+
+.ab-field input,
+.ab-field select,
+.ab-field textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1.5px solid #d8dce3;
+    border-radius: 11px;
+    background: #fff;
+    color: #111827;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.ab-field textarea { resize: vertical; min-height: 84px; line-height: 1.9; }
+
+.ab-field input:focus,
+.ab-field select:focus,
+.ab-field textarea:focus {
+    border-color: #336DFF;
+    box-shadow: 0 0 0 3px rgba(51, 109, 255, .12);
+}
+
+.ab-field.has-error input,
+.ab-field.has-error select,
+.ab-field.has-error textarea { border-color: #e53935; background: #fffafa; }
+
+.ab-err { min-height: 0; font-size: 12px; color: #e53935; }
+.ab-err:empty { display: none; }
+
+.ab-hint { color: #6b7280; font-size: 11.5px; }
+
+.ab-chk { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: #374151; cursor: pointer; }
+.ab-chk input { width: 18px; height: 18px; accent-color: #336DFF; margin: 0; }
+
+.ab-form-error {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fdecec;
+    color: #c62828;
+    font-size: 13px;
+}
+.ab-form-error[hidden] { display: none; }
+
+/* ------------------------------------------------ بلوک آدرس در چک‌اوت ------------------------------------------------ */
+.ab-checkout[hidden] { display: none; }
+
+.ab-checkout { margin-bottom: 18px; direction: rtl; }
+
+.ab-checkout__title { margin: 0 0 10px; font-size: 15px; font-weight: 700; color: #111827; }
+
+.ab-checkout__acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+.ab-checkout__acts .ab-btn {
+    width: auto;
+    min-height: 42px;
+    font-size: 13px;
+}
+
+.ab-checkout .ab-card.is-selected { cursor: default; }
+
+.ab-checkout__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px 14px;
+    text-align: center;
+    border: 1.5px dashed #c9d3ea;
+    border-radius: 14px;
+    background: #f9fbff;
+}
+.ab-checkout__empty p { margin: 0; font-size: 14px; font-weight: 600; color: #374151; }
+.ab-checkout__empty small { color: #6b7280; font-size: 12.5px; }
+.ab-checkout__empty .ab-btn { width: auto; margin-top: 8px; }
+
+.ab-checkout__err { color: #c62828; font-size: 13px; }
+
+/* فرم قدیمی آدرس وقتی دفترچه‌ی آدرس فعال است مخفی می‌شود (ارسال سفارش با addressId انجام می‌شود) */
+#checkoutForm.ab-hidden { display: none; }
+
+/* ------------------------------------------------ لیست‌های کشویی (استان/شهر) ------------------------------------------------ */
+.ab-overlay .ab-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-inline-end: 38px;
+    cursor: pointer;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat left 13px center / 14px;
+}
+
+.ab-overlay .ab-field select:hover:not(:disabled) { border-color: #b8c8ff; }
+.ab-overlay .ab-field select:disabled { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+.ab-overlay .ab-field select:invalid,
+.ab-overlay .ab-field select option[value=""] { color: #9ca3af; }
+
+.ab-overlay .ab-field select option {
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #111827;
+}
+
+.ab-overlay .ab-field input::placeholder,
+.ab-overlay .ab-field textarea::placeholder { color: #9ca3af; }
+
+/* ------------------------------------------------ صفحه‌ی «آدرس‌های من» در پنل کاربری ------------------------------------------------ */
+.ab-panel { direction: rtl; }
+
+.ab-panel__box {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--u-line, #ebebeb);
+    border-radius: 13.5px;
+}
+
+.ab-panel__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+.ab-panel__top h2 {
+    display: block;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--u-text, #383838);
+}
+
+.ab-panel__top .ab-btn {
+    width: auto;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 10px;
+    background: #f6f7f9;
+    color: var(--u-blue, #336dff);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex: none;
+}
+.ab-panel__top .ab-btn:hover:not(:disabled) { background: #eef1f6; }
+
+.ab-panel__map {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 18px;
+    margin-bottom: 30px;
+    border: 1px dashed #c9cdd3;
+    border-radius: 10px;
+    background: #fff;
+    color: #8c9097;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+.ab-panel__map:hover { border-color: var(--u-blue, #336dff); background: #fafcff; }
+.ab-panel__map svg { flex: none; }
+
+.ab-panel__sub {
+    margin: 0 0 18px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--u-text, #383838);
+}
+
+.ab-panel .ab-list { display: flex; flex-direction: column; gap: 14px; }
+
+/* کارت آدرس */
+.ab-pcard {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid #c9cdd3;
+    border-radius: 12px;
+}
+
+.ab-pcard__pin { flex: none; display: inline-flex; margin-top: 1px; color: #8c9097; }
+
+.ab-pcard__main { flex: 1; min-width: 0; }
+
+.ab-pcard__main p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 2.1;
+    color: #555a61;
+    overflow-wrap: anywhere;
+}
+
+.ab-pcard__main .ab-pcard__addr { color: #383838; }
+
+.ab-pcard__sep { margin: 0 6px; color: #b5b9bf; }
+
+.ab-pcard .ab-badge { margin-inline-start: 8px; vertical-align: middle; }
+
+/* منوی سه‌نقطه */
+.ab-pcard__menu { position: relative; flex: none; margin-inline-start: auto; }
+
+.ab-pcard__dots {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #555a61;
+    cursor: pointer;
+    transition: background .15s;
+}
+.ab-pcard__dots:hover,
+.ab-pcard__dots[aria-expanded="true"] { background: #f3f4f6; }
+
+.ab-pcard__pop {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 20;
+    min-width: 150px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+}
+.ab-pcard__pop[hidden] { display: none; }
+
+.ab-pcard__pop button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: #383838;
+    font-size: 13px;
+    text-align: right;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.ab-pcard__pop button:hover { background: #f6f7f9; }
+.ab-pcard__pop button.is-danger:hover { background: #fdecec; color: #e53935; }
+.ab-pcard__pop button:disabled { opacity: .5; cursor: not-allowed; }
+
+@media (max-width: 640px) {
+    .ab-panel__box { padding: 16px; }
+    .ab-panel__top { margin-bottom: 18px; }
+    .ab-panel__top .ab-btn { min-height: 40px; padding: 0 14px; font-size: 12.5px; }
+    .ab-panel__map { margin-bottom: 22px; }
+    .ab-pcard { padding: 14px; gap: 10px; }
+}
+
+/* ------------------------------------------------ لیست کشویی سفارشی استان/شهر ------------------------------------------------ */
+.ab-dd { position: relative; }
+
+.ab-overlay .ab-field select.ab-dd__native {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ab-dd__btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1.5px solid #d8dce3;
+    border-radius: 11px;
+    background: #fff;
+    color: #111827;
+    font-size: 14px;
+    text-align: right;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.ab-dd__btn:hover:not(:disabled) { border-color: #b8c8ff; }
+
+.ab-dd__btn:focus-visible,
+.ab-dd__btn.is-open {
+    border-color: #336DFF;
+    box-shadow: 0 0 0 3px rgba(51, 109, 255, .12);
+}
+
+.ab-dd__btn.is-placeholder { color: #9ca3af; }
+.ab-dd__btn:disabled { background: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+
+.ab-dd__val { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ab-dd__chev { flex: none; color: #6b7280; transition: transform .18s; }
+.ab-dd__btn.is-open .ab-dd__chev { transform: rotate(180deg); }
+
+.ab-field.has-error .ab-dd__btn { border-color: #e53935; background: #fffafa; }
+
+.ab-dd__pop {
+    position: fixed;
+    z-index: 9600;
+    padding: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .14);
+    direction: rtl;
+    scrollbar-width: thin;
+}
+
+.ab-dd__opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: #1f2937;
+    font-size: 14px;
+    text-align: right;
+    cursor: pointer;
+    outline: none;
+}
+
+.ab-dd__opt:hover,
+.ab-dd__opt:focus-visible { background: #f3f6ff; }
+
+.ab-dd__opt.is-on { background: #f5f8ff; color: #336DFF; font-weight: 600; }
+
+/* منوی سه‌نقطه‌ی کارت آدرس: اگر پایین صفحه جا نبود، رو به بالا باز شود */
+.ab-pcard__pop.is-up { top: auto; bottom: calc(100% + 6px); }

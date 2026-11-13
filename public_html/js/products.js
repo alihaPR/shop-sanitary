@@ -121,7 +121,7 @@ function createCard(product) {
   </svg>`
   const imageUrl = `https://api.narmcenter.com/${product.image.replace(/^\/?/, "")}`;
   card.innerHTML = `
-    ${hasDiscount ? `<span class="cart-Discount">${product.discountPercent} <br> %</span>` : ""}
+    ${hasDiscount ? `<span class="cart-Discount">٪${Number(product.discountPercent).toLocaleString("fa-IR")}</span>` : ""}
     ${!product.available ? `<span class="cart-unavailable">ناموجود</span>` : ""}
     <img class="cart-image" src="${imageUrl}" alt="${product.name}">
     <div class="cart-head"><h5>${product.name}</h5></div>

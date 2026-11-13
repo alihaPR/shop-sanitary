@@ -220,7 +220,7 @@ body.pp {
     grid-template-rows: auto auto 1fr 18px auto;
     width: 100%;
     min-height: 316.8px;
-    padding: 9.9px 8.1px 12.6px 9px;
+    padding: 9.9px 8.1px 16px 9px;
     background: #fff;
     border: 1px solid var(--glass-bd);
     border-radius: 22.5px;
@@ -290,7 +290,8 @@ body.pp {
     border-radius: 5.4px;
     background: var(--ink);
     color: #fff;
-    font: 700 11.7px/1 var(--f-vz);
+    font: 700 11.7px var(--f-vz);
+    text-align: center;
     white-space: nowrap;
 }
 
@@ -302,7 +303,7 @@ body.pp {
     grid-column: 3;
     grid-row: 4;
     align-self: center;
-    margin: 0 27px 0 2.7px;
+    margin: 0 5.7px 0 27px;
     font: 400 14.4px/20.7px var(--f-sh);
     color: var(--pp-old);
     text-decoration: line-through;
@@ -317,6 +318,7 @@ body.pp {
     display: flex;
     align-items: center;
     gap: 11.7px;
+    margin-top: 4px;
     margin-left: 7.2px;
     font: 700 18px/20.7px var(--f-sh);
     color: #1f1f1f;

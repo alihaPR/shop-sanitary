@@ -1,4 +1,5 @@
 const express = require("express");
+const serverError = require('../utils/serverError')
 const router = express.Router();
 const Product = require("../models/Product");
 const User = require("../models/User");
@@ -12,7 +13,7 @@ router.get("/", protect, admin, async (req, res) => {
     const users = await User.find().select("-password");
     res.json(users);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    serverError(res, err);
   }
 });
 
@@ -53,9 +54,7 @@ router.delete("/:id", protect, admin, async (req, res) => {
     });
 
   } catch (err) {
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
   }
 });
 
@@ -75,11 +74,13 @@ router.put("/:id/role", protect, admin, async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    // هش رمز عبور هرگز در پاسخ برنگردد
+    const safeUser = user.toObject();
+    delete safeUser.password;
+
+    res.json(safeUser);
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    serverError(res, err);
   }
 });
 router.get("/dashboard", protect, async (req, res) => {
@@ -134,9 +135,7 @@ router.get("/dashboard", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 
@@ -152,11 +151,7 @@ router.get("/profile", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-
-      message: err.message
-
-    });
+    serverError(res, err);
 
   }
 
@@ -182,24 +177,90 @@ router.put("/profile", protect, async (req, res) => {
 
     await user.save();
 
-    res.json(user);
+    // هش رمز عبور هرگز در پاسخ برنگردد
+    const safeUser = user.toObject();
+    delete safeUser.password;
+
+    res.json(safeUser);
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 
 });
+// ذخیره آدرس کامل تحویل (استان، شهر، آدرس، پلاک، واحد، کد پستی)
+// PUT /api/users/shipping-address
+router.put("/shipping-address", protect, async (req, res) => {
+
+  try {
+
+    const b = req.body || {};
+
+    const clean = (v, max) =>
+      typeof v === "string" ? v.trim().slice(0, max) : "";
+
+    const data = {
+      province: clean(b.province, 100),
+      city: clean(b.city, 100),
+      address: clean(b.address, 500),
+      plaque: clean(b.plaque, 20),
+      unit: clean(b.unit, 20),
+      postalCode: clean(b.postalCode, 10)
+    };
+
+    if (!data.province || !data.city || !data.address) {
+      return res.status(400).json({
+        message: "استان، شهر و آدرس الزامی است."
+      });
+    }
+
+    if (!/^\d{10}$/.test(data.postalCode)) {
+      return res.status(400).json({
+        message: "کد پستی باید ۱۰ رقم باشد."
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: { shippingAddress: data, address: data.address } },
+      { new: true }
+    ).select("-password");
+
+    res.json(user);
+
+  } catch (err) {
+
+    serverError(res, err);
+
+  }
+
+});
+
 const bcrypt = require("bcryptjs");
 
 router.put("/change-password", protect, async (req, res) => {
 
   try {
 
-    const { currentPassword, newPassword } = req.body;
+    const { currentPassword, newPassword } = req.body || {};
+
+    if (
+      typeof currentPassword !== "string" || !currentPassword ||
+      typeof newPassword !== "string"
+    ) {
+      return res.status(400).json({
+        message: "رمز فعلی و رمز جدید را وارد کنید."
+      });
+    }
+
+    // هم‌راستا با قوانین فرم تغییر رمز در پنل کاربر (حداقل ۸ کاراکتر)
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        message: "رمز جدید باید حداقل ۸ کاراکتر باشد."
+      });
+    }
 
     const user = await User.findById(req.user._id);
 
@@ -216,7 +277,8 @@ router.put("/change-password", protect, async (req, res) => {
 
     }
 
-    user.password = await bcrypt.hash(newPassword, 10);
+    // هش کردن را hook مدل User (pre save) انجام می‌دهد؛ اینجا دستی هش نکنید
+    user.password = newPassword;
 
     await user.save();
 
@@ -226,9 +288,7 @@ router.put("/change-password", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 
@@ -263,9 +323,7 @@ router.post("/favorites/:id", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 
@@ -290,9 +348,7 @@ router.delete("/favorites/:id", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 
@@ -308,9 +364,7 @@ router.get("/favorites", protect, async (req, res) => {
 
   } catch (err) {
 
-    res.status(500).json({
-      message: err.message
-    });
+    serverError(res, err);
 
   }
 

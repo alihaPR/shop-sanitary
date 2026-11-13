@@ -21,6 +21,20 @@ const userSchema = new mongoose.Schema({
   address: {
     type: String
   },
+  // آدرس کامل ذخیره‌شده برای چک‌اوت (روی هر دستگاهی در دسترس است)
+  shippingAddress: {
+    province: { type: String, trim: true },
+    city: { type: String, trim: true },
+    address: { type: String, trim: true },
+    plaque: { type: String, trim: true },
+    unit: { type: String, trim: true },
+    postalCode: { type: String, trim: true }
+  },
+  // انتقال یک‌باره‌ی آدرس‌های قبلی به دفترچه آدرس انجام شده یا نه
+  addressesMigrated: {
+    type: Boolean,
+    default: false
+  },
   role: {
     type: String,
     enum: ['user', 'admin'],

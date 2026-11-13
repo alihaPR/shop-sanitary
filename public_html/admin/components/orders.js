@@ -345,13 +345,13 @@ function renderOrdersTableBody() {
 
                         <td>#${order._id.slice(-6)}</td>
 
-                        <td>${order.user?.name || "-"}</td>
+                        <td>${AdminUI.esc(order.user?.name || "-")}</td>
 
                         <td>
                             <div class="order-address-cell">
-                                <b>${order.shippingAddress?.city || "-"}</b>
-                                <span>${order.shippingAddress?.address || "-"}</span>
-                                <small>کد پستی : ${order.shippingAddress?.postalCode || "-"}</small>
+                                <b>${AdminUI.esc(order.shippingAddress?.city || "-")}</b>
+                                <span>${AdminUI.esc(order.shippingAddress?.address || "-")}</span>
+                                <small>کد پستی : ${AdminUI.esc(order.shippingAddress?.postalCode || "-")}</small>
                             </div>
                         </td>
 
@@ -555,8 +555,8 @@ function buildInvoiceHTML(order) {
 
                     <h4>اطلاعات خریدار</h4>
 
-                    <p><b>نام و نام خانوادگی:</b> ${order.user?.name || "-"}</p>
-                    <p><b>شماره تماس:</b> ${order.shippingAddress?.phone || order.user?.phone || "-"}</p>
+                    <p><b>نام و نام خانوادگی:</b> ${AdminUI.esc(order.shippingAddress?.recipientName || order.user?.name || "-")}</p>
+                    <p><b>شماره تماس:</b> ${AdminUI.esc(order.shippingAddress?.recipientPhone || order.shippingAddress?.phone || order.user?.phone || "-")}</p>
 
                 </div>
 
@@ -564,9 +564,10 @@ function buildInvoiceHTML(order) {
 
                     <h4>اطلاعات ارسال</h4>
 
-                    <p><b>استان و شهر:</b> ${order.shippingAddress?.province ? order.shippingAddress.province + " ، " : ""}${order.shippingAddress?.city || "-"}</p>
-                    <p><b>کد پستی:</b> ${order.shippingAddress?.postalCode || "-"}</p>
-                    <p><b>آدرس:</b> ${order.shippingAddress?.address || "-"}</p>
+                    <p><b>استان و شهر:</b> ${order.shippingAddress?.province ? AdminUI.esc(order.shippingAddress.province) + " ، " : ""}${AdminUI.esc(order.shippingAddress?.city || "-")}</p>
+                    <p><b>کد پستی:</b> ${AdminUI.esc(order.shippingAddress?.postalCode || "-")}</p>
+                    ${order.shippingAddress?.neighborhood ? `<p><b>محله:</b> ${AdminUI.esc(order.shippingAddress.neighborhood)}</p>` : ""}
+                    <p><b>آدرس:</b> ${AdminUI.esc(order.shippingAddress?.address || "-")}</p>
 
                 </div>
 
@@ -595,7 +596,7 @@ function buildInvoiceHTML(order) {
         return `
                         <tr>
                             <td>${idx + 1}</td>
-                            <td>${item.product?.name || item.name || "محصول"}</td>
+                            <td>${AdminUI.esc(item.product?.name || item.name || "محصول")}</td>
                             <td>${qty}</td>
                             <td>${unitPrice.toLocaleString()} تومان</td>
                             <td>${lineTotal.toLocaleString()} تومان</td>
@@ -666,7 +667,7 @@ function openStatusModal(order) {
                 <form id="statusForm">
 
                     <div class="stock-modal-product">
-                        <span>سفارش #${order._id.slice(-6)} — ${order.user?.name || "-"}</span>
+                        <span>سفارش #${order._id.slice(-6)} — ${AdminUI.esc(order.user?.name || "-")}</span>
                     </div>
 
                     ${cardPaymentBlock(order)}

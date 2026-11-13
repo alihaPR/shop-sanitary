@@ -1,4 +1,5 @@
 const express = require('express')
+const serverError = require('./utils/serverError')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
@@ -134,8 +135,54 @@ function tehranNowParts(date) {
 
 const app = express()
 
-app.use(cors())
+// ===========================
+//  امنیت: helmet + محدودیت تعداد درخواست (rate limit)
+//  اگر پکیج‌ها هنوز روی هاست نصب نشده باشند، سایت از کار نمی‌افتد
+//  (فقط در لاگ هشدار می‌دهد). بعد از «Run NPM Install» فعال می‌شوند.
+// ===========================
+// پشت پروکسی هاست، IP واقعی کاربر را از X-Forwarded-For بخوان (وگرنه همه یک IP حساب می‌شوند)
+app.set('trust proxy', Number(process.env.TRUST_PROXY) || 1)
+
+let helmet = null
+let rateLimit = null
+try { helmet = require('helmet') } catch (e) { console.warn('[security] helmet نصب نیست؛ npm install را اجرا کنید.') }
+try { rateLimit = require('express-rate-limit') } catch (e) { console.warn('[security] express-rate-limit نصب نیست؛ npm install را اجرا کنید.') }
+
+if (helmet) {
+    // تصاویر /uploads از دامنه‌ی دیگری (سایت اصلی) لود می‌شوند؛ پس cross-origin باید مجاز بماند
+    app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
+}
+
+const makeLimiter = (minutes, limit, message, skipSuccessfulRequests = false) =>
+    rateLimit
+        ? rateLimit({
+            windowMs: minutes * 60 * 1000,
+            limit,
+            standardHeaders: true,
+            legacyHeaders: false,
+            skipSuccessfulRequests,
+            message: { message }
+        })
+        : (req, res, next) => next()
+
+// ورود: ۱۰ تلاش ناموفق در ۱۵ دقیقه (ورودهای موفق شمرده نمی‌شوند)
+const loginLimiter = makeLimiter(15, 10, 'تعداد تلاش‌های ورود زیاد است. ۱۵ دقیقه بعد دوباره امتحان کنید.', true)
+// ثبت‌نام: ۱۰ بار در ساعت از هر IP
+const registerLimiter = makeLimiter(60, 10, 'تعداد ثبت‌نام از این شبکه زیاد است. کمی بعد دوباره امتحان کنید.')
+// پیام تماس: ۵ پیام در ساعت از هر IP
+const contactLimiter = makeLimiter(60, 5, 'تعداد پیام‌های ارسالی زیاد است. کمی بعد دوباره امتحان کنید.')
+
+// فقط دامنه‌ی خود سایت اجازه‌ی دسترسی از مرورگر دارد
+const ALLOWED_ORIGINS = ['https://narmcenter.com', 'https://www.narmcenter.com']
+app.use(cors({
+    origin: (origin, cb) => cb(null, !origin || ALLOWED_ORIGINS.includes(origin))
+}))
 app.use(express.json())
+
+// فقط متد POST محدود می‌شود (لیست پیام‌ها برای ادمین دست‌نخورده می‌ماند)
+app.post('/api/auth/login', loginLimiter)
+app.post('/api/auth/register', registerLimiter)
+app.post('/api/contact', contactLimiter)
 if (!fs.existsSync("uploads")) {
     fs.mkdirSync("uploads");
 }
@@ -189,7 +236,7 @@ app.use('/api/orders', require('./routes/orderRoutes'))
 app.use('/api/payment', require('./routes/payment'))
 app.use("/uploads", express.static("uploads"));
 
-app.post("/api/upload", protect, upload.single("image"), (req, res) => {
+app.post("/api/upload", protect, admin, upload.single("image"), (req, res) => {
 
     if (!req.file) {
 
@@ -206,6 +253,7 @@ app.post("/api/upload", protect, upload.single("image"), (req, res) => {
 });
 app.use('/api/contact', require('./routes/contactRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/addresses', require('./routes/addressRoutes'))
 
 app.get('/', (req, res) => {
     res.send('NSG API is running...')
@@ -430,10 +478,28 @@ app.get("/api/admin/stats", protect, admin, async (req, res) => {
 
     } catch (err) {
 
-        res.status(500).json({
-            message: err.message
-        });
+        serverError(res, err);
 
     }
 
 });
+
+// ===========================
+//  هندلر نهایی خطا (JSON خراب، خطای multer و ...) بدون نمایش جزئیات داخلی
+// ===========================
+app.use((err, req, res, next) => {
+    if (res.headersSent) return next(err)
+
+    if (err && err.name === 'MulterError') {
+        return res.status(400).json({ message: 'فایل نامعتبر است (حجم یا فرمت).' })
+    }
+
+    const status = (err && (err.status || err.statusCode)) || 500
+
+    if (status >= 500) {
+        console.error(err)
+        return res.status(500).json({ message: 'خطای داخلی سرور. لطفاً دوباره تلاش کنید.' })
+    }
+
+    res.status(status).json({ message: 'درخواست نامعتبر است.' })
+})

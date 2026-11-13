@@ -67,6 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const userDropdown = document.getElementById("userDropdown");
 
+    // تبلت و موبایل (۱۰۲۴ و کمتر): دراپ‌داون باز نمی‌شود و آیکون پروفایل مستقیم به پنل کاربری می‌رود
+    const USER_PANEL_URL = "./user/index.html";
+    const compactMQ = window.matchMedia("(max-width: 1024px)");
+
     // موقعیت اصلی پنل کاربری، برای برگردوندنش بعد از استفاده در حالت موبایل
     let userDropdownHome = null;
 
@@ -84,6 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginLink.addEventListener("click", (e) => {
         e.preventDefault();
+
+        if (compactMQ.matches) {
+            window.location.href = USER_PANEL_URL;
+            return;
+        }
 
         if (userDropdown.style.display === "block") {
             closeUserDropdown();
@@ -106,35 +115,15 @@ document.addEventListener("DOMContentLoaded", () => {
             </svg>
         `;
 
-        bottomNavAuth.removeAttribute("href");
-
-        bottomNavAuth.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            const isOpenAsMobile =
-                userDropdown.style.display === "block" &&
-                userDropdown.classList.contains("user-dropdown--mobile");
-
-            if (isOpenAsMobile) {
-                closeUserDropdown();
-                return;
-            }
-
-            // پنل رو موقتاً به انتهای body منتقل می‌کنیم تا از زیر
-            // هدر دسکتاپ (که در موبایل display:none داره) بیاد بیرون
-            if (!userDropdownHome) {
-                userDropdownHome = {
-                    parent: userDropdown.parentNode,
-                    next: userDropdown.nextSibling
-                };
-                document.body.appendChild(userDropdown);
-            }
-
-            userDropdown.classList.add("user-dropdown--mobile");
-            userDropdown.style.display = "block";
-        });
+        // آیکون پروفایل در نوار پایین: لینک مستقیم به پنل کاربری (بدون دراپ‌داون)
+        bottomNavAuth.setAttribute("href", USER_PANEL_URL);
 
     }
+
+    // اگر عرض صفحه به حالت تبلت/موبایل رفت، دراپ‌داونِ بازمانده بسته شود
+    compactMQ.addEventListener("change", (e) => {
+        if (e.matches) closeUserDropdown();
+    });
 
     document.addEventListener("click", (e) => {
 

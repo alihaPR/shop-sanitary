@@ -83,13 +83,118 @@ function addToCart(product) {
 
 function removeFromCart(productId) {
   let cart = getCart();
+  const removedIndex = cart.findIndex(item => item._id === productId);
+  const removedItem = removedIndex >= 0 ? cart[removedIndex] : null;
   cart = cart.filter(item => item._id !== productId);
   saveCart(cart);
+  // فقط در صفحه‌ی سبد خرید: چند ثانیه امکان «انصراف» از حذف (مثل دیجی‌کالا)
+  if (removedItem && document.querySelector(".cart-items-wrap")) {
+    // ارتفاع کارت فعلی نگه داشته می‌شود تا پیام انصراف هم‌اندازه‌ی کارت باشد و صفحه نپرد
+    const cardEl = [...document.querySelectorAll(".cart-items-wrap .cart-item")].find(e => e.dataset.id === productId);
+    queueUndo(removedItem, removedIndex, cardEl ? cardEl.getBoundingClientRect().height : 0);
+  }
   if (document.querySelector(".cart-items-wrap")) renderBasket();
   updateCartBadge();
 }
 
+// ---------------------------------------------------------------------
+//  انصراف از حذف محصول
+//  محصول حذف‌شده بلافاصله از سبد (localStorage) خارج می‌شود، ولی تا UNDO_MS
+//  میلی‌ثانیه با پیام «کالای موردنظر شما حذف شد» و دکمه‌ی «انصراف» نمایش
+//  داده می‌شود. با انصراف، محصول با همان تعداد و در همان جایگاه برمی‌گردد.
+// ---------------------------------------------------------------------
+const UNDO_MS = 6000;
+const pendingRemovals = []; // { item, index, startedAt, timer }
+
+function dropPending(id) {
+  const i = pendingRemovals.findIndex(p => p.item._id === id);
+  if (i >= 0) {
+    clearTimeout(pendingRemovals[i].timer);
+    pendingRemovals.splice(i, 1);
+  }
+}
+
+function queueUndo(item, index, height) {
+  dropPending(item._id);
+  const entry = { item: { ...item }, index, height: height || 0, startedAt: Date.now(), timer: null };
+  entry.timer = setTimeout(() => {
+    dropPending(item._id);
+    if (document.querySelector(".cart-items-wrap")) renderBasket();
+  }, UNDO_MS);
+  pendingRemovals.push(entry);
+}
+
+function undoRemove(id) {
+  const pending = pendingRemovals.find(p => p.item._id === id);
+  if (!pending) return;
+  dropPending(id);
+
+  const cart = getCart();
+  if (!cart.some(c => c._id === id)) {
+    cart.splice(Math.min(pending.index, cart.length), 0, pending.item);
+    saveCart(cart);
+  }
+  if (document.querySelector(".cart-items-wrap")) renderBasket();
+  updateCartBadge();
+}
+
+function ensureUndoStyle() {
+  if (document.getElementById("cart-undo-style")) return;
+  const st = document.createElement("style");
+  st.id = "cart-undo-style";
+  st.textContent = `
+    .cart-removed{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:150px;padding:0;text-align:center;animation:cartRemovedIn .25s ease}
+    .cart-item+.cart-removed,.cart-removed+.cart-item,.cart-removed+.cart-removed{border-top:1px solid #efefef}
+    .cart-removed__title{margin:0;font-size:15px;font-weight:700;color:#1f2937}
+    .cart-removed__bar{position:relative;display:block;width:110px;height:3px;border-radius:3px;background:#e5e7eb;overflow:hidden}
+    .cart-removed__bar i{position:absolute;inset:0;background:#3AA6A0;transform-origin:right center;animation:cartRemovedBar linear forwards}
+    .cart-removed__undo{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:0;border-radius:10px;background:transparent;color:#1f2937;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s}
+    .cart-removed__undo:hover{background:#f3f4f6}
+    .cart-removed__undo:focus-visible{outline:2px solid #336DFF;outline-offset:2px}
+    @keyframes cartRemovedBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+    @keyframes cartRemovedIn{from{opacity:0}to{opacity:1}}
+    @media (max-width:640px){.cart-removed{min-height:120px}}
+  `;
+  document.head.appendChild(st);
+}
+
+function renderRemovedPlaceholders(wrap, couponBox) {
+  wrap.querySelectorAll(".cart-removed").forEach(el => el.remove());
+  if (!pendingRemovals.length) return;
+
+  ensureUndoStyle();
+
+  const items = wrap.querySelectorAll(".cart-item");
+  const sorted = [...pendingRemovals].sort((a, b) => a.index - b.index);
+
+  sorted.forEach(p => {
+    const before = sorted.filter(q => q.index < p.index).length;
+    const pos = Math.max(0, Math.min(p.index - before, items.length));
+    const ref = items[pos] || couponBox || null;
+    const elapsed = Math.min(UNDO_MS, Date.now() - p.startedAt);
+
+    const el = document.createElement("div");
+    el.className = "cart-removed";
+    el.setAttribute("role", "status");
+    if (p.height > 0) el.style.cssText = `height:${p.height}px;min-height:0`;
+    el.innerHTML = `
+      <p class="cart-removed__title">کالای موردنظر شما حذف شد</p>
+      <span class="cart-removed__bar"><i style="animation-duration:${UNDO_MS}ms;animation-delay:-${elapsed}ms"></i></span>
+      <button type="button" class="cart-removed__undo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+        <span>انصراف</span>
+      </button>`;
+    el.querySelector("button").addEventListener("click", e => {
+      e.stopPropagation();
+      undoRemove(p.item._id);
+    });
+
+    wrap.insertBefore(el, ref);
+  });
+}
+
 function clearCart() {
+  pendingRemovals.splice(0).forEach(p => clearTimeout(p.timer));
   saveCart([]);
   if (document.querySelector(".cart-items-wrap")) renderBasket();
   updateCartBadge();
@@ -135,7 +240,7 @@ function renderBasket() {
 
   if (!cartItemsWrap) return;
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && pendingRemovals.length === 0) {
     if (emptyBasketWrap) emptyBasketWrap.style.display = "block";
     if (emptyState) emptyState.style.display = "flex";
     if (fullBasket) fullBasket.style.display = "none";
@@ -195,6 +300,8 @@ function renderBasket() {
     }
   });
 
+  renderRemovedPlaceholders(cartItemsWrap, couponBox);
+
   renderSummary(cart);
   updateCartTitle();
 }
@@ -218,7 +325,7 @@ function renderSummary(cart) {
   }, 0);
 
   const freeShipping = subtotal >= 500000;
-  const shippingCost = freeShipping ? 0 : shipping;
+  const shippingCost = (freeShipping || cart.length === 0) ? 0 : shipping;
   const total = subtotal + shippingCost;
 
   const rows = document.querySelectorAll(".summary-row .value");
@@ -326,11 +433,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const style = document.createElement("style");
     style.textContent = `
-      .mini-cart{position:fixed;z-index:99999;width:500px;max-width:calc(100vw - 16px);background:#fff;color:#1a1a1a;
+      .mini-cart{position:fixed;z-index:99999;width:430px;max-width:calc(100vw - 16px);background:#fff;color:#1a1a1a;
         border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);direction:rtl;font-family:inherit;
         opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s}
       .mini-cart.show{opacity:1;visibility:visible;transform:none}
-      .mini-cart::before{content:"";position:absolute;top:-12px;left:0;right:0;height:12px}
+      .mini-cart::before{content:"";position:absolute;top:-30px;left:0;right:0;height:30px}
       .mini-cart__head{display:flex;align-items:baseline;gap:10px;padding:18px 20px 6px}
       .mini-cart__title{font-size:16px;font-weight:800}
       .mini-cart__count{font-size:12px;color:#777}
@@ -357,7 +464,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .mini-cart__now small{font-size:11px;font-weight:400;color:#555;margin-right:3px}
       .mini-cart__empty{padding:34px 20px;text-align:center;font-size:13px;color:#777}
       .mini-cart__foot{display:flex;align-items:center;gap:16px;padding:16px 20px 20px;border-top:1px solid #eee}
-      .mini-cart__btn{flex:1;height:48px;display:flex;align-items:center;justify-content:center;background:var(--ink,#1a5f63);
+      .mini-cart__btn{flex:1;height:38px;display:flex;align-items:center;justify-content:center;background:var(--ink,#1a5f63);
         color:#fff;text-decoration:none;font-size:15px;font-weight:700;border-radius:12px}
       .mini-cart__btn:hover{opacity:.92}
       .mini-cart__total{min-width:150px}
@@ -429,8 +536,13 @@ document.addEventListener("DOMContentLoaded", function () {
       render(btn);
       const r = btn.getBoundingClientRect();
       const w = Math.min(500, window.innerWidth - 16);
-      panel.style.top = (r.bottom + 10) + "px";
-      panel.style.left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8)) + "px";
+      // زیر هدر باز بشه و لبه‌ی چپش با لبه‌ی چپ هدر یکی باشه
+      const hdr = document.querySelector(".site-header__row") || document.querySelector(".site-header");
+      const hr = hdr ? hdr.getBoundingClientRect() : null;
+      const topPos = hr ? hr.bottom + 6 : r.bottom + 10;
+      const leftPos = hr ? hr.left : r.left + r.width / 2 - w / 2;
+      panel.style.top = topPos + "px";
+      panel.style.left = Math.max(8, Math.min(leftPos, window.innerWidth - w - 8)) + "px";
       panel.classList.add("show");
     }
     function hide() {

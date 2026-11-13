@@ -2,6 +2,8 @@
    کامپوننت سفارش‌ها
 ===================================================================== */
 
+const ordEsc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 window.Views = window.Views || {};
 
 // وضعیت سفارش‌های کارت‌به‌کارت تا قبل از تأیید پرداخت
@@ -26,7 +28,7 @@ function cardRejectNote(order) {
     if (order.paymentMethod !== "card" || order.paymentStatus !== "rejected" || order.status !== "pending") return "";
     const note = String(order.adminNote || "رسید پرداخت تأیید نشد.")
         .replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-    return `<div style="margin-top:12px;padding:10px 14px;background:#fef2f2;color:#b91c1c;border-radius:10px;font-size:13px;line-height:1.9">
+    return `<div class="order-reject-note">
                 <b>دلیل رد رسید:</b> ${note}
             </div>`;
 }
@@ -35,6 +37,7 @@ function createOrderCard(order) {
     return `
     <div class="order-wrapper">
         <div class="order-card">
+            <div class="order-main">
             <div class="order-info">
                 <div class="order-status__wraper">
                     <div class="order-status__cercel ${order.status}"></div>
@@ -47,7 +50,7 @@ function createOrderCard(order) {
                 </div>
 <div class="order-products-images">
     ${order.items.map(item => `
-        <img src="https://api.narmcenter.com/${item.image}" alt="${item.name}" class="order-product-image">
+        <img src="https://api.narmcenter.com/${ordEsc(item.image)}" alt="${ordEsc(item.name)}" class="order-product-image">
     `).join("")}
 </div>
             </div>
@@ -66,6 +69,7 @@ function createOrderCard(order) {
                     </svg>
                 </a>
                 ${cardPayLink(order)}
+            </div>
             </div>
             ${cardRejectNote(order)}
         </div>

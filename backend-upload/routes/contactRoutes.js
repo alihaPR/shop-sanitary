@@ -1,4 +1,5 @@
 const express = require('express')
+const serverError = require('../utils/serverError')
 const router = express.Router()
 const Contact = require('../models/Contact')
 const { protect, admin } = require('../middleware/auth')
@@ -14,7 +15,7 @@ router.post('/', async (req, res) => {
     const contact = await Contact.create({ name, email, phone, message })
     res.status(201).json({ message: 'پیام شما با موفقیت ارسال شد', contact })
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -23,7 +24,7 @@ router.get('/', protect, admin, async (req, res) => {
     const contacts = await Contact.find().sort({ createdAt: -1 })
     res.json(contacts)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -37,7 +38,7 @@ router.put('/:id/read', protect, admin, async (req, res) => {
     if (!contact) return res.status(404).json({ message: 'پیام یافت نشد' })
     res.json(contact)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -47,7 +48,7 @@ router.delete('/:id', protect, admin, async (req, res) => {
     if (!contact) return res.status(404).json({ message: 'پیام یافت نشد' })
     res.json({ message: 'پیام حذف شد' })
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 

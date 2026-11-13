@@ -391,7 +391,8 @@ body.pd {
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    gap: 6px 10px;
+    align-content: flex-start;
+    gap: 4px 10px;
 
     padding: 0;
     background: none;
@@ -405,6 +406,7 @@ body.pd {
     order: 3;
     flex-basis: 100%;
     height: 0;
+    margin-top: -4px; /* فاصله‌ی دو گپ دور این ردیفِ خالی را خنثی می‌کند */
 }
 
 .pd .price-row {
@@ -996,4 +998,57 @@ body.pd {
 .pd .seller-card .check-item.check-item--ship::before,
 .pd .seller-card .check-item.check-item--warranty::before {
     background: var(--ink);
+}
+
+/* ویژگی‌ها: با هاور (یا فوکوس کیبورد) مقدار کامل در یک چیپ تیره نشان داده می‌شود */
+.pd .feat-item {
+    position: relative;
+}
+
+.pd .feat-item .feat-tip {
+    display: none;
+}
+
+@media (hover: hover) {
+    .pd .feat-item .feat-tip {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        z-index: 40;
+        display: block;
+        width: max-content;
+        max-width: min(260px, 70vw);
+        padding: 8px 12px;
+        border-radius: 9px;
+        background: #3a3a52;
+        color: #fff;
+        font: 700 11.5px/1.8 var(--f-vz);
+        text-align: right;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        box-shadow: 0 8px 20px rgba(26, 26, 46, .22);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4px);
+        transition: opacity .15s, transform .15s, visibility .15s;
+        pointer-events: none;
+    }
+
+    .pd .feat-item .feat-tip small {
+        display: block;
+        font: 400 10px/1.6 var(--f-vz);
+        color: rgba(255, 255, 255, .7);
+    }
+
+    .pd .feat-item:hover .feat-tip,
+    .pd .feat-item:focus-visible .feat-tip {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .pd .feat-item:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+    }
 }

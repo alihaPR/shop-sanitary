@@ -68,7 +68,7 @@ async function renderUsers() {
                     <input
                         type="text"
                         id="userSearch"
-                        placeholder="جستجوی کاربر..."
+                        placeholder="جستجوی نام یا شماره..."
                     >
                 </div>
 
@@ -126,9 +126,15 @@ function getFilteredUsers() {
             usersCurrentRoleFilter === "all" ||
             user.role === usersCurrentRoleFilter;
 
+        // اعداد فارسی/عربی هم به انگلیسی تبدیل می‌شوند تا شماره با هر کیبوردی پیدا شود
+        const termEn = usersCurrentSearchTerm
+            .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+            .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+
         const matchesSearch =
             !usersCurrentSearchTerm ||
-            (user.name || "").toLowerCase().includes(usersCurrentSearchTerm);
+            (user.name || "").toLowerCase().includes(usersCurrentSearchTerm) ||
+            String(user.phone || "").includes(termEn);
 
         return matchesRole && matchesSearch;
 
@@ -167,15 +173,15 @@ function renderUsersTable() {
 
                 <td>
                     <div class="product-cell">
-                        <div class="user-avatar">${(user.name || "?").charAt(0)}</div>
-                        <span class="product-name">${user.name}</span>
+                        <div class="user-avatar">${AdminUI.esc((user.name || "?").charAt(0))}</div>
+                        <span class="product-name">${AdminUI.esc(user.name)}</span>
                     </div>
                 </td>
 
-                <td>${user.phone || "-"}</td>
+                <td>${AdminUI.esc(user.phone || "-")}</td>
 
                 <td>
-                    <span class="role-text ${user.role}">
+                    <span class="role-text ${AdminUI.esc(user.role)}">
                         ${user.role === "admin" ? "ادمین" : "کاربر"}
                     </span>
                 </td>
@@ -328,12 +334,12 @@ function openUserModal(user) {
 
                     <p>
                         <strong>نام:</strong>
-                        ${user.name}
+                        ${AdminUI.esc(user.name)}
                     </p>
 
                     <p>
                         <strong>شماره:</strong>
-                        ${user.phone || "-"}
+                        ${AdminUI.esc(user.phone || "-")}
                     </p>
 
                 </div>

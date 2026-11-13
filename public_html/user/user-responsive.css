@@ -487,9 +487,25 @@
     }
 
     .order-card {
+        --oc-x: 12px;
         min-height: 216px;
-        padding: 0 12px 14px;
+        padding: 0 var(--oc-x) 14px;
         border-radius: 12px;
+    }
+
+    /* ظرف اصلی کارت: عکس‌ها، قیمت و دکمه‌ها به این می‌چسبن تا دلیل رد رسید زیرشون بیاد */
+    .order-main {
+        display: block;
+        position: relative;
+        min-height: 216px;
+        margin: 0 calc(var(--oc-x) * -1) -14px;
+    }
+
+    .order-reject-note {
+        margin-top: 28px;
+        padding: 10px 12px;
+        font-size: 12px;
+        line-height: 1.9;
     }
 
     .order-info {
@@ -975,7 +991,7 @@
 @media (max-width:359px) {
 
     .order-card {
-        padding: 0 10px 14px;
+        --oc-x: 10px;
     }
 
     .order-products-images {

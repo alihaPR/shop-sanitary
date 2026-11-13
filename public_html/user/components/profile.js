@@ -78,20 +78,6 @@ window.Views.profile = {
                     </button>
                 </div>
 
-                <div class="info-item info-item--wide">
-                    <div class="info-wraper">
-                        <span>آدرس</span>
-                        <strong id="address" class="info-text-p"></strong>
-                    </div>
-                    <button class="edit-btn" data-field="address">
-                        <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6413 16.4548H10.1742C9.86215 16.4548 9.60889 16.2028 9.60889 15.8923C9.60889 15.5818 9.86215 15.3298 10.1742 15.3298H15.6413C15.9534 15.3298 16.2066 15.5818 16.2066 15.8923C16.2066 16.2028 15.9534 16.4548 15.6413 16.4548Z" fill="currentColor" />
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.88233 3.76273L2.7856 12.594C2.6567 12.7545 2.60921 12.9615 2.6567 13.1602L3.17002 15.324L5.46072 15.2955C5.67856 15.2932 5.87982 15.1965 6.01323 15.0315C8.43811 12.0127 13.061 6.25723 13.1921 6.08848C13.3157 5.88898 13.364 5.60698 13.2992 5.33548C13.2328 5.05723 13.0587 4.82098 12.8077 4.67023C12.7542 4.63348 11.4841 3.65248 11.4449 3.62173C10.967 3.24073 10.2698 3.30673 9.88233 3.76273ZM2.72379 16.455C2.46223 16.455 2.23459 16.2765 2.17354 16.0222L1.5562 13.419C1.42881 12.8797 1.55545 12.3232 1.90293 11.8912L9.00344 3.05473C9.00645 3.05173 9.00871 3.04798 9.01173 3.04498C9.79037 2.11873 11.1984 1.98223 12.1482 2.74048C12.1858 2.76973 13.4469 3.74473 13.4469 3.74473C13.9052 4.01623 14.2632 4.50148 14.3989 5.07598C14.5338 5.64448 14.4358 6.23098 14.1215 6.72673C14.0982 6.76348 14.0778 6.79498 6.8959 15.735C6.54992 16.164 6.03133 16.4137 5.47429 16.4205L2.73133 16.455H2.72379Z" fill="currentColor" />
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2287 8.76377C12.1081 8.76377 11.9875 8.72552 11.8842 8.64752L7.77464 5.50652C7.5274 5.31752 7.48067 4.96502 7.67062 4.71752C7.86132 4.47152 8.21559 4.42577 8.46358 4.61477L12.5739 7.75502C12.8211 7.94402 12.8679 8.29727 12.6772 8.54402C12.5663 8.68802 12.3983 8.76377 12.2287 8.76377Z" fill="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-
             </div>
         </div>
     `,
@@ -120,7 +106,6 @@ async function loadProfile() {
         document.getElementById("name").textContent = user.name;
         document.getElementById("email").textContent = user.email;
         document.getElementById("phone").textContent = user.phone || "ثبت نشده";
-        document.getElementById("address").textContent = user.address || "ثبت نشده";
 
     } catch (err) {
         console.log(err);
@@ -132,8 +117,7 @@ async function loadProfile() {
 const fieldConfig = {
     name: { label: "ویرایش نام", type: "text", placeholder: "مثلاً: علی رضایی" },
     email: { label: "ویرایش ایمیل", type: "email", placeholder: "example@email.com" },
-    phone: { label: "ویرایش شماره موبایل", type: "tel", placeholder: "مثلاً: 09123456789" },
-    address: { label: "ویرایش آدرس", placeholder: "آدرس کامل پستی خود را بنویسید" }
+    phone: { label: "ویرایش شماره موبایل", type: "tel", placeholder: "مثلاً: 09123456789" }
 };
 
 /* آیکون کنار اینپوت‌ها: وقتی خالیه "+" نشون میده، وقتی مقدار داره تیک سبز میشه */
@@ -161,19 +145,12 @@ function bindEditButtons() {
             const input = document.getElementById("editInput");
             const textarea = document.getElementById("editTextarea");
 
-            if (editingField === "address") {
-                inputWrap.style.display = "none";
-                textarea.style.display = "block";
-                textarea.placeholder = config.placeholder;
-                textarea.value = currentUser.address || "";
-            } else {
-                textarea.style.display = "none";
-                inputWrap.style.display = "block";
-                input.type = config.type;
-                input.placeholder = config.placeholder;
-                input.value = currentUser[editingField] || "";
-                updateInputIcon(!!input.value);
-            }
+            textarea.style.display = "none";
+            inputWrap.style.display = "block";
+            input.type = config.type;
+            input.placeholder = config.placeholder;
+            input.value = currentUser[editingField] || "";
+            updateInputIcon(!!input.value);
         };
     });
 
@@ -198,9 +175,7 @@ document.getElementById("editInput").addEventListener("input", (e) => {
 document.getElementById("saveProfile").onclick = async () => {
 
     const body = {};
-    body[editingField] = editingField === "address"
-        ? document.getElementById("editTextarea").value
-        : document.getElementById("editInput").value;
+    body[editingField] = document.getElementById("editInput").value;
 
     const saveBtn = document.getElementById("saveProfile");
     setBtnLoading(saveBtn, true);

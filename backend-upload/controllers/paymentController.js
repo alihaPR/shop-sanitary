@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const axios = require("axios");
+const { resolveShippingAddress } = require("../utils/addressHelper");
 
 // const Product = require("../models/Product");
 // const mongoose = require("mongoose");
@@ -16,23 +17,72 @@ const START_PAY = process.env.ZARINPAL_SANDBOX === "true"
   ? "https://sandbox.zarinpal.com/pg/StartPay/"
   : "https://www.zarinpal.com/pg/StartPay/";
 
+// قیمت‌های سایت به «تومان» است ولی زرین‌پال مبلغ را به «ریال» می‌گیرد
+const TOMAN_TO_RIAL = 10;
+
+// مهلت پرداخت در درگاه؛ بعد از آن سفارش لغو و موجودی برمی‌گردد
+const GATEWAY_PAY_MINUTES = Number(process.env.GATEWAY_PAY_MINUTES) || 30;
+
+// مبلغ قابل پرداخت (تومان) = قیمت کالاها + هزینه ارسال
+const payableToman = (order) =>
+  (order.totalPrice || 0) + (order.shippingCost || 0);
+
+// خطایی که پیامش برای مشتری قابل نمایش است (مثلاً کمبود موجودی)
+const userError = (msg) => Object.assign(new Error(msg), { status: 400 });
+
+// BACKEND_URL چه با /api تمام شود چه نشود، آدرس callback درست ساخته می‌شود
+const verifyCallbackUrl = () =>
+  String(process.env.BACKEND_URL || "")
+    .replace(/\/+$/, "")
+    .replace(/\/api$/i, "") + "/api/payment/verify";
+
 exports.createPayment = async (req, res) => {
-  let session;
+  // بدون تراکنش MongoDB (روی دیتابیس تکی/بدون replica set کار نمی‌کند):
+  // موجودی با عملیات اتمیک کم می‌شود و در صورت هر خطا برگردانده می‌شود.
+  let reserved = [];
+  let order = null;
 
   try {
 
-    session = await mongoose.startSession();
-    session.startTransaction();
+    const { items } = req.body || {};
 
-    const { items, shippingAddress } = req.body;
+    // اگر addressId ارسال شده باشد، مالکیت بررسی و Snapshot آدرس از دیتابیس ساخته می‌شود
+    const resolvedAddress = await resolveShippingAddress(req);
+    const shippingAddress = resolvedAddress || (req.body || {}).shippingAddress;
 
-    if (!items || items.length === 0) {
-      await session.abortTransaction();
-      session.endSession();
+    if (!shippingAddress) {
+      return res.status(400).json({
+        message: "آدرس ارسال سفارش را انتخاب کنید."
+      });
+    }
 
+    // ---------- اعتبارسنجی ورودی (قبل از شروع تراکنش) ----------
+    if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         message: "سبد خرید خالی است."
       });
+    }
+
+    if (items.length > 50) {
+      return res.status(400).json({
+        message: "تعداد اقلام سبد خرید بیش از حد مجاز است."
+      });
+    }
+
+    for (const item of items) {
+
+      if (!item || !mongoose.Types.ObjectId.isValid(item.product)) {
+        return res.status(400).json({
+          message: "شناسه محصول نامعتبر است."
+        });
+      }
+
+      if (!Number.isInteger(item.quantity) || item.quantity <= 0) {
+        return res.status(400).json({
+          message: "تعداد محصول نامعتبر است."
+        });
+      }
+
     }
 
     let orderItems = [];
@@ -40,19 +90,28 @@ exports.createPayment = async (req, res) => {
 
     for (const item of items) {
 
-      const product = await Product.findById(item.product).session(session);
+      const product = await Product.findById(item.product);
 
       if (!product) {
-        throw new Error("محصول پیدا نشد.");
+        throw userError("محصول پیدا نشد.");
       }
 
       if (!product.available) {
-        throw new Error(`${product.name} موجود نیست.`);
+        throw userError(`${product.name} موجود نیست.`);
       }
 
-      if (product.stock < item.quantity) {
-        throw new Error(`موجودی ${product.name} کافی نیست.`);
+      // کم کردن اتمیک موجودی: فقط اگر موجودی کافی باشد
+      const updated = await Product.findOneAndUpdate(
+        { _id: product._id, available: true, stock: { $gte: item.quantity } },
+        { $inc: { stock: -item.quantity, buyers: item.quantity } },
+        { new: true }
+      );
+
+      if (!updated) {
+        throw userError(`موجودی ${product.name} کافی نیست.`);
       }
+
+      reserved.push({ id: product._id, qty: item.quantity });
 
       const finalPrice =
         product.discountPercent > 0
@@ -69,37 +128,34 @@ exports.createPayment = async (req, res) => {
         qty: item.quantity
       });
 
-      product.stock -= item.quantity;
-      product.buyers += item.quantity;
-
-      await product.save({ session });
-
     }
 
     const shippingCost =
       totalPrice >= 500000 ? 0 : 35000;
 
-    const [order] = await Order.create(
-      [{
-        user: req.user._id,
-        items: orderItems,
-        shippingAddress,
-        totalPrice,
-        shippingCost,
-        status: "pending"
-      }],
-      { session }
-    );
+    // کالاها + ارسال (تومان)
+    const payable = totalPrice + shippingCost;
+
+    order = await Order.create({
+      user: req.user._id,
+      items: orderItems,
+      shippingAddress,
+      totalPrice,
+      shippingCost,
+      paymentMethod: "gateway",
+      status: "pending",
+      paymentExpiresAt: new Date(Date.now() + GATEWAY_PAY_MINUTES * 60 * 1000)
+    });
 
     const response = await axios.post(
       `${API}/request.json`,
       {
         merchant_id: process.env.ZARINPAL_MERCHANT_ID,
 
-        amount: totalPrice,
+        amount: payable * TOMAN_TO_RIAL,
 
         callback_url:
-          `${process.env.BACKEND_URL}/payment/verify?orderId=${order._id}`,
+          `${verifyCallbackUrl()}?orderId=${order._id}`,
 
         description: `Order ${order._id}`
       },
@@ -116,9 +172,9 @@ exports.createPayment = async (req, res) => {
 
     }
 
-    await session.commitTransaction();
-
-    session.endSession();
+    // شماره Authority به سفارش گره می‌خورد تا در verify قابل بررسی باشد
+    order.authority = response.data.data.authority;
+    await order.save();
 
     res.json({
       authority: response.data.data.authority,
@@ -130,87 +186,124 @@ exports.createPayment = async (req, res) => {
 
   catch (err) {
 
-    if (session) {
+    // سفارشی که به درگاه نرسیده حذف می‌شود و موجودی رزروشده برمی‌گردد
+    if (order) {
+      try {
+        await Order.deleteOne({ _id: order._id, isPaid: false });
+      } catch (e) {
+        console.error("createPayment order cleanup error:", e.message);
+      }
+    }
 
-      await session.abortTransaction();
-
-      session.endSession();
-
+    for (const r of reserved) {
+      try {
+        await Product.updateOne(
+          { _id: r.id },
+          { $inc: { stock: r.qty, buyers: -r.qty } }
+        );
+      } catch (e) {
+        console.error("createPayment stock rollback error:", e.message);
+      }
     }
 
     console.error(err);
 
-    res.status(500).json({
-      message: err.message || "خطا در ایجاد پرداخت."
+    res.status(err.status || 500).json({
+      message: err.status ? err.message : "خطا در ایجاد پرداخت."
     });
 
   }
 
 };
 
-async function rollbackOrder(order) {
+// لغو سفارش پرداخت‌نشده و برگرداندن موجودی (به‌جای حذف سفارش)
+// اتمیک است: فقط یک بار، و فقط برای سفارشِ هنوز pending و پرداخت‌نشده اجرا می‌شود
+async function cancelOrder(order) {
+
+  const locked = await Order.findOneAndUpdate(
+    { _id: order._id, isPaid: false, status: "pending" },
+    { $set: { status: "cancelled" } }
+  );
+
+  if (!locked) return;
 
   for (const item of order.items) {
 
-    const product = await Product.findById(item.product);
+    try {
 
-    if (!product) continue;
+      await Product.updateOne(
+        { _id: item.product },
+        { $inc: { stock: item.qty, buyers: -item.qty } }
+      );
 
-    product.stock += item.qty;
+    } catch (e) {
 
-    product.buyers = Math.max(0, product.buyers - item.qty);
+      console.error("cancelOrder stock restore error:", e.message);
 
-    await product.save();
+    }
 
   }
-
-  await Order.findByIdAndDelete(order._id);
 
 }
 
 exports.verifyPayment = async (req, res) => {
-  console.log("VERIFY QUERY:", req.query);
+
+  const failedUrl = `${process.env.SITE_URL}/payment-failed.html`;
+
+  // سفارشی که ارتباط‌مان با زرین‌پال حین بررسی‌اش قطع شده (برای بررسی دستی)
+  let reviewOrderId = null;
+
   try {
 
     const { Authority, Status, orderId } = req.query;
 
-    if (Status !== "OK") {
-
-      const order = await Order.findById(orderId);
-
-      if (order && !order.isPaid) {
-
-        await rollbackOrder(order);
-
-      }
-
-      return res.redirect(
-        `${process.env.SITE_URL}/payment-failed.html`
-      );
-
+    if (
+      typeof Authority !== "string" ||
+      typeof orderId !== "string" ||
+      !mongoose.Types.ObjectId.isValid(orderId)
+    ) {
+      return res.redirect(failedUrl);
     }
 
     const order = await Order.findById(orderId);
 
-    if (!order) {
-
-      return res.redirect(
-        `${process.env.SITE_URL}/payment-failed.html`
-      );
-
+    // Authority باید دقیقاً همان باشد که موقع ساخت پرداخت روی این سفارش ثبت شده
+    // (در غیر این‌صورت هیچ تغییری روی سفارش داده نمی‌شود)
+    if (
+      !order ||
+      order.paymentMethod !== "gateway" ||
+      !order.authority ||
+      order.authority !== Authority
+    ) {
+      return res.redirect(failedUrl);
     }
 
-    console.log("VERIFY REQUEST:", {
-      merchant_id: process.env.ZARINPAL_MERCHANT_ID,
-      amount: order.totalPrice,
-      authority: Authority
-    });
+    reviewOrderId = order._id;
+
+    // سفارش قبلاً پرداخت شده؛ دوباره پردازش نمی‌شود
+    if (order.isPaid) {
+      return res.redirect(
+        `${process.env.SITE_URL}/payment-success.html?refId=${encodeURIComponent(order.refId || "")}&orderId=${order._id}`
+      );
+    }
+
+    if (order.status !== "pending") {
+      return res.redirect(failedUrl);
+    }
+
+    if (Status !== "OK") {
+
+      await cancelOrder(order);
+
+      return res.redirect(failedUrl);
+
+    }
 
     const response = await axios.post(
       `${API}/verify.json`,
       {
         merchant_id: process.env.ZARINPAL_MERCHANT_ID,
-        amount: order.totalPrice,
+        amount: payableToman(order) * TOMAN_TO_RIAL,
         authority: Authority
       },
       {
@@ -220,7 +313,6 @@ exports.verifyPayment = async (req, res) => {
       }
     );
 
-
     const result = response.data.data;
 
     if (
@@ -228,45 +320,81 @@ exports.verifyPayment = async (req, res) => {
       result.code === 101
     ) {
 
-      order.isPaid = true;
-
-      order.status = "processing";
-
-      order.paidAt = new Date();
-
-      await order.save();
-
-      return res.redirect(
-        `${process.env.SITE_URL}/payment-success.html?refId=${result.ref_id}&orderId=${order._id}`
+      // علامت‌گذاری اتمیک: اگر دو callback هم‌زمان برسند، فقط یکی اعمال می‌شود
+      const paid = await Order.findOneAndUpdate(
+        { _id: order._id, isPaid: false, status: "pending" },
+        {
+          $set: {
+            isPaid: true,
+            status: "processing",
+            paidAt: new Date(),
+            refId: String(result.ref_id)
+          }
+        },
+        { new: true }
       );
 
-    }
+      const current = paid || await Order.findById(order._id);
 
-    return res.redirect(
-      `${process.env.SITE_URL}/payment-failed.html`
-    );
+      if (current && current.isPaid) {
 
-  } catch (err) {
-
-    console.error(err.response?.data || err);
-
-    // اگر سفارش ساخته شده ولی پرداخت کامل نشده بود
-    if (req.query.orderId) {
-
-      const order = await Order.findById(req.query.orderId);
-
-      if (order && !order.isPaid) {
-
-        await rollbackOrder(order);
+        return res.redirect(
+          `${process.env.SITE_URL}/payment-success.html?refId=${encodeURIComponent(current.refId || result.ref_id)}&orderId=${current._id}`
+        );
 
       }
 
     }
 
-    return res.redirect(
-      `${process.env.SITE_URL}/payment-failed.html`
-    );
+    return res.redirect(failedUrl);
+
+  } catch (err) {
+
+    // عمداً سفارش لغو/حذف نمی‌شود: ممکن است پول کسر شده باشد و فقط ارتباط با زرین‌پال قطع شده باشد.
+    // سفارش pending می‌ماند تا بررسی دستی شود (مهلت انقضا برداشته می‌شود تا job خودکار لغوش نکند).
+    console.error(err.response?.data || err.message);
+
+    if (reviewOrderId) {
+      try {
+        await Order.updateOne(
+          { _id: reviewOrderId, isPaid: false, status: "pending" },
+          { $unset: { paymentExpiresAt: 1 } }
+        );
+      } catch (_) { /* مهم نیست */ }
+    }
+
+    return res.redirect(failedUrl);
 
   }
 
 };
+
+// ============================================================
+//  لغو خودکار سفارش‌های درگاهِ رهاشده (مشتری از صفحه‌ی بانک برنگشته)
+//  مهلت: GATEWAY_PAY_MINUTES دقیقه. موجودی با cancelOrder برمی‌گردد.
+//  سفارش‌هایی که paymentExpiresAt ندارند (مثلاً در انتظار بررسی دستی) لمس نمی‌شوند.
+// ============================================================
+async function expireGatewayOrders() {
+
+  try {
+
+    const orders = await Order.find({
+      paymentMethod: "gateway",
+      status: "pending",
+      isPaid: false,
+      paymentExpiresAt: { $lt: new Date() }
+    }).limit(100);
+
+    for (const order of orders) {
+      await cancelOrder(order);
+    }
+
+  } catch (err) {
+
+    console.error("expireGatewayOrders error:", err.message);
+
+  }
+
+}
+
+setInterval(expireGatewayOrders, 60 * 1000);

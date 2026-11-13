@@ -57,3 +57,40 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
     else init();
 })();
+
+
+/* =====================================================================
+   روش پرداخت در موبایل: در حالت ≤۱۰۲۴ نوار خلاصه‌ی سفارش «شناور و fixed» است
+   و #payMethods داخلش له می‌شد. اینجا فقط جای DOM عوض می‌شود (ورودی‌ها همان‌اند،
+   پس checkout.js بدون تغییر کار می‌کند). در دسکتاپ به جای اصلی برمی‌گردد.
+   ===================================================================== */
+(function () {
+    "use strict";
+
+    function init() {
+        var pay = document.getElementById("payMethods");
+        var slot = document.getElementById("paySlot");
+        var btn = document.getElementById("checkout-btn");
+        if (!pay || !slot || !btn) return;
+
+        var home = pay.parentNode;
+        var mq = window.matchMedia("(max-width:1024px)");
+
+        function place() {
+            if (mq.matches) {
+                slot.appendChild(pay);
+                slot.hidden = false;
+            } else {
+                home.insertBefore(pay, btn);
+                slot.hidden = true;
+            }
+        }
+
+        place();
+        if (mq.addEventListener) mq.addEventListener("change", place);
+        else mq.addListener(place);
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+})();

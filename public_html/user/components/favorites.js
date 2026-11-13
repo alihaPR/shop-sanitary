@@ -4,6 +4,8 @@
    یک template ثابت + یک تابع init که بعد از تزریق template اجرا میشه.
 ===================================================================== */
 
+const favEsc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 const FAVORITES_PER_PAGE = 8;
 
 let favoritesOriginal = [];
@@ -209,10 +211,10 @@ function renderFavoritesGrid() {
             <a class="favorite-card" href="../cart.html?id=${product._id}" data-id="${product._id}">
 
                 <div class="favorite-card-image">
-                    <img src="${imageUrl}" alt="${product.name}">
+                    <img src="${favEsc(imageUrl)}" alt="${favEsc(product.name)}">
                 </div>
 
-                <h4>${product.name}</h4>
+                <h4>${favEsc(product.name)}</h4>
 
                 ${lowStock ? `<div class="favorite-card-stock">تنها ${product.stock} عدد در انبار باقی مانده</div>` : ""}
 

@@ -28,6 +28,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function formatPrice(p) { return p.toLocaleString("fa-IR"); }
 
+  function escHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
 document.title = product.name;
 
   renderProduct(product);
@@ -129,9 +135,10 @@ document.title = product.name;
         .slice(0, 4)
         .map(
           spec => `
-                    <li class="feat-item">
-                        <span class="feat-label" title="${spec.label}">${spec.label}</span>
-                        <span class="feat-value" title="${spec.value}">${spec.value}</span>
+                    <li class="feat-item" tabindex="0">
+                        <span class="feat-label">${escHtml(spec.label)}</span>
+                        <span class="feat-value">${escHtml(spec.value)}</span>
+                        <span class="feat-tip" role="tooltip"><small>${escHtml(spec.label)}</small>${escHtml(spec.value)}</span>
                     </li>
                 `
         )
@@ -662,7 +669,3 @@ function showShareToast(message) {
   }, 2000);
 
 }
-
-
-
-

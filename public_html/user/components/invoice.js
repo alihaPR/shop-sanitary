@@ -15,6 +15,9 @@ window.Views.invoice = {
 
         const id = (params && params.orderId) || localStorage.getItem("selectedOrder");
 
+        // جلوگیری از XSS: هر مقدار دارای ورودی کاربر قبل از innerHTML escape می‌شود
+        const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
         try {
 
             const res = await fetch(`${API_BASE}/orders/${id}`, {
@@ -33,7 +36,7 @@ window.Views.invoice = {
                 return `
                     <tr>
                         <td>${idx + 1}</td>
-                        <td>${item.product?.name || item.name || "محصول"}</td>
+                        <td>${esc(item.product?.name || item.name || "محصول")}</td>
                         <td>${qty}</td>
                         <td>${unitPrice.toLocaleString()} تومان</td>
                         <td>${(unitPrice * qty).toLocaleString()} تومان</td>
@@ -70,15 +73,16 @@ window.Views.invoice = {
 
                         <div class="uinv-party-box">
                             <h4>اطلاعات خریدار</h4>
-                            <p><b>نام و نام خانوادگی:</b> ${order.user?.name || "-"}</p>
-                            <p><b>شماره تماس:</b> ${order.shippingAddress?.phone || order.user?.phone || "-"}</p>
+                            <p><b>نام و نام خانوادگی:</b> ${esc(order.shippingAddress?.recipientName || order.user?.name || "-")}</p>
+                            <p><b>شماره تماس:</b> ${esc(order.shippingAddress?.recipientPhone || order.shippingAddress?.phone || order.user?.phone || "-")}</p>
                         </div>
 
                         <div class="uinv-party-box">
                             <h4>اطلاعات ارسال</h4>
-                            <p><b>استان و شهر:</b> ${order.shippingAddress?.province ? order.shippingAddress.province + " ، " : ""}${order.shippingAddress?.city || "-"}</p>
-                            <p><b>کد پستی:</b> ${order.shippingAddress?.postalCode || "-"}</p>
-                            <p><b>آدرس:</b> ${order.shippingAddress?.address || "-"}</p>
+                            <p><b>استان و شهر:</b> ${order.shippingAddress?.province ? esc(order.shippingAddress.province) + " ، " : ""}${esc(order.shippingAddress?.city || "-")}</p>
+                            <p><b>کد پستی:</b> ${esc(order.shippingAddress?.postalCode || "-")}</p>
+                            ${order.shippingAddress?.neighborhood ? `<p><b>محله:</b> ${esc(order.shippingAddress.neighborhood)}</p>` : ""}
+                    <p><b>آدرس:</b> ${esc(order.shippingAddress?.address || "-")}</p>
                         </div>
 
                     </div>

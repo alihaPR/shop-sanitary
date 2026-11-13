@@ -46,6 +46,90 @@
     color: #6b7280;
 }
 
+/* ===== آدرس ثبت‌شده در چک‌اوت ===== */
+.saved-addr[hidden],
+.pay-slot[hidden] { display: none; }
+
+.saved-addr {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.saved-addr__title,
+.pay-slot__title {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.saved-addr__opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+
+.saved-addr__opt.is-active {
+    border-color: #336DFF;
+    background: #f3f6ff;
+}
+
+.saved-addr__opt input {
+    accent-color: #336DFF;
+    margin: 3px 0 0;
+    flex: none;
+}
+
+.saved-addr__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.saved-addr__text b {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.9;
+    color: #1f2937;
+    overflow-wrap: anywhere;
+}
+
+.saved-addr__meta,
+.saved-addr__text small {
+    font-size: 11.5px;
+    color: #6b7280;
+}
+
+.saved-addr__text small a {
+    color: #336DFF;
+    text-decoration: none;
+}
+
+.saved-addr__hint {
+    margin: 2px 0 0;
+    font-size: 12px;
+    line-height: 1.9;
+    color: #b45309;
+}
+
+/* ===== روش پرداخت در موبایل (داخل صفحه، نه داخل نوار شناور) ===== */
+.pay-slot {
+    margin-top: 22px;
+}
+
+.pay-slot .pay-methods {
+    margin: 0;
+}
+
 /* ===== صفحه‌ی پرداخت کارت‌به‌کارت (card-payment.html) ===== */
 .cp-body {
     margin: 0;

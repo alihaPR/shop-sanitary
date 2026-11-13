@@ -1,12 +1,13 @@
 const express = require('express')
+const serverError = require('../utils/serverError')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 const { protect } = require('../middleware/auth')
 
 // تولید توکن
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
+const generateToken = (id, role) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: role === 'admin' ? '1d' : '30d' })
 }
 
 // ثبت نام
@@ -35,14 +36,12 @@ router.post('/register', async (req, res) => {
       name: user.name,
       phone: user.phone,
       role: user.role,
-      token: generateToken(user._id)
+      token: generateToken(user._id, user.role)
     });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
-    });
+    serverError(res, error);
 
   }
 });
@@ -66,14 +65,12 @@ router.post('/login', async (req, res) => {
       name: user.name,
       phone: user.phone,
       role: user.role,
-      token: generateToken(user._id)
+      token: generateToken(user._id, user.role)
     });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message
-    });
+    serverError(res, error);
 
   }
 });
@@ -85,7 +82,7 @@ router.get('/profile', protect, async (req, res) => {
     const user = await User.findById(req.user._id).select('-password')
     res.json(user)
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
@@ -106,10 +103,10 @@ router.put('/profile', protect, async (req, res) => {
       email: updatedUser.email,
       phone: updatedUser.phone,
       role: updatedUser.role,
-      token: generateToken(updatedUser._id)
+      token: generateToken(updatedUser._id, updatedUser.role)
     })
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    serverError(res, error)
   }
 })
 
